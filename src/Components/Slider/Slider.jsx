@@ -42,7 +42,7 @@ const Slider = () => {
   };
 
   return (
-    <div className="slider">
+    <div className="slider_container">
       <div className="slider-slide">
         <img src={slides[current].image} alt={slides[current].title} />
         <div className="slider-content">
