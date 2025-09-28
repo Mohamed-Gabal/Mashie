@@ -19,7 +19,7 @@ const Login = () => {
   const togglePassword = () => setShowPassword(!showPassword);
 
   // مكتبة الكوكيز: نستخدم setCookie لتخزين التوكن بعد تسجيل الدخول
-  const [ , setCookie] = useCookies(["token"]);
+  const [Cookie , setCookie] = useCookies(["token"]);
 
   // useNavigate: لإعادة توجيه المستخدم لصفحة أخرى بعد تسجيل الدخول
   const navigate = useNavigate();
@@ -67,10 +67,11 @@ const Login = () => {
       );
 
       const data = await response.json();
+      console.log(data);
 
       if (response.ok) {
         // ✅ لو تسجيل الدخول ناجح نخزن التوكن في الكوكيز
-        setCookie("token", data.token, {
+        setCookie("token", data?.data?.token, {
           path: "/", // متاح في كل الصفحات
           secure: true, // يتبعت بس في https
           sameSite: "strict", // يمنع هجمات CSRF
