@@ -1,0 +1,198 @@
+.confirmAd_container {
+    max-width: 875px;
+    margin: auto;
+    margin-top: 20px;
+    text-align: center;
+    padding: 20px;
+    background-color: var(--color);
+    border-radius: 12px;
+    border: 1px solid #DBDBDB;
+    color: var(--header-color);
+    margin-bottom: 20px;
+}
+
+.confirmAd_header h3 {
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+.confirmAd_header p {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 15px;
+}
+
+.information_ad {
+    text-align: start;
+    font-size: var(--font-size-sm);
+}
+
+.info_list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.info_list li {
+    display: flex;
+    gap: 5px;
+}
+
+.btn_confirmAd .btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    padding: 10px 30px;
+    background-color: var(--main-color);
+    margin: auto;
+}
+
+.btn_confirmAd .btn img {
+    width: 20px;
+    height: 20px;
+}
+
+.btn_confirmAd p {
+    font-size: var(--font-size-sm);
+    margin-top: 10px;
+}
+
+/* ------------------------Modal----------------------- */
+.modal {
+    position: absolute;
+    inset: 0;
+    background-color: var(--shadow-color);
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.modal-dialog {
+    max-width: 480px;
+    margin: auto;
+    margin-top: 20px;
+    text-align: center;
+    padding: 20px;
+    background-color: var(--color);
+    border-radius: 12px;
+    border: 1px solid #DBDBDB;
+    color: var(--header-color);
+    margin-bottom: 20px;
+}
+
+.modal-content, .modal-header, .modal-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+}
+
+.modal-header .img_avatar {
+    background-color: #AAFFEE80;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin-bottom: 5px;
+}
+
+.modal-header .img_avatar img {
+    width: 50px;
+    height: 50px;
+}
+
+.modal-header .modal-title {
+    font-size: var(--font-size-lg);
+}
+
+.modal-header p {
+    font-size: var(--font-size-sm);
+}
+
+.btn-secondary {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    font-size: var(--font-size-sm);
+    width: 170px;
+    margin-top: 20px;
+}
+
+.btn-secondary img {
+    width: 22px;
+    height: 22px;
+    margin-top: 3px;
+}
+
+.special-adver {
+    background-color: #FFF1BB;
+    border-radius: 15px;
+    margin-top: 15px;
+    padding: 10px 25px;
+}
+
+.special-adver h4 {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 5px;
+    font-size: var(--font-size-md);
+}
+
+.special-adver p {
+    font-size: var(--font-size-sm);
+}
+
+.btn-primary {
+    background-color: #F1C40F;
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    margin: auto;
+    margin-top: 10px;
+    width: 170px;
+}
+
+.btn-primary:hover {
+    background-color: #F1C40F;
+}
+
+.modal-footer {
+    color: #A4A4A4;
+    font-size: var(--font-size-sm);
+    margin-top: 15px;
+}
+
+/* للأجهزة الصغيرة (mobile) */
+@media (max-width: 540px) {
+    .modal-dialog {
+        max-width: 95%;
+    }
+}
+
+/* -------- loader ---------*/
+.loader {
+    --d: 50px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    color: #25b09b;
+    box-shadow:
+        calc(1*var(--d)) calc(0*var(--d)) 0 0,
+        calc(0.707*var(--d)) calc(0.707*var(--d)) 0 1px,
+        calc(0*var(--d)) calc(1*var(--d)) 0 2px,
+        calc(-0.707*var(--d)) calc(0.707*var(--d)) 0 3px,
+        calc(-1*var(--d)) calc(0*var(--d)) 0 4px,
+        calc(-0.707*var(--d)) calc(-0.707*var(--d))0 5px,
+        calc(0*var(--d)) calc(-1*var(--d)) 0 6px;
+    animation: l27 1.5s infinite steps(8);
+}
+
+@keyframes l27 {
+    100% {
+        transform: rotate(1turn)
+    }
+}

@@ -1,0 +1,25 @@
+.location_container {
+    max-width: 875px;
+    margin: auto;
+    margin-top: 20px;
+    text-align: center;
+    padding: 20px;
+    background-color: var(--color);
+    border-radius: 12px;
+    border: 1px solid #DBDBDB;
+    color: var(--header-color);
+    margin-bottom: 20px;
+}
+
+.location_header h3 {
+    font-size: 16px;
+    margin-bottom: 5px;
+    text-align: start;
+}
+
+.location_header p {
+    text-align: start;
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 15px;
+}
