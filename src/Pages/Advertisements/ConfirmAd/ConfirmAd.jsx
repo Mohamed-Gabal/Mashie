@@ -89,7 +89,7 @@ export default function ConfirmAd({ formik, errorMessage, isLoading, successMess
             </div>
 
             <div className="modal fade" style={{ display: isLoading ? "flex" : "none" }}>
-                <div class="loader" />
+                <div className="loader" />
             </div>
 
         </div>
