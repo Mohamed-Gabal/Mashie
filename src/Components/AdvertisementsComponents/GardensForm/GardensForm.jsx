@@ -4,7 +4,7 @@ export default function GardensForm({ formik }) {
     const { values, setFieldValue, errors, handleBlur, touched } = formik;
     return (
         <div className="input_container">
-            <label htmlFor="moreInfo">معلومات اضافية*
+            <label htmlFor="moreInfo">معلومات اضافية
             </label>
             <input
                 type="text"
