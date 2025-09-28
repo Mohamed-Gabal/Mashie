@@ -42,6 +42,16 @@
     gap: 5px;
 }
 
+.link_prev{
+    background: #e0f2f1;
+    color: #4cafac;
+    padding: 0 20px;
+    transition: all ease-in-out .5s;
+}
+
+.link_prev:hover{
+    color: white;
+}
 .btn:hover {
     opacity: 1;
 }

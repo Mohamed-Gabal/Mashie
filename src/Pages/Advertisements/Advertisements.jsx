@@ -228,8 +228,6 @@ export default function Advertisements() {
         }
     };
 
-
-
     const prevStep = () => {
         if (step > 1) setStep(step - 1);
     };
@@ -272,9 +270,12 @@ export default function Advertisements() {
                     )}
 
                     <div className="buttons">
-                        <button type='button' className="btn prev" style={{ opacity: step === 1 ? 0 : 1 }} onClick={prevStep}>
+                        <button type='button' className="btn prev" style={{ display: step === 1 ? "none" : "flex" }} onClick={prevStep}>
                             <img src="./advertisements/ArrowRight.svg" alt="ArrowRight" className='arrowPrev' />
                             <span>السابق</span>
+                        </button>
+                        <button type='button' className="link_prev" style={{ display: step === 1 ? "block" : "none" }} onClick={prevStep}>
+                            <span>العودة للموقع</span>
                         </button>
                         <button
                             type='button'
