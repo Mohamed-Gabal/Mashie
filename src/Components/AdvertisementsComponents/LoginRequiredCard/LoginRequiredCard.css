@@ -1,23 +1,21 @@
 .loginRequiredCard {
-    max-width: 875px;
-    margin: auto;
-    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    justify-items: center;
     text-align: center;
     padding: 20px;
-    background: var(--color);
-    border-radius: 12px;
-    border: 1px solid #DBDBDB;
-    color: var(--header-color);
+    height: 100vh;
+    position: relative;
 }
-
-/* الخلفية */
-.container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    background-color: #f3f4f6;
-    font-family: "Arial", sans-serif;
+.top_line{
+    background-color: #2C3E50;
+    width: 100%;
+    height: 20px;
+    position: absolute;
+    top: 0px;
+    left: 0;
+    right: 0;
 }
 
 /* الكارد */
@@ -26,7 +24,7 @@
     border-radius: 20px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     padding: 24px;
-    width: 320px;
+    max-width: 540px;
     text-align: center;
 }
 
@@ -39,6 +37,10 @@
     justify-content: center;
     padding: 20px;
     margin-bottom: 16px;
+}
+
+.img_wrapper img {
+    width: 180px;
 }
 
 .title {
@@ -54,7 +56,8 @@
     margin-bottom: 20px;
 }
 
-.btn-primary {
+.btn_login {
+    display: block;
     width: 100%;
     background-color: #25b09b;
     color: white;
@@ -64,14 +67,16 @@
     font-size: 15px;
     cursor: pointer;
     margin-bottom: 12px;
-    transition: background 0.3s ease;
+    transition: all 0.3s ease;
+    text-align: center;
 }
 
-.btn-primary:hover {
+.btn_login:hover {
     background-color: #1f8e7e;
 }
 
-.btn-secondary {
+.btn_register {
+    display: block;
     width: 100%;
     background: none;
     border: none;
@@ -82,6 +87,6 @@
     transition: color 0.3s ease;
 }
 
-.btn-secondary:hover {
-    text-decoration: underline;
+.btn_register:hover {
+    background-color: white;
 }
