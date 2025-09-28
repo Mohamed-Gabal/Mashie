@@ -12,6 +12,7 @@ import { useFormik } from 'formik';
 import axios from "axios";
 import { useCookies } from "react-cookie";
 import LoginRequiredCard from '../../Components/AdvertisementsComponents/LoginRequiredCard/LoginRequiredCard';
+import { Link } from 'react-router-dom';
 
 export default function Advertisements() {
     // Step management: 1=category, 2=details, 3=review
@@ -274,9 +275,9 @@ export default function Advertisements() {
                             <img src="./advertisements/ArrowRight.svg" alt="ArrowRight" className='arrowPrev' />
                             <span>السابق</span>
                         </button>
-                        <button type='button' className="link_prev" style={{ display: step === 1 ? "block" : "none" }} onClick={prevStep}>
+                        <Link to='/' className="link_prev" style={{ display: step === 1 ? "block" : "none" }}>
                             <span>العودة للموقع</span>
-                        </button>
+                        </Link>
                         <button
                             type='button'
                             className="btn next"

@@ -5,7 +5,7 @@ export default function AnecdotesForm({ formik }) {
     const { values, setFieldValue, errors, handleBlur, touched } = formik;
     return (
         <div className="input_container">
-            <label htmlFor="moreInfo">معلومات اضافية*
+            <label htmlFor="moreInfo">معلومات اضافية
             </label>
             <input
                 type="text"

@@ -47,11 +47,15 @@
     color: #4cafac;
     padding: 0 20px;
     transition: all ease-in-out .5s;
+    border-radius: var(--radius-sm);
+    align-content: center;
 }
 
 .link_prev:hover{
+    background-color: var(--main-color);
     color: white;
 }
+
 .btn:hover {
     opacity: 1;
 }
