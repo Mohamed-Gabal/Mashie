@@ -16,6 +16,7 @@ import LoginRequiredCard from '../../Components/AdvertisementsComponents/LoginRe
 export default function Advertisements() {
     // Step management: 1=category, 2=details, 3=review
     const [cookies, setCookie, removeCookie] = useCookies(["token"]);
+    // removeCookie("token")
 
     const [step, setStep] = useState(1);
     const [isLoading, setIsLoading] = useState(false);
@@ -235,7 +236,7 @@ export default function Advertisements() {
 
     return (
         <>
-            {!cookies.token === "undefined" ?
+            {cookies.token ?
                 <form onSubmit={formik.handleSubmit} className='Advertisements'>
                     {/* header */}
                     <AddHeader currentStep={step} />
