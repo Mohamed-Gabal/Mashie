@@ -1,17 +1,22 @@
 import React, { useState } from "react";
 import "./header.css";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { GoPlus } from "react-icons/go";
 import { FiAlignJustify } from "react-icons/fi";
 import { CiUser } from "react-icons/ci";
 import { navLinks } from "../../Constants/NavLinks.js";
 
+import { useCookies } from "react-cookie";
+
 const Header = () => {
+  const [cookies, removeCookie] = useCookies(["token"]);
+  console.log();
+
   const [menuOpen, setMenuOpen] = useState(false);
-  
+
 
   const closeMenu = () => setMenuOpen(false);
-  
+
 
 
   return (
@@ -50,9 +55,16 @@ const Header = () => {
           ))}
         </ul>
         <div className="header-button">
-          <NavLink to="/login" className="btn-delete">
-            <span>تسجيل الدخول</span>
-          </NavLink>
+          {cookies.token ?
+            <Link to="/" className="btn_profile">
+              <span>حسابي</span>
+              <img src="./Icons/CaretDownWhite.svg" alt="CaretDownWhite" />
+            </Link>
+            :
+            <NavLink to="/login" className="btn-delete">
+              <span>تسجيل الدخول</span>
+            </NavLink>
+          }
           <NavLink to="/Advertisements" className="btn-add">
             <GoPlus /> <span>اضف عرضك</span>
           </NavLink>

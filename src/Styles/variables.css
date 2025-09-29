@@ -20,6 +20,9 @@
   --font-size-lg: 20px;
   --font-size-xl: 28px;
   /* Borders & Shadows */
+  --space-sm: 8px;
+  --space-md: 12px;
+
   --radius-sm: 6px;
   --radius-md: 12px;
   --radius-lg: 20px;
