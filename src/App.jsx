@@ -3,6 +3,7 @@ import React from "react";
 import { Routes, Route } from "react-router-dom";
 
 // Layout
+import Layout from "./LayoutDashboard/LayoutProfile";
 import MainLayout from "./Layouts/MainLayout";
 
 // Pages
@@ -27,15 +28,12 @@ import Register from "./Pages/Auth/Register";
 import ForgotPassword from './Pages/Auth/ForgotPassword';
 import ResetPassword from './Pages/Auth/ResetPassword';
 import DetailsLayout from "./Pages/DetailsLayout/DetailsLayout";
-// import Advertisement from "./Pages/Advertisements/Advertisements";
 
-// pages about us
-import AboutUsLayout from "./Components/AboutUsLayout/AboutUsLayout";
-import AboutUsPlatform from "./Components/AboutUsPlatform/AboutUsPlatform";
-import AboutUsTeam from "./Components/AboutUsTeam/AboutUsTeam";
-import AboutUsWork from "./Components/AboutUsWork/AboutUsWork";
-import AboutUsChoice from "./Components/AboutUsChoice/AboutUsChoice";
-import AboutUsStart from "./Components/AboutUsStart/AboutUsStart";
+// categoriesData
+import CategoriesData from "./Pages/CategoriesData/CategoriesData";
+
+
+// import Advertisement from "./Pages/Advertisements/Advertisements";
 import Advertisements from "./Pages/Advertisements/Advertisements";
 
 const App = () => {
@@ -59,11 +57,13 @@ const App = () => {
       <Route path="/blog" element={<MainLayout><Blog /></MainLayout>} />
       <Route path="/contactUs" element={<MainLayout><ContactUs /></MainLayout>} />
       <Route path="/details/:id" element={<MainLayout><DetailsLayout /></MainLayout>} />
+      <Route path="/category/:slug" element={<MainLayout><CategoriesData /></MainLayout>} />
+
       
        {/* صفحات أضف إعلانك  */}
       <Route path="/Advertisements" element={<Advertisements/>}/>
 
-      {/* صفحات تسجيل الدخول والتسجيل بدون Layout */}
+      {/* صفحات تسجيل الدخول والتسجيل */}
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
       <Route path="/forgotPassword" element={<ForgotPassword />} />
