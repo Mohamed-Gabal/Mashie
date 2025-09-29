@@ -63,7 +63,7 @@ const Header = () => {
                 <img src="./Icons/CaretDownWhite.svg" alt="CaretDownWhite" />
               </button>
 
-              <div className="profile-card" style={{ display: toggleProfileCard ? "block" : "none" }}>
+              <div className="profile-card" style={{ height: toggleProfileCard ? "280px" : "0" }}>
                 <div className="user-info">
                   <img src="profile.jpg" alt="User Image" className="user-img" />
                   <div>
