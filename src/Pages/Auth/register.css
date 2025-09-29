@@ -56,8 +56,10 @@
   right: 10px;
   top: 50%;
   transform: translateY(-50%);
-  font-size: 18px;
+  width: 24px;
+  height: 24px;
   color: #888;
+  background-color: transparent;
 }
 .input-group input{
   width: 100%;
