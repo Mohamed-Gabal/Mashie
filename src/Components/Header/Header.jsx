@@ -65,7 +65,7 @@ const Header = () => {
 
               <div className="profile-card" style={{ height: toggleProfileCard ? "280px" : "0" }}>
                 <div className="user-info">
-                  <img src="profile.jpg" alt="User Image" className="user-img" />
+                  <img src="profile.jpg" alt={userData?.name?.split(" ").map(word => word[0]).join("").toUpperCase()} className="user-img" />
                   <div>
                     <p className="greeting">أهلا</p>
                     <p className="username">{userData?.name}</p>
