@@ -1,6 +1,7 @@
 // Landing.jsx
 import React from "react";
 import "./aboutUsLayout.css";
+import { Link } from "react-router-dom";
 
 const Landing = () => {
   return (
@@ -12,7 +13,7 @@ const Landing = () => {
           عايز تبيع سيارتك، تعرض عقارك، تشتري إلكترونيات، أو حتى تدور على منتجات
           متنوعة… هتلاقيها كلها بسهولة وسرعة وبأعلى درجات الأمان."
         </p>
-        <button className="aboutUsLayout_btn">ابدأ الآن</button>
+        <button className="aboutUsLayout_btn"> <Link to="/">ابدأ الآن</Link></button>
       </div>
     </div>
   );

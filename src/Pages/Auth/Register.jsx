@@ -102,7 +102,7 @@ const Register = () => {
       } else {
         setErrors((prev) => ({
           ...prev,
-          general: data.message ? "هذا الحساب موجود بالفعل" :  "حدث خطأ أثناء التسجيل",
+          general: data.data.message ? "هذا الحساب موجود بالفعل" :  "حدث خطأ أثناء التسجيل",
         }));
       }
     } catch {
