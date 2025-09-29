@@ -153,7 +153,7 @@ export default function Location({ formik }) {
                         value={values.location.area}
                         onClick={() => setIsOpenRegion(true)}
                         onChange={(e) => setFieldValue("location.area", e.target.value)}
-                        onBlur={handleBlur}
+                        // onBlur={handleBlur}
                         id="area"
                         className='input'
                         placeholder='ادخل منطقتك'
@@ -183,7 +183,7 @@ export default function Location({ formik }) {
                         value={values.location.city}
                         onClick={() => setIsOpenCity(true)}
                         onChange={(e) => setFieldValue("location.city", e.target.value)}
-                        onBlur={handleBlur}
+                        // onBlur={handleBlur}
                         id="city"
                         className='input'
                         placeholder='ادخل االمدينة'
