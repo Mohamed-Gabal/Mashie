@@ -56,10 +56,31 @@ const Header = () => {
         </ul>
         <div className="header-button">
           {cookies.token ?
-            <Link to="/" className="btn_profile">
-              <span>حسابي</span>
-              <img src="./Icons/CaretDownWhite.svg" alt="CaretDownWhite" />
-            </Link>
+            <div className="">
+              <Link to="/" className="btn_profile">
+                <span>حسابي</span>
+                <img src="./Icons/CaretDownWhite.svg" alt="CaretDownWhite" />
+              </Link>
+
+              <div className="profile-card">
+                <div className="user-info">
+                  <img src="profile.jpg" alt="User Image" className="user-img" />
+                  <div>
+                    <p className="greeting">أهلا</p>
+                    <p className="username">احمد عمر ماهر</p>
+                  </div>
+                </div>
+                <button className="profile-btn">عرض الملف الشخصي</button>
+                <div className="settings">
+                  <img src="./Icons/sitting.svg" alt="SignOut" className="gear" />
+                  <span>إعدادات الحساب</span>
+                </div>
+                <button className="logout-btn">
+                  <svg xmlns="http://www.w3.org/2000/svg" width={24} height={24} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-log-out-icon lucide-log-out"><path d="m16 17 5-5-5-5" /><path d="M21 12H9" /><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" /></svg>
+                  <span>تسجيل الخروج</span>
+                </button>
+              </div>
+            </div>
             :
             <NavLink to="/login" className="btn-delete">
               <span>تسجيل الدخول</span>

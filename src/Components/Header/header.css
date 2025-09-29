@@ -92,6 +92,7 @@
   text-align: center;
   font-size: 15px;
   white-space: nowrap;
+  position: relative;
 }
 .btn-delete:hover, .btn_profile:hover {
   background-color: var(--main-color);
@@ -181,3 +182,89 @@
 }
 
 
+
+.profile-card {
+  background-color: #fff;
+  width: 250px;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  text-align: center;
+  position: absolute;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+.user-info div{
+  text-align: start;
+}
+.user-img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.greeting {
+  margin: 0;
+  font-size: 14px;
+  color: #555;
+}
+
+.username {
+  margin: 0;
+  font-weight: bold;
+}
+
+.profile-btn {
+  display: block;
+  width: 100%;
+  padding: 8px 0;
+  margin-bottom: 15px;
+  border: 2px solid #4cafae;
+  border-radius: 5px;
+  background-color: transparent;
+  color: #4cafae;
+  cursor: pointer;
+  font-size: 14px;
+}
+.profile-btn:hover{
+  color: white;
+}
+.settings {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  font-size: 14px;
+  color: #777;
+  margin-bottom: 15px;
+  border-top: 1px solid #eee;
+  padding-top: 10px;
+}
+
+.logout-btn {
+  background: none;
+  border: none;
+  color: #4cafae;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+}
+.logout-btn svg {
+  width: 20px;
+  height: 20px;
+  margin-top: 4px;
+}
+
+.logout-btn:hover{
+  color: white;
+}
