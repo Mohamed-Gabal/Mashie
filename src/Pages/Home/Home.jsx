@@ -2,7 +2,7 @@ import React from "react";
 import "./Home.css";
 import MainLayout from "../../Layouts/MainLayout";
 import SearchBar from "../../Components/SearchBar/SearchBar";
-import Slider from '../../Components/Slider/Slider';
+import Slider from '../../Components/Slider/Slider.jsx';
 import AddList from '../../Components/AddList/AddList';
 import CategoriesSection from "../../Components/CategoriesSection/CategoriesSection";
 import BlogCard from "../../Components/BlogCard/BlogCard";

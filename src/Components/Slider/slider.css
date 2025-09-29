@@ -89,7 +89,7 @@
 
 /* 🔹 ريسپونسف */
 @media (max-width: 768px) {
-  .slider {
+  .slider_container {
     display: none;
   }
 }

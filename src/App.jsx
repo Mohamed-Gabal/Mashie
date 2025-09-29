@@ -60,14 +60,6 @@ const App = () => {
       <Route path="/contactUs" element={<MainLayout><ContactUs /></MainLayout>} />
       <Route path="/details/:id" element={<MainLayout><DetailsLayout /></MainLayout>} />
       
-       {/*pages about us */}
-        <Route path="/aboutUs/layout" element={<MainLayout><AboutUsLayout /></MainLayout>} />
-        <Route path="/aboutUs/platform" element={<MainLayout><AboutUsPlatform /></MainLayout>} />
-        <Route path="/aboutUs/team" element={<MainLayout><AboutUsTeam /></MainLayout>} />
-        <Route path="/aboutUs/work" element={<MainLayout><AboutUsWork /></MainLayout>} />
-        <Route path="/aboutUs/choice" element={<MainLayout><AboutUsChoice /></MainLayout>} />
-        <Route path="/aboutUs/start" element={<MainLayout><AboutUsStart /></MainLayout>} />
-
        {/* صفحات أضف إعلانك  */}
       <Route path="/Advertisements" element={<Advertisements/>}/>
 

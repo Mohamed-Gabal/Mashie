@@ -114,6 +114,9 @@
   padding: 20px;
   border-radius: 12px;
   text-align: right;
+  position: sticky;
+  top: 40px;
+  align-self: flex-start;
 }
 .contact_us_container_left_top,
 .contact_us_container_left_bottom {

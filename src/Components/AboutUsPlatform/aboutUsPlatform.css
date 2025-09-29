@@ -1,0 +1,116 @@
+.aboutUsPlatform {
+  margin: 60px auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 50px 60px;
+  gap: 40px;
+  max-width: 1200px;
+}
+.aboutUsPlatform_right_heading {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 14px;
+  color: #222;
+}
+.aboutUsPlatform_right_para {
+  font-size: 16px;
+  line-height: 1.8;
+  color: #666;
+  margin-bottom: 24px;
+  max-width: 400px;
+}
+.aboutUsPlatform_categories_container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+.aboutUsPlatform_category {
+  flex: 1 1 45%;
+  min-width: 140px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 18px;
+  border-radius: 16px;
+  background: #f9f9f9;
+  transition: all 0.3s ease;
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.08);
+}
+.aboutUsPlatform_category:hover {
+  transform: translateY(-3px);
+  box-shadow: 0px 6px 14px rgba(0, 0, 0, 0.12);
+}
+.aboutUsPlatform_line {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background-color: var(--color);
+  box-shadow: 0px 2px 5px rgba(0,0,0,0.1);
+}
+.aboutUsPlatform_line img {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+}
+.aboutUsPlatform_line_text {
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+}
+.aboutUsPlatform_left {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.aboutUsPlatform_left_image {
+  position: relative;
+  max-width: 360px;
+  width: 100%;
+}
+.aboutUsPlatform_left_image img {
+  width: 100%;
+  border-radius: 20px;
+}
+.aboutUsPlatform_left_image_icon {
+  position: absolute;
+  bottom: 0px;
+  right: -5px;
+  font-size: 30px;
+  color: var(--color);
+  background-color: var(--main-color);
+  padding: 10px;
+  border-radius: 50%;
+}
+
+/* ريسبونسف */
+@media (max-width: 992px) {
+  .aboutUsPlatform {
+    flex-direction: column;
+    text-align: center;
+    padding: 40px 20px;
+    gap: 30px;
+  }
+  .aboutUsPlatform_categories_container {
+    justify-content: center;
+  }
+}
+@media (max-width: 576px) {
+  .aboutUsPlatform_right_heading {
+    font-size: 22px;
+  }
+  .aboutUsPlatform_right_para {
+    font-size: 14px;
+  }
+  .aboutUsPlatform_category {
+    flex: 1 1 100%;
+    justify-content: center;
+  }
+  .aboutUsPlatform_line_text {
+    font-size: 13px;
+  }
+}

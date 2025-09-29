@@ -34,8 +34,9 @@
   width: 40%;
   max-width: 250px;
 }
-.aboutUsLayout_btn:hover {
+.aboutUsLayout_btn a:hover {
   background-color: var(--hover-color);
+  color: var(--color);
 }
 
 /* لحد الشاشات الكبيرة 1200px */
