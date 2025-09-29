@@ -10,9 +10,15 @@ import ConfirmAd from './ConfirmAd/ConfirmAd';
 import { validationSchemas } from "./validationSchemas";
 import { useFormik } from 'formik';
 import axios from "axios";
+import { useCookies } from "react-cookie";
+import LoginRequiredCard from '../../Components/AdvertisementsComponents/LoginRequiredCard/LoginRequiredCard';
+import { Link } from 'react-router-dom';
 
 export default function Advertisements() {
     // Step management: 1=category, 2=details, 3=review
+    const [cookies, setCookie, removeCookie] = useCookies(["token"]);
+    // removeCookie("token")
+
     const [step, setStep] = useState(1);
     const [isLoading, setIsLoading] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
@@ -179,7 +185,12 @@ export default function Advertisements() {
                 const response = await axios.post(
                     "https://api.mashy.sand.alrmoz.com/api/ads",
                     formData,
-                    { headers: { "Content-Type": "multipart/form-data" } }
+                    {
+                        headers: {
+                            "Content-Type": "multipart/form-data",
+                            Authorization: `Bearer ${cookies.token}`,
+                        }
+                    }
                 );
                 console.log(response.data);
                 setSuccessMessage(true);
@@ -218,62 +229,69 @@ export default function Advertisements() {
         }
     };
 
-
-
     const prevStep = () => {
         if (step > 1) setStep(step - 1);
     };
 
     return (
-        <form onSubmit={formik.handleSubmit} className='Advertisements'>
-            {/* header */}
-            <AddHeader currentStep={step} />
+        <>
+            {cookies.token ?
+                <form onSubmit={formik.handleSubmit} className='Advertisements'>
+                    {/* header */}
+                    <AddHeader currentStep={step} />
 
-            {/* الخطوة الأولى */}
-            {step === 1 && (
-                <Category formik={formik} />
-            )}
+                    {/* الخطوة الأولى */}
+                    {step === 1 && (
+                        <Category formik={formik} />
+                    )}
 
-            {/* المعلومات  */}
-            {step === 2 && (
-                <Information formik={formik} prevStep={prevStep} />
-            )}
+                    {/* المعلومات  */}
+                    {step === 2 && (
+                        <Information formik={formik} prevStep={prevStep} />
+                    )}
 
-            {/* رفع الصور */}
-            {step === 3 && (
-                <UploadImages formik={formik} />
-            )}
+                    {/* رفع الصور */}
+                    {step === 3 && (
+                        <UploadImages formik={formik} />
+                    )}
 
-            {/* رفع الموقع */}
-            {step === 4 && (
-                <Location formik={formik} />
-            )}
+                    {/* رفع الموقع */}
+                    {step === 4 && (
+                        <Location formik={formik} />
+                    )}
 
-            {/* بيانات البائع */}
-            {step === 5 && (
-                <SellerData formik={formik} />
-            )}
+                    {/* بيانات البائع */}
+                    {step === 5 && (
+                        <SellerData formik={formik} />
+                    )}
 
-            {/* التاكيد */}
-            {step === 6 && (
-                <ConfirmAd formik={formik} isLoading={isLoading} errorMessage={errorMessage} successMessage={successMessage} setSuccessMessage={setSuccessMessage} />
-            )}
+                    {/* التاكيد */}
+                    {step === 6 && (
+                        <ConfirmAd formik={formik} isLoading={isLoading} errorMessage={errorMessage} successMessage={successMessage} setSuccessMessage={setSuccessMessage} />
+                    )}
 
-            <div className="buttons">
-                <button type='button' className="btn prev" style={{ opacity: step === 1 ? 0 : 1 }} onClick={prevStep}>
-                    <img src="./advertisements/ArrowRight.svg" alt="ArrowRight" className='arrowPrev' />
-                    <span>السابق</span>
-                </button>
-                <button
-                    type='button'
-                    className="btn next"
-                    onClick={nextStep}
-                    style={{ opacity: step < 6 ? 1 : 0 }}
-                >
-                    <span>التالي</span>
-                    <img src="./advertisements/ArrowLeft.svg" alt="ArrowLeft" className='arrowNext' />
-                </button>
-            </div>
-        </form>
+                    <div className="buttons">
+                        <button type='button' className="btn prev" style={{ display: step === 1 ? "none" : "flex" }} onClick={prevStep}>
+                            <img src="./advertisements/ArrowRight.svg" alt="ArrowRight" className='arrowPrev' />
+                            <span>السابق</span>
+                        </button>
+                        <Link to='/' className="link_prev" style={{ display: step === 1 ? "block" : "none" }}>
+                            <span>العودة للموقع</span>
+                        </Link>
+                        <button
+                            type='button'
+                            className="btn next"
+                            onClick={nextStep}
+                            style={{ opacity: step < 6 ? 1 : 0 }}
+                        >
+                            <span>التالي</span>
+                            <img src="./advertisements/ArrowLeft.svg" alt="ArrowLeft" className='arrowNext' />
+                        </button>
+                    </div>
+                </form>
+                :
+                <LoginRequiredCard />
+            }
+        </>
     )
 }
