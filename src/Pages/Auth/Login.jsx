@@ -71,7 +71,7 @@ const Login = () => {
 
       if (response.ok) {
         // ✅ لو تسجيل الدخول ناجح نخزن التوكن في الكوكيز
-        setCookie("token", data?.data?.token, {
+        setCookie("token", data, {
           path: "/", // متاح في كل الصفحات
           secure: true, // يتبعت بس في https
           sameSite: "strict", // يمنع هجمات CSRF
