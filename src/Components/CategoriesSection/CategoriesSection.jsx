@@ -125,7 +125,7 @@ const CategoriesSection = () => {
             <Link to={cat.link}><h2>{cat.title}</h2></Link>
             <p>{cat.desc}</p>
             <span className="count">{cat.count}</span>
-            <Link to={cat.link} className="browse-btn">
+            <Link to={`/category${cat.link}`} className="browse-btn">
               تصفح القسم
             </Link>
           </div>
