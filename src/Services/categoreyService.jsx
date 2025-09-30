@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
   const [loading, setLoading] = useState(true);
 
   // function for edit time
-    const formTime = (formTimeApi) => {
+    const formTimeData = (formTimeApi) => {
     const dataApi = new Date(formTimeApi);
     return dataApi.toLocaleString();
   };
@@ -35,7 +35,7 @@ import { useEffect, useState } from "react";
           title: item.information.description,
           desc: item.desc || item.description,
           location: item.location.address,
-          time: formTime(item.created_at),
+          time: formTimeData(item.created_at),
         }));
 
         setData(mapped);
