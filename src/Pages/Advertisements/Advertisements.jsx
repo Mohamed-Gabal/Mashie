@@ -19,8 +19,6 @@ export default function Advertisements() {
     const [cookies, setCookie, removeCookie] = useCookies(["token"]);
     const token = cookies?.token?.data?.token;
     const userData = cookies?.token?.data?.user;
-    // console.log(userData);
-    // removeCookie("token")
 
     const [step, setStep] = useState(1);
     const [isLoading, setIsLoading] = useState(false);
@@ -191,7 +189,7 @@ export default function Advertisements() {
                     {
                         headers: {
                             "Content-Type": "multipart/form-data",
-                            Authorization: `Bearer ${cookies.token}`,
+                            Authorization: `Bearer ${token}`,
                         }
                     }
                 );
