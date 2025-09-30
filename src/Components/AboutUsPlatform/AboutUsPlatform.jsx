@@ -14,15 +14,15 @@ export default function AboutUsPlatform() {
         <div className="aboutUsPlatform_categories_container">
           {/* أيقونات الفئات */}
           <div className="aboutUsPlatform_category">
-            <span className="aboutUsPlatform_line">
+            <div className="aboutUsPlatform_line">
               <img src="/Icons/categore4.svg" alt="العقارات" />
-            </span>
+            </div>
             <span className="aboutUsPlatform_line_text_real_estate">عقارات</span>
           </div>
 
           <div className="aboutUsPlatform_category">
             <span className="aboutUsPlatform_line">
-              <img src="/Icons/categore3.svg" alt="السيارات" />
+              <img src="/Icons/grayCar.svg" alt="السيارات" />
             </span>
             <span className="aboutUsPlatform_line_text_car">سيارات</span>
           </div>
@@ -36,7 +36,7 @@ export default function AboutUsPlatform() {
 
           <div className="aboutUsPlatform_category">
             <span className="aboutUsPlatform_line">
-              <img src="/Icons/categore6.svg" alt="الوظائف" />
+              <img src="/Icons/grayJobs.svg" alt="الوظائف" />
             </span>
             <span className="aboutUsPlatform_line_text_jobs">الوظائف</span>
           </div>
