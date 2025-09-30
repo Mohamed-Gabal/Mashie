@@ -86,9 +86,9 @@
     color: #727272;
 }
 
-.input {
+.input_container .input {
     border-radius: 5px;
-    border: 1px solid var(--border-color);
+    border: 2px solid var(--border-color);
     padding: 15px 10px;
     outline: none;
 }

@@ -17,6 +17,9 @@ import { Link } from 'react-router-dom';
 export default function Advertisements() {
     // Step management: 1=category, 2=details, 3=review
     const [cookies, setCookie, removeCookie] = useCookies(["token"]);
+    const token = cookies?.token?.data?.token;
+    const userData = cookies?.token?.data?.user;
+    // console.log(userData);
     // removeCookie("token")
 
     const [step, setStep] = useState(1);
@@ -93,8 +96,8 @@ export default function Advertisements() {
                 area: "",
             },
             seller: {
-                name: "",
-                phone: "",
+                name: userData.name || "",
+                phone: userData.phone || "",
                 webMessage: true,
             },
         },
@@ -235,7 +238,7 @@ export default function Advertisements() {
 
     return (
         <>
-            {cookies.token ?
+            {token && token !== "undefined" ?
                 <form onSubmit={formik.handleSubmit} className='Advertisements'>
                     {/* header */}
                     <AddHeader currentStep={step} />
