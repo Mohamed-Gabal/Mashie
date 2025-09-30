@@ -10,7 +10,7 @@ const slides = [
     title: "اكتشف ألاف الإعلانات يومياً بسهولة",
     desc: "اعرض منتجاتك أو ابحث عن أفضل العروض بالقرب منك.. بكل سرعة وأمان",
     btn: "تصفح الإعلانات",
-    link: "/cars",
+    link: "category/:cars",
   },
   {
     id: 2,
@@ -18,7 +18,7 @@ const slides = [
     title: "أفضل العروض في مكانك",
     desc: "ابحث عن المنتجات أو الخدمات الأقرب إليك بسرعة فائقة",
     btn: "ابدأ الآن",
-    link: "/realEstate",
+    link: "category/:realEstate",
   },
   {
     id: 3,
@@ -26,7 +26,7 @@ const slides = [
     title: "بيع واشتري بثقة",
     desc: "منصتنا تضمن لك تجربة سهلة وآمنة لإتمام صفقاتك",
     btn: "انشر إعلانك",
-    link: "/electronics",
+    link: "category/:electronics",
   },
 ];
 
