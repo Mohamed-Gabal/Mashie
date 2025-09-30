@@ -11,7 +11,6 @@ import { useCookies } from "react-cookie";
 const Header = () => {
   const [cookies, removeCookie] = useCookies(["token"]);
   const userData = cookies?.token?.data?.user;
-  console.log(userData);
   const [toggleProfileCard, setToggleProfileCard] = useState(false);
 
   const [menuOpen, setMenuOpen] = useState(false);
