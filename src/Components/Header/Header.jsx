@@ -11,6 +11,7 @@ import { useCookies } from "react-cookie";
 const Header = () => {
   const [cookies, removeCookie] = useCookies(["token"]);
   const userData = cookies?.token?.data?.user;
+  console.log(userData);
   const [toggleProfileCard, setToggleProfileCard] = useState(false);
 
   const [menuOpen, setMenuOpen] = useState(false);
@@ -58,14 +59,14 @@ const Header = () => {
         <div className="header-button">
           {cookies?.token?.data?.token && cookies?.token?.data?.token !== "undefined" ?
             (<div className="">
-              <button type="button" onClick={() => setToggleProfileCard(!toggleProfileCard)} className="btn_profile">
+              <Link type="button" onClick={() => setToggleProfileCard(!toggleProfileCard)} className="btn_profile">
                 <span>حسابي</span>
                 <img src="./Icons/CaretDownWhite.svg" alt="CaretDownWhite" />
-              </button>
+              </Link>
 
               <div className="profile-card" style={{ height: toggleProfileCard ? "280px" : "0" }}>
                 <div className="user-info">
-                  <img src="profile.jpg" alt={userData?.name?.split(" ").map(word => word[0]).join("").toUpperCase()} className="user-img" />
+                  <img src={userData.image} alt={userData?.name?.split(" ").map(word => word[0]).join("").toUpperCase()} className="user_img" />
                   <div>
                     <p className="greeting">أهلا</p>
                     <p className="username">{userData?.name}</p>

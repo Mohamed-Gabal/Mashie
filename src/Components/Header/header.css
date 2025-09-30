@@ -62,7 +62,8 @@
   position: relative;
 }
 .btn-delete,
-.btn-add {
+.btn-add,
+.btn_profile {
   display: flex;
   align-items: center;
   gap: 6px;
@@ -83,16 +84,6 @@
 }
 
 .btn_profile{
-  display: flex;
-  flex-direction: row;
-  gap: 5px;
-  border-radius: var(--radius-sm);
-  padding: var(--space-sm) var(--space-md);
-  font-size: var(--font-size-md);
-  transition: 0.3s;
-  text-align: center;
-  font-size: 15px;
-  white-space: nowrap;
   position: relative;
 }
 .btn-delete:hover, .btn_profile:hover {
@@ -209,7 +200,7 @@
 .user-info div{
   text-align: start;
 }
-.user-img {
+.user_img {
   width: 50px;
   height: 50px;
   border-radius: 50%;
@@ -269,9 +260,9 @@
   margin: auto;
 }
 .logout-btn svg {
-  width: 20px;
-  height: 20px;
-  margin-top: 4px;
+  width: 18px;
+  height: 18px;
+  margin-top: 2px;
 }
 
 .logout-btn:hover{
