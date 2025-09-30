@@ -5,7 +5,6 @@
   justify-content: space-between;
   gap: 40px;
   max-width: 1150px;
-  border: 1px solid red;
 }
 
 .aboutUsPlatform_right_heading {
@@ -30,37 +29,25 @@
 }
 
 .aboutUsPlatform_category {
-  flex: 1 1 45%;
-  min-width: 140px;
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 14px 18px;
-  border-radius: 16px;
-  background: #f9f9f9;
-  transition: all 0.3s ease;
-  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.08);
+  padding: 5px 10px;
+  gap: 6px;
+  border-radius: 999px;
+  background-color: #DCDCDC66;
 }
-
-.aboutUsPlatform_category:hover {
-  transform: translateY(-3px);
-  box-shadow: 0px 6px 14px rgba(0, 0, 0, 0.12);
+.aboutUsPlatform_category:nth-child(1), .aboutUsPlatform_category:nth-child(3) {
+  background-color: #AAFFEE80;
 }
-
 .aboutUsPlatform_line {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  background-color: var(--color);
-  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .aboutUsPlatform_line img {
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
   object-fit: contain;
 }
 
@@ -102,6 +89,7 @@
   align-items: center;
   justify-content: center;
   height: 90px;
+  width: 50px;
   position: absolute;
   bottom: -5px;
   right: -10px;
@@ -118,7 +106,12 @@
 }
 
 /* ريسبونسف */
-@media (max-width: 992px) {
+@media (max-width: 1192px) {
+  .aboutUsPlatform {
+    padding: 20px;
+  }
+}
+@media (max-width: 775px) {
   .aboutUsPlatform {
     flex-direction: column;
     text-align: center;
