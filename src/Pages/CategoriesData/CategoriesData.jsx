@@ -30,13 +30,13 @@ const CategoriesData = () => {
   const modelsFromApiPets = [...new Set(data.map((e) => e.attribut.animalType))];
   const citiesFromApi = [...new Set(data.map((e) => e.location))];
   const regionsFromApi = [...new Set(data.map((e) => e.area))];
-
+  console.log(modelsFromApi);
+  
   const filtersDataApi = [
     
       {label: "الموديل", options: ["الكل", ...modelsFromApi, ...modelsFromApiPets]},
       {label: "المدينه", options: ["الكل", ...citiesFromApi]},
       {label: "المنطقه", options: ["الكل", ...regionsFromApi]},
-    
   ];
 
   return (
