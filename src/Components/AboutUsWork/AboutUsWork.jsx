@@ -15,7 +15,7 @@ export default function AboutUsWork() {
   ];
 
   const Card = ({ icon, title, desc }) => (
-    <div className="card">
+    <div className="AboutUsWork_card">
       <div className="card_icon">
         <img src={icon} alt={title} className="img_icon" />
       </div>

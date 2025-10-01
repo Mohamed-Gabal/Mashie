@@ -38,7 +38,7 @@
     margin-bottom: 50px;
 }
 
-.card {
+.AboutUsWork_card {
     background: #fff;
     height: 217px;
     align-content: center;
@@ -48,12 +48,12 @@
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.card:hover {
+.AboutUsWork_card:hover {
     transform: translateY(-5px);
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
 }
 
-.card .card_icon {
+.AboutUsWork_card .card_icon {
     background-color: var(--main-color);
     display: flex;
     justify-content: center;
@@ -69,19 +69,19 @@
     background-color: black;
 }
 
-.card .card_icon .img_icon {
+.AboutUsWork_card .card_icon .img_icon {
     width: 35px;
     height: 35px;
     background-color: transparent;
 }
 
-.card h3 {
+.AboutUsWork_card h3 {
     font-size: 18px;
     margin-bottom: 10px;
     color: #222;
 }
 
-.card p {
+.AboutUsWork_card p {
     font-size: 14px;
     color: #555;
     line-height: 1.6;
