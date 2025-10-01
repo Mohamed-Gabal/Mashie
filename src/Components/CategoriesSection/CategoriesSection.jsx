@@ -1,5 +1,3 @@
-
-
 import React from "react";
 import { Link } from "react-router-dom";
 import "./CategoriesSection.css";
@@ -119,14 +117,16 @@ const CategoriesSection = () => {
       <div className="categories-grid">
         {categories.map((cat) => (
           <div key={cat.id} className="category-card">
-            <div className="icon-box">
-              <img src={cat.img} alt={cat.title} />
-            </div>
-            <Link to={cat.link}><h2>{cat.title}</h2></Link>
-            <p>{cat.desc}</p>
-            <span className="count">{cat.count}</span>
-            <Link to={`/category${cat.link}`} className="browse-btn">
-              تصفح القسم
+            <Link to={`/category${cat.link}`}>
+              <div className="icon-box">
+                <img src={cat.img} alt={cat.title} />
+              </div>
+              <h2>{cat.title}</h2>
+              <p>{cat.desc}</p>
+              <span className="count">{cat.count}</span>
+              <span to={`/category${cat.link}`} className="browse-spen">
+                تصفح القسم
+              </span>
             </Link>
           </div>
         ))}
@@ -135,4 +135,3 @@ const CategoriesSection = () => {
   );
 };
 export default CategoriesSection;
-
