@@ -72,7 +72,7 @@ export default function Advertisements() {
                 },
 
                 pets: {
-                    moreInfo: "",
+                    animalType: "",
                 },
 
                 anecdotes: {
@@ -168,7 +168,7 @@ export default function Advertisements() {
                 }
 
                 if (formik.values.category === "pets") {
-                    formData.append("information[pets][animalType]", formik.values.information.pets.moreInfo);
+                    formData.append("information[pets][animalType]", formik.values.information.pets.animalType);
                 }
 
                 if (formik.values.category === "gardens") {

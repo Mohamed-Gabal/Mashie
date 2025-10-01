@@ -109,6 +109,17 @@ export const validationSchemas = {
             });
         }
 
+        if (category === "pets") {
+            return base.shape({
+                information: Yup.object({
+                    ...base.fields.information.fields,
+                    pets: Yup.object({
+                        animalType: Yup.string().required("نوع مطلوب"),
+                    }),
+                }),
+            });
+        }
+
         return base;
     },
 
