@@ -8,7 +8,7 @@ const CarCard = () => {
   const adsCard = [
     {
       id: 1,
-      img: "/images/resultPage6.png",
+      img: "/images/resultPage6.webp",
       user: "أحمد عمر",
       userImage: "/images/logo.svg",
       title: "للبيع شقة تمليك الدور الأول",
@@ -17,7 +17,7 @@ const CarCard = () => {
     },
     {
       id: 2,
-      img: "/images/resultPage1.png",
+      img: "/images/resultPage1.webp",
       user: "أحمد عمر",
       userImage: "/images/logo.svg",
       title: "شقة للإيجار قانون جديد",
@@ -26,7 +26,7 @@ const CarCard = () => {
     },
     {
       id: 3,
-      img: "/images/resultPage2.png",
+      img: "/images/resultPage2.webp",
       user: "أحمد عمر",
       userImage: "/images/logo.svg",
       title: "فيلا دوبلكس للبيع",
@@ -35,7 +35,7 @@ const CarCard = () => {
     },
     {
       id: 4,
-      img: "/images/resultPage3.png",
+      img: "/images/resultPage3.webp",
       user: "أحمد عمر",
       userImage: "/images/logo.svg",
       title: "محل للإيجار بمنطقة حيوية",
@@ -44,7 +44,7 @@ const CarCard = () => {
     },
     {
       id: 5,
-      img: "/images/resultPage4.png",
+      img: "/images/resultPage4.webp",
       user: "أحمد عمر",
       userImage: "/images/logo.svg",
       title: "أرض للبيع في التجمع",
@@ -53,7 +53,7 @@ const CarCard = () => {
     },
     {
       id: 6,
-      img: "/images/resultPage5.png",
+      img: "/images/resultPage5.webp",
       user: "أحمد عمر",
       userImage: "/images/logo.svg",
       title: "شقة تمليك بحدائق الأهرام",

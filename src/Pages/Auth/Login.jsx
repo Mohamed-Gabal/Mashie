@@ -97,7 +97,7 @@ const Login = () => {
     <div className="login-wrapper">
       {/* صورة جانبية */}
       <div className="login-image">
-        <img src="/images/login.png" alt="login" />
+        <img src="/images/login.webp" alt="login" />
       </div>
 
       <div className="login-container">

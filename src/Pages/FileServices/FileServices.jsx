@@ -21,7 +21,7 @@ const FileServices = () => {
 
   const serData = [
     {
-      image: "/images/services.png",
+      image: "/images/services.webp",
       userImage: "/images/logo.svg",
       userName: "احمد عمر",
       title: "تويوتا كورولا",
@@ -30,7 +30,7 @@ const FileServices = () => {
       time: "قبل 10 دقائق",
     },
     {
-      image: "/images/services.png",
+      image: "/images/services.webp",
       userImage: "/images/logo.svg",
       userName: "احمد عمر",
       title: "مرسيدس C180",
@@ -39,7 +39,7 @@ const FileServices = () => {
       time: "قبل 20 دقيقة",
     },
     {
-      image: "/images/services.png",
+      image: "/images/services.webp",
       userImage: "/images/logo.svg",
       userName: "احمد عمر",
       title: "هيونداي إلنترا",
@@ -48,7 +48,7 @@ const FileServices = () => {
       time: "قبل ساعة",
     },
     {
-      image: "/images/services.png",
+      image: "/images/services.webp",
       userImage: "/images/logo.svg",
       userName: "احمد عمر",
       title: "تويوتا كورولا",
@@ -57,7 +57,7 @@ const FileServices = () => {
       time: "قبل 10 دقائق",
     },
     {
-      image: "/images/services.png",
+      image: "/images/services.webp",
       userImage: "/images/logo.svg",
       userName: "احمد عمر",
       title: "مرسيدس C180",
@@ -66,7 +66,7 @@ const FileServices = () => {
       time: "قبل 20 دقيقة",
     },
     {
-      image: "/images/services.png",
+      image: "/images/services.webp",
       userImage: "/images/logo.svg",
       userName: "احمد عمر",
       title: "هيونداي إلنترا",

@@ -18,16 +18,16 @@ import { LuMessageCircleMore } from "react-icons/lu";
 const DetailsLayout = () => {
   // الصور
   const images = [
-    "/images/resultPage1.png",
-    "/images/resultPage2.png",
-    "/images/resultPage3.png",
-    "/images/resultPage4.png",
-    "/images/resultPage5.png",
-    "/images/resultPage6.png",
-    "/images/resultPage1.png",
-    "/images/resultPage2.png",
-    "/images/resultPage3.png",
-    "/images/resultPage4.png",
+    "/images/resultPage1.webp",
+    "/images/resultPage2.webp",
+    "/images/resultPage3.webp",
+    "/images/resultPage4.webp",
+    "/images/resultPage5.webp",
+    "/images/resultPage6.webp",
+    "/images/resultPage1.webp",
+    "/images/resultPage2.webp",
+    "/images/resultPage3.webp",
+    "/images/resultPage4.webp",
   ];
 
   // الصورة الرئيسية (بتبدأ بأول صورة)

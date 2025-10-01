@@ -1,7 +1,7 @@
 .aboutUsLayout {
   padding: 200px 20px;
   margin: 0px auto;
-  background: url("/images/layout.png") no-repeat center center/cover;
+  background: url("/images/layout.webp") no-repeat center center/cover;
   display: flex;
   align-items: center;
   justify-content: center;

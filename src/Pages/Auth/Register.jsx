@@ -117,7 +117,7 @@ const Register = () => {
     <div className="register-container">
       <div className="register-box">
         <div className="register-image">
-          <img src="/images/login.png" alt="Register" />
+          <img src="/images/login.webp" alt="Register" />
         </div>
 
         <div className="register-content">
