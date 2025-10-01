@@ -1,5 +1,3 @@
-
-
 .category-layout {
   padding: 20px;
   max-width: 1200px;
@@ -166,6 +164,37 @@
 .details-btn:hover {
   background-color: var(--hover-color);
   color: var(--color);
+}
+
+/* add  */
+.categorys-items-add-flex {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+.categorys-items-add-flex .categorys-items-add-flex-desc {
+  font-size: 20px;
+  font-weight: bold;
+  color: #2c3e50;
+}
+.categorys-items-add-flex-option .date-search-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+ .categorys-items-add-flex-option .date-search-box input {
+  width: 200px;
+  outline: none;
+  border: 1px solid var(--main-color);
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #2c3e50;
+  background-color: var(--color);
+}
+.categorys-items-add-flex-option .date-search-box button {
+  width: 100px;
 }
 
 /* ====== ريسبونسف ====== */
