@@ -94,8 +94,8 @@ export default function Advertisements() {
                 area: "",
             },
             seller: {
-                name: userData.name || "",
-                phone: userData.phone || "",
+                name: userData?.name || "",
+                phone: userData?.phone || "",
                 webMessage: true,
             },
         },
