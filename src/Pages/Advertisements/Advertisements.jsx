@@ -179,7 +179,7 @@ export default function Advertisements() {
                 }
 
                 if (formik.values.category === "trips") {
-                    formData.append("information[trip][tripType]", formik.values.information.trips.moreInfo);
+                    formData.append("information[trips][tripType]", formik.values.information.trips.moreInfo);
                 }
 
                 if (formik.values.category === "anecdotes") {
