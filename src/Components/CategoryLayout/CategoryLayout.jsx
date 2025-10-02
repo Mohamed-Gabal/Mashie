@@ -97,7 +97,7 @@ const CategoryLayout = ({
                 value={inputDate}
                 onChange={(e) => setInputDate(e.target.value)}
               />
-              <button onClick={handleSearchDate}>بحث</button>
+              <button onClick={handleSearchDate}>فلتر</button>
               {/* عرض التاريخ بعد التنسيق */}
             </div>
           </div>
@@ -139,7 +139,6 @@ const CategoryLayout = ({
   );
 };
 export default CategoryLayout;
-
 
 
 
