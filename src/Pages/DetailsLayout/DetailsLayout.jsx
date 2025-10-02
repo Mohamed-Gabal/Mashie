@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./detailsLayout.css";
 
 // Icons
@@ -13,6 +13,8 @@ import { AiOutlineSend, AiOutlineLike } from "react-icons/ai";
 import { IoCallOutline } from "react-icons/io5";
 import { LuMessageCircleMore } from "react-icons/lu";
 import { useParams } from "react-router-dom";
+import axios from "axios";
+import { categories } from "../Advertisements/Category/Category";
 
 const DetailsLayout = () => {
   // الصور
@@ -32,8 +34,32 @@ const DetailsLayout = () => {
   // الصورة الرئيسية (بتبدأ بأول صورة)
   const [mainImage, setMainImage] = useState(images[0]);
 
-  const { id } = useParams();
-  console.log(id);
+  const { details, id } = useParams();
+  const category = categories.find((cat) => details === cat.key) || "اسم الفئة";
+  const [isLoading, setIsLoading] = useState(false);
+  const [ad_details, setAd_details] = useState([]);
+  console.log(ad_details);
+
+  useEffect(() => {
+    const fetchDetails = async () => {
+      try {
+        setIsLoading(true);
+        const response = await axios.get(
+          `https://api.mashy.sand.alrmoz.com/api/ads/${details}/${id}`
+        );
+        if (response?.data?.success) {
+          setAd_details(response?.data?.data);
+          setIsLoading(false);
+        }
+      } catch (error) {
+        console.error("Error fetching ad details:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchDetails();
+  }, [details, id]);
 
   return (
     <div className="details-layout">
@@ -42,17 +68,17 @@ const DetailsLayout = () => {
         {/* روابط التنقل */}
         <div className="details-close-close">
           <span className="details-close">الرئيسيه <IoIosArrowBack /></span>
-          <span className="details-close">السيارات والمركبات <IoIosArrowBack /></span>
-          <span className="details-close">تويوتا لاندكروزر 2013</span>
+          <span className="details-close">{category.name}<IoIosArrowBack /></span>
+          <span className="details-close">{ad_details?.information?.title }</span>
         </div>
 
         {/* عنوان */}
-        <h2 className="details-title">تويوتا لاندكروزر 2013</h2>
+        <h2 className="details-title">{ad_details?.information?.title }</h2>
 
         {/* معلومات مختصرة */}
         <div className="details-close-titles">
-          <span className="details-close-title-yello"> <RiStarSLine className="details-close-title-yello-icon"/>مصر</span>
-          <span className="details-close-title-main"> <MdOutlineShield className="details-close-title-main-icon"/> بائع موثوق</span>
+          <span className="details-close-title-yello"> <RiStarSLine className="details-close-title-yello-icon" />{ad_details?.location?.area}</span>
+          <span className="details-close-title-main"> <MdOutlineShield className="details-close-title-main-icon" /> بائع موثوق</span>
           <span className="details-close-title-empty">نشر مند يومين</span>
         </div>
 
@@ -81,27 +107,23 @@ const DetailsLayout = () => {
         <div className="details-layout-info">
           <h3 className="details-lay-info-title">المواصفات</h3>
           <div className="details-lay-info-item">
-            <div><PiCarSimpleLight className="details-lay-info-icon"/><span>الماركه : تويوتا</span></div>
-            <div><PiCarSimpleLight className="details-lay-info-icon"/><span>الموديل : لاندكروزر</span></div>
-            <div><CiLocationOn className="details-lay-info-icon"/><span>المدينه : الرياض</span></div>
-            <div><CiLocationOn className="details-lay-info-icon"/><span>المنطقه : العليا</span></div>
+            <div><PiCarSimpleLight className="details-lay-info-icon" /><span>الماركه : تويوتا</span></div>
+            <div><PiCarSimpleLight className="details-lay-info-icon" /><span>الموديل : لاندكروزر</span></div>
+            <div><CiLocationOn className="details-lay-info-icon" /><span>المدينه : الرياض</span></div>
+            <div><CiLocationOn className="details-lay-info-icon" /><span>المنطقه : العليا</span></div>
           </div>
         </div>
 
         {/* الوصف */}
         <div className="details-layout-decs">
           <h3 className="details-lay-decs-title">الوصف</h3>
-          <p className="details-lay-decs-info">
-            تويوتا لاند كروزر 2013 بحالة ممتازة جداً. السيارة مستعملة استعمال
-            شخصي، محافظ عليها بالكامل وتم عمل صيانة دورية في الوكالة. لا توجد أي
-            أضرار أو حوادث.
-          </p>
-          <div className="details-lay-decs-info">
-            <span className="details-lay-decs-info-item"><FaCheck className="details-lay-decs-info-icon"/> تم تغيير الزيت حديثا</span>
-            <span className="details-lay-decs-info-item"><FaCheck className="details-lay-decs-info-icon"/> تكييف يعمل بكفاءه ممتازه</span>
-            <span className="details-lay-decs-info-item"><FaCheck className="details-lay-decs-info-icon"/> اطارات جديده</span>
-            <span className="details-lay-decs-info-item"><FaCheck className="details-lay-decs-info-icon"/> فحص شامل متوفر</span>
-          </div>
+          <p className="details-lay-decs-info">{ad_details?.information?.description}</p>
+          {/* <div className="details-lay-decs-info">
+            <span className="details-lay-decs-info-item"><FaCheck className="details-lay-decs-info-icon" /> تم تغيير الزيت حديثا</span>
+            <span className="details-lay-decs-info-item"><FaCheck className="details-lay-decs-info-icon" /> تكييف يعمل بكفاءه ممتازه</span>
+            <span className="details-lay-decs-info-item"><FaCheck className="details-lay-decs-info-icon" /> اطارات جديده</span>
+            <span className="details-lay-decs-info-item"><FaCheck className="details-lay-decs-info-icon" /> فحص شامل متوفر</span>
+          </div> */}
         </div>
 
         {/* التعليقات */}
@@ -124,7 +146,7 @@ const DetailsLayout = () => {
           {/* قائمة التعليقات */}
           <div className="details-lay-comments-list">
             <div className="details-lay-comments-list-item">
-              <img src="/images/logo.svg" alt="User" className="details-lay-comments-list-item-img"/>
+              <img src="/images/logo.svg" alt="User" className="details-lay-comments-list-item-img" />
               <div className="details-lay-comments-list-item-content">
                 <div className="details-lay-comments-list-item-header">
                   <span className="details-lay-comments-list-item-name">احمد محمد</span>
@@ -164,7 +186,7 @@ const DetailsLayout = () => {
 
             {/* إحصائيات البائع */}
             <div className="details-left-top-user-actions">
-              <span><RiStarSLine className="details-left-top-user-actions-icon"/>4.8</span>
+              <span><RiStarSLine className="details-left-top-user-actions-icon" />4.8</span>
               <span>25 اعلان</span>
               <span>معدل الرد 95%</span>
             </div>
@@ -194,8 +216,3 @@ const DetailsLayout = () => {
   );
 };
 export default DetailsLayout;
-
-
-
-
-
