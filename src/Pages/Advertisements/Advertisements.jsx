@@ -194,6 +194,7 @@ export default function Advertisements() {
                     }
                 );
                 if (response?.data?.success) {
+                    console.log(response?.data);
                     setSuccessMessage(true);
                     formik.resetForm();
                 }

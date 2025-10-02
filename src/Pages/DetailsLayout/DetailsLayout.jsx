@@ -1,5 +1,3 @@
-
-
 import React, { useState } from "react";
 import "./detailsLayout.css";
 
@@ -14,6 +12,7 @@ import { MdOutlinePhoto } from "react-icons/md";
 import { AiOutlineSend, AiOutlineLike } from "react-icons/ai";
 import { IoCallOutline } from "react-icons/io5";
 import { LuMessageCircleMore } from "react-icons/lu";
+import { useParams } from "react-router-dom";
 
 const DetailsLayout = () => {
   // الصور
@@ -32,6 +31,9 @@ const DetailsLayout = () => {
 
   // الصورة الرئيسية (بتبدأ بأول صورة)
   const [mainImage, setMainImage] = useState(images[0]);
+
+  const { id } = useParams();
+  console.log(id);
 
   return (
     <div className="details-layout">
