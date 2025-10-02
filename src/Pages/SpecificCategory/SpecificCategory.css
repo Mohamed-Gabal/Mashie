@@ -1,5 +1,8 @@
 .categoryData_container{
     padding-top: 100px;
+    padding-bottom: 20px;
+    max-width: 1200px;
+    margin: auto;
 }
 
 .categoryData_header {

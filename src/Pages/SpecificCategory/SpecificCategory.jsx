@@ -3,12 +3,13 @@ import { CiLocationOn, CiStopwatch } from 'react-icons/ci';
 import { Link, useParams } from 'react-router-dom';
 import "./SpecificCategory.css"
 import { IoIosArrowBack } from 'react-icons/io';
+import { electronics, fashion, furniture, jobs, pets, realestate, services } from '../../data';
 
 export const categories = [
     { id: 1, key: "vehicles", name: "السيارات", title: "السيارات والمركبات", desc: "تصفح كل أنواع السيارات والمركبات" },
     { id: 2, key: "realestate", name: "العقارات", title: "العقارات والشقق", desc: "تصفح كل أنواع العقارات والشقق" },
     { id: 3, key: "electronics", name: "الإلكترونيات", title: "الأجهزة والالكترونيات", desc: "تصفح جميع الأجهزة والالكترونيات" },
-    { id: 4, key: "jobs", name: "الوظائف", title: "الوظائف بأنواعها", desc: "الوظائف بأنواعها" },
+    { id: 4, key: "jobs", name: "الوظائف", title: "الوظائف بأنواعها", desc: "تصفح جميع أنواع الوظائف" },
     { id: 5, key: "furniture", name: "الأثاث", title: "الأثاث", desc: "تصفح جميع أنواع الأثاث" },
     { id: 6, key: "services", name: "الخدمات", title: "الخدمات بأنواعها", desc: "تصفح جميع أنواع الخدمات" },
     { id: 7, key: "fashion", name: "الأزياء", title: "الأزياء بأنواعها", desc: "تصفح جميع أنواع الأزياء" },
@@ -70,24 +71,45 @@ export default function SpecificCategory() {
                         }
 
                         {category === "realestate" &&
-                            [...new Set(categoryData.map((item) => item.attributes.realestateType))]
-                                .map((type, index) => (
-                                    <button key={index}>{type}</button>
-                                ))
+                            realestate.map((item, index) => (
+                                <button key={index}>{item}</button>
+                            ))
                         }
 
                         {category === "electronics" &&
-                            [...new Set(categoryData.map((item) => item.attributes.electronicType))]
-                                .map((type, index) => (
-                                    <button key={index}>{type}</button>
-                                ))
+                            electronics.map((item, index) => (
+                                <button key={index}>{item}</button>
+                            ))
+                        }
+
+                        {category === "jobs" &&
+                            jobs.map((item, index) => (
+                                <button key={index}>{item}</button>
+                            ))
                         }
                         
-                        {category === "jobs" &&
-                            [...new Set(categoryData.map((item) => item.attributes.jobType))]
-                                .map((type, index) => (
-                                    <button key={index}>{type}</button>
-                                ))
+                        {category === "pets" &&
+                            pets.map((item, index) => (
+                                <button key={index}>{item}</button>
+                            ))
+                        }
+
+                        {category === "services" &&
+                            services.map((item, index) => (
+                                <button key={index}>{item}</button>
+                            ))
+                        }
+
+                        {category === "furniture" &&
+                            furniture.map((item, index) => (
+                                <button key={index}>{item}</button>
+                            ))
+                        }
+
+                        {category === "fashion" &&
+                            fashion.map((item, index) => (
+                                <button key={index}>{item}</button>
+                            ))
                         }
                     </div>
 
