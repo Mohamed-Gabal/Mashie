@@ -1,0 +1,31 @@
+.categoryData_container{
+    padding-top: 100px;
+}
+
+.categoryData_header {
+    text-align: center;
+    color: #2C3E50;
+}
+
+.attributes_map {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.attributes_map button {
+    background-color: var(--border-color);
+    color: var(--parg-color);
+    padding: 0px 20px;
+    font-size: var(--font-size-sm);
+    border-radius: 999px;
+    transition: all ease-in-out .3s;
+}
+
+.attributes_map button:hover {
+    background-color: var(--main-color);
+    color: white;
+}

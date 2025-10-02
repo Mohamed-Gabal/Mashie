@@ -117,14 +117,14 @@ const CategoriesSection = () => {
       <div className="categories-grid">
         {categories.map((cat) => (
           <div key={cat.id} className="category-card">
-            <Link to={`/category${cat.link}`}>
+            <Link to={cat.link}>
               <div className="icon-box">
                 <img src={cat.img} alt={cat.title} />
               </div>
               <h2>{cat.title}</h2>
               <p>{cat.desc}</p>
               <span className="count">{cat.count}</span>
-              <span to={`/category${cat.link}`} className="browse-spen">
+              <span to={cat.link} className="browse-spen">
                 تصفح القسم
               </span>
             </Link>
