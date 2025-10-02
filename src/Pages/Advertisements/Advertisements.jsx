@@ -12,13 +12,16 @@ import { useFormik } from 'formik';
 import axios from "axios";
 import { useCookies } from "react-cookie";
 import LoginRequiredCard from '../../Components/AdvertisementsComponents/LoginRequiredCard/LoginRequiredCard';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function Advertisements() {
     // Step management: 1=category, 2=details, 3=review
     const [cookies, setCookie, removeCookie] = useCookies(["token"]);
+    const navigate = useNavigate();
     const token = cookies?.token?.data?.token;
     const userData = cookies?.token?.data?.user;
+    const [ads_id, setAds_id] = useState('');
+    const [categoryName, setCategoryName] = useState('');
 
     const [step, setStep] = useState(1);
     const [isLoading, setIsLoading] = useState(false);
@@ -194,7 +197,8 @@ export default function Advertisements() {
                     }
                 );
                 if (response?.data?.success) {
-                    console.log(response?.data);
+                    setAds_id(response?.data?.data?.data?.id)
+                    setCategoryName(response?.data?.data?.data?.category);
                     setSuccessMessage(true);
                     formik.resetForm();
                 }
@@ -303,7 +307,7 @@ export default function Advertisements() {
                                     <p>إعلانك الآن مرئي لآلاف المشترين المهتمين</p>
                                 </div>
                                 <div className="modal-body">
-                                    <button type="button" className="btn btn-secondary" onClick={() => { setSuccessMessage(false); setStep(1); }}>
+                                    <button type="button" className="btn btn-secondary" onClick={() => { setSuccessMessage(false); navigate(`/${categoryName}/${ads_id}`) }}>
                                         <img src="./advertisements/eye.svg" alt="eye" />
                                         <span>شاهد إعلانك</span>
                                     </button>
