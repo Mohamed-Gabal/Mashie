@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import "./CategoryLayout.css";
 import { CiLocationOn, CiStopwatch } from "react-icons/ci";
 import { FaSearch } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 const CategoryLayout = ({
   title,
@@ -14,6 +14,7 @@ const CategoryLayout = ({
   items = [],
   onBrandSelect,
 }) => {
+  const { slug } = useParams();
   const [inputDate, setInputDate] = useState(""); // التاريخ اللي المستخدم يختاره
   const [dateFilter, setDateFilter] = useState(""); // التاريخ اللي تم البحث عنه
 
@@ -128,7 +129,7 @@ const CategoryLayout = ({
                   <CiStopwatch /> {item.time}
                 </span>
               </div>
-              <Link to={`/details/${item.id}`} className="details-btn">
+              <Link to={`/${slug}/${item.id}`} className="details-btn">
                 عرض التفاصيل
               </Link>
             </div>

@@ -17,28 +17,15 @@ import axios from "axios";
 import { categories } from "../Advertisements/Category/Category";
 
 const DetailsLayout = () => {
-  // الصور
-  const images = [
-    "/images/resultPage1.webp",
-    "/images/resultPage2.webp",
-    "/images/resultPage3.webp",
-    "/images/resultPage4.webp",
-    "/images/resultPage5.webp",
-    "/images/resultPage6.webp",
-    "/images/resultPage1.webp",
-    "/images/resultPage2.webp",
-    "/images/resultPage3.webp",
-    "/images/resultPage4.webp",
-  ];
-
-  // الصورة الرئيسية (بتبدأ بأول صورة)
-  const [mainImage, setMainImage] = useState(images[0]);
 
   const { details, id } = useParams();
   const category = categories.find((cat) => details === cat.key) || "اسم الفئة";
   const [isLoading, setIsLoading] = useState(false);
   const [ad_details, setAd_details] = useState([]);
   console.log(ad_details);
+
+  const images = ad_details?.images || [];
+  const [mainImage, setMainImage] = useState(null);
 
   useEffect(() => {
     const fetchDetails = async () => {
@@ -48,8 +35,13 @@ const DetailsLayout = () => {
           `https://api.mashy.sand.alrmoz.com/api/ads/${details}/${id}`
         );
         if (response?.data?.success) {
+          const data = response?.data?.data;
           setAd_details(response?.data?.data);
           setIsLoading(false);
+
+          if (data?.images?.length > 0) {
+            setMainImage(`https://api.mashy.sand.alrmoz.com/storage/${data.images[0]}`);
+          }
         }
       } catch (error) {
         console.error("Error fetching ad details:", error);
@@ -69,11 +61,11 @@ const DetailsLayout = () => {
         <div className="details-close-close">
           <span className="details-close">الرئيسيه <IoIosArrowBack /></span>
           <span className="details-close">{category.name}<IoIosArrowBack /></span>
-          <span className="details-close">{ad_details?.information?.title }</span>
+          <span className="details-close">{ad_details?.information?.title}</span>
         </div>
 
         {/* عنوان */}
-        <h2 className="details-title">{ad_details?.information?.title }</h2>
+        <h2 className="details-title">{ad_details?.information?.title}</h2>
 
         {/* معلومات مختصرة */}
         <div className="details-close-titles">
@@ -82,26 +74,32 @@ const DetailsLayout = () => {
           <span className="details-close-title-empty">نشر مند يومين</span>
         </div>
 
-        {/* صور المنتج */}
-        <div className="details-lay-image">
-          {/* الصورة الرئيسية */}
-          <div className="details-lay-image-main">
-            <img src={mainImage} alt="Car" />
-          </div>
-
-          {/* الصور المصغرة */}
-          <div className="details-lay-image-thumbs">
-            {images.map((img, index) => (
-              <img
-                key={index}
-                src={img}
-                alt={`Car ${index}`}
-                onClick={() => setMainImage(img)}
-                className={mainImage === img ? "active-thumb" : ""}
-              />
-            ))}
-          </div>
+        {/* الصورة الرئيسية */}
+        <div className="details-lay-image-main">
+          {mainImage ? (
+            <img src={mainImage} alt="Main" />
+          ) : (
+            <p>جاري تحميل الصورة...</p>
+          )}
         </div>
+
+        {/* الصور المصغرة */}
+        <div className="details-lay-image-thumbs">
+          {images.length > 0 &&
+            images.map((img, index) => {
+              const fullImg = `https://api.mashy.sand.alrmoz.com/storage/${img}`;
+              return (
+                <img
+                  key={index}
+                  src={fullImg}
+                  alt={`thumb-${index}`}
+                  onClick={() => setMainImage(fullImg)}
+                  className={mainImage === fullImg ? "active-thumb" : ""}
+                />
+              );
+            })}
+        </div>
+
 
         {/* المواصفات */}
         <div className="details-layout-info">
@@ -169,8 +167,12 @@ const DetailsLayout = () => {
       {/* ------------------- الجزء الشمال ------------------- */}
       <div className="details-left">
         {/* السعر */}
-        <h1 className="details-left-price">175,000 ريال</h1>
-        <h6 className="details-left-negotiable">غير قابل للتفاوض</h6>
+        <h1 className="details-left-price">{ad_details?.information?.price} ريال</h1>
+        {ad_details?.information?.isNegotiable ?
+          <h6 className="details-left-negotiable"> قابل للتفاوض</h6>
+          :
+          <h6 className="details-left-negotiable">غير قابل للتفاوض</h6>
+        }
 
         {/* معلومات البائع */}
         <div className="details-left-top">
@@ -178,7 +180,7 @@ const DetailsLayout = () => {
             <img src="/images/logo.svg" alt="User" />
             <div>
               <h3 className="details-left-top-user-name">
-                أحمد عمر ماهر
+                {ad_details?.seller?.name}
                 <span><MdOutlineShield /> موثوق</span>
               </h3>
               <p className="details-left-top-user-member">عضو منذ 2020</p>
