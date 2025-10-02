@@ -19,8 +19,6 @@ export default function Advertisements() {
     const [cookies, setCookie, removeCookie] = useCookies(["token"]);
     const token = cookies?.token?.data?.token;
     const userData = cookies?.token?.data?.user;
-    // console.log(userData);
-    // removeCookie("token")
 
     const [step, setStep] = useState(1);
     const [isLoading, setIsLoading] = useState(false);
@@ -74,7 +72,7 @@ export default function Advertisements() {
                 },
 
                 pets: {
-                    moreInfo: "",
+                    animalType: "",
                 },
 
                 anecdotes: {
@@ -96,8 +94,8 @@ export default function Advertisements() {
                 area: "",
             },
             seller: {
-                name: userData.name || "",
-                phone: userData.phone || "",
+                name: userData?.name || "",
+                phone: userData?.phone || "",
                 webMessage: true,
             },
         },
@@ -170,7 +168,7 @@ export default function Advertisements() {
                 }
 
                 if (formik.values.category === "pets") {
-                    formData.append("information[pets][animalType]", formik.values.information.pets.moreInfo);
+                    formData.append("information[pets][animalType]", formik.values.information.pets.animalType);
                 }
 
                 if (formik.values.category === "gardens") {
@@ -191,15 +189,13 @@ export default function Advertisements() {
                     {
                         headers: {
                             "Content-Type": "multipart/form-data",
-                            Authorization: `Bearer ${cookies.token}`,
+                            Authorization: `Bearer ${token}`,
                         }
                     }
                 );
-                console.log(response.data);
-                setSuccessMessage(true);
                 if (response?.data?.success) {
+                    setSuccessMessage(true);
                     formik.resetForm();
-                    setStep(1);
                 }
             } catch (error) {
                 setErrorMessage(error.response?.message || error.message)
@@ -239,59 +235,97 @@ export default function Advertisements() {
     return (
         <>
             {token && token !== "undefined" ?
-                <form onSubmit={formik.handleSubmit} className='Advertisements'>
-                    {/* header */}
-                    <AddHeader currentStep={step} />
+                <>
+                    <form onSubmit={formik.handleSubmit} className='Advertisements'>
+                        {/* header */}
+                        <AddHeader currentStep={step} successMessage={successMessage} />
 
-                    {/* الخطوة الأولى */}
-                    {step === 1 && (
-                        <Category formik={formik} />
-                    )}
+                        {/* الخطوة الأولى */}
+                        {step === 1 && (
+                            <Category formik={formik} />
+                        )}
 
-                    {/* المعلومات  */}
-                    {step === 2 && (
-                        <Information formik={formik} prevStep={prevStep} />
-                    )}
+                        {/* المعلومات  */}
+                        {step === 2 && (
+                            <Information formik={formik} prevStep={prevStep} />
+                        )}
 
-                    {/* رفع الصور */}
-                    {step === 3 && (
-                        <UploadImages formik={formik} />
-                    )}
+                        {/* رفع الصور */}
+                        {step === 3 && (
+                            <UploadImages formik={formik} />
+                        )}
 
-                    {/* رفع الموقع */}
-                    {step === 4 && (
-                        <Location formik={formik} />
-                    )}
+                        {/* رفع الموقع */}
+                        {step === 4 && (
+                            <Location formik={formik} />
+                        )}
 
-                    {/* بيانات البائع */}
-                    {step === 5 && (
-                        <SellerData formik={formik} />
-                    )}
+                        {/* بيانات البائع */}
+                        {step === 5 && (
+                            <SellerData formik={formik} />
+                        )}
 
-                    {/* التاكيد */}
-                    {step === 6 && (
-                        <ConfirmAd formik={formik} isLoading={isLoading} errorMessage={errorMessage} successMessage={successMessage} setSuccessMessage={setSuccessMessage} />
-                    )}
+                        {/* التاكيد */}
+                        {step === 6 && (
+                            <ConfirmAd formik={formik} isLoading={isLoading} errorMessage={errorMessage} />
+                        )}
 
-                    <div className="buttons">
-                        <button type='button' className="btn prev" style={{ display: step === 1 ? "none" : "flex" }} onClick={prevStep}>
-                            <img src="./advertisements/ArrowRight.svg" alt="ArrowRight" className='arrowPrev' />
-                            <span>السابق</span>
-                        </button>
-                        <Link to='/' className="link_prev" style={{ display: step === 1 ? "block" : "none" }}>
-                            <span>العودة للموقع</span>
-                        </Link>
-                        <button
-                            type='button'
-                            className="btn next"
-                            onClick={nextStep}
-                            style={{ opacity: step < 6 ? 1 : 0 }}
-                        >
-                            <span>التالي</span>
-                            <img src="./advertisements/ArrowLeft.svg" alt="ArrowLeft" className='arrowNext' />
-                        </button>
+                        <div className="buttons">
+                            <button type='button' className="btn prev" style={{ display: step === 1 ? "none" : "flex" }} onClick={prevStep}>
+                                <img src="./advertisements/ArrowRight.svg" alt="ArrowRight" className='arrowPrev' />
+                                <span>السابق</span>
+                            </button>
+                            <Link to='/' className="link_prev" style={{ display: step === 1 ? "block" : "none" }}>
+                                <span>العودة للموقع</span>
+                            </Link>
+                            <button
+                                type='button'
+                                className="btn next"
+                                onClick={nextStep}
+                                style={{ opacity: step < 6 ? 1 : 0 }}
+                            >
+                                <span>التالي</span>
+                                <img src="./advertisements/ArrowLeft.svg" alt="ArrowLeft" className='arrowNext' />
+                            </button>
+                        </div>
+                    </form>
+
+                    {/* Modal */}
+                    <div className="modal_fade" style={{ display: successMessage ? "flex" : "none" }}>
+                        <div className="modal-dialog">
+                            <div className="modal-content">
+                                <div className="modal-header">
+                                    <div className="img_avatar">
+                                        <img src="./advertisements/CheckCircleGreen.svg" alt="CheckCircleGreen" />
+                                    </div>
+                                    <h1 className="modal-title">تم نشر إعلانك بنجاح!</h1>
+                                    <p>إعلانك الآن مرئي لآلاف المشترين المهتمين</p>
+                                </div>
+                                <div className="modal-body">
+                                    <button type="button" className="btn btn-secondary" onClick={() => { setSuccessMessage(false); setStep(1); }}>
+                                        <img src="./advertisements/eye.svg" alt="eye" />
+                                        <span>شاهد إعلانك</span>
+                                    </button>
+
+                                    <div className="special-adver">
+                                        <h4>
+                                            <img src="./advertisements/StarGold.svg" alt="StarGold" />
+                                            <span>ميز إعلانك ليظهر في النتائج الأولى</span>
+                                        </h4>
+                                        <p>زد من فرص مشاهدة إعلانك بـ 5 أضعاف مع خدمة التمي</p>
+                                        <button type="button" className="btn btn-primary">
+                                            <img src="./advertisements/StarWhite.svg" alt="StarWhite" />
+                                            <span>شاهد إعلانك</span>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div className="modal-footer">
+                                    <p>سيتم مراجعة إعلانك خلال 24 ساعة للتأكد من مطابقته لشروط الخدمة</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </form>
+                </>
                 :
                 <LoginRequiredCard />
             }

@@ -1,0 +1,17 @@
+.moreInfo_container {
+    position: relative;
+}
+
+.moreInfo_container .moreInfo_input {
+    width: 100%;
+}
+.moreInfo_container svg {
+    position: absolute;
+    left: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.input_option {
+    text-align: start;
+}
