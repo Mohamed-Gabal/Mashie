@@ -151,6 +151,9 @@
   left: 0px;
   transform: translate(-30px, 13px);
 }
+.mobile-login .mobile_loginBTN {
+  color: var(--main-color);
+}
 
 @media (max-width: 992px) {
   .nav {
