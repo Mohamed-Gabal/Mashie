@@ -4,6 +4,7 @@ import "./UploadImages.css";
 export default function UploadImages({ formik }) {
     const { values, setFieldValue, errors } = formik;
     const [previewUrls, setPreviewUrls] = useState([]);
+    const [isConverting, setIsConverting] = useState(false);
 
     // تحديث الـ previews كل ما الصور في Formik تتغير
     useEffect(() => {
@@ -20,9 +21,36 @@ export default function UploadImages({ formik }) {
 
     const handleImageUpload = (e) => {
         const files = Array.from(e.target.files);
+        setIsConverting(true);
 
-        // تحديث Formik بالملفات فقط
-        setFieldValue("images", [...values.images, ...files].slice(0, 10));
+        Promise.all(
+            files.map(file => {
+                return new Promise((resolve) => {
+                    const img = new Image();
+                    img.src = URL.createObjectURL(file);
+                    img.onload = () => {
+                        const canvas = document.createElement("canvas");
+                        canvas.width = img.width;
+                        canvas.height = img.height;
+
+                        const ctx = canvas.getContext("2d");
+                        ctx.drawImage(img, 0, 0);
+
+                        canvas.toBlob((blob) => {
+                            const webpFile = new File(
+                                [blob],
+                                file.name.replace(/\.(png|jpg|jpeg)$/i, ".webp"),
+                                { type: "image/webp" }
+                            );
+                            resolve(webpFile);
+                        }, "image/webp", 0.8);
+                    };
+                });
+            })
+        ).then((webpFiles) => {
+            setFieldValue("images", [...values.images, ...webpFiles].slice(0, 10));
+            setIsConverting(false);
+        });
     };
 
     const handleRemoveImage = (index) => {
@@ -51,10 +79,13 @@ export default function UploadImages({ formik }) {
                         <svg xmlns="http://www.w3.org/2000/svg" width={40} height={40} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-camera-icon lucide-camera"><path d="M13.997 4a2 2 0 0 1 1.76 1.05l.486.9A2 2 0 0 0 18.003 7H20a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h1.997a2 2 0 0 0 1.759-1.048l.489-.904A2 2 0 0 1 10.004 4z" /><circle cx={12} cy={13} r={3} /></svg>
                     </div>
                     <p>إضافة الصور</p>
-                    <span>PNG, JPG, JPEG حتى 5MB لكل صورة</span>
+                    <span>PNG, JPG, JPEG حتى 10MB لكل صورة</span>
                 </div>
                 {errors.images && <div className="image_error">{errors.images}</div>}
             </label>
+
+            {/* Loading indicator */}
+            {isConverting && <div className="UploadImages_loader" />}
 
             <div className="preview">
                 {previewUrls.map((src, index) => (

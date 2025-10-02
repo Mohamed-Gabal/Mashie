@@ -57,11 +57,6 @@ export default function PetsForm({ formik }) {
                                 setFieldValue("information.pets.animalType", option);
                                 setIsTagsOpen(false);
                             }}
-                            onTouchStart={(e) => {
-                                e.preventDefault();
-                                setFieldValue("information.pets.animalType", option);
-                                setIsTagsOpen(false);
-                            }}
                         >
                             {option}
                         </li>

@@ -46,7 +46,7 @@ export default function AboutUsPlatform() {
       {/* القسم الأيسر */}
       <div className="aboutUsPlatform_left">
         <div className="aboutUsPlatform_left_avatar">
-          <img src="/images/platform.png" alt="منصة ماشي" className="avatar_img" />
+          <img src="./images/platform.webp" alt="منصة ماشي" className="avatar_img" />
         </div>
         
         <div className="aboutUsPlatform_left_avatar_icon">

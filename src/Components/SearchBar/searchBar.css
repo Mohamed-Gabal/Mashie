@@ -1,6 +1,6 @@
 .search-par {
   position: relative;
-  background: url("/images/hero.png") center/cover no-repeat;
+  background: url("/images/hero.webp") center/cover no-repeat;
   min-height: 85vh;
   display: flex;
   align-items: center;

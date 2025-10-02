@@ -8,21 +8,21 @@ const AboutUsTeam = () => {
   const data = [
     {
       id: 1,
-      image: "/images/team.png",
+      image: "./images/team.webp",
       icon: <LuWebcam />,
       title: "رسالتنا",
       desc: "توصيل البائع بالمشتري بسرعة وأمانة",
     },
     {
       id: 2,
-      image: "/images/team1.png",
+      image: "./images/team1.webp",
       icon: <MdOutlineRemoveRedEye />,
       title: "رؤيتنا",
       desc: "توفير بيئة آمنة وموثوقة للتجارة",
     },
     {
       id: 3,
-      image: "/images/team2.png",
+      image: "./images/team2.webp",
       icon: <CiHeart />,
       title: "قيمنا",
       desc: "الشفافية، الثقة، والمصداقية",

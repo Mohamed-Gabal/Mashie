@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 const slides = [
   {
     id: 1,
-    image: "/images/filter1.png",
+    image: "/images/filter1.webp",
     title: "اكتشف ألاف الإعلانات يومياً بسهولة",
     desc: "اعرض منتجاتك أو ابحث عن أفضل العروض بالقرب منك.. بكل سرعة وأمان",
     btn: "تصفح الإعلانات",
@@ -14,7 +14,7 @@ const slides = [
   },
   {
     id: 2,
-    image: "/images/filter2.png",
+    image: "/images/filter2.webp",
     title: "أفضل العروض في مكانك",
     desc: "ابحث عن المنتجات أو الخدمات الأقرب إليك بسرعة فائقة",
     btn: "ابدأ الآن",
@@ -22,7 +22,7 @@ const slides = [
   },
   {
     id: 3,
-    image: "/images/filter3.png",
+    image: "/images/filter3.webp",
     title: "بيع واشتري بثقة",
     desc: "منصتنا تضمن لك تجربة سهلة وآمنة لإتمام صفقاتك",
     btn: "انشر إعلانك",

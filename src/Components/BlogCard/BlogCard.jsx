@@ -8,7 +8,7 @@ const BlogCard = () => {
   const ads = [
     {
       id: 1,
-      img: "/images/filter2.png",
+      img: "/images/filter2.webp",
       user: "أحمد عمر",
       userImage: "/images/logo.svg",
       title: "للبيع شقة تمليك الدور الأول",
@@ -17,7 +17,7 @@ const BlogCard = () => {
     },
     {
       id: 2,
-      img: "/images/filter2.png",
+      img: "/images/filter2.webp",
       user: "أحمد عمر",
       userImage: "/images/logo.svg",
       title: "شقة للإيجار قانون جديد",
@@ -26,7 +26,7 @@ const BlogCard = () => {
     },
     {
       id: 3,
-      img: "/images/filter2.png",
+      img: "/images/filter2.webp",
       user: "أحمد عمر",
       userImage: "/images/logo.svg",
       title: "فيلا دوبلكس للبيع",
@@ -35,7 +35,7 @@ const BlogCard = () => {
     },
     {
       id: 4,
-      img: "/images/filter2.png",
+      img: "/images/filter2.webp",
       user: "أحمد عمر",
       userImage: "/images/logo.svg",
       title: "محل للإيجار بمنطقة حيوية",
@@ -44,7 +44,7 @@ const BlogCard = () => {
     },
     {
       id: 5,
-      img: "/images/filter2.png",
+      img: "/images/filter2.webp",
       user: "أحمد عمر",
       userImage: "/images/logo.svg",
       title: "أرض للبيع في التجمع",
@@ -53,7 +53,7 @@ const BlogCard = () => {
     },
     {
       id: 6,
-      img: "/images/filter2.png",
+      img: "/images/filter2.webp",
       user: "أحمد عمر",
       userImage: "/images/logo.svg",
       title: "شقة تمليك بحدائق الأهرام",
