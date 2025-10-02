@@ -36,12 +36,20 @@ const Header = () => {
           {cookies?.token?.data?.token && cookies?.token?.data?.token !== "undefined" ?
             (<div className="">
               <Link type="button" onClick={() => setToggleProfileCard(!toggleProfileCard)} className="profile_img">
-                <img src={userData.image} alt={userData?.name?.split(" ").map(word => word[0]).join("").toUpperCase()} className="user_img" />
+                {userData?.image === null ?
+                  <span className="two_char">{userData?.name?.split(" ").map(word => word[0]).join("").toUpperCase()}</span>
+                  :
+                  <img src={userData.image} alt={userData?.name?.split(" ").map(word => word[0]).join("").toUpperCase()} className="user_img" />
+                }
               </Link>
 
               <div className="profile-card" style={{ height: toggleProfileCard ? "280px" : "0" }}>
                 <div className="user-info">
-                  <img src={userData.image} alt={userData?.name?.split(" ").map(word => word[0]).join("").toUpperCase()} className="user_img" />
+                  {userData?.image === null ?
+                    <span className="two_char">{userData?.name?.split(" ").map(word => word[0]).join("").toUpperCase()}</span>
+                    :
+                    <img src={userData.image} alt={userData?.name?.split(" ").map(word => word[0]).join("").toUpperCase()} className="user_img" />
+                  }
                   <div>
                     <p className="greeting">أهلا</p>
                     <p className="username">{userData?.name}</p>
