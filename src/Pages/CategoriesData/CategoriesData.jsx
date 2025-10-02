@@ -1,58 +1,4 @@
-// // src/Pages/CategoriesData/CategoriesData.jsx
-// import React, { useState } from "react";
-// import { useParams } from "react-router-dom";
-// import useCategoryAds from "../../Services/categoreyService";
-// import CategoryLayout from "../../Components/CategoryLayout/CategoryLayout";
 
-// const CategoriesData = () => {
-//   const { slug } = useParams(); // هنا بناخد اسم القسم من الـ URL
-//   const { data, loading } = useCategoryAds(slug);
-
-//   // اختار علي حسب البراند
-//   const [selectBrand, setSelectBrand] = useState("all");
-
-//   if (loading) return <p>جاري تحميل البيانات...</p>;
-
-//   // برجع الماركت من ال data
-//   const brandFormApi = data
-//     ? [...new Set(data.map((e) => e.attribut.brand))]
-//     : [];
-
-//   // فلتره البيانات علي حسب الماركه
-//   const filterAds =
-//     selectBrand === "all"
-//       ? data
-//       : data.filter((e) => e.attribut.brand === selectBrand);
-//   const brandButtonsData = ["جميع الانواع", ...brandFormApi];
-
-//   // الموديل والمديته والمنطقه
-//   const modelsFromApi = [...new Set(data.map((e) => e.attribut.model))];
-//   const modelsFromApiPets = [...new Set(data.map((e) => e.attribut.animalType))];
-//   const citiesFromApi = [...new Set(data.map((e) => e.location))];
-//   const regionsFromApi = [...new Set(data.map((e) => e.area))];
-//   console.log(modelsFromApi);
-
-//   const filtersDataApi = [
-
-//       {label: "الموديل", options: ["الكل", ...modelsFromApi, ...modelsFromApiPets]},
-//       {label: "المدينه", options: ["الكل", ...citiesFromApi]},
-//       {label: "المنطقه", options: ["الكل", ...regionsFromApi]},
-//   ];
-
-//   return (
-//     <CategoryLayout
-//       title={`قسم ${slug}`}
-//       description={`تصفح جميع الإعلانات في قسم ${slug}`}
-//       brandButtons={brandButtonsData} //أزرار للفلتره
-//       onBrandSelect={setSelectBrand}
-//       filters={filtersDataApi} // لو عندك فلاتر تحطها هنا
-//       items={filterAds}
-//     />
-//   );
-// };
-// export default CategoriesData;
-
-// src/Pages/CategoriesData/CategoriesData.jsx
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import useCategoryAds from "../../Services/categoreyService";
@@ -62,46 +8,65 @@ const CategoriesData = () => {
   const { slug } = useParams(); // اسم القسم من الـ URL
   const { data, loading } = useCategoryAds(slug);
 
-  // فلترة بالبراند
   const [selectBrand, setSelectBrand] = useState("all");
 
   if (loading) return <p>جاري تحميل البيانات...</p>;
 
-  // براندات
-  const brandFormApi = data ? [...new Set(data.map((e) => e.attribut?.brand))] : [];
-  const brandButtonsData = ["جميع الانواع", ...brandFormApi];
+  // =========================
+  // 1) جدول الأقسام والمفاتيح
+  // =========================
+  const categoryKeyMap = {
+    vehicles: "brand",
+    electronics: "electronicType",
+    fashion: "fashionType",
+    furniture: "furnitureType",
+    jobs: "jobType",
+    realestate: "realestateFace",
+    pets: "animalType",
+    services: "serviceType",
+    food: "foodType",
+    anecdotes: "anecdoteType",
+    gardens: "gardenType",
+    trips: "tripType",
+  };
 
-  // فلترة الإعلانات حسب البراند
+  // المفتاح المناسب حسب القسم
+  const mainKey = categoryKeyMap[slug] || "brand";
+  
+  // 2) استخراج البيانات
+  // =========================
+  const mainOptions = data? [...new Set(data.map((e) => e.attribut?.[mainKey]))].filter(Boolean): [];
+
+  const brandButtonsData = ["جميع الانواع", ...mainOptions];
+
+  // =========================
+  // 3) فلترة الإعلانات
+  // =========================
   const filterAds =
     selectBrand === "all"
       ? data
-      : data.filter((e) => e.attribut?.brand === selectBrand);
+      : data.filter((e) => e.attribut?.[mainKey] === selectBrand);
 
-  // فلترة الموديل/النوع (ديناميكي حسب القسم)
+  // =========================
+  // 4) باقي الفلاتر
+  // =========================
   const modelsFromApi = [...new Set(data.map((e) => e.attribut?.model))].filter(Boolean);
   const petsTypesFromApi = [...new Set(data.map((e) => e.attribut?.animalType))].filter(Boolean);
   const propertyTypesFromApi = [...new Set(data.map((e) => e.attribut?.propertyType))].filter(Boolean);
 
-  // المدن والمناطق (ثابتين)
   const citiesFromApi = [...new Set(data.map((e) => e.location))].filter(Boolean);
   const regionsFromApi = [...new Set(data.map((e) => e.area))].filter(Boolean);
 
-  // تجهيز الفلاتر
   const filtersDataApi = [];
-
-  if (modelsFromApi.length > 0) {
+  if (modelsFromApi.length > 0)
     filtersDataApi.push({ label: "الموديل", options: ["الكل", ...modelsFromApi] });
-  }
-  if (petsTypesFromApi.length > 0) {
+  if (petsTypesFromApi.length > 0)
     filtersDataApi.push({ label: "نوع الحيوان", options: ["الكل", ...petsTypesFromApi] });
-  }
-  if (propertyTypesFromApi.length > 0) {
+  if (propertyTypesFromApi.length > 0)
     filtersDataApi.push({ label: "نوع العقار", options: ["الكل", ...propertyTypesFromApi] });
-  }
 
-  // المدينة والمنطقة ثابتين
-  filtersDataApi.push({ label: "المدينة", options: ["الكل", ...citiesFromApi] });
-  filtersDataApi.push({ label: "المنطقة", options: ["الكل", ...regionsFromApi] });
+  filtersDataApi.push({ label: "المدينة", options: ["جميع المدن", ...citiesFromApi] });
+  filtersDataApi.push({ label: "المنطقة", options: ["جميع المناطق", ...regionsFromApi] });
 
   return (
     <CategoryLayout

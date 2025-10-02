@@ -3,7 +3,7 @@ import React from "react";
 import { Routes, Route } from "react-router-dom";
 
 // Layout
-import Layout from "./LayoutDashboard/LayoutProfile";
+import LayoutDashboard from "./LayoutDashboard/LayoutProfile";
 import MainLayout from "./Layouts/MainLayout";
 
 // Pages
@@ -17,6 +17,9 @@ import Register from "./Pages/Auth/Register";
 import ForgotPassword from './Pages/Auth/ForgotPassword';
 import ResetPassword from './Pages/Auth/ResetPassword';
 import DetailsLayout from "./Pages/DetailsLayout/DetailsLayout";
+
+// pages dashboard
+import AccountUser from "./Pages/DashboardUser/AccountUser/AccountUser";
 
 // categoriesData
 import CategoriesData from "./Pages/CategoriesData/CategoriesData";
@@ -37,6 +40,8 @@ const App = () => {
       <Route path="/details/:id" element={<MainLayout><DetailsLayout /></MainLayout>} />
       <Route path="/category/:slug" element={<MainLayout><CategoriesData /></MainLayout>} />
 
+     {/* صفحات عامة داخل LayoutDashboard */}
+     <Route path="/accountUser" element={<LayoutDashboard><AccountUser /></LayoutDashboard>} />
       
        {/* صفحات أضف إعلانك  */}
       <Route path="/Advertisements" element={<Advertisements/>}/>

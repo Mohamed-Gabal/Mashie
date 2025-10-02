@@ -25,7 +25,7 @@ const categories = [
     desc: "شقق، فيلات، أراضي، مكاتب تجارية",
     count: "12,500+",
     img: "/Icons/categore4.svg",
-    link: "/realEstate",
+    link: "/realestate",
   },
   {
     id: 4,
@@ -33,7 +33,7 @@ const categories = [
     desc: "سيارات مستعملة وجديدة، قطع غيار، دراجات",
     count: "12,500+",
     img: "/Icons/categore3.svg",
-    link: "/cars",
+    link: "/vehicles",
   },
   {
     id: 5,
@@ -57,7 +57,7 @@ const categories = [
     desc: "خدمات متنوعة للأفراد والشركات",
     count: "12,500+",
     img: "/Icons/categore8.svg",
-    link: "/fileServices",
+    link: "/services",
   },
   {
     id: 8,
@@ -73,7 +73,7 @@ const categories = [
     desc: "مقتنيات وأشياء نادرة",
     count: "12,500+",
     img: "/Icons/categore11.svg",
-    link: "/antiques",
+    link: "/anecdotes",
   },
   {
     id: 10,
