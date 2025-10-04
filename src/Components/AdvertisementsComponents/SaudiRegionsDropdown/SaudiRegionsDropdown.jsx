@@ -3,13 +3,18 @@ import { saudiRegions } from '../../../data';
 import "./SaudiRegionsDropdown.css"
 
 
-export default function SaudiRegionsDropdown() {
+export default function SaudiRegionsDropdown({setRegion, setCity}) {
 
     const [isOpenRegion, setIsOpenRegion] = useState(false);
     const [selectedRegion, setSelectedRegion] = useState(null);
     const RegionDropdownRef = useRef(null);
     const handleSelectRegion = (region) => {
-        setSelectedRegion(region.region);
+        if (region === "كل المناطق") {
+            setRegion(null);
+        } else {
+            setSelectedRegion(region.region);
+            setRegion(region.region);
+        }
         setIsOpenRegion(false);
     };
     
@@ -18,6 +23,7 @@ export default function SaudiRegionsDropdown() {
     const [selectedCity, setSelectedCity] = useState(null);
     const handleSelectCity = (city) => {
         setSelectedCity(city);
+        setCity(city);
         setIsOpenCity(false);
     };
 

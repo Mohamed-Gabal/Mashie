@@ -26,6 +26,9 @@ export default function SpecificCategory() {
     const [isLoading, setIsLoading] = useState(false);
     const [categoryData, setCategoryData] = useState([]);
     const specificCate = categories.find((cat) => category === cat.key) || "اسم الفئة";
+    const [region, setRegion] = useState("");
+    const [city, setCity] = useState("");
+    console.log(region);
 
     // filtered type
     const [filteredAttributes, setFilteredAttributes] = useState(null);
@@ -35,6 +38,12 @@ export default function SpecificCategory() {
         return item.attributes?.[filteredAttributes] === attributeValue;
     });
     console.log("filter data", filteredCategoriesData);
+
+    const filteredCategoriesDataByregion = filteredCategoriesData.filter((item) => {
+        if (!region || region === "كل المناطق") return true;
+        return item?.location?.area === region;
+    });
+    console.log("region filter", filteredCategoriesDataByregion);
 
     useEffect(() => {
         const fetchCategoryData = async () => {
@@ -176,14 +185,14 @@ export default function SpecificCategory() {
                             </div>
 
                             <div className="">
-                                <SaudiRegionsDropdown/>
+                                <SaudiRegionsDropdown setRegion={setRegion} setCity={setCity} />
                             </div>
                         </div>
                     </section>
 
                     <section className='bottom_section'>
                         <div className="categories_items">
-                            {filteredCategoriesData.map((cat) => (
+                            {filteredCategoriesDataByregion.map((cat) => (
                                 <div
                                     key={cat.id_ads}
                                     className={`categorys-card`}
