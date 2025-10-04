@@ -18,11 +18,6 @@ import ForgotPassword from './Pages/Auth/ForgotPassword';
 import ResetPassword from './Pages/Auth/ResetPassword';
 import DetailsLayout from "./Pages/DetailsLayout/DetailsLayout";
 
-// categoriesData
-import CategoriesData from "./Pages/CategoriesData/CategoriesData";
-
-
-// import Advertisement from "./Pages/Advertisements/Advertisements";
 import Advertisements from "./Pages/Advertisements/Advertisements";
 import Category from "./Pages/SpecificCategory/SpecificCategory";
 
@@ -36,9 +31,7 @@ const App = () => {
       <Route path="/blog" element={<MainLayout><Blog /></MainLayout>} />
       <Route path="/contactUs" element={<MainLayout><ContactUs /></MainLayout>} />
       <Route path="/:details/:id" element={<MainLayout><DetailsLayout /></MainLayout>} />
-      {/* <Route path="/category/:slug" element={<MainLayout><CategoriesData /></MainLayout>} /> */}
       <Route path="/:category" element={<MainLayout><Category /></MainLayout>} />
-
       
        {/* صفحات أضف إعلانك  */}
       <Route path="/Advertisements" element={<Advertisements/>}/>

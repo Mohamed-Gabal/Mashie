@@ -4,7 +4,7 @@ import { Link, useParams } from 'react-router-dom';
 import "./SpecificCategory.css"
 import { IoIosArrowBack } from 'react-icons/io';
 import { electronics, fashion, furniture, jobs, pets, realestate, services } from '../../data';
-import SaudiRegions from '../../Components/AdvertisementsComponents/SaudiRegions/SaudiRegions';
+import SaudiRegionsDropdown from '../../Components/AdvertisementsComponents/SaudiRegionsDropdown/SaudiRegionsDropdown';
 
 export const categories = [
     { id: 1, key: "vehicles", name: "السيارات", title: "السيارات والمركبات", desc: "تصفح كل أنواع السيارات والمركبات" },
@@ -176,7 +176,7 @@ export default function SpecificCategory() {
                             </div>
 
                             <div className="">
-                                <SaudiRegions/>
+                                <SaudiRegionsDropdown/>
                             </div>
                         </div>
                     </section>

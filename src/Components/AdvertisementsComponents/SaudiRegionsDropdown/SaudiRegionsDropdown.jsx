@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { saudiRegions } from '../../../data';
-import "./SaudiRegions.css"
+import "./SaudiRegionsDropdown.css"
 
 
-export default function SaudiRegions() {
+export default function SaudiRegionsDropdown() {
 
     const [isOpenRegion, setIsOpenRegion] = useState(false);
     const [selectedRegion, setSelectedRegion] = useState(null);
