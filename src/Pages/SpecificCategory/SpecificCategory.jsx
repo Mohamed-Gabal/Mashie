@@ -27,11 +27,21 @@ export default function SpecificCategory() {
     const specificCate = categories.find((cat) => category === cat.key) || "اسم الفئة";
     console.log(categoryData);
 
+    // filtered type
+    const [filteredAttributes, setFilteredAttributes] = useState(null);
+    const [attributeValue, setAttributeValue] = useState("");
+    console.log(filteredAttributes);
+    const filteredCategoriesData = categoryData.filter((item) => {
+        if (!filteredAttributes) return true;
+        return item.attributes?.[filteredAttributes] === attributeValue;
+    });
+    console.log(filteredCategoriesData);
+
     useEffect(() => {
         const fetchCategoryData = async () => {
             try {
                 setIsLoading(true)
-                const response = await fetch(`https://api.mashy.sand.alrmoz.com/api/ads?category=${category}&page_num=2`);
+                const response = await fetch(`https://api.mashy.sand.alrmoz.com/api/ads?category=${category}&per_page=20`);
                 const data = await response.json();
                 if (data.success) {
                     setCategoryData(data.data.data.ads);
@@ -66,6 +76,15 @@ export default function SpecificCategory() {
                             </div>
 
                             <div className="attributes_map">
+                                <button
+                                    className={!filteredAttributes ? "attri_btn_active" : ""}
+                                    onClick={() => {
+                                        setFilteredAttributes(null);
+                                        setAttributeValue("");
+                                    }}
+                                >
+                                    عرض الكل
+                                </button>
                                 {category === "vehicles" &&
                                     [...new Set(categoryData.map((item) => item.attributes.brand))]
                                         .map((brand, index) => (
@@ -75,43 +94,84 @@ export default function SpecificCategory() {
 
                                 {category === "realestate" &&
                                     realestate.map((item, index) => (
-                                        <button key={index}>{item}</button>
-                                    ))
+                                        <button
+                                            key={index}
+                                            className={filteredAttributes === "jobType" && attributeValue === item ? "attri_btn_active" : ""}
+                                            onClick={() => { setFilteredAttributes("jobType"); setAttributeValue(`${item}`) }}
+                                        >
+                                            {item}
+                                        </button>))
                                 }
 
                                 {category === "electronics" &&
                                     electronics.map((item, index) => (
-                                        <button key={index}>{item}</button>
+                                        <button
+                                            key={index}
+                                            className={filteredAttributes === "electronicType" && attributeValue === item ? "attri_btn_active" : ""}
+                                            onClick={() => { setFilteredAttributes("electronicType"); setAttributeValue(`${item}`) }}
+                                        >
+                                            {item}
+                                        </button>
                                     ))
                                 }
 
                                 {category === "jobs" &&
                                     jobs.map((item, index) => (
-                                        <button key={index}>{item}</button>
+                                        <button
+                                            key={index}
+                                            className={filteredAttributes === "jobType" && attributeValue === item ? "attri_btn_active" : ""}
+                                            onClick={() => { setFilteredAttributes("jobType"); setAttributeValue(`${item}`) }}
+                                        >
+                                            {item}
+                                        </button>
                                     ))
                                 }
 
                                 {category === "pets" &&
                                     pets.map((item, index) => (
-                                        <button key={index}>{item}</button>
+                                        <button
+                                            key={index}
+                                            className={filteredAttributes === "animalType" && attributeValue === item ? "attri_btn_active" : ""}
+                                            onClick={() => { setFilteredAttributes("animalType"); setAttributeValue(`${item}`) }}
+                                        >
+                                            {item}
+                                        </button>
                                     ))
                                 }
 
                                 {category === "services" &&
                                     services.map((item, index) => (
-                                        <button key={index}>{item}</button>
+                                        <button
+                                            key={index}
+                                            className={filteredAttributes === "serviceType" && attributeValue === item ? "attri_btn_active" : ""}
+                                            onClick={() => { setFilteredAttributes("serviceType"); setAttributeValue(`${item}`) }}
+                                        >
+                                            {item}
+                                        </button>
                                     ))
                                 }
 
                                 {category === "furniture" &&
                                     furniture.map((item, index) => (
-                                        <button key={index}>{item}</button>
+                                        <button
+                                            key={index}
+                                            className={filteredAttributes === "furnitureType" && attributeValue === item ? "attri_btn_active" : ""}
+                                            onClick={() => { setFilteredAttributes("furnitureType"); setAttributeValue(`${item}`) }}
+                                        >
+                                            {item}
+                                        </button>
                                     ))
                                 }
 
                                 {category === "fashion" &&
                                     fashion.map((item, index) => (
-                                        <button key={index}>{item}</button>
+                                        <button
+                                            key={index}
+                                            className={filteredAttributes === "fashionType" && attributeValue === item ? "attri_btn_active" : ""}
+                                            onClick={() => { setFilteredAttributes("fashionType"); setAttributeValue(`${item}`) }}
+                                        >
+                                            {item}
+                                        </button>
                                     ))
                                 }
                             </div>
@@ -121,7 +181,7 @@ export default function SpecificCategory() {
 
                     <section className='bottom_section'>
                         <div className="categories_items">
-                            {categoryData.map((cat) => (
+                            {filteredCategoriesData.map((cat) => (
                                 <div
                                     key={cat.id_ads}
                                     className={`categorys-card`}
@@ -134,14 +194,13 @@ export default function SpecificCategory() {
                                         <img src={cat.user?.user_image} alt={cat?.seller?.name?.split(" ").map(word => word[0]).join("").toUpperCase()} />
                                         <span>{cat.seller?.name}</span>
                                     </div>
-                                    <h3>{cat?.information?.title}</h3>
-                                    <p>{cat?.information?.description}</p>
+                                    <h3>{cat?.information?.title.substring(0, 40)}...</h3>
                                     <div className="card-meta">
                                         <span>
                                             <CiLocationOn />{cat?.location?.area}
                                         </span>
                                         <span>
-                                            <CiStopwatch /> {cat?.location?.time}
+                                            <CiStopwatch /> {cat?.created_at}
                                         </span>
                                     </div>
                                     <Link to={`/${category}/${cat.id_ads}`} className="details-btn">

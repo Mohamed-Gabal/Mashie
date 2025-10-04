@@ -62,6 +62,11 @@
     transition: all ease-in-out .3s;
 }
 
+.attributes_map button.attri_btn_active{
+    background-color: var(--main-color);
+    color: white;
+}
+
 .attributes_map button:hover {
     background-color: var(--main-color);
     color: white;
