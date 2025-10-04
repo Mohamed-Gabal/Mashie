@@ -45,6 +45,12 @@ export default function SpecificCategory() {
     });
     console.log("region filter", filteredCategoriesDataByregion);
 
+    const filteredCategoriesDataByCity = filteredCategoriesDataByregion.filter((item) => {
+        if (!city || city === "كل المدن") return true;
+        return item?.location?.city === city;
+    });
+    console.log("city filter", filteredCategoriesDataByCity);
+
     useEffect(() => {
         const fetchCategoryData = async () => {
             try {
@@ -192,7 +198,7 @@ export default function SpecificCategory() {
 
                     <section className='bottom_section'>
                         <div className="categories_items">
-                            {filteredCategoriesDataByregion.map((cat) => (
+                            {filteredCategoriesDataByCity.map((cat) => (
                                 <div
                                     key={cat.id_ads}
                                     className={`categorys-card`}

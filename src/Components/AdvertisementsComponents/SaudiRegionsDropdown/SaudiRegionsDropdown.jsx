@@ -3,7 +3,7 @@ import { saudiRegions } from '../../../data';
 import "./SaudiRegionsDropdown.css"
 
 
-export default function SaudiRegionsDropdown({setRegion, setCity}) {
+export default function SaudiRegionsDropdown({ setRegion, setCity }) {
 
     const [isOpenRegion, setIsOpenRegion] = useState(false);
     const [selectedRegion, setSelectedRegion] = useState(null);
@@ -15,15 +15,21 @@ export default function SaudiRegionsDropdown({setRegion, setCity}) {
             setSelectedRegion(region.region);
             setRegion(region.region);
         }
+        setSelectedCity("كل المدن");
+        setCity(null);
         setIsOpenRegion(false);
     };
-    
+
     const cityDropdownRef = useRef(null);
     const [isOpenCity, setIsOpenCity] = useState(false);
     const [selectedCity, setSelectedCity] = useState(null);
     const handleSelectCity = (city) => {
         setSelectedCity(city);
-        setCity(city);
+        if (city === "كل المدن") {
+            setCity(null);
+        } else {
+            setCity(city);
+        }
         setIsOpenCity(false);
     };
 
@@ -87,6 +93,9 @@ export default function SaudiRegionsDropdown({setRegion, setCity}) {
                 </button>
                 {isOpenCity && selectedRegion && (
                     <ul className="dropdown_menu" style={{ height: isOpenCity && selectedRegion ? "200px" : "0px" }}>
+                        <li className='dropdown_item' onClick={() => { setCity(null); setIsOpenCity(false) }}>
+                            <span>كل المدن</span>
+                        </li>
                         {filteredCities?.cities?.map((item, index) => (
                             <li
                                 key={index}
