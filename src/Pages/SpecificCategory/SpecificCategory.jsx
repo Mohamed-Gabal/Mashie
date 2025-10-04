@@ -25,17 +25,15 @@ export default function SpecificCategory() {
     const [isLoading, setIsLoading] = useState(false);
     const [categoryData, setCategoryData] = useState([]);
     const specificCate = categories.find((cat) => category === cat.key) || "اسم الفئة";
-    console.log(categoryData);
 
     // filtered type
     const [filteredAttributes, setFilteredAttributes] = useState(null);
     const [attributeValue, setAttributeValue] = useState("");
-    console.log(filteredAttributes);
     const filteredCategoriesData = categoryData.filter((item) => {
         if (!filteredAttributes) return true;
         return item.attributes?.[filteredAttributes] === attributeValue;
     });
-    console.log(filteredCategoriesData);
+    console.log("filter data",filteredCategoriesData);
 
     useEffect(() => {
         const fetchCategoryData = async () => {
