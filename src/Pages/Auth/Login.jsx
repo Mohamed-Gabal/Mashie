@@ -168,7 +168,7 @@ const Login = () => {
 
         {/* روابط تحت النموذج */}
         <p className="login-footer">
-          ليس لديك حساب بعد؟ <Link to="/register">إنشاء حساب</Link>
+          ليس لديك حساب بعد؟ <Link to="/accountUser">إنشاء حساب</Link>
         </p>
         <p className="login-footer">
           <Link to="/forgotPassword">نسيت كلمة المرور؟</Link>

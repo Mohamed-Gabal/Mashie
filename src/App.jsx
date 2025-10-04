@@ -20,6 +20,8 @@ import DetailsLayout from "./Pages/DetailsLayout/DetailsLayout";
 
 // pages dashboard
 import AccountUser from "./Pages/DashboardUser/AccountUser/AccountUser";
+import OffersUser from "./Pages/DashboardUser/OffersUser/OffersUser";
+
 
 // categoriesData
 import CategoriesData from "./Pages/CategoriesData/CategoriesData";
@@ -42,6 +44,7 @@ const App = () => {
 
      {/* صفحات عامة داخل LayoutDashboard */}
      <Route path="/accountUser" element={<LayoutDashboard><AccountUser /></LayoutDashboard>} />
+     <Route path="/offersUser" element={<LayoutDashboard><OffersUser /></LayoutDashboard>} />
       
        {/* صفحات أضف إعلانك  */}
       <Route path="/Advertisements" element={<Advertisements/>}/>

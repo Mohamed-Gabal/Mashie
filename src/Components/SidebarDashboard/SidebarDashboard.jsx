@@ -1,6 +1,6 @@
 import React from "react";
 import "./sidebarDashboard.css";
-import { Link } from "react-router-dom";
+import { Link, Links } from "react-router-dom";
 import { PiTagSimple } from "react-icons/pi";
 import { LuMessageCircleMore } from "react-icons/lu";
 import { IoIosNotificationsOutline } from "react-icons/io";
@@ -25,7 +25,7 @@ const SidebarDashboard = () => {
               <h3>أحمد عمر ماهر</h3>
             </div>
           </div>
-          <button className="profile_btn">عرض الملف الشخصي</button>
+          <Link to='/accountUser'><button className="profile_btn">عرض الملف الشخصي</button></Link>
         </div>
 
         <hr style={{marginTop: "10px", color: "#DBDBDB",}}/>
@@ -33,7 +33,7 @@ const SidebarDashboard = () => {
         {/* الروابط الرئيسية */}
         <div className="Sidebar_Dashboard_links">
           <ul className="Sidebar_Dashboard_link">
-            <li><Link to="/dashboard/offers"> <PiTagSimple />العروض</Link></li>
+            <li><Link to="/offersUser"> <PiTagSimple />العروض</Link></li>
             <li><Link to="/dashboard/messages"> <LuMessageCircleMore />الرسائل</Link></li>
             <li><Link to="/dashboard/notifications"> <IoIosNotificationsOutline />الاشعارات</Link></li>
             <li><Link to="/dashboard/favorites"> <MdFavoriteBorder />المفضلة</Link></li>

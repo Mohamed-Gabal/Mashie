@@ -1,12 +1,14 @@
-import React from 'react'
-import './accountUser.css';
+import React from 'react';
+import TopSectionProfile from '../../../Components/DashboardUserComponent/TopSectionProfile/TopSectionProfile';
+import BottomSectionProfile from '../../../Components/DashboardUserComponent/BottomSectionProfile/BottomSectionProfile';
 
 const AccountUser = () => {
   return (
     <div>
-      AccountUser
+      <TopSectionProfile />
+      <BottomSectionProfile />
     </div>
-  )
+  );
 }
 
-export default AccountUser
+export default AccountUser;

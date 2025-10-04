@@ -1,0 +1,129 @@
+.bottom_section {
+  padding: 20px;
+  background-color: var(--color);
+  border-radius: 10px;
+  margin: 40px 0;
+}
+.section_header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+.date-search-box {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.date-search-box input {
+  padding: 6px 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+}
+.date-search-box button {
+  padding: 6px 12px;
+  border: none;
+  width: 100px;
+  background-color: var(--main-color);
+  color: var(--color);
+  border-radius: 6px;
+  cursor: pointer;
+}
+.ads_list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.ad_card {
+  display: flex;
+  gap: 15px;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  padding: 15px;
+  background: #fafafa;
+}
+.ad_image {
+  width: 150px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+.ad_content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.ad_header_row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.ad_title {
+  font-size: 16px;
+  font-weight: bold;
+}
+.ad_meta {
+  display: flex;
+  gap: 20px;
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 15px;
+}
+.ad_meta svg {
+  vertical-align: middle;
+  margin-left: 4px;
+  color: var(--main-color);
+  font-size: 18px;
+}
+.view_btn {
+  padding: 6px 12px;
+  background-color: var(--main-color);
+  color: var(--color);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 200px;
+}
+.ad_actions {
+  display: flex;
+  gap: 10px;
+}
+.edit_btn {
+  background-color: transparent;
+  color: var(--main-color);
+  border: 1px solid var(--main-color);
+  padding: 6px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.edit_btn:hover {
+  background: var(--main-color);
+  color: var(--color);
+}
+.delete_btn {
+  background-color: transparent;
+  color: #dc3545;
+  border: 1px solid #dc3545;
+  padding: 6px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.delete_btn:hover {
+  background: #dc3545;
+  color: #fff;
+}
+.show_more {
+  margin-top: 20px;
+  text-align: center;
+}
+.show_more button {
+  padding: 8px 15px;
+  border: none;
+  background-color: var(--main-color);
+  color: var(--color);
+  border-radius: 6px;
+  cursor: pointer;
+}
