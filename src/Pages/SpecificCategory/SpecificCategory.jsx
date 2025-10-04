@@ -94,8 +94,8 @@ export default function SpecificCategory() {
                                     realestate.map((item, index) => (
                                         <button
                                             key={index}
-                                            className={filteredAttributes === "jobType" && attributeValue === item ? "attri_btn_active" : ""}
-                                            onClick={() => { setFilteredAttributes("jobType"); setAttributeValue(`${item}`) }}
+                                            className={filteredAttributes === "realestateType" && attributeValue === item ? "attri_btn_active" : ""}
+                                            onClick={() => { setFilteredAttributes("realestateType"); setAttributeValue(`${item}`) }}
                                         >
                                             {item}
                                         </button>))

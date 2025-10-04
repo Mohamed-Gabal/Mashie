@@ -141,7 +141,7 @@ export default function Advertisements() {
                 if (formik.values.category === "realestate") {
                     formData.append("information[realestate][realestateType]", formik.values.information.realestate.realestateType);
                     formData.append("information[realestate][streetType]", formik.values.information.realestate.streetType);
-                    formData.append("information[realestate][realestateInterface]", formik.values.information.realestate.realestateInterface);
+                    formData.append("information[realestate][realestateFace]", formik.values.information.realestate.realestateInterface);
                 }
 
                 if (formik.values.category === "electronics") {
