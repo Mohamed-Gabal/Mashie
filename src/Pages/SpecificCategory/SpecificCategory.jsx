@@ -33,7 +33,7 @@ export default function SpecificCategory() {
         if (!filteredAttributes) return true;
         return item.attributes?.[filteredAttributes] === attributeValue;
     });
-    console.log("filter data",filteredCategoriesData);
+    console.log("filter data", filteredCategoriesData);
 
     useEffect(() => {
         const fetchCategoryData = async () => {
@@ -198,7 +198,7 @@ export default function SpecificCategory() {
                                             <CiLocationOn />{cat?.location?.area}
                                         </span>
                                         <span>
-                                            <CiStopwatch /> {cat?.created_at}
+                                            <CiStopwatch /> {timeSince(cat.created_at)}
                                         </span>
                                     </div>
                                     <Link to={`/${category}/${cat.id_ads}`} className="details-btn">
@@ -213,3 +213,26 @@ export default function SpecificCategory() {
         </div>
     )
 };
+
+function toArabicNumbers(number) {
+    const arabicNumbers = ["٠", "١", "٢", "٣", "٤", "٥", "٦", "٧", "٨", "٩"];
+    return number.toString().split("").map(d => arabicNumbers[d] || d).join("");
+}
+
+function timeSince(dateString) {
+    const now = new Date();
+    const past = new Date(dateString.replace(" ", "T"));
+    const dateOnly = dateString.split(" ")[0];
+    const diff = now - past;
+
+    const seconds = Math.floor(diff / 1000);
+    const minutes = Math.floor(seconds / 60);
+    const hours = Math.floor(minutes / 60);
+    const days = Math.floor(hours / 24);
+
+    if (days > 3) return `${dateOnly}`;
+    if (days > 0) return `منذ ${toArabicNumbers(days)} يوم`;
+    if (hours > 0) return `منذ ${toArabicNumbers(hours)} ساعة`;
+    if (minutes > 0) return `منذ ${toArabicNumbers(minutes)} دقيقة`;
+    return `منذ ${toArabicNumbers(seconds)} ثانية`;
+}
