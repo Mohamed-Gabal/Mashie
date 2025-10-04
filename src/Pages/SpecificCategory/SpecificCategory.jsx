@@ -52,97 +52,105 @@ export default function SpecificCategory() {
 
             {!isLoading && (
                 <>
-                    <div className="details-close-close">
-                        <span className="details-close">الرئيسيه <IoIosArrowBack /></span>
-                        <span className="details-close">{specificCate?.title}</span>
-                    </div>
-
-                    <div className="categoryData_header">
-                        <h2>{specificCate?.title}</h2>
-                        <p>{specificCate?.desc}</p>
-                    </div>
-
-                    <div className="attributes_map">
-                        {category === "vehicles" &&
-                            [...new Set(categoryData.map((item) => item.attributes.brand))]
-                                .map((brand, index) => (
-                                    <button key={index}>{brand}</button>
-                                ))
-                        }
-
-                        {category === "realestate" &&
-                            realestate.map((item, index) => (
-                                <button key={index}>{item}</button>
-                            ))
-                        }
-
-                        {category === "electronics" &&
-                            electronics.map((item, index) => (
-                                <button key={index}>{item}</button>
-                            ))
-                        }
-
-                        {category === "jobs" &&
-                            jobs.map((item, index) => (
-                                <button key={index}>{item}</button>
-                            ))
-                        }
-                        
-                        {category === "pets" &&
-                            pets.map((item, index) => (
-                                <button key={index}>{item}</button>
-                            ))
-                        }
-
-                        {category === "services" &&
-                            services.map((item, index) => (
-                                <button key={index}>{item}</button>
-                            ))
-                        }
-
-                        {category === "furniture" &&
-                            furniture.map((item, index) => (
-                                <button key={index}>{item}</button>
-                            ))
-                        }
-
-                        {category === "fashion" &&
-                            fashion.map((item, index) => (
-                                <button key={index}>{item}</button>
-                            ))
-                        }
-                    </div>
-
-                    <div className="categorys-items">
-                        {categoryData.map((cat) => (
-                            <div
-                                key={cat.id_ads}
-                                className={`categorys-card`}
-                            >
-                                <div className="card-image">
-                                    <img src={`https://api.mashy.sand.alrmoz.com/storage/${cat.images[0]}`} alt={cat?.information?.title} />
-                                </div>
-
-                                <div className="card-user">
-                                    <img src={cat.user?.user_image} alt={cat?.seller?.name?.split(" ").map(word => word[0]).join("").toUpperCase()} />
-                                    <span>{cat.seller?.name}</span>
-                                </div>
-                                <h3>{cat?.information?.title}</h3>
-                                <p>{cat?.information?.description}</p>
-                                <div className="card-meta">
-                                    <span>
-                                        <CiLocationOn />{cat?.location?.area}
-                                    </span>
-                                    <span>
-                                        <CiStopwatch /> {cat?.location?.time}
-                                    </span>
-                                </div>
-                                <Link to={`/${category}/${cat.id_ads}`} className="details-btn">
-                                    عرض التفاصيل
-                                </Link>
+                    <section className='top_section'>
+                        <div className="top_section_container">
+                            <div className="categoryData_links">
+                                <span className="main_link">الرئيسيه </span>
+                                <IoIosArrowBack className='arr_icon' />
+                                <span className="category_link">{specificCate?.title}</span>
                             </div>
-                        ))}
-                    </div>
+
+                            <div className="categoryData_header">
+                                <h2>{specificCate?.title}</h2>
+                                <p>{specificCate?.desc}</p>
+                            </div>
+
+                            <div className="attributes_map">
+                                {category === "vehicles" &&
+                                    [...new Set(categoryData.map((item) => item.attributes.brand))]
+                                        .map((brand, index) => (
+                                            <button key={index}>{brand}</button>
+                                        ))
+                                }
+
+                                {category === "realestate" &&
+                                    realestate.map((item, index) => (
+                                        <button key={index}>{item}</button>
+                                    ))
+                                }
+
+                                {category === "electronics" &&
+                                    electronics.map((item, index) => (
+                                        <button key={index}>{item}</button>
+                                    ))
+                                }
+
+                                {category === "jobs" &&
+                                    jobs.map((item, index) => (
+                                        <button key={index}>{item}</button>
+                                    ))
+                                }
+
+                                {category === "pets" &&
+                                    pets.map((item, index) => (
+                                        <button key={index}>{item}</button>
+                                    ))
+                                }
+
+                                {category === "services" &&
+                                    services.map((item, index) => (
+                                        <button key={index}>{item}</button>
+                                    ))
+                                }
+
+                                {category === "furniture" &&
+                                    furniture.map((item, index) => (
+                                        <button key={index}>{item}</button>
+                                    ))
+                                }
+
+                                {category === "fashion" &&
+                                    fashion.map((item, index) => (
+                                        <button key={index}>{item}</button>
+                                    ))
+                                }
+                            </div>
+
+                        </div>
+                    </section>
+
+                    <section className='bottom_section'>
+                        <div className="categories_items">
+                            {categoryData.map((cat) => (
+                                <div
+                                    key={cat.id_ads}
+                                    className={`categorys-card`}
+                                >
+                                    <div className="card-image">
+                                        <img src={`https://api.mashy.sand.alrmoz.com/storage/${cat.images[0]}`} alt={cat?.information?.title} />
+                                    </div>
+
+                                    <div className="card-user">
+                                        <img src={cat.user?.user_image} alt={cat?.seller?.name?.split(" ").map(word => word[0]).join("").toUpperCase()} />
+                                        <span>{cat.seller?.name}</span>
+                                    </div>
+                                    <h3>{cat?.information?.title}</h3>
+                                    <p>{cat?.information?.description}</p>
+                                    <div className="card-meta">
+                                        <span>
+                                            <CiLocationOn />{cat?.location?.area}
+                                        </span>
+                                        <span>
+                                            <CiStopwatch /> {cat?.location?.time}
+                                        </span>
+                                    </div>
+                                    <Link to={`/${category}/${cat.id_ads}`} className="details-btn">
+                                        عرض التفاصيل
+                                    </Link>
+                                </div>
+                            ))}
+                        </div>
+                    </section>
                 </>
             )}
         </div>
