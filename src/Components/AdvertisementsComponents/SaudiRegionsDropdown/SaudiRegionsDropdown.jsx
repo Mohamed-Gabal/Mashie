@@ -70,6 +70,9 @@ export default function SaudiRegionsDropdown({ setRegion, setCity }) {
                 </button>
                 {isOpenRegion && (
                     <ul className="dropdown_menu" style={{ height: isOpenRegion ? "200px" : "0px" }}>
+                        <li className='dropdown_item' onClick={() => { setRegion(null); setIsOpenRegion(false); setSelectedRegion(null); }}>
+                            <span>كل المناطق</span>
+                        </li>
                         {saudiRegions.map((item, index) => (
                             <li
                                 key={index}
