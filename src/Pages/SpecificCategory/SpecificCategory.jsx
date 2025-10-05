@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { CiLocationOn, CiStopwatch } from 'react-icons/ci';
 import { Link, useParams } from 'react-router-dom';
 import "./SpecificCategory.css"
@@ -11,9 +11,6 @@ export default function SpecificCategory() {
     const [isLoading, setIsLoading] = useState(false);
     const [categoryData, setCategoryData] = useState([]);
     const specificCate = specificCategoriesData.find((cat) => category === cat.key) || "اسم الفئة";
-    const [region, setRegion] = useState("");
-    const [city, setCity] = useState("");
-    console.log(region);
 
     // filtered type
     const [filteredAttributes, setFilteredAttributes] = useState(null);
@@ -22,19 +19,32 @@ export default function SpecificCategory() {
         if (!filteredAttributes) return true;
         return item.attributes?.[filteredAttributes] === attributeValue;
     });
-    console.log("filter data", filteredCategoriesData);
 
+    const [region, setRegion] = useState("");
     const filteredCategoriesDataByregion = filteredCategoriesData.filter((item) => {
         if (!region || region === "كل المناطق") return true;
         return item?.location?.area === region;
     });
-    console.log("region filter", filteredCategoriesDataByregion);
 
+    const [city, setCity] = useState("");
     const filteredCategoriesDataByCity = filteredCategoriesDataByregion.filter((item) => {
         if (!city || city === "كل المدن") return true;
         return item?.location?.city === city;
     });
-    console.log("city filter", filteredCategoriesDataByCity);
+
+    // handle search bar
+    const searchInputRef = useRef(null);
+    const [searchInput, setSearchInput] = useState("");
+    const handleSearchButton = () => { searchInputRef.current.value.trim(); }
+
+    const handleSearchKeyDown = (e) => {
+        if (e.key === "Enter") {
+            searchInputRef.current.value.trim();
+        }
+    };
+
+    // Filtered categories by search bar (case-insensitive)
+    const filteredCategoriesDataByTitle = filteredCategoriesDataByCity.filter((item) => item?.information?.title?.toLowerCase().includes(searchInput.toLowerCase().trim()))
 
     useEffect(() => {
         const fetchCategoryData = async () => {
@@ -72,6 +82,21 @@ export default function SpecificCategory() {
                             <div className="categoryData_header">
                                 <h2>{specificCate?.title}</h2>
                                 <p>{specificCate?.desc}</p>
+                                <div className="search_input">
+                                    <input
+                                        type="search"
+                                        name="searchByTitle"
+                                        value={searchInput}
+                                        onChange={(e) => setSearchInput(e.target.value)}
+                                        onKeyDown={handleSearchKeyDown}
+                                        ref={searchInputRef}
+                                        id="searchByTitle"
+                                        placeholder={specificCate.search}
+                                    />
+                                    <button type='button' onClick={handleSearchButton}>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width={20} height={20} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-search-icon lucide-search"><path d="m21 21-4.34-4.34" /><circle cx={11} cy={11} r={8} /></svg>
+                                    </button>
+                                </div>
                             </div>
 
                             <div className="attributes_map">
@@ -183,7 +208,7 @@ export default function SpecificCategory() {
 
                     <section className='bottom_section'>
                         <div className="categories_items">
-                            {filteredCategoriesDataByCity.map((cat) => (
+                            {filteredCategoriesDataByTitle.map((cat) => (
                                 <div
                                     key={cat.id_ads}
                                     className={`categorys-card`}
