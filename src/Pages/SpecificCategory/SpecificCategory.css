@@ -38,6 +38,7 @@
     color: #2C3E50;
     margin-top: 20px;
 }
+
 .categoryData_header .search_input {
     width: 100%;
     margin-top: 20px;
@@ -45,7 +46,8 @@
     overflow: hidden;
     position: relative;
 }
-.categoryData_header .search_input input{
+
+.categoryData_header .search_input input {
     width: 100%;
     border: 2px solid var(--border-color);
     color: var(--parg-color);
@@ -54,12 +56,15 @@
     padding-right: 40px;
     outline: none;
 }
+
 .categoryData_header .search_input input::placeholder {
     font-size: var(--font-size-sm);
 }
+
 .categoryData_header .search_input input:focus {
     border-color: var(--main-color);
 }
+
 .categoryData_header .search_input button {
     background-color: transparent;
     color: var(--parg-color);
@@ -74,7 +79,7 @@
     top: 50%;
     right: 0px;
     transform: translateY(-50%);
-    cursor: pointer; 
+    cursor: pointer;
 }
 
 .attributes_map {
@@ -100,7 +105,7 @@
     transition: all ease-in-out .3s;
 }
 
-.attributes_map button.attri_btn_active{
+.attributes_map button.attri_btn_active {
     background-color: var(--main-color);
     color: white;
 }
@@ -120,4 +125,177 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 20px;
+}
+
+
+/* ------------ cards ---------- */
+
+.category_card {
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 0px;
+}
+
+.category_card:hover {
+    transform: translateY(-4px);
+}
+
+.card-image {
+    width: 400px;
+    height: 200px;
+    background: #f5f5f5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    padding: 0px;
+}
+
+.card-image img {
+    width: 100%;
+    height: 200px;
+    object-fit: contain;
+    object-position: center;
+    background-color: #fff;
+    margin: 0px;
+}
+
+
+.card-user {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    gap: 8px;
+    padding: 10px 12px;
+    width: 100%;
+}
+
+.card-user img {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #ddd;
+}
+
+.avatar_placeholder {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: #e0e0e0;
+    color: #555;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+.categories_items .category_card .card-body {
+    width: 100%;
+}
+
+.categories_items .category_card .card-body h3 {
+    padding: 0 12px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+    margin: 8px 0;
+    line-height: 1.4;
+}
+
+.categories_items .category_card .card-body .card-meta {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 12px 12px;
+    font-size: 14px;
+    color: #777;
+}
+
+.card-meta span {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.details-btn {
+    display: block;
+    text-align: center;
+    background-color: var(--main-color);
+    color: white;
+    padding: 10px;
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+
+
+
+/* ====== ريسبونسف ====== */
+@media (max-width: 768px) {
+    .categorys-card .card-image img {
+        width: 100%;
+        height: 100px;
+    }
+
+    .categorys-card .card-user {
+        gap: 5px;
+    }
+
+    .categorys-card .card-user img {
+        width: 20px;
+        height: 20px;
+    }
+
+    .categorys-card .card-user span {
+        font-size: 9px;
+    }
+
+    .categorys-card h3 {
+        font-size: 14px;
+        margin: 0 10px;
+    }
+
+    .categorys-card p {
+        font-size: 10px;
+        margin: 0px 10px 10px;
+    }
+
+    .category-header h1 {
+        font-size: 22px;
+    }
+
+    .brand-buttons,
+    .category-filters {
+        justify-content: flex-start;
+        overflow-x: auto;
+        padding-bottom: 8px;
+    }
+
+    .card-meta span {
+        font-size: 10px;
+    }
+
+    .card-meta svg {
+        font-size: 15px;
+    }
+
+    .details-btn {
+        padding: 5px 10px;
+        margin: 0 auto 5px;
+        font-size: 12px;
+    }
+
+    .brand-btn,
+    .filter-btn {
+        white-space: nowrap;
+    }
+
+    .categorys-items {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+    }
 }

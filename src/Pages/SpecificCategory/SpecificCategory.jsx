@@ -214,24 +214,36 @@ export default function SpecificCategory() {
                             {filteredCategoriesDataByTitle.map((cat) => (
                                 <div
                                     key={cat.id_ads}
-                                    className={`categorys-card`}
+                                    className={`category_card`}
                                 >
                                     <div className="card-image">
-                                        <img src={`https://api.mashy.sand.alrmoz.com/storage/${cat.images[0]}`} alt={cat?.information?.title} />
+                                        <img
+                                            src={cat.images?.[0] ? `https://api.mashy.sand.alrmoz.com/storage/${cat.images[0]}` : "/placeholder.png"}
+                                            alt={cat?.information?.title}
+                                        />
+
                                     </div>
 
                                     <div className="card-user">
-                                        <img src={cat.user?.user_image} alt={cat?.seller?.name?.split(" ").map(word => word[0]).join("").toUpperCase()} />
+                                        {cat.user?.user_image ? (
+                                            <img src={cat.user.user_image} alt={cat.seller?.name} />
+                                        ) : (
+                                            <div className="avatar_placeholder">
+                                                {cat?.seller?.name?.split(" ").map(word => word[0]).join("").toUpperCase()}
+                                            </div>
+                                        )}
                                         <span>{cat.seller?.name}</span>
                                     </div>
-                                    <h3>{cat?.information?.title.substring(0, 40)}...</h3>
-                                    <div className="card-meta">
-                                        <span>
-                                            <CiLocationOn />{cat?.location?.area}
-                                        </span>
-                                        <span>
-                                            <CiStopwatch /> {timeSince(cat.created_at)}
-                                        </span>
+                                    <div className="card-body">
+                                        <h3>{cat?.information?.title.substring(0, 40)}...</h3>
+                                        <div className="card-meta">
+                                            <span>
+                                                <CiLocationOn />{cat?.location?.area}
+                                            </span>
+                                            <span>
+                                                <CiStopwatch /> {timeSince(cat.created_at)}
+                                            </span>
+                                        </div>
                                     </div>
                                     <Link to={`/${category}/${cat.id_ads}`} className="details-btn">
                                         عرض التفاصيل
