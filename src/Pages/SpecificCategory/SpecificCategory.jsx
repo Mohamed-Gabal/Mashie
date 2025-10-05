@@ -35,11 +35,15 @@ export default function SpecificCategory() {
     // handle search bar
     const searchInputRef = useRef(null);
     const [searchInput, setSearchInput] = useState("");
-    const handleSearchButton = () => { searchInputRef.current.value.trim(); }
+    const handleSearchButton = () => {
+        const value = searchInputRef.current.value.trim();
+        setSearchInput(value);
+    };
 
     const handleSearchKeyDown = (e) => {
         if (e.key === "Enter") {
-            searchInputRef.current.value.trim();
+            const value = searchInputRef.current.value.trim();
+            setSearchInput(value);
         }
     };
 
@@ -86,10 +90,8 @@ export default function SpecificCategory() {
                                     <input
                                         type="search"
                                         name="searchByTitle"
-                                        value={searchInput}
-                                        onChange={(e) => setSearchInput(e.target.value)}
-                                        onKeyDown={handleSearchKeyDown}
                                         ref={searchInputRef}
+                                        onKeyDown={handleSearchKeyDown}
                                         id="searchByTitle"
                                         placeholder={specificCate.search}
                                     />
@@ -207,6 +209,7 @@ export default function SpecificCategory() {
                     </section>
 
                     <section className='bottom_section'>
+
                         <div className="categories_items">
                             {filteredCategoriesDataByTitle.map((cat) => (
                                 <div
