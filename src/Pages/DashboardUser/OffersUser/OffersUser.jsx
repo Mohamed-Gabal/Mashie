@@ -1,3 +1,5 @@
+
+
 import React, { useState } from "react";
 import "./offersUser.css";
 import { IoLocationOutline } from "react-icons/io5";
@@ -85,17 +87,18 @@ const OffersUser = () => {
             <div className="offer_content_user">
               <h5 className="offer_user_title">{ad.title}</h5>
               <div className="offer_user_meta">
-                <span>
+                <span className="info">
                   <IoLocationOutline /> {ad.location}
-                </span>
-                <span>
                   <MdOutlineTimer /> {ad.time}
                 </span>
               </div>
-              <div className="offer_actions_pro">
-                <button className="edit_btn_pro">تعديل</button>
-                <button className="view_btn_pro">عرض الإعلان</button>
-              </div>
+              <button className="offer_actions_pro_btn">عرض الاعلان</button>
+            </div>
+
+            {/* أزرار تعديل وحذف قصاد الصورة */}
+            <div className="offer_actions_pro">
+              <button className="edit_btn_pro">تعديل</button>
+              <button className="delete_btn_pro">حذف</button>
             </div>
           </div>
         ))}
@@ -108,6 +111,5 @@ const OffersUser = () => {
     </div>
   );
 };
+
 export default OffersUser;
-
-

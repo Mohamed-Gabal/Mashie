@@ -34,8 +34,8 @@ const SidebarDashboard = () => {
         <div className="Sidebar_Dashboard_links">
           <ul className="Sidebar_Dashboard_link">
             <li><Link to="/offersUser"> <PiTagSimple />العروض</Link></li>
-            <li><Link to="/dashboard/messages"> <LuMessageCircleMore />الرسائل</Link></li>
-            <li><Link to="/dashboard/notifications"> <IoIosNotificationsOutline />الاشعارات</Link></li>
+            <li><Link to="/messageUser"> <LuMessageCircleMore />الرسائل</Link></li>
+            <li><Link to="/notifactionsUser"> <IoIosNotificationsOutline />الاشعارات</Link></li>
             <li><Link to="/dashboard/favorites"> <MdFavoriteBorder />المفضلة</Link></li>
           </ul>
         </div>

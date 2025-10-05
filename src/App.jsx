@@ -21,6 +21,8 @@ import DetailsLayout from "./Pages/DetailsLayout/DetailsLayout";
 // pages dashboard
 import AccountUser from "./Pages/DashboardUser/AccountUser/AccountUser";
 import OffersUser from "./Pages/DashboardUser/OffersUser/OffersUser";
+import MessageUser from "./Pages/DashboardUser/MessageUser/MessageUser";
+import NotifactionsUser from "./Pages/DashboardUser/NotifactionsUser/NotifactionsUser";
 
 
 // categoriesData
@@ -45,6 +47,8 @@ const App = () => {
      {/* صفحات عامة داخل LayoutDashboard */}
      <Route path="/accountUser" element={<LayoutDashboard><AccountUser /></LayoutDashboard>} />
      <Route path="/offersUser" element={<LayoutDashboard><OffersUser /></LayoutDashboard>} />
+     <Route path="/messageUser" element={<LayoutDashboard><MessageUser /></LayoutDashboard>} />
+     <Route path="/notifactionsUser" element={<LayoutDashboard><NotifactionsUser /></LayoutDashboard>} />
       
        {/* صفحات أضف إعلانك  */}
       <Route path="/Advertisements" element={<Advertisements/>}/>
