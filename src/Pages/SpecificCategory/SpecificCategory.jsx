@@ -3,29 +3,14 @@ import { CiLocationOn, CiStopwatch } from 'react-icons/ci';
 import { Link, useParams } from 'react-router-dom';
 import "./SpecificCategory.css"
 import { IoIosArrowBack } from 'react-icons/io';
-import { electronics, fashion, furniture, jobs, pets, realestate, services } from '../../data';
+import { electronics, fashion, furniture, jobs, pets, realestate, services, specificCategoriesData } from '../../data';
 import SaudiRegionsDropdown from '../../Components/AdvertisementsComponents/SaudiRegionsDropdown/SaudiRegionsDropdown';
-
-export const categories = [
-    { id: 1, key: "vehicles", name: "السيارات", title: "السيارات والمركبات", desc: "تصفح كل أنواع السيارات والمركبات" },
-    { id: 2, key: "realestate", name: "العقارات", title: "العقارات والشقق", desc: "تصفح كل أنواع العقارات والشقق" },
-    { id: 3, key: "electronics", name: "الإلكترونيات", title: "الأجهزة والالكترونيات", desc: "تصفح جميع الأجهزة والالكترونيات" },
-    { id: 4, key: "jobs", name: "الوظائف", title: "الوظائف بأنواعها", desc: "تصفح جميع أنواع الوظائف" },
-    { id: 5, key: "furniture", name: "الأثاث", title: "الأثاث", desc: "تصفح جميع أنواع الأثاث" },
-    { id: 6, key: "services", name: "الخدمات", title: "الخدمات بأنواعها", desc: "تصفح جميع أنواع الخدمات" },
-    { id: 7, key: "fashion", name: "الأزياء", title: "الأزياء بأنواعها", desc: "تصفح جميع أنواع الأزياء" },
-    { id: 8, key: "food", name: "الأطعمة", title: "الأطعمة بأنواعها", desc: "تصفح جميع أنواع الأطعمة" },
-    { id: 9, key: "anecdotes", name: "النوادر", title: "النوادر بأنواعها", desc: "تصفح جميع أنواع النوادر" },
-    { id: 10, key: "gardens", name: "الحدائق", title: "الحدائق بأنواعها", desc: "تصفح جميع أنواع مستلزمات وزينة الحدائق بسهولة" },
-    { id: 11, key: "trips", name: "الرحلات", title: "الرحلات بأنواعها", desc: "اكتشف جميع مستلزمات وأنشطة الرحلات بسهولة" },
-    { id: 12, key: "pets", name: "الحيوانات", title: "الحيوانات والمواشي", desc: "تصفح جميع الحيوانات والمواشي" },
-];
 
 export default function SpecificCategory() {
     const { category } = useParams();
     const [isLoading, setIsLoading] = useState(false);
     const [categoryData, setCategoryData] = useState([]);
-    const specificCate = categories.find((cat) => category === cat.key) || "اسم الفئة";
+    const specificCate = specificCategoriesData.find((cat) => category === cat.key) || "اسم الفئة";
     const [region, setRegion] = useState("");
     const [city, setCity] = useState("");
     console.log(region);
