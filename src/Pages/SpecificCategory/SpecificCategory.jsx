@@ -3,7 +3,7 @@ import { CiLocationOn, CiStopwatch } from 'react-icons/ci';
 import { Link, useParams } from 'react-router-dom';
 import "./SpecificCategory.css"
 import { IoIosArrowBack } from 'react-icons/io';
-import { electronics, fashion, furniture, jobs, pets, realestate, services, specificCategoriesData } from '../../data';
+import { attributesMap, electronics, fashion, furniture, jobs, pets, realestate, services, specificCategoriesData } from '../../data';
 import SaudiRegionsDropdown from '../../Components/AdvertisementsComponents/SaudiRegionsDropdown/SaudiRegionsDropdown';
 
 export default function SpecificCategory() {
@@ -111,94 +111,23 @@ export default function SpecificCategory() {
                                 >
                                     عرض الكل
                                 </button>
+
+                                {attributesMap[category]?.data?.map((item, index) => (
+                                    <button
+                                        key={index}
+                                        className={filteredAttributes === attributesMap[category].key && attributeValue === item ? "attri_btn_active" : ""}
+                                        onClick={() => { setFilteredAttributes(attributesMap[category].key); setAttributeValue(item); }}
+                                    >
+                                        {item}
+                                    </button>
+                                ))}
+
+
                                 {category === "vehicles" &&
                                     [...new Set(categoryData.map((item) => item.attributes.brand))]
                                         .map((brand, index) => (
                                             <button key={index}>{brand}</button>
                                         ))
-                                }
-
-                                {category === "realestate" &&
-                                    realestate.map((item, index) => (
-                                        <button
-                                            key={index}
-                                            className={filteredAttributes === "realestateType" && attributeValue === item ? "attri_btn_active" : ""}
-                                            onClick={() => { setFilteredAttributes("realestateType"); setAttributeValue(`${item}`) }}
-                                        >
-                                            {item}
-                                        </button>))
-                                }
-
-                                {category === "electronics" &&
-                                    electronics.map((item, index) => (
-                                        <button
-                                            key={index}
-                                            className={filteredAttributes === "electronicType" && attributeValue === item ? "attri_btn_active" : ""}
-                                            onClick={() => { setFilteredAttributes("electronicType"); setAttributeValue(`${item}`) }}
-                                        >
-                                            {item}
-                                        </button>
-                                    ))
-                                }
-
-                                {category === "jobs" &&
-                                    jobs.map((item, index) => (
-                                        <button
-                                            key={index}
-                                            className={filteredAttributes === "jobType" && attributeValue === item ? "attri_btn_active" : ""}
-                                            onClick={() => { setFilteredAttributes("jobType"); setAttributeValue(`${item}`) }}
-                                        >
-                                            {item}
-                                        </button>
-                                    ))
-                                }
-
-                                {category === "pets" &&
-                                    pets.map((item, index) => (
-                                        <button
-                                            key={index}
-                                            className={filteredAttributes === "animalType" && attributeValue === item ? "attri_btn_active" : ""}
-                                            onClick={() => { setFilteredAttributes("animalType"); setAttributeValue(`${item}`) }}
-                                        >
-                                            {item}
-                                        </button>
-                                    ))
-                                }
-
-                                {category === "services" &&
-                                    services.map((item, index) => (
-                                        <button
-                                            key={index}
-                                            className={filteredAttributes === "serviceType" && attributeValue === item ? "attri_btn_active" : ""}
-                                            onClick={() => { setFilteredAttributes("serviceType"); setAttributeValue(`${item}`) }}
-                                        >
-                                            {item}
-                                        </button>
-                                    ))
-                                }
-
-                                {category === "furniture" &&
-                                    furniture.map((item, index) => (
-                                        <button
-                                            key={index}
-                                            className={filteredAttributes === "furnitureType" && attributeValue === item ? "attri_btn_active" : ""}
-                                            onClick={() => { setFilteredAttributes("furnitureType"); setAttributeValue(`${item}`) }}
-                                        >
-                                            {item}
-                                        </button>
-                                    ))
-                                }
-
-                                {category === "fashion" &&
-                                    fashion.map((item, index) => (
-                                        <button
-                                            key={index}
-                                            className={filteredAttributes === "fashionType" && attributeValue === item ? "attri_btn_active" : ""}
-                                            onClick={() => { setFilteredAttributes("fashionType"); setAttributeValue(`${item}`) }}
-                                        >
-                                            {item}
-                                        </button>
-                                    ))
                                 }
                             </div>
 
