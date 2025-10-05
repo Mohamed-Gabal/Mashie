@@ -23,6 +23,7 @@ import AccountUser from "./Pages/DashboardUser/AccountUser/AccountUser";
 import OffersUser from "./Pages/DashboardUser/OffersUser/OffersUser";
 import MessageUser from "./Pages/DashboardUser/MessageUser/MessageUser";
 import NotifactionsUser from "./Pages/DashboardUser/NotifactionsUser/NotifactionsUser";
+import FavoritesUser from "./Pages/DashboardUser/FavoritesUser/FavoritesUser";
 
 
 // categoriesData
@@ -49,6 +50,7 @@ const App = () => {
      <Route path="/offersUser" element={<LayoutDashboard><OffersUser /></LayoutDashboard>} />
      <Route path="/messageUser" element={<LayoutDashboard><MessageUser /></LayoutDashboard>} />
      <Route path="/notifactionsUser" element={<LayoutDashboard><NotifactionsUser /></LayoutDashboard>} />
+     <Route path="/favoritesUser" element={<LayoutDashboard><FavoritesUser /></LayoutDashboard>} />
       
        {/* صفحات أضف إعلانك  */}
       <Route path="/Advertisements" element={<Advertisements/>}/>

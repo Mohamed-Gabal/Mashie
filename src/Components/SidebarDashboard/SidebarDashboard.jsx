@@ -36,7 +36,7 @@ const SidebarDashboard = () => {
             <li><Link to="/offersUser"> <PiTagSimple />العروض</Link></li>
             <li><Link to="/messageUser"> <LuMessageCircleMore />الرسائل</Link></li>
             <li><Link to="/notifactionsUser"> <IoIosNotificationsOutline />الاشعارات</Link></li>
-            <li><Link to="/dashboard/favorites"> <MdFavoriteBorder />المفضلة</Link></li>
+            <li><Link to="/favoritesUser"> <MdFavoriteBorder />المفضلة</Link></li>
           </ul>
         </div>
 
