@@ -35,7 +35,7 @@ export default function Category({ formik  }) {
                             role="button"
                             tabIndex={0}
                             onKeyDown={(e) => e.key === "Enter" && setFieldValue("category", cat.key)}
-                            className={`category_card ${values.category === cat.key ? "active_category" : ""}`}
+                            className={`categoryads_card ${values.category === cat.key ? "active_category" : ""}`}
                         >
                             <div className="icon"><img src={cat.icon} alt={cat.name} /></div>
                             <p>{cat.name}</p>
