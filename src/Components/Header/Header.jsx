@@ -101,7 +101,7 @@ const Header = () => {
                 <svg xmlns="http://www.w3.org/2000/svg" width={22} height={22} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-chevron-down-icon lucide-chevron-down"><path d="m6 9 6 6 6-6" /></svg>
               </Link>
 
-              <div className="profile-card" style={{ height: toggleProfileCard ? "280px" : "0" }}>
+              <div className="profile-card" style={{ height: toggleProfileCard ? "300px" : "0" }}>
                 <div className="user-info">
                   <img src={userData.image} alt={userData?.name?.split(" ").map(word => word[0]).join("").toUpperCase()} className="user_img" />
                   <div>
