@@ -9,15 +9,19 @@ export default function SaudiRegionsDropdown({ setRegion, setCity }) {
     const [selectedRegion, setSelectedRegion] = useState(null);
     const RegionDropdownRef = useRef(null);
     const handleSelectRegion = (region) => {
-        if (region === "كل المناطق") {
+        if (!region || region === "كل المناطق") {
+            setSelectedRegion(null);
             setRegion(null);
+            setCity(null); 
+            setSelectedCity("كل المدن");
+            setIsOpenRegion(false);
         } else {
             setSelectedRegion(region.region);
             setRegion(region.region);
+            setSelectedCity("كل المدن");
+            setCity(null);
+            setIsOpenRegion(false);
         }
-        setSelectedCity("كل المدن");
-        setCity(null);
-        setIsOpenRegion(false);
     };
 
     const cityDropdownRef = useRef(null);
@@ -25,12 +29,13 @@ export default function SaudiRegionsDropdown({ setRegion, setCity }) {
     const [selectedCity, setSelectedCity] = useState(null);
     const handleSelectCity = (city) => {
         setSelectedCity(city);
-        if (city === "كل المدن") {
+        if (!city || city === "كل المدن") {
             setCity(null);
+            setIsOpenCity(false);
         } else {
             setCity(city);
+            setIsOpenCity(false);
         }
-        setIsOpenCity(false);
     };
 
     const filteredCities = saudiRegions.find((item) => item.region === selectedRegion);
@@ -70,7 +75,7 @@ export default function SaudiRegionsDropdown({ setRegion, setCity }) {
                 </button>
                 {isOpenRegion && (
                     <ul className="dropdown_menu" style={{ height: isOpenRegion ? "200px" : "0px" }}>
-                        <li className='dropdown_item' onClick={() => { setRegion(null); setIsOpenRegion(false); setSelectedRegion(null); }}>
+                        <li className='dropdown_item' onClick={() => { handleSelectRegion(null) }}>
                             <span>كل المناطق</span>
                         </li>
                         {saudiRegions.map((item, index) => (
@@ -96,7 +101,7 @@ export default function SaudiRegionsDropdown({ setRegion, setCity }) {
                 </button>
                 {isOpenCity && selectedRegion && (
                     <ul className="dropdown_menu" style={{ height: isOpenCity && selectedRegion ? "200px" : "0px" }}>
-                        <li className='dropdown_item' onClick={() => { setCity(null); setIsOpenCity(false) }}>
+                        <li className='dropdown_item' onClick={() => { handleSelectCity(null) }}>
                             <span>كل المدن</span>
                         </li>
                         {filteredCities?.cities?.map((item, index) => (
