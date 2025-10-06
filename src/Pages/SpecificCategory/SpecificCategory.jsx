@@ -3,7 +3,7 @@ import { CiLocationOn, CiStopwatch } from 'react-icons/ci';
 import { Link, useParams } from 'react-router-dom';
 import "./SpecificCategory.css"
 import { IoIosArrowBack } from 'react-icons/io';
-import { attributesMap, electronics, fashion, furniture, jobs, pets, realestate, services, specificCategoriesData } from '../../data';
+import { attributesMap, specificCategoriesData } from '../../data';
 import SaudiRegionsDropdown from '../../Components/AdvertisementsComponents/SaudiRegionsDropdown/SaudiRegionsDropdown';
 
 export default function SpecificCategory() {
@@ -49,7 +49,6 @@ export default function SpecificCategory() {
 
     // Filtered categories by search bar (case-insensitive)
     const filteredCategoriesDataByTitle = filteredCategoriesDataByCity.filter((item) => item?.information?.title?.toLowerCase().includes(searchInput.toLowerCase().trim()))
-    console.log(filteredCategoriesDataByTitle);
     useEffect(() => {
         const fetchCategoryData = async () => {
             try {
