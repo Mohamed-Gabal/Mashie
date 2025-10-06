@@ -109,13 +109,19 @@
 
 /* ===== Bottom Section ===== */
 .bottom_section {
-    max-width: 1195px;
+    max-width: 1170px;
+    padding-bottom: 100px;
     margin: auto;
+}
+.bottom_section_header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
 }
 
 /* ===== Cards ===== */
 .categories_items {
-    padding: 20px 20px 100px;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 20px;
@@ -224,6 +230,9 @@
 /* ====== Responsive ====== */
 
 @media (max-width: 1024px) {
+    .bottom_section{
+        padding: 20px 20px 100px;
+    }
     .categories_items {
         grid-template-columns: repeat(3, 1fr);
         gap: 15px;
