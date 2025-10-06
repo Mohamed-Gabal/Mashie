@@ -202,7 +202,7 @@ function toArabicNumbers(number) {
     return number.toString().split("").map(d => arabicNumbers[d] || d).join("");
 }
 
-function timeSince(dateString) {
+export function timeSince(dateString) {
     const now = new Date();
     const past = new Date(dateString.replace(" ", "T"));
     const dateOnly = dateString.split(" ")[0];

@@ -1,11 +1,11 @@
 .details-layout {
-  direction: rtl;
   display: flex;
   gap: 20px;
-  margin-top: 80px;
-  padding: 20px;
+  padding-top: 100px;
   background-color: var(--landing-color);
   min-height: 100vh;
+  max-width: 1160px;
+  margin: auto;
 }
 
 .details-right {
@@ -117,12 +117,14 @@
   border: 2px solid var(--main-color);
 }
 
-.details-layout-info {
+.details_specifications {
   margin-top: 20px;
   padding: 15px;
-  background-color: var(--landing-color);
+  background-color: var(--color);
+  color: var(--header-color);
   border-radius: 10px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  border: 1px solid var(--border-color);
 }
 
 .details-lay-info-title {
@@ -130,14 +132,57 @@
   margin-bottom: 10px;
 }
 
-.details-layout-info .details-lay-info-item {
+.details_specifications_box {
+  background-color: #ECF0F1;
+  border-radius: var(--radius-md);
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.attributes, .deteils_location {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.attributes .attribute_item, .deteils_location_item {
+  background-color: var(--color);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  border-radius: var(--radius-sm);
+  padding: 5px;
+  width: 250px;
+}
+
+.attribute_item_icon, .location_item_icon {
+  background-color: #AAFFEE80;
+  padding: 10px;
+  border-radius: var(--radius-sm);
+}
+
+.attribute_item_text, .location_text {
+  display: flex;
+  flex-direction: column;
+}
+
+.attribute_item_text span:nth-child(1), .location_text span:nth-child(1) {
+  color: var(--parg-color);
+  font-size: var(--font-size-sm);
+}
+
+.details_specifications .attributes_items {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 15px 40px;
   width: 100%;
 }
 
-.details-layout-info .details-lay-info-item div {
+.details_specifications .attributes_items div {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -148,13 +193,12 @@
   font-size: 15px;
 }
 
-.details-layout-info .details-lay-info-item div .details-lay-info-icon {
-  color: var(--color);
+.details_specifications .attributes_items .attribute_item_icon {
   background-color: var(--main-color);
   width: 30px;
   height: 30px;
   padding: 6px;
-  border-radius: 50%;
+  border-radius: 6px;
 }
 
 .details-layout-decs {
@@ -473,7 +517,7 @@
     flex-direction: column;
   }
 
-  .details-layout-info .details-lay-info-item div {
+  .details_specifications .attributes_items div {
     font-size: 13px;
   }
 
@@ -502,7 +546,7 @@
     /* 3 صور في الصف */
   }
 
-  .details-layout-info .details-lay-info-item {
+  .details_specifications .attributes_items {
     grid-template-columns: 1fr;
     /* عنصر واحد في الصف */
   }
@@ -534,7 +578,7 @@
     /* 5 صور في الصف */
   }
 
-  .details-layout-info .details-lay-info-item {
+  .details_specifications .attributes_items {
     grid-template-columns: repeat(2, 1fr);
   }
 }
@@ -546,7 +590,7 @@
     /* 10 صور في الصف */
   }
 
-  .details-layout-info .details-lay-info-item {
+  .details_specifications .attributes_items {
     grid-template-columns: repeat(2, 1fr);
   }
 }

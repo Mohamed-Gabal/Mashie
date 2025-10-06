@@ -15,6 +15,7 @@ import { LuMessageCircleMore } from "react-icons/lu";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { categories } from "../Advertisements/Category/Category";
+import { timeSince } from "../SpecificCategory/SpecificCategory";
 
 const DetailsLayout = () => {
 
@@ -71,7 +72,7 @@ const DetailsLayout = () => {
         <div className="details-close-titles">
           <span className="details-close-title-yello"> <RiStarSLine className="details-close-title-yello-icon" />{ad_details?.location?.area}</span>
           <span className="details-close-title-main"> <MdOutlineShield className="details-close-title-main-icon" /> بائع موثوق</span>
-          <span className="details-close-title-empty">نشر مند يومين</span>
+          <span className="details-close-title-empty">نشر {ad_details?.created_at ? timeSince(ad_details.created_at) : ""}</span>
         </div>
 
         {/* الصورة الرئيسية */}
@@ -102,14 +103,105 @@ const DetailsLayout = () => {
 
 
         {/* المواصفات */}
-        <div className="details-layout-info">
+        <div className="details_specifications">
           <h3 className="details-lay-info-title">المواصفات</h3>
-          <div className="details-lay-info-item">
-            <div><PiCarSimpleLight className="details-lay-info-icon" /><span>الماركه : تويوتا</span></div>
-            <div><PiCarSimpleLight className="details-lay-info-icon" /><span>الموديل : لاندكروزر</span></div>
-            <div><CiLocationOn className="details-lay-info-icon" /><span>المدينه : الرياض</span></div>
-            <div><CiLocationOn className="details-lay-info-icon" /><span>المنطقه : العليا</span></div>
+          {/* attributes_map */}
+          <div className="details_specifications_box">
+            {details === "vehicles" &&
+              <div className="attributes">
+                <div className="attribute_item">
+                  <div className="attribute_item_icon">
+                    <img src="/Icons/adDetails/building.svg" alt="building" />
+                  </div>
+                  <div className="attribute_item_text">
+                    <span>الماركة</span>
+                    <span>{ad_details?.attributes?.brand}</span>
+                  </div>
+                </div>
+                
+                <div className="attribute_item">
+                  <div className="attribute_item_icon">
+                    <img src="/Icons/adDetails/building.svg" alt="building" />
+                  </div>
+                  <div className="attribute_item_text">
+                    <span>الموديل</span>
+                    <span>{ad_details?.attributes?.model}</span>
+                  </div>
+                </div>
+              </div>
+            }
+            {details === "realestate" &&
+              <div className="attributes">
+                <div className="attribute_item">
+                  <div className="attribute_item_icon">
+                    <img src="/Icons/adDetails/building.svg" alt="building" />
+                  </div>
+                  <div className="attribute_item_text">
+                    <span>نوع العقار</span>
+                    <span>{ad_details?.attributes?.realestateType}</span>
+                  </div>
+                </div>
+
+                <div className="attribute_item">
+                  <div className="attribute_item_icon">
+                    <img src="/Icons/adDetails/PersonArmsSpread.svg" alt="img" />
+                  </div>
+                  <div className="attribute_item_text">
+                    <span>نوع الشارع</span>
+                    <span>{ad_details?.attributes?.streetType}</span>
+                  </div>
+                </div>
+
+                <div className="attribute_item">
+                  <div className="attribute_item_icon">
+                    <img src="/Icons/adDetails/ArrowsOutCardinal.svg" alt="img" />
+                  </div>
+                  <div className="attribute_item_text">
+                    <span>الواجهة</span>
+                    <span>{ad_details?.attributes?.realestateFace}</span>
+                  </div>
+                </div>
+              </div>
+            }
+
+            <div className="deteils_location">
+              <div className="deteils_location_item">
+                <div className="location_item_icon">
+                  <img src="/Icons/adDetails/location.svg" alt="location" />
+                </div>
+                <div className="location_text">
+                  <span>المنطقة</span>
+                  <span>{ad_details?.location?.area}</span>
+                </div>
+              </div>
+
+              <div className="deteils_location_item">
+                <div className="location_item_icon">
+                  <img src="/Icons/adDetails/location.svg" alt="location" />
+                </div>
+                <div className="location_text">
+                  <span>المدينة</span>
+                  <span>{ad_details?.location?.city}</span>
+                </div>
+              </div>
+            </div>
           </div>
+
+          {/* {details === "realestate" &&
+            <div className="details-lay-info-item">
+              <div>
+                <PiCarSimpleLight className="details-lay-info-icon" />
+                <span>الماركه : {ad_details?.attributes?.realestateType}</span>
+              </div>
+              <div>
+                <PiCarSimpleLight className="details-lay-info-icon" />
+                <span>الموديل : لاندكروزر</span>
+              </div>
+              <div><CiLocationOn className="details-lay-info-icon" /><span>المدينه : الرياض</span></div>
+              <div><CiLocationOn className="details-lay-info-icon" /><span>المنطقه : العليا</span></div>
+            </div>
+          } */}
+
         </div>
 
         {/* الوصف */}
