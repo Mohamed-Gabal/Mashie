@@ -5,10 +5,12 @@ import "./SpecificCategory.css"
 import { IoIosArrowBack } from 'react-icons/io';
 import { attributesMap, specificCategoriesData } from '../../data';
 import SaudiRegionsDropdown from '../../Components/AdvertisementsComponents/SaudiRegionsDropdown/SaudiRegionsDropdown';
+import SkeletonCard from '../../Components/SkeletonCard/SkeletonCard';
 
 export default function SpecificCategory() {
     const { category } = useParams();
     const [isLoading, setIsLoading] = useState(false);
+    const [errorMessage, setErrorMessage] = useState(false);
     const [categoryData, setCategoryData] = useState([]);
     const specificCate = specificCategoriesData.find((cat) => category === cat.key) || "اسم الفئة";
 
@@ -60,6 +62,7 @@ export default function SpecificCategory() {
                     setIsLoading(false);
                 }
             } catch (error) {
+                setErrorMessage(true);
                 console.log(error);
             } finally {
                 setIsLoading(false)
@@ -70,9 +73,9 @@ export default function SpecificCategory() {
     }, [category]);
     return (
         <div className='categoryData_container'>
-            {isLoading && <p>loading...</p>}
-
-            {!isLoading && (
+            {isLoading && <SkeletonCard />}
+            {errorMessage && <p>notwork error</p>}
+            {!isLoading && !errorMessage && (
                 <>
                     <section className='top_section'>
                         <div className="top_section_container">
@@ -170,11 +173,11 @@ export default function SpecificCategory() {
                                         <h3>{cat?.information?.title.substring(0, 40)}...</h3>
                                         <div className="card_meta">
                                             <div className="ciLocationOn">
-                                                <CiLocationOn style={{color: "var(--main-color)", fontWeight: "bold"}} />
+                                                <CiLocationOn style={{ color: "var(--main-color)", fontWeight: "bold" }} />
                                                 <span>{cat?.location?.area}</span>
                                             </div>
                                             <div className="ciStopwatch">
-                                                <CiStopwatch style={{color: "var(--main-color)", fontWeight: "bold"}}/>
+                                                <CiStopwatch style={{ color: "var(--main-color)", fontWeight: "bold" }} />
                                                 <span>{timeSince(cat.created_at)}</span>
                                             </div>
                                         </div>
