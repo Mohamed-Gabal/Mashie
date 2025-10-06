@@ -1,0 +1,117 @@
+.Favorites_user_card {
+  display: flex;
+  background-color: var(--color);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: 0.3s ease;
+  padding: 12px;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+.Favorites_user_desc {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 20px 0 10px;
+  color: #333;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.Favorites_user_total {
+  color: var(--main-color);
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.Favorites_user hr {
+  border: none;
+  border-top: 1px solid #ddd;
+  margin: 0 0 20px;
+}
+
+.Favorites_user_item_picture {
+  flex: 0 0 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.Favorites_user_item_picture img {
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  object-fit: cover;
+}
+.Favorites_user_item_details {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.Favorites_user_title {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 8px;
+  color: #222;
+}
+.Favorites_user_meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 13px;
+  color: #555;
+  margin-bottom: 12px;
+}
+.Favorites_user_meta svg {
+  color: var(--main-color);
+  font-size: 15px;
+  cursor: pointer;
+}
+.Favorites_user_meta p,
+.Favorites_user_meta span {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.Favorites_user_actions {
+  display: flex;
+  gap: 10px;
+}
+.Favorites_user_btn {
+  padding: 7px 14px;
+  background-color: var(--main-color);
+  color: var(--color);
+  border: none;
+  border-radius: 6px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.Favorites_user_delete {
+  padding: 7px 14px;
+  background-color: transparent;
+  color: #dc3545;
+  border: 1px solid #dc3545;
+  border-radius: 6px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.Favorites_user_delete:hover {
+  outline: none;
+  background-color: #dc3545;
+  color: var(--color);
+}
+.Favorites_user_showMore {
+  display: block;
+  margin: 25px auto 0; 
+  padding: 8px 18px;
+  font-size: 14px;
+  background-color: var(--main-color);
+  color: var(--color);
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s;
+}

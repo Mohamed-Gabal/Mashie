@@ -45,9 +45,9 @@ const SidebarDashboard = () => {
         {/* الروابط الثانوية */}
         <div className="Sidebar_Dashboard_links">
           <ul className="Sidebar_Dashboard_link">
-            <li><Link to="/dashboard/settings"> <AiOutlineSetting />الإعدادات</Link></li>
-            <li><Link to="/dashboard/blog"> <RiBloggerLine />المدونة</Link></li>
-            <li><Link to="/dashboard/help"> <IoIosHelpCircleOutline />المساعدة</Link></li>
+            <li><Link to="/settingsUser"> <AiOutlineSetting />الإعدادات</Link></li>
+            <li><Link to="/blogUser"> <RiBloggerLine />المدونة</Link></li>
+            <li><Link to="/helpUser"> <IoIosHelpCircleOutline />المساعدة</Link></li>
           </ul>
         </div>
 

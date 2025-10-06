@@ -24,6 +24,9 @@ import OffersUser from "./Pages/DashboardUser/OffersUser/OffersUser";
 import MessageUser from "./Pages/DashboardUser/MessageUser/MessageUser";
 import NotifactionsUser from "./Pages/DashboardUser/NotifactionsUser/NotifactionsUser";
 import FavoritesUser from "./Pages/DashboardUser/FavoritesUser/FavoritesUser";
+import SettingsUser from "./Pages/DashboardUser/SettingsUser/SettingsUser";
+import BlogUser from "./Pages/DashboardUser/BlogUser/BlogUser";
+import HelpUser from "./Pages/DashboardUser/HelpUser/HelpUser";
 
 
 // import Advertisement from "./Pages/Advertisements/Advertisements";
@@ -48,8 +51,9 @@ const App = () => {
      <Route path="/messageUser" element={<LayoutDashboard><MessageUser /></LayoutDashboard>} />
      <Route path="/notifactionsUser" element={<LayoutDashboard><NotifactionsUser /></LayoutDashboard>} />
      <Route path="/favoritesUser" element={<LayoutDashboard><FavoritesUser /></LayoutDashboard>} />
-      <Route path="/:details/:id" element={<MainLayout><DetailsLayout /></MainLayout>} />
-      <Route path="/:category" element={<MainLayout><Category /></MainLayout>} />
+     <Route path="/settingsUser" element={<LayoutDashboard><SettingsUser /></LayoutDashboard>} />
+     <Route path="/blogUser" element={<LayoutDashboard><BlogUser /></LayoutDashboard>} />
+      <Route path="/helpUser" element={<LayoutDashboard><HelpUser /></LayoutDashboard>} />
       
        {/* صفحات أضف إعلانك  */}
       <Route path="/Advertisements" element={<Advertisements/>}/>
