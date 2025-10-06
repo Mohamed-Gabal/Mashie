@@ -8,5 +8,4 @@ const FavoritesUser = () => {
     </div>
   )
 }
-
 export default FavoritesUser;

@@ -116,19 +116,22 @@ const CategoriesSection = () => {
       </div>
       <div className="categories-grid">
         {categories.map((cat) => (
-          <div key={cat.id} className="category-card">
-            <Link to={`/category${cat.link}`}>
+          <Link to={cat.link} key={cat.id} className="category-card">
+            <div className="">
               <div className="icon-box">
                 <img src={cat.img} alt={cat.title} />
               </div>
               <h2>{cat.title}</h2>
+            </div>
+
+            <div className="">
               <p>{cat.desc}</p>
               <span className="count">{cat.count}</span>
-              <span to={`/category${cat.link}`} className="browse-spen">
+              <span className="browse-spen">
                 تصفح القسم
               </span>
-            </Link>
-          </div>
+            </div>
+          </Link>
         ))}
       </div>
     </section>
