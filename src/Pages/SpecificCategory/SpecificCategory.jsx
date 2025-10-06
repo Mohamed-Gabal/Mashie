@@ -49,7 +49,7 @@ export default function SpecificCategory() {
 
     // Filtered categories by search bar (case-insensitive)
     const filteredCategoriesDataByTitle = filteredCategoriesDataByCity.filter((item) => item?.information?.title?.toLowerCase().includes(searchInput.toLowerCase().trim()))
-
+    console.log(filteredCategoriesDataByTitle);
     useEffect(() => {
         const fetchCategoryData = async () => {
             try {
@@ -145,7 +145,7 @@ export default function SpecificCategory() {
                                     key={cat.id_ads}
                                     className={`category_card`}
                                 >
-                                    <div className="card-image">
+                                    <div className="card_image">
                                         <img
                                             src={cat.images?.[0] ? `https://api.mashy.sand.alrmoz.com/storage/${cat.images[0]}` : "/placeholder.png"}
                                             alt={cat?.information?.title}
@@ -153,7 +153,7 @@ export default function SpecificCategory() {
 
                                     </div>
 
-                                    <div className="card-user">
+                                    <div className="card_user">
                                         {cat.user?.user_image ? (
                                             <img src={cat.user.user_image} alt={cat.seller?.name} />
                                         ) : (
@@ -163,18 +163,21 @@ export default function SpecificCategory() {
                                         )}
                                         <span>{cat.seller?.name}</span>
                                     </div>
-                                    <div className="card-body">
+
+                                    <div className="card_body">
                                         <h3>{cat?.information?.title.substring(0, 40)}...</h3>
-                                        <div className="card-meta">
-                                            <span>
-                                                <CiLocationOn />{cat?.location?.area}
-                                            </span>
-                                            <span>
-                                                <CiStopwatch /> {timeSince(cat.created_at)}
-                                            </span>
+                                        <div className="card_meta">
+                                            <div className="ciLocationOn">
+                                                <CiLocationOn style={{color: "var(--main-color)", fontWeight: "bold"}} />
+                                                <span>{cat?.location?.area}</span>
+                                            </div>
+                                            <div className="ciStopwatch">
+                                                <CiStopwatch style={{color: "var(--main-color)", fontWeight: "bold"}}/>
+                                                <span>{timeSince(cat.created_at)}</span>
+                                            </div>
                                         </div>
                                     </div>
-                                    <Link to={`/${category}/${cat.id_ads}`} className="details-btn">
+                                    <Link to={`/${category}/${cat.id_ads}`} className="details_link">
                                         عرض التفاصيل
                                     </Link>
                                 </div>
