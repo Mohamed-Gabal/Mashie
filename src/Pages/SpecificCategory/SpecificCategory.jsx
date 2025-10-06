@@ -73,7 +73,9 @@ export default function SpecificCategory() {
     }, [category]);
     return (
         <div className='categoryData_container'>
-            {isLoading && <SkeletonCard />}
+            {isLoading && (
+                <div className='isLoading'>{Array.from({ length: 4 }, (_, i) => (<SkeletonCard key={i} />))}</div>
+            )}
             {errorMessage && <p>notwork error</p>}
             {!isLoading && !errorMessage && (
                 <>

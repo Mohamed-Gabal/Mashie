@@ -1,3 +1,11 @@
+.isLoading{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    max-width: 1170px;
+    margin: auto;
+    padding: 100px 20px;
+}
 .skeleton_card {
     background-color: rgb(249, 249, 249);
     max-width: 280px;
@@ -93,5 +101,19 @@
 
     50% {
         opacity: 0.6;
+    }
+}
+
+@media (max-width: 1024px) {
+    .isLoading {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 15px;
+    }
+}
+
+@media (max-width: 768px) {
+    .isLoading {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
     }
 }
