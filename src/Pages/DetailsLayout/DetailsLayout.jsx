@@ -397,7 +397,7 @@ const DetailsLayout = () => {
                 </div>
               </div>
 
-              <button className="details-left-top-send">واتساب</button>
+              <button type="button" onClick={()=> handleWhatsApp(ad_details?.seller)} className="details-left-top-send">واتساب</button>
             </div>
 
             {/* نصائح الأمان */}
@@ -455,3 +455,20 @@ const DetailsLayout = () => {
   );
 };
 export default DetailsLayout;
+
+ // handleWhatsApp function to open whatsapp
+export function handleWhatsApp(seller) {
+  if (!seller || !seller.phone) {
+    console.error("Seller data not available");
+    return;
+  }
+
+  const phone = seller.phone.startsWith("0")
+    ? `966${seller.phone.slice(1)}`
+    : `966${seller.phone}`;
+
+  const message = `مرحبًا ${seller.name}! أريد التواصل معك بشأن إعلانك.`;
+  const waUrl = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+
+  window.open(waUrl, "_blank", "noopener,noreferrer");
+}
