@@ -16,10 +16,6 @@
   text-align: end;
 }
 
-.details-left {
-  position: relative;
-}
-
 .details_left_container {
   position: sticky;
   top: 90px;
@@ -100,15 +96,12 @@
   color: var(--color);
 }
 
+
 .details_grid_container {
   display: grid;
-  grid-template-areas:
-    "details-right details-left"
-    "details_footer_comments details-left";
   grid-template-columns: 3fr 1fr;
   gap: 15px;
   margin-top: 20px;
-  padding-bottom: 100px;
 }
 
 .details_images {

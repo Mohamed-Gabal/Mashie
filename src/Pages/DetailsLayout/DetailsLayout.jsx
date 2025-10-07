@@ -5,9 +5,7 @@ import "./detailsLayout.css";
 import { IoIosArrowBack } from "react-icons/io";
 import { RiStarSLine } from "react-icons/ri";
 import { MdOutlineShield } from "react-icons/md";
-import { CiFaceSmile, CiFlag1 } from "react-icons/ci";
 import { FaRegCommentDots } from "react-icons/fa6";
-import { MdOutlinePhoto } from "react-icons/md";
 import { AiOutlineSend, AiOutlineLike } from "react-icons/ai";
 import { IoCallOutline } from "react-icons/io5";
 import { LuMessageCircleMore } from "react-icons/lu";
@@ -15,6 +13,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import { categories } from "../Advertisements/Category/Category";
 import { timeSince } from "../SpecificCategory/SpecificCategory";
+import { CiFlag1 } from "react-icons/ci";
 
 const DetailsLayout = () => {
 
@@ -150,7 +149,7 @@ const DetailsLayout = () => {
                 <div className="attributes">
                   <div className="attribute_item">
                     <div className="attribute_item_icon">
-                      <img src="/Icons/adDetails/building.svg" alt="building" />
+                      <img src="/advertisements/buildings.svg" alt="buildings" />
                     </div>
                     <div className="attribute_item_text">
                       <span>نوع العقار</span>
@@ -180,10 +179,150 @@ const DetailsLayout = () => {
                 </div>
               }
 
+              {details === "electronics" &&
+                <div className="attributes">
+                  <div className="attribute_item">
+                    <div className="attribute_item_icon">
+                      <img src="/advertisements/electronics.svg" alt="electronics" />
+                    </div>
+                    <div className="attribute_item_text">
+                      <span>نوع الجهاز</span>
+                      <span>{ad_details?.attributes?.electronicType}</span>
+                    </div>
+                  </div>
+                </div>
+              }
+
+              {details === "pets" &&
+                <div className="attributes">
+                  <div className="attribute_item">
+                    <div className="attribute_item_icon">
+                      <img src="/advertisements/animals.svg" alt="pets" />
+                    </div>
+                    <div className="attribute_item_text">
+                      <span>نوع الحيوان</span>
+                      <span>{ad_details?.attributes?.animalType}</span>
+                    </div>
+                  </div>
+                </div>
+              }
+
+              {details === "jobs" &&
+                <div className="attributes">
+                  <div className="attribute_item">
+                    <div className="attribute_item_icon">
+                      <img src="/advertisements/jobs.svg" alt="pets" />
+                    </div>
+                    <div className="attribute_item_text">
+                      <span>نوع الوظيفة</span>
+                      <span>{ad_details?.attributes?.jobType}</span>
+                    </div>
+                  </div>
+                </div>
+              }
+
+              {details === "furniture" &&
+                <div className="attributes">
+                  <div className="attribute_item">
+                    <div className="attribute_item_icon">
+                      <img src="/advertisements/furniture.svg" alt="furniture" />
+                    </div>
+                    <div className="attribute_item_text">
+                      <span>نوع الأثاث</span>
+                      <span>{ad_details?.attributes?.furnitureType}</span>
+                    </div>
+                  </div>
+                </div>
+              }
+
+              {details === "services" &&
+                <div className="attributes">
+                  <div className="attribute_item">
+                    <div className="attribute_item_icon">
+                      <img src="/advertisements/services.svg" alt="services" />
+                    </div>
+                    <div className="attribute_item_text">
+                      <span>نوع الخدمات</span>
+                      <span>{ad_details?.attributes?.serviceType}</span>
+                    </div>
+                  </div>
+                </div>
+              }
+
+              {details === "food" &&
+                <div className="attributes">
+                  <div className="attribute_item">
+                    <div className="attribute_item_icon">
+                      <img src="/advertisements/food.svg" alt="food" />
+                    </div>
+                    <div className="attribute_item_text">
+                      <span>نوع الطعام</span>
+                      <span>{ad_details?.attributes?.foodType}</span>
+                    </div>
+                  </div>
+                </div>
+              }
+
+              {details === "gardens" &&
+                <div className="attributes">
+                  <div className="attribute_item">
+                    <div className="attribute_item_icon">
+                      <img src="/advertisements/gardens.svg" alt="gardens" />
+                    </div>
+                    <div className="attribute_item_text">
+                      <span>نوع النوادر</span>
+                      <span>{ad_details?.attributes?.gardenType}</span>
+                    </div>
+                  </div>
+                </div>
+              }
+
+              {details === "anecdotes" &&
+                <div className="attributes">
+                  <div className="attribute_item">
+                    <div className="attribute_item_icon">
+                      <img src="/advertisements/anecdotes.svg" alt="anecdotes" />
+                    </div>
+                    <div className="attribute_item_text">
+                      <span>نوع النوادر</span>
+                      <span>{ad_details?.attributes?.anecdoteType}</span>
+                    </div>
+                  </div>
+                </div>
+              }
+
+              {details === "trips" &&
+                <div className="attributes">
+                  <div className="attribute_item">
+                    <div className="attribute_item_icon">
+                      <img src="/advertisements/trips.svg" alt="trips" />
+                    </div>
+                    <div className="attribute_item_text">
+                      <span>نوع الرحلات</span>
+                      <span>{ad_details?.attributes?.tripType}</span>
+                    </div>
+                  </div>
+                </div>
+              }
+
+              {details === "fashion" &&
+                <div className="attributes">
+                  <div className="attribute_item">
+                    <div className="attribute_item_icon">
+                      <img src="/advertisements/fashion.svg" alt="fashion" />
+                    </div>
+                    <div className="attribute_item_text">
+                      <span>نوع الزي</span>
+                      <span>{ad_details?.attributes?.fashionType}</span>
+                    </div>
+                  </div>
+                </div>
+              }
+
               <div className="deteils_location">
                 <div className="deteils_location_item">
                   <div className="location_item_icon">
-                    <img src="/Icons/adDetails/location.svg" alt="location" />
+                    <img src="/advertisements/location.svg" alt="location" />
                   </div>
                   <div className="location_text">
                     <span>المنطقة</span>
@@ -193,7 +332,7 @@ const DetailsLayout = () => {
 
                 <div className="deteils_location_item">
                   <div className="location_item_icon">
-                    <img src="/Icons/adDetails/location.svg" alt="location" />
+                    <img src="/advertisements/location.svg" alt="location" />
                   </div>
                   <div className="location_text">
                     <span>المدينة</span>
@@ -202,34 +341,18 @@ const DetailsLayout = () => {
                 </div>
               </div>
             </div>
-
-            {/* {details === "realestate" &&
-            <div className="details-lay-info-item">
-              <div>
-                <PiCarSimpleLight className="details-lay-info-icon" />
-                <span>الماركه : {ad_details?.attributes?.realestateType}</span>
-              </div>
-              <div>
-                <PiCarSimpleLight className="details-lay-info-icon" />
-                <span>الموديل : لاندكروزر</span>
-              </div>
-              <div><CiLocationOn className="details-lay-info-icon" /><span>المدينه : الرياض</span></div>
-              <div><CiLocationOn className="details-lay-info-icon" /><span>المنطقه : العليا</span></div>
-            </div>
-          } */}
-
           </div>
 
           {/* الوصف */}
           <div className="details-layout-decs">
             <h3 className="details-lay-decs-title">الوصف</h3>
             <p className="details-lay-decs-info">{ad_details?.information?.description}</p>
-            {/* <div className="details-lay-decs-info">
-            <span className="details-lay-decs-info-item"><FaCheck className="details-lay-decs-info-icon" /> تم تغيير الزيت حديثا</span>
-            <span className="details-lay-decs-info-item"><FaCheck className="details-lay-decs-info-icon" /> تكييف يعمل بكفاءه ممتازه</span>
-            <span className="details-lay-decs-info-item"><FaCheck className="details-lay-decs-info-icon" /> اطارات جديده</span>
-            <span className="details-lay-decs-info-item"><FaCheck className="details-lay-decs-info-icon" /> فحص شامل متوفر</span>
-          </div> */}
+            {ad_details?.attributes?.moreInfo &&
+              <div className="attribute_item_text">
+                <span>معلومات اضافية</span>
+                <span>{ad_details?.attributes?.moreInfo}</span>
+              </div>
+            }
           </div>
         </div>
 
@@ -252,10 +375,10 @@ const DetailsLayout = () => {
                       </div>
                     }
                   </div>
-                  
+
                   <div className="user_info">
                     <h5>{ad_details?.seller?.name}</h5>
-                    <p className="details-left-top-user-member">عضو منذ 2020</p>
+                    <p className="details-left-top-user-member">عضو {ad_details?.user?.account_created_at ? timeSince(ad_details?.user?.account_created_at) : ""}</p>
                   </div>
                 </div>
 
@@ -302,8 +425,6 @@ const DetailsLayout = () => {
           </div>
 
           <div className="details-lay-comments-actions">
-            <span><CiFaceSmile /> اضافه رمز تعبيري</span>
-            <span><MdOutlinePhoto /> اضافه صوره</span>
             <button><AiOutlineSend /> اضافه تعليق</button>
           </div>
 

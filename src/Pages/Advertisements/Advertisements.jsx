@@ -145,7 +145,7 @@ export default function Advertisements() {
                 }
 
                 if (formik.values.category === "electronics") {
-                    formData.append("information[electronics][deviceType]", formik.values.information.electronics.deviceType);
+                    formData.append("information[electronics][electronicType]", formik.values.information.electronics.deviceType);
                     formData.append("information[electronics][moreInfo]", formik.values.information.electronics.moreInfo);
                 }
 
