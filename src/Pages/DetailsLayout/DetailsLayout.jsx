@@ -14,6 +14,7 @@ import axios from "axios";
 import { categories } from "../Advertisements/Category/Category";
 import { timeSince } from "../SpecificCategory/SpecificCategory";
 import { CiFlag1 } from "react-icons/ci";
+import { attributeMapForDetails } from "../../data";
 
 const DetailsLayout = () => {
 
@@ -120,205 +121,20 @@ const DetailsLayout = () => {
           {/* المواصفات */}
           <div className="details_specifications">
             <h3 className="details-lay-info-title">المواصفات</h3>
-            {/* attributes_map */}
             <div className="details_specifications_box">
-              {details === "vehicles" &&
-                <div className="attributes">
-                  <div className="attribute_item">
+              <div className="attributes">
+                {attributeMapForDetails(ad_details)[details].map((item, index) => (
+                  <div className="attribute_item" key={index}>
                     <div className="attribute_item_icon">
-                      <img src="/Icons/adDetails/building.svg" alt="building" />
+                      <img src={item.icon} alt={details} />
                     </div>
                     <div className="attribute_item_text">
-                      <span>الماركة</span>
-                      <span>{ad_details?.attributes?.brand}</span>
+                      <span>{item.label}</span>
+                      <span>{item.value}</span>
                     </div>
                   </div>
-
-                  <div className="attribute_item">
-                    <div className="attribute_item_icon">
-                      <img src="/Icons/adDetails/building.svg" alt="building" />
-                    </div>
-                    <div className="attribute_item_text">
-                      <span>الموديل</span>
-                      <span>{ad_details?.attributes?.model}</span>
-                    </div>
-                  </div>
-                </div>
-              }
-              {details === "realestate" &&
-                <div className="attributes">
-                  <div className="attribute_item">
-                    <div className="attribute_item_icon">
-                      <img src="/advertisements/buildings.svg" alt="buildings" />
-                    </div>
-                    <div className="attribute_item_text">
-                      <span>نوع العقار</span>
-                      <span>{ad_details?.attributes?.realestateType}</span>
-                    </div>
-                  </div>
-
-                  <div className="attribute_item">
-                    <div className="attribute_item_icon">
-                      <img src="/Icons/adDetails/PersonArmsSpread.svg" alt="img" />
-                    </div>
-                    <div className="attribute_item_text">
-                      <span>نوع الشارع</span>
-                      <span>{ad_details?.attributes?.streetType}</span>
-                    </div>
-                  </div>
-
-                  <div className="attribute_item">
-                    <div className="attribute_item_icon">
-                      <img src="/Icons/adDetails/ArrowsOutCardinal.svg" alt="img" />
-                    </div>
-                    <div className="attribute_item_text">
-                      <span>الواجهة</span>
-                      <span>{ad_details?.attributes?.realestateFace}</span>
-                    </div>
-                  </div>
-                </div>
-              }
-
-              {details === "electronics" &&
-                <div className="attributes">
-                  <div className="attribute_item">
-                    <div className="attribute_item_icon">
-                      <img src="/advertisements/electronics.svg" alt="electronics" />
-                    </div>
-                    <div className="attribute_item_text">
-                      <span>نوع الجهاز</span>
-                      <span>{ad_details?.attributes?.electronicType}</span>
-                    </div>
-                  </div>
-                </div>
-              }
-
-              {details === "pets" &&
-                <div className="attributes">
-                  <div className="attribute_item">
-                    <div className="attribute_item_icon">
-                      <img src="/advertisements/animals.svg" alt="pets" />
-                    </div>
-                    <div className="attribute_item_text">
-                      <span>نوع الحيوان</span>
-                      <span>{ad_details?.attributes?.animalType}</span>
-                    </div>
-                  </div>
-                </div>
-              }
-
-              {details === "jobs" &&
-                <div className="attributes">
-                  <div className="attribute_item">
-                    <div className="attribute_item_icon">
-                      <img src="/advertisements/jobs.svg" alt="pets" />
-                    </div>
-                    <div className="attribute_item_text">
-                      <span>نوع الوظيفة</span>
-                      <span>{ad_details?.attributes?.jobType}</span>
-                    </div>
-                  </div>
-                </div>
-              }
-
-              {details === "furniture" &&
-                <div className="attributes">
-                  <div className="attribute_item">
-                    <div className="attribute_item_icon">
-                      <img src="/advertisements/furniture.svg" alt="furniture" />
-                    </div>
-                    <div className="attribute_item_text">
-                      <span>نوع الأثاث</span>
-                      <span>{ad_details?.attributes?.furnitureType}</span>
-                    </div>
-                  </div>
-                </div>
-              }
-
-              {details === "services" &&
-                <div className="attributes">
-                  <div className="attribute_item">
-                    <div className="attribute_item_icon">
-                      <img src="/advertisements/services.svg" alt="services" />
-                    </div>
-                    <div className="attribute_item_text">
-                      <span>نوع الخدمات</span>
-                      <span>{ad_details?.attributes?.serviceType}</span>
-                    </div>
-                  </div>
-                </div>
-              }
-
-              {details === "food" &&
-                <div className="attributes">
-                  <div className="attribute_item">
-                    <div className="attribute_item_icon">
-                      <img src="/advertisements/food.svg" alt="food" />
-                    </div>
-                    <div className="attribute_item_text">
-                      <span>نوع الطعام</span>
-                      <span>{ad_details?.attributes?.foodType}</span>
-                    </div>
-                  </div>
-                </div>
-              }
-
-              {details === "gardens" &&
-                <div className="attributes">
-                  <div className="attribute_item">
-                    <div className="attribute_item_icon">
-                      <img src="/advertisements/gardens.svg" alt="gardens" />
-                    </div>
-                    <div className="attribute_item_text">
-                      <span>نوع النوادر</span>
-                      <span>{ad_details?.attributes?.gardenType}</span>
-                    </div>
-                  </div>
-                </div>
-              }
-
-              {details === "anecdotes" &&
-                <div className="attributes">
-                  <div className="attribute_item">
-                    <div className="attribute_item_icon">
-                      <img src="/advertisements/anecdotes.svg" alt="anecdotes" />
-                    </div>
-                    <div className="attribute_item_text">
-                      <span>نوع النوادر</span>
-                      <span>{ad_details?.attributes?.anecdoteType}</span>
-                    </div>
-                  </div>
-                </div>
-              }
-
-              {details === "trips" &&
-                <div className="attributes">
-                  <div className="attribute_item">
-                    <div className="attribute_item_icon">
-                      <img src="/advertisements/trips.svg" alt="trips" />
-                    </div>
-                    <div className="attribute_item_text">
-                      <span>نوع الرحلات</span>
-                      <span>{ad_details?.attributes?.tripType}</span>
-                    </div>
-                  </div>
-                </div>
-              }
-
-              {details === "fashion" &&
-                <div className="attributes">
-                  <div className="attribute_item">
-                    <div className="attribute_item_icon">
-                      <img src="/advertisements/fashion.svg" alt="fashion" />
-                    </div>
-                    <div className="attribute_item_text">
-                      <span>نوع الزي</span>
-                      <span>{ad_details?.attributes?.fashionType}</span>
-                    </div>
-                  </div>
-                </div>
-              }
-
+                ))}
+              </div>
               <div className="deteils_location">
                 <div className="deteils_location_item">
                   <div className="location_item_icon">
@@ -397,7 +213,7 @@ const DetailsLayout = () => {
                 </div>
               </div>
 
-              <button type="button" onClick={()=> handleWhatsApp(ad_details?.seller)} className="details-left-top-send">واتساب</button>
+              <button type="button" onClick={() => handleWhatsApp(ad_details?.seller)} className="details-left-top-send">واتساب</button>
             </div>
 
             {/* نصائح الأمان */}
@@ -456,7 +272,7 @@ const DetailsLayout = () => {
 };
 export default DetailsLayout;
 
- // handleWhatsApp function to open whatsapp
+// handleWhatsApp function to open whatsapp
 export function handleWhatsApp(seller) {
   if (!seller || !seller.phone) {
     console.error("Seller data not available");
