@@ -3,12 +3,14 @@ import { CiLocationOn, CiStopwatch } from 'react-icons/ci';
 import { Link, useParams } from 'react-router-dom';
 import "./SpecificCategory.css"
 import { IoIosArrowBack } from 'react-icons/io';
-import { attributesMap, electronics, fashion, furniture, jobs, pets, realestate, services, specificCategoriesData } from '../../data';
+import { attributesMap, specificCategoriesData } from '../../data';
 import SaudiRegionsDropdown from '../../Components/AdvertisementsComponents/SaudiRegionsDropdown/SaudiRegionsDropdown';
+import SkeletonCard from '../../Components/SkeletonCard/SkeletonCard';
 
 export default function SpecificCategory() {
     const { category } = useParams();
     const [isLoading, setIsLoading] = useState(false);
+    const [errorMessage, setErrorMessage] = useState(false);
     const [categoryData, setCategoryData] = useState([]);
     const specificCate = specificCategoriesData.find((cat) => category === cat.key) || "اسم الفئة";
 
@@ -49,7 +51,6 @@ export default function SpecificCategory() {
 
     // Filtered categories by search bar (case-insensitive)
     const filteredCategoriesDataByTitle = filteredCategoriesDataByCity.filter((item) => item?.information?.title?.toLowerCase().includes(searchInput.toLowerCase().trim()))
-
     useEffect(() => {
         const fetchCategoryData = async () => {
             try {
@@ -61,6 +62,7 @@ export default function SpecificCategory() {
                     setIsLoading(false);
                 }
             } catch (error) {
+                setErrorMessage(true);
                 console.log(error);
             } finally {
                 setIsLoading(false)
@@ -71,9 +73,11 @@ export default function SpecificCategory() {
     }, [category]);
     return (
         <div className='categoryData_container'>
-            {isLoading && <p>loading...</p>}
-
-            {!isLoading && (
+            {isLoading && (
+                <div className='isLoading'>{Array.from({ length: 4 }, (_, i) => (<SkeletonCard key={i} />))}</div>
+            )}
+            {errorMessage && <p>notwork error</p>}
+            {!isLoading && !errorMessage && (
                 <>
                     <section className='top_section'>
                         <div className="top_section_container">
@@ -138,14 +142,17 @@ export default function SpecificCategory() {
                     </section>
 
                     <section className='bottom_section'>
-
+                        <div className="bottom_section_header">
+                            <div className="">وجدنا لك {filteredCategoriesDataByTitle?.length} خيارًا</div>
+                            <div className=""></div>
+                        </div>
                         <div className="categories_items">
                             {filteredCategoriesDataByTitle.map((cat) => (
                                 <div
                                     key={cat.id_ads}
                                     className={`category_card`}
                                 >
-                                    <div className="card-image">
+                                    <div className="card_image">
                                         <img
                                             src={cat.images?.[0] ? `https://api.mashy.sand.alrmoz.com/storage/${cat.images[0]}` : "/placeholder.png"}
                                             alt={cat?.information?.title}
@@ -153,7 +160,7 @@ export default function SpecificCategory() {
 
                                     </div>
 
-                                    <div className="card-user">
+                                    <div className="card_user">
                                         {cat.user?.user_image ? (
                                             <img src={cat.user.user_image} alt={cat.seller?.name} />
                                         ) : (
@@ -163,18 +170,21 @@ export default function SpecificCategory() {
                                         )}
                                         <span>{cat.seller?.name}</span>
                                     </div>
-                                    <div className="card-body">
-                                        <h3>{cat?.information?.title.substring(0, 40)}...</h3>
-                                        <div className="card-meta">
-                                            <span>
-                                                <CiLocationOn />{cat?.location?.area}
-                                            </span>
-                                            <span>
-                                                <CiStopwatch /> {timeSince(cat.created_at)}
-                                            </span>
+
+                                    <div className="card_body">
+                                        <h3>{cat?.information?.title.substring(0, 18)}...</h3>
+                                        <div className="card_meta">
+                                            <div className="ciLocationOn">
+                                                <CiLocationOn style={{ color: "var(--main-color)", fontSize: "12px", fontWeight: "bold" }} />
+                                                <span>{cat?.location?.area}</span>
+                                            </div>
+                                            <div className="ciStopwatch">
+                                                <CiStopwatch style={{ color: "var(--main-color)", fontSize: "12px", fontWeight: "bold" }} />
+                                                <span>{timeSince(cat.created_at)}</span>
+                                            </div>
                                         </div>
                                     </div>
-                                    <Link to={`/${category}/${cat.id_ads}`} className="details-btn">
+                                    <Link to={`/${category}/${cat.id_ads}`} className="details_link">
                                         عرض التفاصيل
                                     </Link>
                                 </div>
@@ -192,7 +202,7 @@ function toArabicNumbers(number) {
     return number.toString().split("").map(d => arabicNumbers[d] || d).join("");
 }
 
-function timeSince(dateString) {
+export function timeSince(dateString) {
     const now = new Date();
     const past = new Date(dateString.replace(" ", "T"));
     const dateOnly = dateString.split(" ")[0];

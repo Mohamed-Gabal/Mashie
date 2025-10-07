@@ -1,21 +1,21 @@
-export const vehicles = ["تويتا", "شيفرولية", "نيسان", "هيونداي", "فورد", "جي ام سي", "هوندا", "بي ام دبليو", "مرسيدس", "جيب", "ميتسوبيشي", "لاند روفر", "ايسوزو", "قطع غيار وملحقات", "شاحنات ومعدات ثقيلة", "كيا", "دبابات", "بيجو", "بنتلي", ]
+export const vehicles = ["تويتا", "شيفرولية", "نيسان", "هيونداي", "فورد", "جي ام سي", "هوندا", "بي ام دبليو", "مرسيدس", "جيب", "ميتسوبيشي", "لاند روفر", "ايسوزو", "قطع غيار وملحقات", "شاحنات ومعدات ثقيلة", "كيا", "دبابات", "بيجو", "بنتلي",]
 
 export const furniture = ["أثاث خارجي", "أثاث مكتبي", "أدوات منزلية", "أسرة ومراتب", "تحف وديكور", "خزائن ودواليب", "طاولات وكراسي", "مجالس ومفروشات",]
 
-export const jobs = [ "وظائف ادارية", "وظائف ازياء وتجميل", "امن وسلامة", "تعليمية", "تقنية وتصميم", "زراعة ورعي", "صناعية", "طب وتمريض", "عمالة منزلية", "مطاعم",]
+export const jobs = ["وظائف ادارية", "وظائف ازياء وتجميل", "امن وسلامة", "تعليمية", "تقنية وتصميم", "زراعة ورعي", "صناعية", "طب وتمريض", "عمالة منزلية", "مطاعم",]
 
-export const services = [ "خدمات اخرى", "مقاولات", "تعقيب", "توصيل", "نقل عفش", "خدمات نظافة", "قانونية", "محاسبية ومالية",]
+export const services = ["خدمات اخرى", "مقاولات", "تعقيب", "توصيل", "نقل عفش", "خدمات نظافة", "قانونية", "محاسبية ومالية",]
 
-export const fashion = [ "ساعات", "عطور وبخور", "مستلزمات رياضية", "نظارات", "أزياء رجالية", "أزياء نسائية", "أزياء ولوازم أطفال", "هدايا", "أمتعة سفر", "الصحة والجنال",]
+export const fashion = ["ساعات", "عطور وبخور", "مستلزمات رياضية", "نظارات", "أزياء رجالية", "أزياء نسائية", "أزياء ولوازم أطفال", "هدايا", "أمتعة سفر", "الصحة والجنال",]
 
-export const electronics = [ "جوالات", "تابلت", "كمبيوتر", "ألعاب إلكترونية", "تلفزيونات وصوتيات", "كاميرات تصوير", "حسابات واشتراكات", "أجهزة منزلية ومطبخ", "مواطير ومولدات",]
+export const electronics = ["جوالات", "تابلت", "كمبيوتر", "ألعاب إلكترونية", "تلفزيونات وصوتيات", "كاميرات تصوير", "حسابات واشتراكات", "أجهزة منزلية ومطبخ", "مواطير ومولدات",]
 
-export const pets = [ "جمال", "خيول", "أغنام", "ماعز", "أبقار", "دواجن", "بط", "حمام", "ببغاء", "كلاب", "قطط", "هامستر", "سناجب", "أسماك وسلاحف",]
+export const pets = ["جمال", "خيول", "أغنام", "ماعز", "أبقار", "دواجن", "بط", "حمام", "ببغاء", "كلاب", "قطط", "هامستر", "سناجب", "أسماك وسلاحف",]
 
-export const realestate = [ "اراضي للبيع", "اراضي لليجار", "شقق للايجار", "شقق للبيع", "بيوت للبيع", "عمارة للبيع", "استراحات للايجار", "استراحات للبيع", "محلات للايجار", "محلات للبيع", "فلل للايجار", "فلل للبيع", "مزارع للبيع", "مزارع للايجار", "مستودع للبيع", "مستودع للايجار", "مكاتب للبيع", "مكاتب للايجار",]
+export const realestate = ["اراضي للبيع", "اراضي لليجار", "شقق للايجار", "شقق للبيع", "بيوت للبيع", "عمارة للبيع", "استراحات للايجار", "استراحات للبيع", "محلات للايجار", "محلات للبيع", "فلل للايجار", "فلل للبيع", "مزارع للبيع", "مزارع للايجار", "مستودع للبيع", "مستودع للايجار", "مكاتب للبيع", "مكاتب للايجار",]
 
 export const attributesMap = {
-    vehicles: { key: "brand", data:vehicles  },
+    vehicles: { key: "brand", data: vehicles },
     realestate: { key: "realestateType", data: realestate },
     electronics: { key: "electronicType", data: electronics },
     jobs: { key: "jobType", data: jobs },
@@ -105,3 +105,45 @@ export const saudiRegions = [
         cities: ["سكاكا", "القريات", "دومة الجندل", "طبرجل", "الفياض", "ميقوع", "الرديفة", "عين الحواس", "الطوير", "الشويحطية"]
     }
 ];
+
+export const attributeMapForDetails = (ad_details) => ({
+    vehicles: [
+        { icon: "/advertisements/car.svg", label: "الماركة", value: ad_details?.attributes?.brand },
+        { icon: "/advertisements/car.svg", label: "الموديل", value: ad_details?.attributes?.model },
+    ],
+    realestate: [
+        { icon: "/advertisements/buildings.svg", label: "نوع العقار", value: ad_details?.attributes?.realestateType },
+        { icon: "/Icons/adDetails/PersonArmsSpread.svg", label: "نوع الشارع", value: ad_details?.attributes?.streetType },
+        { icon: "/Icons/adDetails/ArrowsOutCardinal.svg", label: "الواجهة", value: ad_details?.attributes?.realestateFace },
+    ],
+    electronics: [
+        { icon: "/advertisements/electronics.svg", label: "نوع الجهاز", value: ad_details?.attributes?.electronicType },
+    ],
+    pets: [
+        { icon: "/advertisements/animals.svg", label: "نوع الحيوان", value: ad_details?.attributes?.animalType },
+    ],
+    jobs: [
+        { icon: "/advertisements/jobs.svg", label: "نوع الوظيفة", value: ad_details?.attributes?.jobType },
+    ],
+    furniture: [
+        { icon: "/advertisements/furniture.svg", label: "نوع الأثاث", value: ad_details?.attributes?.furnitureType },
+    ],
+    services: [
+        { icon: "/advertisements/services.svg", label: "نوع الخدمات", value: ad_details?.attributes?.serviceType },
+    ],
+    food: [
+        { icon: "/advertisements/food.svg", label: "نوع الطعام", value: ad_details?.attributes?.foodType },
+    ],
+    gardens: [
+        { icon: "/advertisements/gardens.svg", label: "نوع الحدائق", value: ad_details?.attributes?.gardenType },
+    ],
+    anecdotes: [
+        { icon: "/advertisements/anecdotes.svg", label: "نوع النوادر", value: ad_details?.attributes?.anecdoteType },
+    ],
+    trips: [
+        { icon: "/advertisements/trips.svg", label: "نوع الرحلات", value: ad_details?.attributes?.tripType },
+    ],
+    fashion: [
+        { icon: "/advertisements/fashion.svg", label: "نوع الزي", value: ad_details?.attributes?.fashionType },
+    ],
+});
