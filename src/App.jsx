@@ -41,6 +41,7 @@ const App = () => {
       <Route path="/blog" element={<MainLayout><Blog /></MainLayout>} />
       <Route path="/contactUs" element={<MainLayout><ContactUs /></MainLayout>} />
       <Route path="/:details/:id" element={<MainLayout><DetailsLayout /></MainLayout>} />
+      <Route path="/:category" element={<MainLayout><Category /></MainLayout>} />
       
 
      {/* صفحات عامة داخل LayoutDashboard */}
