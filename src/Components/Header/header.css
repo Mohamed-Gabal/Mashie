@@ -270,9 +270,11 @@
   color: #4cafae;
   cursor: pointer;
   font-size: 14px;
+  transition: 0.3s;
 }
 .profile-btn:hover{
-  color: white;
+  color:var(--color);
+  background-color: var(--main-color);
 }
 .settings {
   display: flex;

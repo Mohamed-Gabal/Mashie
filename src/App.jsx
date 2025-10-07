@@ -21,7 +21,6 @@ import DetailsLayout from "./Pages/DetailsLayout/DetailsLayout";
 // pages dashboard
 import AccountUser from "./Pages/DashboardUser/AccountUser/AccountUser";
 import OffersUser from "./Pages/DashboardUser/OffersUser/OffersUser";
-import MessageUser from "./Pages/DashboardUser/MessageUser/MessageUser";
 import NotifactionsUser from "./Pages/DashboardUser/NotifactionsUser/NotifactionsUser";
 import FavoritesUser from "./Pages/DashboardUser/FavoritesUser/FavoritesUser";
 import SettingsUser from "./Pages/DashboardUser/SettingsUser/SettingsUser";
@@ -48,7 +47,6 @@ const App = () => {
      {/* صفحات عامة داخل LayoutDashboard */}
      <Route path="/accountUser" element={<LayoutDashboard><AccountUser /></LayoutDashboard>} />
      <Route path="/offersUser" element={<LayoutDashboard><OffersUser /></LayoutDashboard>} />
-     <Route path="/messageUser" element={<LayoutDashboard><MessageUser /></LayoutDashboard>} />
      <Route path="/notifactionsUser" element={<LayoutDashboard><NotifactionsUser /></LayoutDashboard>} />
      <Route path="/favoritesUser" element={<LayoutDashboard><FavoritesUser /></LayoutDashboard>} />
      <Route path="/settingsUser" element={<LayoutDashboard><SettingsUser /></LayoutDashboard>} />

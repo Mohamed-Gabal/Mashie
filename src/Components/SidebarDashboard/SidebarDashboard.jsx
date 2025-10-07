@@ -1,21 +1,55 @@
+
 import React from "react";
 import "./sidebarDashboard.css";
-import { Link } from "react-router-dom";
-import { PiTagSimple } from "react-icons/pi";
-import { LuMessageCircleMore } from "react-icons/lu";
-import { IoIosNotificationsOutline } from "react-icons/io";
+import { NavLink, useNavigate } from "react-router-dom";
+import { PiTagSimple, PiSignOut } from "react-icons/pi";
+import { IoIosNotificationsOutline, IoIosHelpCircleOutline } from "react-icons/io";
 import { MdFavoriteBorder } from "react-icons/md";
 import { AiOutlineSetting } from "react-icons/ai";
 import { RiBloggerLine } from "react-icons/ri";
-import { IoIosHelpCircleOutline } from "react-icons/io";
-import { PiSignOut } from "react-icons/pi";
-
+import { useCookies } from "react-cookie";
 
 const SidebarDashboard = () => {
+  const [cookie, , removeCookie] = useCookies(["token"]);
+  const navigate = useNavigate();
+
+  // handle Logout
+  const handleLogout = async () => {
+    try {
+      const token = cookie?.token?.data?.token;
+    console.log("Token being sent:", token);
+
+      // تأكد أن التوكن موجود
+      if (!token) {
+        console.log("المستخدم غير مسجل الدخول");
+        navigate("/login");
+        return;
+      }
+      
+      // إرسال طلب logout للسيرفر
+      const response = await fetch("https://api.mashy.sand.alrmoz.com/api/logout", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      
+      if (response.ok) {
+        // حذف التوكن من الكوكيز
+        removeCookie("token");
+        
+        // توجيه المستخدم لصفحة تسجيل الدخول
+        navigate("/");
+      } 
+    } catch (error) {
+      console.error("حدث خطأ أثناء تسجيل الخروج:", error);
+    }
+  };
+
   return (
     <div className="Sidebar_Dashboard">
       <div className="Sidebar_Dashboard_content">
-        {/* البروفايل الصغير */}
         <div className="Sidebar_Dashboard_item">
           <div className="Sidebar_Dashboard_profile">
             <img src="/images/team1.webp" alt="صوره" className="profile_img" />
@@ -24,35 +58,68 @@ const SidebarDashboard = () => {
               <h3>أحمد عمر ماهر</h3>
             </div>
           </div>
-          <Link to='/accountUser'><button className="profile_btn">عرض الملف الشخصي</button></Link>
+          <NavLink to="/accountUser">
+            <button className="profile_btn">عرض الملف الشخصي</button>
+          </NavLink>
         </div>
 
-        <hr style={{marginTop: "10px", color: "#DBDBDB",}}/>
+        <hr style={{ marginTop: "10px", color: "#DBDBDB" }} />
 
-        {/* الروابط الرئيسية */}
         <div className="Sidebar_Dashboard_links">
           <ul className="Sidebar_Dashboard_link">
-            <li><Link to="/offersUser"> <PiTagSimple />العروض</Link></li>
-            {/* <li><Link to="/messageUser"> <LuMessageCircleMore />الرسائل</Link></li> */}
-            <li><Link to="/notifactionsUser"> <IoIosNotificationsOutline />الاشعارات</Link></li>
-            <li><Link to="/favoritesUser"> <MdFavoriteBorder />المفضلة</Link></li>
+            <li>
+              <NavLink to="/offersUser" className={({ isActive }) => (isActive ? "active" : "")}>
+                <PiTagSimple />
+                العروض
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/notifactionsUser" className={({ isActive }) => (isActive ? "active" : "")}>
+                <IoIosNotificationsOutline />
+                الإشعارات
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/favoritesUser" className={({ isActive }) => (isActive ? "active" : "")}>
+                <MdFavoriteBorder />
+                المفضلة
+              </NavLink>
+            </li>
           </ul>
         </div>
 
-        <hr style={{marginTop: "10px", color: "#DBDBDB",}}/>
+        <hr style={{ marginTop: "10px", color: "#DBDBDB" }} />
 
-        {/* الروابط الثانوية */}
         <div className="Sidebar_Dashboard_links">
           <ul className="Sidebar_Dashboard_link">
-            <li><Link to="/settingsUser"> <AiOutlineSetting />الإعدادات</Link></li>
-            <li><Link to="/blogUser"> <RiBloggerLine />المدونة</Link></li>
-            <li><Link to="/helpUser"> <IoIosHelpCircleOutline />المساعدة</Link></li>
+            <li>
+              <NavLink to="/settingsUser" className={({ isActive }) => (isActive ? "active" : "")}>
+                <AiOutlineSetting />
+                الإعدادات
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/blogUser" className={({ isActive }) => (isActive ? "active" : "")}>
+                <RiBloggerLine />
+                المدونة
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/helpUser" className={({ isActive }) => (isActive ? "active" : "")}>
+                <IoIosHelpCircleOutline />
+                المساعدة
+              </NavLink>
+            </li>
           </ul>
         </div>
 
-        <hr style={{marginTop: "10px", color: "#DBDBDB",}}/>
+        <hr style={{ marginTop: "10px", color: "#DBDBDB" }} />
 
-        <button className="logout_btn"> <PiSignOut />تسجيل الخروج</button>
+        {/* زر تسجيل الخروج */}
+        <button className="logout_btn" onClick={handleLogout}>
+          <PiSignOut />
+          تسجيل الخروج
+        </button>
       </div>
     </div>
   );

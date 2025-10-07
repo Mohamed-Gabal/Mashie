@@ -97,7 +97,7 @@ const CarCard = () => {
                   <Link to={`/details/${ad.id}`} className="car-card-btn">
                     عرض التفاصيل
                   </Link>
-                  <Link to="/favorites" className="car-card-vav">
+                  <Link to="/favoritesUser" className="car-card-vav">
                     <MdFavoriteBorder className="car-card-ico" />
                   </Link>
                 </div>

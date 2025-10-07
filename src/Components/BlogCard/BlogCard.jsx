@@ -93,7 +93,7 @@ const BlogCard = () => {
                   <Link to={`/details/${ad.id}`} className="ad-btn">
                     عرض التفاصيل
                   </Link>
-                  <Link to="/favorites" className="fav-btn">
+                  <Link to="/favoritesUser" className="fav-btn">
                     <MdFavoriteBorder className="fav-icon" />
                   </Link>
                 </div>

@@ -61,10 +61,8 @@ color: var(--color);
 .Sidebar_Dashboard_links {
 margin: 15px 0;
 }
-.Sidebar_Dashboard_link {
-list-style: none;
-padding: 0;
-margin: 0;
+.Sidebar_Dashboard_link a.active {
+background-color: #aaffee40;
 }
 .Sidebar_Dashboard_link li {
 margin-bottom: 6px;
