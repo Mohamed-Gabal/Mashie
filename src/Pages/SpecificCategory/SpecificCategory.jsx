@@ -175,11 +175,11 @@ export default function SpecificCategory() {
                                         <h3>{cat?.information?.title.substring(0, 40)}...</h3>
                                         <div className="card_meta">
                                             <div className="ciLocationOn">
-                                                <CiLocationOn style={{ color: "var(--main-color)", fontWeight: "bold" }} />
+                                                <CiLocationOn style={{ color: "var(--main-color)", fontSize: "12px", fontWeight: "bold" }} />
                                                 <span>{cat?.location?.area}</span>
                                             </div>
                                             <div className="ciStopwatch">
-                                                <CiStopwatch style={{ color: "var(--main-color)", fontWeight: "bold" }} />
+                                                <CiStopwatch style={{ color: "var(--main-color)", fontSize: "12px", fontWeight: "bold" }} />
                                                 <span>{timeSince(cat.created_at)}</span>
                                             </div>
                                         </div>

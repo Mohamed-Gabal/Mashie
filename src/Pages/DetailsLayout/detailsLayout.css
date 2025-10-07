@@ -13,10 +13,10 @@
   width: 100%;
 }
 
-.details_header_conent {
+.details_header_content {
   display: flex;
   flex-direction: column;
-  border: 1px solid red;
+  margin-top: 5px;
 }
 .details_header_title {
   display: flex;

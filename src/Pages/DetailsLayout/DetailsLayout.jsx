@@ -63,7 +63,7 @@ const DetailsLayout = () => {
           <span className="details-close">{ad_details?.information?.title}</span>
         </div>
 
-        <div className="details_header_conent">
+        <div className="details_header_content">
           <div className="details_header_title">
             <h2 className="details-title">{ad_details?.information?.title}</h2>
 
