@@ -172,7 +172,7 @@ export default function SpecificCategory() {
                                     </div>
 
                                     <div className="card_body">
-                                        <h3>{cat?.information?.title.substring(0, 40)}...</h3>
+                                        <h3>{cat?.information?.title.substring(0, 18)}...</h3>
                                         <div className="card_meta">
                                             <div className="ciLocationOn">
                                                 <CiLocationOn style={{ color: "var(--main-color)", fontSize: "12px", fontWeight: "bold" }} />
