@@ -108,7 +108,8 @@
 }
 
 /* ===== Bottom Section ===== */
-.bottom_section {
+.categoryData_container .bottom_section {
+    background-color: transparent;
     max-width: 1170px;
     padding-bottom: 100px;
     margin: auto;
