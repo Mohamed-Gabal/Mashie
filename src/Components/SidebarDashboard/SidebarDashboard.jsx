@@ -1,6 +1,6 @@
 import React from "react";
 import "./sidebarDashboard.css";
-import { Link, Links } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { PiTagSimple } from "react-icons/pi";
 import { LuMessageCircleMore } from "react-icons/lu";
 import { IoIosNotificationsOutline } from "react-icons/io";
@@ -9,7 +9,6 @@ import { AiOutlineSetting } from "react-icons/ai";
 import { RiBloggerLine } from "react-icons/ri";
 import { IoIosHelpCircleOutline } from "react-icons/io";
 import { PiSignOut } from "react-icons/pi";
-
 
 
 const SidebarDashboard = () => {
@@ -34,7 +33,7 @@ const SidebarDashboard = () => {
         <div className="Sidebar_Dashboard_links">
           <ul className="Sidebar_Dashboard_link">
             <li><Link to="/offersUser"> <PiTagSimple />العروض</Link></li>
-            <li><Link to="/messageUser"> <LuMessageCircleMore />الرسائل</Link></li>
+            {/* <li><Link to="/messageUser"> <LuMessageCircleMore />الرسائل</Link></li> */}
             <li><Link to="/notifactionsUser"> <IoIosNotificationsOutline />الاشعارات</Link></li>
             <li><Link to="/favoritesUser"> <MdFavoriteBorder />المفضلة</Link></li>
           </ul>

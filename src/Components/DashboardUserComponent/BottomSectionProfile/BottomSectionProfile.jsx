@@ -89,5 +89,4 @@ const BottomSectionProfile = () => {
     </div>
   );
 };
-
 export default BottomSectionProfile;
