@@ -217,7 +217,7 @@ const Header = () => {
                     <p className="username">{userData?.name}</p>
                   </div>
                 </div>
-                <Link to="accountUser" className="profile-btn">
+                <Link to="/accountUser" className="profile-btn">
                   عرض الملف الشخصي
                 </Link>
                 <div className="settings">
