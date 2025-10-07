@@ -15,6 +15,11 @@
 
 .details_header_conent {
   display: flex;
+  flex-direction: column;
+  border: 1px solid red;
+}
+.details_header_title {
+  display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -70,14 +75,14 @@
 .details-close-titles {
   display: flex;
   gap: 10px;
-  margin-top: 10px;
 }
 
 .details-close-title-yello,
 .details-close-title-main,
 .details-close-title-empty {
   padding: 6px 10px;
-  font-size: 13px;
+  font-size: 10px;
+  font-weight: 500;
   color: #444;
   display: inline-flex;
   align-items: center;
@@ -531,4 +536,8 @@
       "details_footer_comments";
     grid-template-columns: 1fr;
   }
+}
+
+@media (max-width: 460px) {
+
 }

@@ -64,27 +64,27 @@ const DetailsLayout = () => {
         </div>
 
         <div className="details_header_conent">
-          <div className="">
+          <div className="details_header_title">
             <h2 className="details-title">{ad_details?.information?.title}</h2>
-            {/* info */}
-            <div className="details-close-titles">
-              <span className="details-close-title-yello"> <RiStarSLine className="details-close-title-yello-icon" />مميز</span>
-              <span className="details-close-title-main"> <MdOutlineShield className="details-close-title-main-icon" /> بائع موثوق</span>
-              <span className="details-close-title-empty">نشر {ad_details?.created_at ? timeSince(ad_details.created_at) : ""}</span>
+
+            <div className="details_price">
+              {ad_details?.information?.price &&
+                <>
+                  <h1 className="details-left-price">{ad_details?.information?.price} ريال</h1>
+                  {ad_details?.information?.isNegotiable ?
+                    <span className="details-left-negotiable"> قابل للتفاوض</span>
+                    :
+                    <span className="details-left-negotiable">غير قابل للتفاوض</span>
+                  }
+                </>
+              }
             </div>
           </div>
-
-          <div className="details_price">
-            {ad_details?.information?.price &&
-              <>
-                <h1 className="details-left-price">{ad_details?.information?.price} ريال</h1>
-                {ad_details?.information?.isNegotiable ?
-                  <span className="details-left-negotiable"> قابل للتفاوض</span>
-                  :
-                  <span className="details-left-negotiable">غير قابل للتفاوض</span>
-                }
-              </>
-            }
+          {/* info */}
+          <div className="details-close-titles">
+            <span className="details-close-title-yello"> <RiStarSLine className="details-close-title-yello-icon" />مميز</span>
+            <span className="details-close-title-main"> <MdOutlineShield className="details-close-title-main-icon" /> بائع موثوق</span>
+            <span className="details-close-title-empty">نشر {ad_details?.created_at ? timeSince(ad_details.created_at) : ""}</span>
           </div>
         </div>
       </div>
@@ -206,7 +206,7 @@ const DetailsLayout = () => {
                 <div className="details-left-top-user-actions">
                   <span><MdOutlineShield /> موثوق</span>
                   <span><RiStarSLine className="details-left-top-user-actions-icon" />4.8</span>
-                  <span>25 اعلان</span>
+                  <span>{ad_details?.user?.user_ads_count} اعلان</span>
                   <span>معدل الرد 95%</span>
                 </div>
 
