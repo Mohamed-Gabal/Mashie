@@ -9,7 +9,7 @@ import { FaRegCommentDots } from "react-icons/fa6";
 import { AiOutlineSend, AiOutlineLike } from "react-icons/ai";
 import { IoCallOutline } from "react-icons/io5";
 import { LuMessageCircleMore } from "react-icons/lu";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import { categories } from "../Advertisements/Category/Category";
 import { timeSince } from "../SpecificCategory/SpecificCategory";
@@ -56,32 +56,36 @@ const DetailsLayout = () => {
   return (
     <div className="details-layout">
       <div className="details_header">
-        <div className="">
-          {/* links*/}
-          <div className="details-close-close">
-            <span className="details-close">الرئيسيه <IoIosArrowBack /></span>
-            <span className="details-close">{category.name}<IoIosArrowBack /></span>
-            <span className="details-close">{ad_details?.information?.title}</span>
-          </div>
-
-          {/* title */}
-          <h2 className="details-title">{ad_details?.information?.title}</h2>
-
-          {/* info */}
-          <div className="details-close-titles">
-            <span className="details-close-title-yello"> <RiStarSLine className="details-close-title-yello-icon" />مميز</span>
-            <span className="details-close-title-main"> <MdOutlineShield className="details-close-title-main-icon" /> بائع موثوق</span>
-            <span className="details-close-title-empty">نشر {ad_details?.created_at ? timeSince(ad_details.created_at) : ""}</span>
-          </div>
+        {/* links*/}
+        <div className="details_links">
+          <Link to="/" className="details-close">الرئيسيه <IoIosArrowBack /></Link>
+          <Link to={`/${category.key}`} className="details-close">{category.name}<IoIosArrowBack /></Link>
+          <span className="details-close">{ad_details?.information?.title}</span>
         </div>
 
-        <div className="details_price">
-          <h1 className="details-left-price">{ad_details?.information?.price} ريال</h1>
-          {ad_details?.information?.isNegotiable ?
-            <span className="details-left-negotiable"> قابل للتفاوض</span>
-            :
-            <span className="details-left-negotiable">غير قابل للتفاوض</span>
-          }
+        <div className="details_header_conent">
+          <div className="">
+            <h2 className="details-title">{ad_details?.information?.title}</h2>
+            {/* info */}
+            <div className="details-close-titles">
+              <span className="details-close-title-yello"> <RiStarSLine className="details-close-title-yello-icon" />مميز</span>
+              <span className="details-close-title-main"> <MdOutlineShield className="details-close-title-main-icon" /> بائع موثوق</span>
+              <span className="details-close-title-empty">نشر {ad_details?.created_at ? timeSince(ad_details.created_at) : ""}</span>
+            </div>
+          </div>
+
+          <div className="details_price">
+            {ad_details?.information?.price &&
+              <>
+                <h1 className="details-left-price">{ad_details?.information?.price} ريال</h1>
+                {ad_details?.information?.isNegotiable ?
+                  <span className="details-left-negotiable"> قابل للتفاوض</span>
+                  :
+                  <span className="details-left-negotiable">غير قابل للتفاوض</span>
+                }
+              </>
+            }
+          </div>
         </div>
       </div>
 

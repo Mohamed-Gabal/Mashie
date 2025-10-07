@@ -2,16 +2,23 @@
   background-color: var(--landing-color);
   max-width: 1190px;
   min-height: 100vh;
-  padding: 100px 20px;
+  padding: 90px 20px;
   margin: auto;
 }
 
 .details_header {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  justify-content: start;
   width: 100%;
 }
 
+.details_header_conent {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
 .details_price {
   text-align: end;
 }
@@ -45,7 +52,7 @@
   height: 35px;
 }
 
-.details-close-close {
+.details_links {
   display: flex;
   gap: 5px;
   font-size: 16px;
