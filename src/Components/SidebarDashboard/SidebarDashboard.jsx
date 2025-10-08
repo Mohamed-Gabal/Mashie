@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./sidebarDashboard.css";
 import { NavLink, useNavigate } from "react-router-dom";
 import { PiTagSimple, PiSignOut } from "react-icons/pi";
@@ -15,11 +15,13 @@ const SidebarDashboard = () => {
   const [cookie, , removeCookie] = useCookies(["token"]);
   const navigate = useNavigate();
 
+  // تحكم في الموديل قبل تسجيل الخروج
+  const [showConfirm, setShowConfirm] = useState(false);
+
   // handle Logout
   const handleLogout = async () => {
     try {
       const token = cookie?.token?.data?.token;
-      console.log("Token being sent:", token);
 
       // تأكد أن التوكن موجود
       if (!token) {
@@ -139,11 +141,38 @@ const SidebarDashboard = () => {
         <hr style={{ marginTop: "10px", color: "#DBDBDB" }} />
 
         {/* زر تسجيل الخروج */}
-        <button className="logout_btn" onClick={handleLogout}>
+        <button className="logout_btn" onClick={() => setShowConfirm(true)}>
           <PiSignOut />
           تسجيل الخروج
         </button>
       </div>
+      {/* عند الضغط علي تسجيل الخروج */}
+      {showConfirm && (
+        <div className="confirm_overlay">
+          <PiSignOut />
+          <div className="confirm_box">
+            <h3>هل أنت متأكد أنك تريد تسجيل الخروج من حسابك؟</h3>
+            <p>يمكنك دائمًا تسجيل الدخول مرة أخرى لمتابعة نشاطك.</p>
+            <div className="confirm_actions">
+              <button
+                className="cancel_btn"
+                onClick={() => setShowConfirm(false)}
+              >
+                الغاء
+              </button>
+              <button
+                className="confirm_btn"
+                onClick={() => {
+                  setShowConfirm(false);
+                  handleLogout();
+                }}
+              >
+                تسجيل الخروج
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import "./register.css";
 import { IoCallOutline } from "react-icons/io5";
@@ -91,7 +90,7 @@ const Register = () => {
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(formData),
+          // body: JSON.stringify(formData),
         }
       );
 
@@ -102,7 +101,9 @@ const Register = () => {
       } else {
         setErrors((prev) => ({
           ...prev,
-          general: data.data.message ? "هذا الحساب موجود بالفعل" :  "حدث خطأ أثناء التسجيل",
+          general: data.data.message
+            ? "هذا الحساب موجود بالفعل"
+            : "حدث خطأ أثناء التسجيل",
         }));
       }
     } catch {
@@ -193,7 +194,9 @@ const Register = () => {
                 }}
               />
             </div>
-            {errors.password && <p style={{ color: "red" }}>{errors.password}</p>}
+            {errors.password && (
+              <p style={{ color: "red" }}>{errors.password}</p>
+            )}
 
             {/* تأكيد كلمة المرور */}
             <div className="input-group">
@@ -229,5 +232,3 @@ const Register = () => {
   );
 };
 export default Register;
-
-
