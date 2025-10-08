@@ -30,7 +30,7 @@ const Header = () => {
 
         <div className="mobile-login">
           {cookies?.token?.data?.token &&
-          cookies?.token?.data?.token !== "undefined" ? (
+            cookies?.token?.data?.token !== "undefined" ? (
             <div className="">
               <Link
                 type="button"
@@ -87,7 +87,7 @@ const Header = () => {
                     <p className="username">{userData?.name}</p>
                   </div>
                 </div>
-               <Link to="/accountUser" className="profile-btn"><button>عرض الملف الشخصي</button></Link>
+                <Link to="/accountUser" className="profile-btn"><button>عرض الملف الشخصي</button></Link>
                 <div className="settings">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -174,7 +174,7 @@ const Header = () => {
 
         <div className="header-button">
           {cookies?.token?.data?.token &&
-          cookies?.token?.data?.token !== "undefined" ? (
+            cookies?.token?.data?.token !== "undefined" ? (
             <div className="">
               <Link
                 type="button"

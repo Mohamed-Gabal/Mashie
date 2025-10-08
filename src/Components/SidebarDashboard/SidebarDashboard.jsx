@@ -1,9 +1,11 @@
-
 import React from "react";
 import "./sidebarDashboard.css";
 import { NavLink, useNavigate } from "react-router-dom";
 import { PiTagSimple, PiSignOut } from "react-icons/pi";
-import { IoIosNotificationsOutline, IoIosHelpCircleOutline } from "react-icons/io";
+import {
+  IoIosNotificationsOutline,
+  IoIosHelpCircleOutline,
+} from "react-icons/io";
 import { MdFavoriteBorder } from "react-icons/md";
 import { AiOutlineSetting } from "react-icons/ai";
 import { RiBloggerLine } from "react-icons/ri";
@@ -17,7 +19,7 @@ const SidebarDashboard = () => {
   const handleLogout = async () => {
     try {
       const token = cookie?.token?.data?.token;
-    console.log("Token being sent:", token);
+      console.log("Token being sent:", token);
 
       // تأكد أن التوكن موجود
       if (!token) {
@@ -25,23 +27,26 @@ const SidebarDashboard = () => {
         navigate("/login");
         return;
       }
-      
+
       // إرسال طلب logout للسيرفر
-      const response = await fetch("https://api.mashy.sand.alrmoz.com/api/logout", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      
+      const response = await fetch(
+        "https://api.mashy.sand.alrmoz.com/api/logout",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
       if (response.ok) {
         // حذف التوكن من الكوكيز
         removeCookie("token");
-        
+
         // توجيه المستخدم لصفحة تسجيل الدخول
         navigate("/");
-      } 
+      }
     } catch (error) {
       console.error("حدث خطأ أثناء تسجيل الخروج:", error);
     }
@@ -68,19 +73,28 @@ const SidebarDashboard = () => {
         <div className="Sidebar_Dashboard_links">
           <ul className="Sidebar_Dashboard_link">
             <li>
-              <NavLink to="/offersUser" className={({ isActive }) => (isActive ? "active" : "")}>
+              <NavLink
+                to="/offersUser"
+                className={({ isActive }) => (isActive ? "active" : "")}
+              >
                 <PiTagSimple />
                 العروض
               </NavLink>
             </li>
             <li>
-              <NavLink to="/notifactionsUser" className={({ isActive }) => (isActive ? "active" : "")}>
+              <NavLink
+                to="/notifactionsUser"
+                className={({ isActive }) => (isActive ? "active" : "")}
+              >
                 <IoIosNotificationsOutline />
                 الإشعارات
               </NavLink>
             </li>
             <li>
-              <NavLink to="/favoritesUser" className={({ isActive }) => (isActive ? "active" : "")}>
+              <NavLink
+                to="/favoritesUser"
+                className={({ isActive }) => (isActive ? "active" : "")}
+              >
                 <MdFavoriteBorder />
                 المفضلة
               </NavLink>
@@ -93,19 +107,28 @@ const SidebarDashboard = () => {
         <div className="Sidebar_Dashboard_links">
           <ul className="Sidebar_Dashboard_link">
             <li>
-              <NavLink to="/settingsUser" className={({ isActive }) => (isActive ? "active" : "")}>
+              <NavLink
+                to="/settingsUser"
+                className={({ isActive }) => (isActive ? "active" : "")}
+              >
                 <AiOutlineSetting />
                 الإعدادات
               </NavLink>
             </li>
             <li>
-              <NavLink to="/blogUser" className={({ isActive }) => (isActive ? "active" : "")}>
+              <NavLink
+                to="/blogUser"
+                className={({ isActive }) => (isActive ? "active" : "")}
+              >
                 <RiBloggerLine />
                 المدونة
               </NavLink>
             </li>
             <li>
-              <NavLink to="/helpUser" className={({ isActive }) => (isActive ? "active" : "")}>
+              <NavLink
+                to="/helpUser"
+                className={({ isActive }) => (isActive ? "active" : "")}
+              >
                 <IoIosHelpCircleOutline />
                 المساعدة
               </NavLink>

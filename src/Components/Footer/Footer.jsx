@@ -102,7 +102,7 @@ const Footer = () => {
           <MdOutlineHome />
           <span>الرئيسيه</span>
         </Link>
-        <Link>
+        <Link to="/favoritesUser">
           <MdFavoriteBorder />
           <span>المفضله</span>
         </Link>
@@ -110,7 +110,7 @@ const Footer = () => {
           <IoMdAdd className="active-icon"/>
           <span>اضافه عرض</span>
         </Link>
-        <Link>
+        <Link to="/notifactionsUser">
           <IoNotificationsOutline />
           <span>الاشعارات</span>
         </Link>
