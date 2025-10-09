@@ -122,6 +122,8 @@
 .car-card-ico {
   font-size: 25px;
   color: var(--main-color);
+  display: flex;
+  align-items: center;
 }
 .car-card-btn {
   display: inline-flex;
@@ -189,7 +191,7 @@
     font-size: 14px;
   }
   .car-card-actions {
-    gap: 10px;
+    gap: 20px;
   }
   .car-card-fav {
     width: 34px;

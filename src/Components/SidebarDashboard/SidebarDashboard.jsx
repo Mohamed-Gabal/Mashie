@@ -25,7 +25,6 @@ const SidebarDashboard = () => {
 
       // تأكد أن التوكن موجود
       if (!token) {
-        console.log("المستخدم غير مسجل الدخول");
         navigate("/login");
         return;
       }
@@ -149,16 +148,20 @@ const SidebarDashboard = () => {
       {/* عند الضغط علي تسجيل الخروج */}
       {showConfirm && (
         <div className="confirm_overlay">
-          <PiSignOut />
           <div className="confirm_box">
-            <h3>هل أنت متأكد أنك تريد تسجيل الخروج من حسابك؟</h3>
-            <p>يمكنك دائمًا تسجيل الدخول مرة أخرى لمتابعة نشاطك.</p>
+            <PiSignOut className="icon_confirm" />
+            <h3 className="confirm_box_title">
+              هل أنت متأكد أنك تريد تسجيل الخروج من حسابك؟
+            </h3>
+            <p className="confirm_box_par">
+              يمكنك دائمًا تسجيل الدخول مرة أخرى لمتابعة نشاطك.
+            </p>
             <div className="confirm_actions">
               <button
                 className="cancel_btn"
                 onClick={() => setShowConfirm(false)}
               >
-                الغاء
+                إلغاء
               </button>
               <button
                 className="confirm_btn"

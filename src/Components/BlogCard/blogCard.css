@@ -104,16 +104,7 @@
 .fav-btn {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  color: var(--color);
-  padding: 8px 12px;
-  border: 1px solid var(--primary-color);
-  border-radius: 8px;
-  text-decoration: none;
-  font-size: 16px;
   transition: all 0.3s ease;
-  width: 40px;
-  height: 40px;
 }
 .fav-btn:hover {
   background-color: var(--primary-color);
@@ -173,7 +164,7 @@
   }
   .ad-title {
     font-size: 10px;
-    margin-bottom: 6px;
+    margin-bottom: 5px;
     line-height: 1.4;
   }
   .ad-meta {
@@ -185,7 +176,7 @@
     font-size: 14px;
   }
   .ad-actions {
-    gap: 6px;
+    gap: 20px;
   }
   .fav-btn {
     font-size: 14px;
