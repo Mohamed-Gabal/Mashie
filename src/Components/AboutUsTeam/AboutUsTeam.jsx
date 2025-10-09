@@ -10,7 +10,7 @@ const AboutUsTeam = () => {
       id: 1,
       image: "./images/team.webp",
       icon: <LuWebcam />,
-      title: "رسالتنا",
+      title: "هدفنا",
       desc: "توصيل البائع بالمشتري بسرعة وأمانة",
     },
     {
@@ -31,7 +31,7 @@ const AboutUsTeam = () => {
 
   return (
     <div className="aboutUsTeam">
-      <h2 className="aboutUsTeam_title">رسالتنا ورؤيتنا وقيمنا</h2>
+      <h2 className="aboutUsTeam_title">هدفنا ورؤيتنا وقيمنا</h2>
       <div className="aboutUsTeam_container">
         {data.map((item) => (
           <div className="aboutUsTeam_box" key={item.id}>

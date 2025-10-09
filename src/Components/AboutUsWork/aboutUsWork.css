@@ -4,7 +4,6 @@
 }
 
 .howItWork{
-    /* background: #f8fafa; */
     background: #ECF0F1CC;
     padding: 50px 0px;
 }
@@ -85,4 +84,11 @@
     font-size: 14px;
     color: #555;
     line-height: 1.6;
+}
+
+@media (max-width: 540px) {
+    .howItWork, .choose_container{
+        padding-left: 20px;
+        padding-right: 20px;
+    }
 }

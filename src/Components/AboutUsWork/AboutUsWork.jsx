@@ -3,7 +3,7 @@ import "./aboutUsWork.css";
 
 export default function AboutUsWork() {
   const firstSection = [
-    { icon: "./Icons/aboutUs/sereach.svg", title: "ابحث عن ما تحتاجه", desc: "استخدم البحث المتقدم للعثور على المنتج المطلوب بسرعة وسهولة" },
+    { icon: "./Icons/aboutUs/sereach.svg", title: "ابحث عن ما تحتاجه", desc: "استخدم البحث المقدم للعثور على المنتج المطلوب بسرعة وسهولة" },
     { icon: "./Icons/aboutUs/ChatTeardrop.svg", title: "تواصل مع البائع", desc: "تحدث مع البائع مباشرة للاستفسار عن التفاصيل والتفاوض على السعر" },
     { icon: "./Icons/aboutUs/Handshake.svg", title: "أكمل الصفقة بأمان", desc: "اتفق على التفاصيل النهائية وأتمم عملية الشراء بكل ثقة وأمان" },
   ];
