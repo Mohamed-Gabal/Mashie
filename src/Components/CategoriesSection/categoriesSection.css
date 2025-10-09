@@ -44,7 +44,7 @@
   justify-content: space-between;
 }
 .category-card:hover {
-  transform: translateY(-6px);
+  transform: translateY(-4px);
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
   border-color: var(--main-color);
 }
@@ -160,5 +160,13 @@
   .category-card img {
     width: 24px;
     height: 24px;
+  }
+}
+
+@media (max-width: 487px) {
+  .categories-grid {
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
   }
 }

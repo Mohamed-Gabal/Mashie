@@ -101,6 +101,10 @@
     .grid-container {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
-        gap: 15px;
+        gap: 10px;
+    }
+    
+    .categoryads_card {
+        padding: 10px;
     }
 }
