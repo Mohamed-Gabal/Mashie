@@ -12,9 +12,30 @@ import { IoMdAdd } from "react-icons/io";
 import { IoNotificationsOutline } from "react-icons/io5";
 import { TiMessage } from "react-icons/ti";
 import { MdFavoriteBorder } from "react-icons/md";
-
+// استدعاء للتنقب لين لاصفحات
+import { useNavigate } from "react-router-dom";
+import { useCookies } from "react-cookie";
 
 const Footer = () => {
+  // لتخزين التوكين
+  const cookie = useCookies(["token"]);
+
+  // للتنقل بين الصفحات
+  const navigate = useNavigate();
+
+  // handle Logout for Icons
+  const handleCheckLogout = (path) => {
+    // تاكيد التوكين
+    const token = cookie?.token?.data?.token;
+
+    if (token) {
+      // تشيك
+      navigate(path);
+    } else {
+      navigate("/login");
+    }
+  };
+
   return (
     <footer className="footer">
       <div className="container footer-container">
@@ -96,28 +117,35 @@ const Footer = () => {
       <div className="footer-bottom">
         <p>© جميع الحقوق محفوظة - ماشي 2025</p>
       </div>
-      {/* Navbar */}
+
+      {/* Navbar for footer*/}
       <div className="nav-footer">
-        <Link to='/'>
+        <Link to="/">
           <MdOutlineHome />
           <span>الرئيسيه</span>
         </Link>
-        <Link>
-          <MdFavoriteBorder />
-          <span>المفضله</span>
-        </Link>
+        <div onClick={() => handleCheckLogout("/favoritesUser")}>
+          <Link>
+            <MdFavoriteBorder />
+            <span>المفضله</span>
+          </Link>
+        </div>
         <Link to="/Advertisements">
-          <IoMdAdd className="active-icon"/>
+          <IoMdAdd className="active-icon" />
           <span>اضافه عرض</span>
         </Link>
-        <Link>
-          <IoNotificationsOutline />
-          <span>الاشعارات</span>
-        </Link>
-        <Link>
-          <TiMessage />
-          <span>الرسائل</span>
-        </Link>
+        <div onClick={() => handleCheckLogout("/notifactionsUser")}>
+          <Link>
+            <IoNotificationsOutline />
+            <span>الاشعارات</span>
+          </Link>
+        </div>
+        <div>
+          <Link>
+            <TiMessage />
+            <span>الرسائل</span>
+          </Link>
+        </div>
       </div>
     </footer>
   );
