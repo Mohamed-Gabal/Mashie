@@ -18,17 +18,14 @@ const SidebarDashboard = () => {
   // تحكم في الموديل قبل تسجيل الخروج
   const [showConfirm, setShowConfirm] = useState(false);
 
+  // handle Errors
+  const [error, setErrors] = useState();
+
   // handle Logout
   const handleLogout = async () => {
     try {
       const token = cookie?.token?.data?.token;
-
-      // تأكد أن التوكن موجود
-      if (!token) {
-        navigate("/login");
-        return;
-      }
-
+      
       // إرسال طلب logout للسيرفر
       const response = await fetch(
         "https://api.mashy.sand.alrmoz.com/api/logout",
@@ -43,13 +40,13 @@ const SidebarDashboard = () => {
 
       if (response.ok) {
         // حذف التوكن من الكوكيز
-        removeCookie("token");
+        removeCookie("token", {path: "/"});
 
         // توجيه المستخدم لصفحة تسجيل الدخول
         navigate("/");
       }
-    } catch (error) {
-      console.error("حدث خطأ أثناء تسجيل الخروج:", error);
+    } catch {
+      setErrors("حدث خطأ أثناء تسجيل الخروج:");
     }
   };
 
@@ -172,6 +169,7 @@ const SidebarDashboard = () => {
               >
                 تسجيل الخروج
               </button>
+              {error && <p className="error_message">{error}</p>}
             </div>
           </div>
         </div>

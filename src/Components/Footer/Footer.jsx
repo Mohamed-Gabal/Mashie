@@ -12,9 +12,18 @@ import { IoMdAdd } from "react-icons/io";
 import { IoNotificationsOutline } from "react-icons/io5";
 import { TiMessage } from "react-icons/ti";
 import { MdFavoriteBorder } from "react-icons/md";
-
+// استدعاء للتنقب لين لاصفحات
+// import { useNavigate } from "react-router-dom";
+// import { useCookies } from "react-cookie";
 
 const Footer = () => {
+  // لتخزين التوكين
+  // const [cookie] = useCookies(["token"]);
+
+  // للتنقل بين الصفحات
+  // const navigate = useNavigate();
+
+
   return (
     <footer className="footer">
       <div className="container footer-container">
@@ -96,9 +105,10 @@ const Footer = () => {
       <div className="footer-bottom">
         <p>© جميع الحقوق محفوظة - ماشي 2025</p>
       </div>
-      {/* Navbar */}
+
+      {/* Navbar for footer*/}
       <div className="nav-footer">
-        <Link to='/'>
+        <Link to="/">
           <MdOutlineHome />
           <span>الرئيسيه</span>
         </Link>
@@ -107,10 +117,10 @@ const Footer = () => {
           <span>المفضله</span>
         </Link>
         <Link to="/Advertisements">
-          <IoMdAdd className="active-icon"/>
+          <IoMdAdd className="active-icon" />
           <span>اضافه عرض</span>
         </Link>
-        <Link to="/notifactionsUser">
+        <Link to='/notifactionsUser'>
           <IoNotificationsOutline />
           <span>الاشعارات</span>
         </Link>

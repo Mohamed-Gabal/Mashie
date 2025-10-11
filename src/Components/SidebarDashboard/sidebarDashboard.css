@@ -198,6 +198,14 @@
   }
 }
 
+.error_message {
+  color: red;
+  font-size: 14px;
+  margin-top: 10px;
+  text-align: center;
+}
+
+
 /* 🎯 التصميم الريسبونسف */
 @media (max-width: 768px) {
   .profile_img {
