@@ -132,7 +132,7 @@ const BlogCard = () => {
 
                   {/* الأزرار الخاصة بالتفاصيل والمفضلة */}
                   <div className="ad-actions">
-                    <Link to={`/details/${ad.id_ads}`} className="ad-btn">
+                    <Link to={`/realestate/${ad.id_ads}`} className="ad-btn">
                       عرض التفاصيل
                     </Link>
                     <Link to="/favoritesUser" className="fav-btn">
