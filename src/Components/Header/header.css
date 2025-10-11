@@ -161,7 +161,7 @@
   position: absolute;
   top: 100%;
   left: 0px;
-  transform: translate(-30px, 13px);
+  transform: translate(-40px, 20px);
 }
 .mobile-login .mobile_loginBTN {
   display: flex;
