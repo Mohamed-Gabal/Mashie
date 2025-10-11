@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import "./Information.css";
 import CarForm from '../../../Components/AdvertisementsComponents/CarForm/CarForm';
 import { categories } from '../Category/Category';
@@ -20,6 +20,13 @@ export default function Information({ formik, prevStep }) {
     const category = categories.find(cat => cat.key === values.category);
     if (!category) return null;
 
+    const titleInputRef = useRef(null);
+    useEffect(() => {
+        if (titleInputRef.current) {
+            titleInputRef.current.focus();
+        }
+    }, []);
+
     return (
         <div className="information_container">
             <div className="basicData">
@@ -40,6 +47,7 @@ export default function Information({ formik, prevStep }) {
                         )}
                     </label>
                     <input
+                        ref={titleInputRef}
                         type="text"
                         name="information.adTitle"
                         value={values.information?.adTitle}

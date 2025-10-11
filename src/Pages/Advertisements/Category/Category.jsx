@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import "./Category.css";
 
 export const categories = [
@@ -16,8 +16,9 @@ export const categories = [
     { id: 12, key: "pets", name: "الحيوانات", icon: "./advertisements/animals.svg", title: "الحيوانات", desc: "حيوانات أليفة ومنتجاتها" },
 ];
 
-export default function Category({ formik  }) {
+export default function Category({ formik }) {
     const { values, setFieldValue, errors } = formik;
+    const bottomRef = useRef(null);
     return (
         <div className='category_main'>
             <div className="categories-container">
@@ -31,10 +32,12 @@ export default function Category({ formik  }) {
                             onClick={() => {
                                 setFieldValue("category", cat.key);
                                 formik.setFieldError("category", "");
-                                window.scrollTo({
-                                    top: document.body.scrollHeight,
-                                    behavior: "smooth",
-                                });
+                                setTimeout(() => {
+                                    bottomRef.current.scrollIntoView({
+                                        behavior: "smooth",
+                                        block: "start"
+                                    });
+                                }, 100);
                             }}
                             role="button"
                             tabIndex={0}
@@ -51,7 +54,7 @@ export default function Category({ formik  }) {
                     <div className="error">{errors.category}</div>
                 )}
             </div>
+            <div ref={bottomRef} />
         </div>
     )
-}
-
+};
