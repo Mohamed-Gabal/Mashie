@@ -84,7 +84,7 @@ const DetailsLayout = () => {
           <div className="details-close-titles">
             <span className="details-close-title-yello"> <RiStarSLine className="details-close-title-yello-icon" />مميز</span>
             <span className="details-close-title-main"> <MdOutlineShield className="details-close-title-main-icon" /> بائع موثوق</span>
-            <span className="details-close-title-empty">نشر {ad_details?.created_at ? timeSince(ad_details.created_at) : ""}</span>
+            <span className="details-close-title-empty"><span>نشر منذ </span>{ad_details?.created_at ? timeSince(ad_details.created_at) : ""}</span>
           </div>
         </div>
       </div>
@@ -198,7 +198,7 @@ const DetailsLayout = () => {
 
                   <div className="user_info">
                     <h5>{ad_details?.seller?.name}</h5>
-                    <p className="details-left-top-user-member">عضو {ad_details?.user?.account_created_at ? timeSince(ad_details?.user?.account_created_at) : ""}</p>
+                    <p className="details-left-top-user-member"><span>{ad_details?.user?.account_created_at ? timeSince(ad_details?.user?.account_created_at) : ""}</span> <span>عضو منذ </span></p>
                   </div>
                 </div>
 
