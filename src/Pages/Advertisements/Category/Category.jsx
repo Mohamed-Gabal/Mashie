@@ -31,6 +31,10 @@ export default function Category({ formik  }) {
                             onClick={() => {
                                 setFieldValue("category", cat.key);
                                 formik.setFieldError("category", "");
+                                window.scrollTo({
+                                    top: document.body.scrollHeight,
+                                    behavior: "smooth",
+                                });
                             }}
                             role="button"
                             tabIndex={0}
