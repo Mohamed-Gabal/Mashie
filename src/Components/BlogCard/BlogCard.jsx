@@ -1,105 +1,151 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./blogCard.css";
 import { CiLocationOn, CiStopwatch } from "react-icons/ci";
 import { MdFavoriteBorder } from "react-icons/md";
 
 const BlogCard = () => {
-  const ads = [
-    {
-      id: 1,
-      img: "/images/filter2.webp",
-      user: "أحمد عمر",
-      userImage: "/images/logo.svg",
-      title: "للبيع شقة تمليك الدور الأول",
-      time: "قبل 4 دقائق",
-      location: "مصر, القاهرة",
-    },
-    {
-      id: 2,
-      img: "/images/filter2.webp",
-      user: "أحمد عمر",
-      userImage: "/images/logo.svg",
-      title: "شقة للإيجار قانون جديد",
-      time: "قبل 10 دقائق",
-      location: "مصر, الجيزة",
-    },
-    {
-      id: 3,
-      img: "/images/filter2.webp",
-      user: "أحمد عمر",
-      userImage: "/images/logo.svg",
-      title: "فيلا دوبلكس للبيع",
-      time: "قبل 15 دقيقة",
-      location: "مصر, الإسكندرية",
-    },
-    {
-      id: 4,
-      img: "/images/filter2.webp",
-      user: "أحمد عمر",
-      userImage: "/images/logo.svg",
-      title: "محل للإيجار بمنطقة حيوية",
-      time: "قبل 20 دقيقة",
-      location: "مصر, القاهرة",
-    },
-    {
-      id: 5,
-      img: "/images/filter2.webp",
-      user: "أحمد عمر",
-      userImage: "/images/logo.svg",
-      title: "أرض للبيع في التجمع",
-      time: "قبل 25 دقيقة",
-      location: "مصر, القاهرة",
-    },
-    {
-      id: 6,
-      img: "/images/filter2.webp",
-      user: "أحمد عمر",
-      userImage: "/images/logo.svg",
-      title: "شقة تمليك بحدائق الأهرام",
-      time: "قبل 30 دقيقة",
-      location: "مصر, الجيزة",
-    },
-  ];
+  // تعريف حالات (states) لتخزين البيانات وحالة التحميل والخطأ
+  const [ads, setAds] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
+  // عند تحميل المكون لأول مرة يتم استدعاء البيانات من API
+  useEffect(() => {
+    const fetchAds = async () => {
+      try {
+        // طلب البيانات من السيرفر
+        const res = await fetch(
+          "https://api.mashy.sand.alrmoz.com/api/ads?category=realestate&page_num=1"
+        );
+
+        // التحقق من نجاح الاتصال بالسيرفر
+        if (!res.ok) {
+          throw new Error("حدث خطأ في الاتصال، حاول مرة أخرى.");
+        }
+
+        // تحويل البيانات إلى JSON
+        const data = await res.json();
+
+        // الوصول إلى الإعلانات داخل الاستجابة (response)
+        const adsData = data?.data?.data?.ads || [];
+
+        // التحقق من أن الاستجابة ناجحة وتحتوي على مصفوفة إعلانات
+        if (data?.success && Array.isArray(adsData)) {
+          setAds(adsData); // حفظ الإعلانات في الحالة
+        } else {
+          setError("لم يتم العثور على أي إعلانات حاليًا."); // في حال لم توجد إعلانات
+        }
+      } catch {
+        // معالجة الأخطاء العامة (مثل انقطاع الإنترنت أو مشكلة في البيانات)
+        setError("حدث خطأ أثناء جلب البيانات، يرجى المحاولة لاحقًا.");
+      } finally {
+        // إنهاء حالة التحميل بعد انتهاء الطلب
+        setLoading(false);
+      }
+    };
+
+    // استدعاء الدالة لجلب الإعلانات
+    fetchAds();
+  }, []);
+
+  // عرض رسالة أثناء تحميل البيانات
+  if (loading) {
+    return (
+      <div className="loading">
+        <p>جارِ تحميل الإعلانات...</p>
+      </div>
+    );
+  }
+
+  // عرض رسالة الخطأ في حال حدوث مشكلة
+  if (error) {
+    return (
+      <div className="error-message">
+        <p>{error}</p>
+      </div>
+    );
+  }
+
+  // عرض الإعلانات في حال تم جلبها بنجاح
   return (
     <section className="latest-ads">
       <div className="container">
+        {/* عنوان القسم والوصف */}
         <h2 className="section-title">اكتشف الجديد أولًا</h2>
         <p className="section-subtitle">
           تصفح أحدث الإعلانات المضافة الآن، واعثر على ما يناسبك بسرعة وسهولة
         </p>
+
+        {/* شبكة عرض الإعلانات */}
         <div className="ads-grid">
-          {ads.map((ad) => (
-            <div key={ad.id} className="ad-card">
-              <img src={ad.img} alt={ad.title} className="ad-img" />
-              <div className="ad-content">
-                <div className="ad-user">
-                  <img src={ad.userImage} alt={ad.user} className="user-img" />
-                  <span>{ad.user}</span>
-                </div>
-                <h3 className="ad-title">{ad.title}</h3>
-                <div className="ad-meta">
-                  <span className="meta-item">
-                    <CiLocationOn className="meta-icon" />
-                    {ad.location}
-                  </span>
-                  <span className="meta-item">
-                    <CiStopwatch className="meta-icon" />
-                    {ad.time}
-                  </span>
-                </div>
-                <div className="ad-actions">
-                  <Link to={`/details/${ad.id}`} className="ad-btn">
-                    عرض التفاصيل
-                  </Link>
-                  <Link to="/favoritesUser" className="fav-btn">
-                    <MdFavoriteBorder className="fav-icon" />
-                  </Link>
+          {ads.length > 0 ? (
+            ads.map((ad) => (
+              <div key={ad.id_ads} className="ad-card">
+                {/* صورة الإعلان */}
+                <img
+                  src={
+                    ad.images?.[0]
+                      ? `https://api.mashy.sand.alrmoz.com/storage${ad.images[0]}`
+                      : "/images/default.jpg"
+                  }
+                  alt={ad.information?.title || "إعلان"}
+                  className="ad-img"
+                />
+
+                <div className="ad-content">
+                  {/* بيانات المستخدم صاحب الإعلان */}
+                  <div className="ad-user">
+                    <img
+                      src={ad.user?.user_image || "/images/logo.svg"}
+                      alt={ad.user?.user_name || "مستخدم"}
+                      className="user-img"
+                    />
+                    <span>{ad.user?.user_name || "مستخدم"}</span>
+                  </div>
+
+                  {/* عنوان الإعلان */}
+                  <h3 className="ad-title">
+                    {ad.information?.title || "بدون عنوان"}
+                  </h3>
+
+                  {/* بيانات إضافية عن الموقع والوقت */}
+                  <div className="ad-meta">
+                    <span className="meta-item">
+                      <CiLocationOn className="meta-icon" />
+                      {ad.location?.area || ad.location?.city || "غير محدد"}
+                    </span>
+                    <span className="meta-item">
+                      <CiStopwatch className="meta-icon" />
+                      {ad.created_at || "حديثًا"}
+                    </span>
+                  </div>
+
+                  {/* عرض السعر أو حالة التفاوض */}
+                  <p className="ad-price">
+                    {ad.information?.price
+                      ? `${ad.information.price} ريال`
+                      : ad.information?.isNegotiable
+                      ? "السعر قابل للتفاوض"
+                      : "السعر غير محدد"}
+                  </p>
+
+                  {/* الأزرار الخاصة بالتفاصيل والمفضلة */}
+                  <div className="ad-actions">
+                    <Link to={`/details/${ad.id_ads}`} className="ad-btn">
+                      عرض التفاصيل
+                    </Link>
+                    <Link to="/favoritesUser" className="fav-btn">
+                      <MdFavoriteBorder className="fav-icon" />
+                    </Link>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))
+          ) : (
+            // في حال لم توجد إعلانات بعد التحميل
+            <p className="no-ads">لا توجد إعلانات حالياً</p>
+          )}
         </div>
       </div>
     </section>

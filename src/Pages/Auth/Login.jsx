@@ -81,7 +81,7 @@ const Login = () => {
         // لو السيرفر رجع خطأ (كلمة مرور غلط مثلًا)
         setErrors((prev) => ({
           ...prev,
-          general: data.message || "خطأ في تسجيل الدخول",
+          general: "خطأ في تسجيل الدخول",
         }));
       }
     } catch {

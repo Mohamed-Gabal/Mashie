@@ -122,6 +122,8 @@
 .car-card-ico {
   font-size: 25px;
   color: var(--main-color);
+  display: flex;
+  align-items: center;
 }
 .car-card-btn {
   display: inline-flex;
@@ -151,7 +153,7 @@
     padding: 15px 10px;
   }
   .car-card-grid {
-    grid-template-columns: repeat(2, 1fr); 
+    grid-template-columns: repeat(2, 1fr);
     gap: 12px;
   }
   .car-card-card {
@@ -189,7 +191,7 @@
     font-size: 14px;
   }
   .car-card-actions {
-    gap: 6px;
+    gap: 20px;
   }
   .car-card-fav {
     width: 34px;
@@ -200,8 +202,8 @@
     font-size: 18px;
   }
   .car-card-btn {
-    padding: 6px 8px;
-    font-size: 12px;
+    padding: 5px 5px;
+    font-size: 10px;
     border-radius: 6px;
   }
 }
