@@ -17,7 +17,6 @@ import ForgotPassword from './Pages/Auth/ForgotPassword';
 import ResetPassword from './Pages/Auth/ResetPassword';
 import DetailsLayout from "./Pages/DetailsLayout/DetailsLayout";
 
-
 // pages dashboard
 import AccountUser from "./Pages/DashboardUser/AccountUser/AccountUser";
 import OffersUser from "./Pages/DashboardUser/OffersUser/OffersUser";
@@ -26,7 +25,6 @@ import FavoritesUser from "./Pages/DashboardUser/FavoritesUser/FavoritesUser";
 import SettingsUser from "./Pages/DashboardUser/SettingsUser/SettingsUser";
 import BlogUser from "./Pages/DashboardUser/BlogUser/BlogUser";
 import HelpUser from "./Pages/DashboardUser/HelpUser/HelpUser";
-
 
 // import Advertisement from "./Pages/Advertisements/Advertisements";
 import Advertisements from "./Pages/Advertisements/Advertisements";

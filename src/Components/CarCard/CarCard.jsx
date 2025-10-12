@@ -13,7 +13,7 @@ const CarCard = () => {
     const fetchCard = async () => {
       try {
         const res = await fetch(
-          "https://api.mashy.sand.alrmoz.com/api/ealans?category=cars&page_num=10"
+          "https://api.mashy.sand.alrmoz.com/api/ealans?category=vehicles&page_num=10"
         );
 
         if (!res.ok) {

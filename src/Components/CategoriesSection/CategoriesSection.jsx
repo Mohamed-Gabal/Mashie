@@ -127,9 +127,7 @@ const CategoriesSection = () => {
             <div className="">
               <p>{cat.desc}</p>
               <span className="count">{cat.count}</span>
-              <span className="browse-spen">
-                تصفح القسم
-              </span>
+              <span className="browse-spen">تصفح القسم</span>
             </div>
           </Link>
         ))}

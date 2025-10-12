@@ -186,7 +186,7 @@ const Register = () => {
             <div className="input-group">
               <IoCallOutline className="icon" />
               <input
-                type="number"
+                type="tel"
                 placeholder="رقم الجوال"
                 value={formData.phone}
                 onChange={(e) => {
