@@ -623,8 +623,8 @@
 }
 
 @media (max-width: 460px) {
-  .details-layout .login_modal_fade .modal_dialog {
+  /* .details-layout .login_modal_fade .modal_dialog {
     position: absolute;
     top: 65%;
-  }
+  } */
 }
