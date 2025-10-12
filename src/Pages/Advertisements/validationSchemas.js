@@ -11,7 +11,7 @@ export const validationSchemas = {
                 adDescription: Yup.string().required("الوصف مطلوب"),
                 adPrice: Yup.string()
                     .notRequired()
-                    .matches(/^(?:$|[1-9]\d*(\.\d+)?)$/, "السعر لازم يكون رقم"),
+                    .matches(/^(?:$|[٠-٩0-9]+(?:\.[٠-٩0-9]+)?)$/, "السعر لازم يكون رقم"),
                 isNegotiable: Yup.boolean(),
             }),
         });
