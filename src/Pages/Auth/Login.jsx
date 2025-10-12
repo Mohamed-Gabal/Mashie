@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./login.css";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import { MdOutlineMailOutline } from "react-icons/md";
 
@@ -40,6 +40,8 @@ const Login = () => {
 export default Login;
 
 export function LoginForm() {
+  const {details} = useParams();
+  console.log(details);
   //  الحالة الخاصة بالبريد الإلكتروني
   const [email, setEmail] = useState("");
   //  الحالة الخاصة بكلمة المرور
@@ -80,13 +82,14 @@ export function LoginForm() {
     return valid; // ترجع false لو فيه خطأ
   };
 
+  const [loading, setLoading] = useState(false);
   //  دالة إرسال النموذج (التعامل مع API تسجيل الدخول)
   const handleSubmit = async (e) => {
     e.preventDefault(); // منع تحديث الصفحة
 
     // ✅ تحقق من البيانات قبل استدعاء API
     if (!validateForm()) return;
-
+    setLoading(true);
     try {
       // استدعاء API تسجيل الدخول
       const response = await fetch(
@@ -108,7 +111,9 @@ export function LoginForm() {
           sameSite: "strict", // يمنع هجمات CSRF
         });
         // ✅ توجيه المستخدم للصفحة الرئيسية
-        navigate("/");
+        if(details !== "vehicles" && details !== "realestate" && details !== "electronics" && details !== "jobs" && details !== "furniture" && details !== "services" && details !== "fashion" && details !== "food" && details !== "anecdotes" && details !== "gardens" && details !== "trips" && details !== "pets") {
+          navigate("/");
+        }
       } else {
         // لو السيرفر رجع خطأ (كلمة مرور غلط مثلًا)
         setErrors((prev) => ({
@@ -122,6 +127,8 @@ export function LoginForm() {
         ...prev,
         general: "حدث خطأ في الاتصال ",
       }));
+    } finally {
+      setLoading(false);
     }
   };
   return (
@@ -170,8 +177,8 @@ export function LoginForm() {
       )}
 
       {/* زر تسجيل الدخول */}
-      <button type="submit" className="login_button">
-        تسجيل دخول
+      <button type="submit" className="login_button" disabled={loading}>
+        {loading ? "جاري تسجيل الدخول..." : "تسجيل دخول"}
       </button>
 
       {/* رسالة خطأ عامة (من السيرفر أو غيره) */}
