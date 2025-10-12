@@ -16,6 +16,7 @@ import { timeSince } from "../SpecificCategory/SpecificCategory";
 import { CiFlag1 } from "react-icons/ci";
 import { attributeMapForDetails } from "../../data";
 import { useCookies } from "react-cookie";
+import { LoginForm } from "../Auth/Login";
 
 const DetailsLayout = () => {
   const [cookies] = useCookies(["token"]);
@@ -274,6 +275,12 @@ const DetailsLayout = () => {
         </div>
       </section>
 
+      {/* <!----------- Modal -----------> */}
+      <section className="modal_fade">
+        <div className="modal_dialog">
+          <LoginForm/>
+        </div>
+      </section>
     </div>
   );
 };
