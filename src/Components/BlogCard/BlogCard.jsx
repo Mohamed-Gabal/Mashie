@@ -16,12 +16,14 @@ const BlogCard = () => {
       try {
         // طلب البيانات من السيرفر
         const res = await fetch(
-          "https://api.mashy.sand.alrmoz.com/api/ads?category=realestate&page_num=1"
+          "https://api.mashy.sand.alrmoz.com/api/ealans?category=realestate&page_num=1"
         );
 
         // التحقق من نجاح الاتصال بالسيرفر
         if (!res.ok) {
-          throw new Error("حدث خطأ في الاتصال، حاول مرة أخرى.");
+          setError("حدث خطأ في الاتصال، حاول مرة أخرى.");
+          setLoading(false);
+          return;
         }
 
         // تحويل البيانات إلى JSON
@@ -68,6 +70,37 @@ const BlogCard = () => {
   }
 
   // عرض الإعلانات في حال تم جلبها بنجاح
+
+  // تحويل التاريخ الي صيغه معينه
+  const formatTime = (dateString) => {
+    const date = new Date(dateString);
+    const now = new Date();
+    const seconds = Math.floor((now - date) / 1000);
+
+    const intervals = {
+      year: 31536000,
+      month: 2592000,
+      week: 604800,
+      day: 86400,
+      hour: 3600,
+      minute: 60,
+    };
+
+    if (seconds < 60) return "مند لحظات";
+    if (seconds < intervals.minute) return `منذ ${seconds} ثانية`;
+    if (seconds < intervals.hour)
+      return `منذ ${Math.floor(seconds / intervals.minute)} دقيقة`;
+    if (seconds < intervals.day)
+      return `منذ ${Math.floor(seconds / intervals.hour)} ساعة`;
+    if (seconds < intervals.week)
+      return `منذ ${Math.floor(seconds / intervals.day)} يوم`;
+    if (seconds < intervals.month)
+      return `منذ ${Math.floor(seconds / intervals.week)} أسبوع`;
+    if (seconds < intervals.year)
+      return `منذ ${Math.floor(seconds / intervals.month)} شهر`;
+
+    return `منذ ${Math.floor(seconds / intervals.year)} سنة`;
+  };
   return (
     <section className="latest-ads">
       <div className="container">
@@ -117,7 +150,7 @@ const BlogCard = () => {
                     </span>
                     <span className="meta-item">
                       <CiStopwatch className="meta-icon" />
-                      {ad.created_at || "حديثًا"}
+                      {formatTime(ad.created_at) || "حديثًا"}
                     </span>
                   </div>
 
@@ -132,7 +165,7 @@ const BlogCard = () => {
 
                   {/* الأزرار الخاصة بالتفاصيل والمفضلة */}
                   <div className="ad-actions">
-                    <Link to={`/details/${ad.id_ads}`} className="ad-btn">
+                    <Link to={`/realestate/${ad.id_ads}`} className="ad-btn">
                       عرض التفاصيل
                     </Link>
                     <Link to="/favoritesUser" className="fav-btn">

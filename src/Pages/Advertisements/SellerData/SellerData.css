@@ -31,6 +31,7 @@
     justify-content: space-between;
     align-items: center;
     margin-top: 20px;
+    /* border: 1px solid red; */
 }
 
 .webMessage_item .text {
@@ -40,4 +41,10 @@
 
 .webMessage_item .switch .slider {
     display: flex;
+}
+
+@media (max-width: 540px) {
+    .webMessage_item .text p {
+        font-size: 12px;
+    }
 }

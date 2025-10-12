@@ -14,6 +14,7 @@ export default function RealestateForm({ formik }) {
                         <div className="info_error">{errors.information?.realestate?.realestateType}</div>
                     )}
                 </label>
+                
                 <div className="input_container">
                     <input
                         type="text"

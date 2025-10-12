@@ -3,7 +3,7 @@ import "./SellerData.css"
 
 export default function SellerData({ formik }) {
     const { values, setFieldValue, errors, handleBlur, touched } = formik;
-    
+
     return (
         <div className="sellerData_container">
             <header className='sellerData_header'>
@@ -20,6 +20,8 @@ export default function SellerData({ formik }) {
                 <input
                     type="text"
                     name="seller.name"
+                    readOnly
+                    disabled
                     value={values.seller.name}
                     onChange={(e) => setFieldValue("seller.name", e.target.value)}
                     onBlur={handleBlur}
@@ -35,8 +37,10 @@ export default function SellerData({ formik }) {
                     )}
                 </label>
                 <input
-                    type="text"
+                    type="tel"
                     name="seller.phone"
+                    readOnly
+                    disabled
                     value={values.seller.phone}
                     onChange={(e) => setFieldValue("seller.phone", e.target.value)}
                     onBlur={handleBlur}
