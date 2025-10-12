@@ -557,14 +557,7 @@
   width: 340px;
   padding: 20px;
   transition: all ease-in-out .3s;
-
-}
-
-.details-layout .login_modal_fade .modal_dialog .seller_data p {
-  text-align: center;
-  font-size: var(--font-size-lg);
-  font-weight: 600;
-  width: 100%;
+  
 }
 
 .details-layout .login_modal_fade .modal_dialog .modal_header {
@@ -575,23 +568,47 @@
 
 .details-layout .login_modal_fade .modal_dialog .modal_header button {
   background-color: transparent;
-  color: var(--parg-color);
+  color: #d0d0d0;
+  font-weight: 600;
   padding: 0;
   padding-bottom: 0px;
   margin-bottom: 0px;
+}
+
+.details-layout .login_modal_fade .modal_dialog .model_content {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  width: fit-content;
+  margin: auto;
+}
+
+.details-layout .login_modal_fade .modal_dialog .model_content p {
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  width: 100%;
 }
 
 .details-layout .login_modal_fade .modal_dialog .sellerPhone {
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
   gap: 5px;
   margin-top: 10px;
+  padding: 10px;
+  background-color: #ECF0F1;
+  border-radius: 8px;
 }
 
-.details-layout .login_modal_fade .modal_dialog .sellerPhone svg {
+.details-layout .login_modal_fade .modal_dialog .sellerPhone .sellerPhone_svg {
   color: var(--main-color);
+  background-color: #AAFFEE80;
+  width: 35px;
+  height: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 6px;
 }
 
 /* =================== ريسبونسف =================== */
