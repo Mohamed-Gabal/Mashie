@@ -15,8 +15,11 @@ import { categories } from "../Advertisements/Category/Category";
 import { timeSince } from "../SpecificCategory/SpecificCategory";
 import { CiFlag1 } from "react-icons/ci";
 import { attributeMapForDetails } from "../../data";
+import { useCookies } from "react-cookie";
 
 const DetailsLayout = () => {
+  const [cookies] = useCookies(["token"]);
+  const userData = cookies?.token?.data?.user;
 
   const { details, id } = useParams();
   const category = categories.find((cat) => details === cat.key) || "اسم الفئة";
@@ -32,7 +35,7 @@ const DetailsLayout = () => {
       try {
         setIsLoading(true);
         const response = await axios.get(
-          `https://api.mashy.sand.alrmoz.com/api/ads/${details}/${id}`
+          `https://api.mashy.sand.alrmoz.com/api/ealans/${details}/${id}`
         );
         if (response?.data?.success) {
           const data = response?.data?.data;
