@@ -12,7 +12,10 @@ const Register = () => {
 
   const navigate = useNavigate();
 
-  // الأخطاء
+  // لاظهار الموديل
+  const [showModdel, setShowModdel] = useState(false);
+
+  // ✅ حالات الأخطاء
   const [errors, setErrors] = useState({
     name: "",
     email: "",
@@ -22,7 +25,7 @@ const Register = () => {
     general: "",
   });
 
-  // البيانات اللي المستخدم بيكتبها
+  // ✅ بيانات المستخدم
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -31,7 +34,7 @@ const Register = () => {
     password_confirmation: "",
   });
 
-  // التحقق من البيانات
+  // ✅ التحقق من البيانات
   const dataValidation = () => {
     let formIsValid = true;
     let newDataErrors = {
@@ -68,14 +71,14 @@ const Register = () => {
     return formIsValid;
   };
 
-  // إرسال الفورم
+  // ✅ إرسال البيانات إلى API
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // ✅ تحقق من صحة البيانات قبل الإرسال
+    // تحقق من صحة البيانات قبل الإرسال
     if (!dataValidation()) return;
 
-    // ✅ تحقق من تطابق كلمة المرور
+    // تحقق من تطابق كلمة المرور
     if (formData.password !== formData.password_confirmation) {
       setErrors((prev) => ({
         ...prev,
@@ -90,28 +93,41 @@ const Register = () => {
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          // body: JSON.stringify(formData),
+          body: JSON.stringify(formData),
         }
       );
 
       const data = await response.json();
 
+      // بعد نجاح التسجيل
       if (response.ok) {
-        navigate("/login");
+        setShowModdel(true);
       } else {
+        // نتحقق من الأخطاء القادمة من السيرفر
+        let message = "حدث خطأ أثناء التسجيل";
+
+        if (data?.errors?.email && data.errors.email[0]) {
+          message = "هذا الحساب موجود بالفعل";
+        } else if (data?.message) {
+          message = data.message;
+        }
+
         setErrors((prev) => ({
           ...prev,
-          general: data.data.message
-            ? "هذا الحساب موجود بالفعل"
-            : "حدث خطأ أثناء التسجيل",
+          general: message,
         }));
       }
     } catch {
       setErrors((prev) => ({
         ...prev,
-        general: "خطأ في الاتصال   ",
+        general: "خطأ في الاتصال، تأكد من اتصالك بالإنترنت",
       }));
     }
+  };
+  // عند غلق الموديل يدهب لتسجيل الدخول
+  const closeModel = () => {
+    setShowModdel(false);
+    navigate("/login");
   };
 
   return (
@@ -128,7 +144,7 @@ const Register = () => {
             خدماتك في المكان المناسب، بسرعة وأمان.
           </p>
 
-          {/* ✅ خطأ عام */}
+          {/* خطأ عام */}
           {errors.general && (
             <p className="error-message" style={{ color: "red" }}>
               {errors.general}
@@ -210,7 +226,10 @@ const Register = () => {
                     ...formData,
                     password_confirmation: e.target.value,
                   });
-                  setErrors((prev) => ({ ...prev, password_confirmation: "" }));
+                  setErrors((prev) => ({
+                    ...prev,
+                    password_confirmation: "",
+                  }));
                 }}
               />
             </div>
@@ -228,6 +247,16 @@ const Register = () => {
           </p>
         </div>
       </div>
+      {/* اظهار الموديل */}
+      {showModdel && (
+        <div className="success_model">
+          <div className="success_content">
+            <h3> تم إنشاء الحساب بنجاح!</h3>
+            <p>يمكنك الآن تسجيل الدخول إلى حسابك.</p>
+            <button onClick={closeModel}>متابعه</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
