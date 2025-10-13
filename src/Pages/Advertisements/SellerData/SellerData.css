@@ -24,27 +24,38 @@
     margin-bottom: 15px;
 }
 
-.webMessage_item {
+.messages {
     display: flex;
-    height: 30px;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: start;
+    margin-top: 20px;
+}
+.messages .text {
+    color: var(--header-color);
+}
+.messages .message_item {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    margin-top: 10px;
+}
+.web_message, .phone_message {
+    display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    margin-top: 20px;
-    /* border: 1px solid red; */
+    flex: 1;
 }
 
-.webMessage_item .text {
-    text-align: start;
-    color: var(--header-color);
-}
-
-.webMessage_item .switch .slider {
+.messages .switch .slider {
     display: flex;
+    margin-top: 3px;
 }
 
 @media (max-width: 540px) {
-    .webMessage_item .text p {
+    .messages .text p {
         font-size: 12px;
     }
 }

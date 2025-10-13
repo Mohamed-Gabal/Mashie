@@ -144,7 +144,8 @@ export const validationSchemas = {
             .matches(
                 /^(?:(?:\+966|966)5\d{8}|05\d{8})$/,"الصيغة الصحيحة : 05xxxxxxxxx او 9665xxxxxxxxx")
                 .required("رقم الجوال مطلوب"),
-            webMessage: Yup.boolean(),
+                whatsAppMessage: Yup.boolean(),
+                phoneMessage: Yup.boolean(),
         }),
     }),
 };

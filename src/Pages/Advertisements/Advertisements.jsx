@@ -99,7 +99,8 @@ export default function Advertisements() {
             seller: {
                 name: userData?.name || "",
                 phone: userData?.phone || "",
-                webMessage: true,
+                whatsAppMessage: true,
+                phoneMessage: true,
             },
         },
         validationSchema: validationSchemas[step],
@@ -125,7 +126,8 @@ export default function Advertisements() {
                 // البائع
                 formData.append("seller[name]", formik.values.seller.name);
                 formData.append("seller[phone]", formik.values.seller.phone);
-                formData.append("seller[webMessage]", formik.values.seller.webMessage ? 1 : 0);
+                formData.append("seller[whatsAppMessage]", formik.values.seller.whatsAppMessage ? 1 : 0);
+                formData.append("seller[phoneMessage]", formik.values.seller.phoneMessage ? 1 : 0);
 
                 // الصور
                 formik.values.images.forEach((file, index) => {
