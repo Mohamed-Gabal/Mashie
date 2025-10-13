@@ -156,11 +156,7 @@ const BlogCard = () => {
 
                   {/* عرض السعر أو حالة التفاوض */}
                   <p className="ad-price">
-                    {ad.information?.price
-                      ? `${ad.information.price} ريال`
-                      : ad.information?.isNegotiable
-                      ? "السعر قابل للتفاوض"
-                      : "السعر غير محدد"}
+                    {ad.information?.price? `${ad.information.price} ريال`: ad.information?.isNegotiable? "السعر قابل للتفاوض": "السعر غير محدد"}
                   </p>
 
                   {/* الأزرار الخاصة بالتفاصيل والمفضلة */}

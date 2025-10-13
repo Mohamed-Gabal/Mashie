@@ -2,8 +2,29 @@ import React from "react";
 import "./sellSeaction.css";
 import { Link } from "react-router-dom";
 import { FaCheckCircle } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
+import { useCookies } from "react-cookie"; 
 
 const SellSeaction = () => {
+
+  // للنقل الي الاعلانات
+  const navigate = useNavigate();
+
+    // لتخزين التوكين
+    const cookie = useCookies(["token"]);
+
+  // للتاكد من تسجيل الدخول
+  const handelForOffers = (path) => {
+    // تاكيد التوكين
+    const tokein = cookie?.token?.data?.token;
+
+    // تشيك 
+    if(tokein) {
+      navigate(path);
+    } else {
+      navigate("/login");
+    }
+  }
   return (
     <section className="sell-section">
       <div className="container">
@@ -11,9 +32,9 @@ const SellSeaction = () => {
         <p className="sell-subtitle">
           وصل إعلانك لآلاف المشترين في دقائق... ابدأ الآن واعرض منتجاتك بسهولة
         </p>
-        <Link to="/add-offer" className="sell-btn">
+        <div className="sell-btn" onClick={() =>handelForOffers("/Advertisements")}>
           أضف عرضك
-        </Link>
+        </div>
         <div className="sell-features">
           <span>
             آمن وموثوق
