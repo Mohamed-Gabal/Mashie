@@ -2,7 +2,8 @@
 .main-layout {
   display: flex;
   flex-direction: column;
-  min-height: 100vh; 
+  min-height: 100vh;
+  position: relative;
 }
 .main-content {
   flex: 1; 

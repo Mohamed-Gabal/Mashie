@@ -1,13 +1,47 @@
- 
-
 import React, { useState } from "react";
-import "./login.css"; 
-import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai"; 
-import { Link, useNavigate } from "react-router-dom"; 
-import { useCookies } from "react-cookie"; 
-import { MdOutlineMailOutline } from "react-icons/md"; 
+import "./login.css";
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { useCookies } from "react-cookie";
+import { MdOutlineMailOutline } from "react-icons/md";
 
 const Login = () => {
+
+
+  return (
+    <div className="login-wrapper">
+      {/* صورة جانبية */}
+      <div className="login-image">
+        <img src="/images/login.webp" alt="login" />
+      </div>
+
+      <div className="login-container">
+        {/* عنوان ترحيبي */}
+        <h2>مرحبًا بك مجددًا</h2>
+        <p>
+          مرحبًا بك من جديد! قم بتسجيل الدخول إلى حسابك على ماشي لتتابع
+          إعلاناتك المنشورة، وتدير منتجاتك أو خدماتك بسهولة.
+        </p>
+
+        {/* نموذج تسجيل الدخول */}
+        <LoginForm />
+
+        {/* روابط تحت النموذج */}
+        <p className="login-footer">
+          ليس لديك حساب بعد؟ <Link to="/register">إنشاء حساب</Link>
+        </p>
+        <p className="login-footer">
+          <Link to="/forgotPassword">نسيت كلمة المرور؟</Link>
+        </p>
+      </div>
+    </div>
+  );
+};
+export default Login;
+
+export function LoginForm() {
+  const {details} = useParams();
+  console.log(details);
   //  الحالة الخاصة بالبريد الإلكتروني
   const [email, setEmail] = useState("");
   //  الحالة الخاصة بكلمة المرور
@@ -19,7 +53,7 @@ const Login = () => {
   const togglePassword = () => setShowPassword(!showPassword);
 
   // مكتبة الكوكيز: نستخدم setCookie لتخزين التوكن بعد تسجيل الدخول
-  const [Cookie , setCookie] = useCookies(["token"]);
+  const [Cookie, setCookie] = useCookies(["token"]);
 
   // useNavigate: لإعادة توجيه المستخدم لصفحة أخرى بعد تسجيل الدخول
   const navigate = useNavigate();
@@ -36,7 +70,7 @@ const Login = () => {
     if (!email.trim()) {
       newErrors.email = "الرجاء إدخال البريد الإلكتروني";
       valid = false;
-    } 
+    }
 
     // تحقق من كلمة المرور
     if (!password.trim()) {
@@ -48,13 +82,14 @@ const Login = () => {
     return valid; // ترجع false لو فيه خطأ
   };
 
+  const [loading, setLoading] = useState(false);
   //  دالة إرسال النموذج (التعامل مع API تسجيل الدخول)
   const handleSubmit = async (e) => {
     e.preventDefault(); // منع تحديث الصفحة
 
     // ✅ تحقق من البيانات قبل استدعاء API
     if (!validateForm()) return;
-
+    setLoading(true);
     try {
       // استدعاء API تسجيل الدخول
       const response = await fetch(
@@ -76,7 +111,9 @@ const Login = () => {
           sameSite: "strict", // يمنع هجمات CSRF
         });
         // ✅ توجيه المستخدم للصفحة الرئيسية
-        navigate("/");
+        if(details !== "vehicles" && details !== "realestate" && details !== "electronics" && details !== "jobs" && details !== "furniture" && details !== "services" && details !== "fashion" && details !== "food" && details !== "anecdotes" && details !== "gardens" && details !== "trips" && details !== "pets") {
+          navigate("/");
+        }
       } else {
         // لو السيرفر رجع خطأ (كلمة مرور غلط مثلًا)
         setErrors((prev) => ({
@@ -90,95 +127,66 @@ const Login = () => {
         ...prev,
         general: "حدث خطأ في الاتصال ",
       }));
+    } finally {
+      setLoading(false);
     }
   };
-
   return (
-    <div className="login-wrapper">
-      {/* صورة جانبية */}
-      <div className="login-image">
-        <img src="/images/login.webp" alt="login" />
+    <form className="login-form" onSubmit={handleSubmit}>
+      {/* حقل البريد الإلكتروني */}
+      <div className="input-group">
+        <MdOutlineMailOutline className="input-icon" />
+        <input
+          type="email"
+          placeholder="أدخل بريدك الإلكتروني"
+          value={email}
+          onChange={(e) => {
+            setEmail(e.target.value);
+            setErrors((prev) => ({ ...prev, email: "" })); // مسح رسالة الخطأ عند التعديل
+          }}
+        />
       </div>
-
-      <div className="login-container">
-        {/* عنوان ترحيبي */}
-        <h2>مرحبًا بك مجددًا</h2>
-        <p>
-          مرحبًا بك من جديد! قم بتسجيل الدخول إلى حسابك على ماشي لتتابع
-          إعلاناتك المنشورة، وتدير منتجاتك أو خدماتك بسهولة.
+      {/* رسالة خطأ البريد */}
+      {errors.email && (
+        <p className="error-message" style={{ color: "red" }}>
+          {errors.email}
         </p>
+      )}
 
-        {/* رسالة خطأ عامة (من السيرفر أو غيره) */}
-        {errors.general && (
-          <p className="error-message" style={{ color: "red" }}>
-            {errors.general}
-          </p>
-        )}
-
-        {/* نموذج تسجيل الدخول */}
-        <form className="login-form" onSubmit={handleSubmit}>
-          {/* حقل البريد الإلكتروني */}
-          <div className="input-group">
-            <MdOutlineMailOutline className="input-icon" />
-            <input
-              type="email"
-              placeholder="أدخل بريدك الإلكتروني"
-              value={email}
-              onChange={(e) => {
-                setEmail(e.target.value);
-                setErrors((prev) => ({ ...prev, email: "" })); // مسح رسالة الخطأ عند التعديل
-              }}
-            />
-          </div>
-          {/* رسالة خطأ البريد */}
-          {errors.email && (
-            <p className="error-message" style={{ color: "red" }}>
-              {errors.email}
-            </p>
-          )}
-
-          {/* حقل كلمة المرور */}
-          <div className="input-group">
-            <input
-              type={showPassword ? "text" : "password"} // إظهار/إخفاء كلمة المرور
-              placeholder="أدخل كلمة المرور"
-              value={password}
-              onChange={(e) => {
-                setPassword(e.target.value);
-                setErrors((prev) => ({ ...prev, password: "" })); // مسح رسالة الخطأ عند التعديل
-              }}
-            />
-            {/* أيقونة إظهار/إخفاء كلمة المرور */}
-            <span className="input-icon eye" onClick={togglePassword}>
-              {showPassword ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
-            </span>
-          </div>
-          {/* رسالة خطأ كلمة المرور */}
-          {errors.password && (
-            <p className="error-message" style={{ color: "red" }}>
-              {errors.password}
-            </p>
-          )}
-
-          {/* زر تسجيل الدخول */}
-          <button type="submit" className="login_button">
-            تسجيل دخول
-          </button>
-        </form>
-
-        {/* روابط تحت النموذج */}
-        <p className="login-footer">
-          ليس لديك حساب بعد؟ <Link to="/register">إنشاء حساب</Link>
-        </p>
-        <p className="login-footer">
-          <Link to="/forgotPassword">نسيت كلمة المرور؟</Link>
-        </p>
+      {/* حقل كلمة المرور */}
+      <div className="input-group">
+        <input
+          type={showPassword ? "text" : "password"} // إظهار/إخفاء كلمة المرور
+          placeholder="أدخل كلمة المرور"
+          value={password}
+          onChange={(e) => {
+            setPassword(e.target.value);
+            setErrors((prev) => ({ ...prev, password: "" })); // مسح رسالة الخطأ عند التعديل
+          }}
+        />
+        {/* أيقونة إظهار/إخفاء كلمة المرور */}
+        <span className="input-icon eye" onClick={togglePassword}>
+          {showPassword ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
+        </span>
       </div>
-    </div>
-  );
+      {/* رسالة خطأ كلمة المرور */}
+      {errors.password && (
+        <p className="error-message" style={{ color: "red" }}>
+          {errors.password}
+        </p>
+      )}
+
+      {/* زر تسجيل الدخول */}
+      <button type="submit" className="login_button" disabled={loading}>
+        {loading ? "جاري تسجيل الدخول..." : "تسجيل دخول"}
+      </button>
+
+      {/* رسالة خطأ عامة (من السيرفر أو غيره) */}
+      {errors.general && (
+        <p className="error-message" style={{ color: "red" }}>
+          {errors.general}
+        </p>
+      )}
+    </form>
+  )
 };
-export default Login;
-
-
-
-

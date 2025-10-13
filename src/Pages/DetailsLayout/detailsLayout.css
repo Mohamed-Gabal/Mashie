@@ -18,12 +18,14 @@
   flex-direction: column;
   margin-top: 5px;
 }
+
 .details_header_title {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-between;
 }
+
 .details_price {
   text-align: end;
 }
@@ -32,14 +34,17 @@
   position: sticky;
   top: 90px;
 }
-
+.details-left {
+  position: relative;
+}
 .details-left-top {
   background-color: var(--color);
   border: 1px solid #ddd;
   border-radius: 10px;
   padding: 20px;
 }
-.details-left-top-user .card_user{
+
+.details-left-top-user .card_user {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -89,9 +94,11 @@
   gap: 5px;
   border-radius: 20px;
 }
+
 .details-close-title-empty {
   font-size: 12px;
 }
+
 .details-close-title-yello {
   background-color: var(--yellow-color);
 }
@@ -530,6 +537,80 @@
   font-size: 14px;
 }
 
+.details-layout .login_modal_fade {
+  background-color: var(--shadow-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transition: all ease-in-out .3s;
+}
+
+.details-layout .login_modal_fade .modal_dialog {
+  background-color: white;
+  border: var(--border-color);
+  border-radius: var(--radius-sm);
+  width: 340px;
+  padding: 20px;
+  transition: all ease-in-out .3s;
+  
+}
+
+.details-layout .login_modal_fade .modal_dialog .modal_header {
+  padding: 0;
+  padding-bottom: 0px;
+  margin-bottom: 0px;
+}
+
+.details-layout .login_modal_fade .modal_dialog .modal_header button {
+  background-color: transparent;
+  color: #d0d0d0;
+  font-weight: 600;
+  padding: 0;
+  padding-bottom: 0px;
+  margin-bottom: 0px;
+}
+
+.details-layout .login_modal_fade .modal_dialog .model_content {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  width: fit-content;
+  margin: auto;
+}
+
+.details-layout .login_modal_fade .modal_dialog .model_content p {
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  width: 100%;
+}
+
+.details-layout .login_modal_fade .modal_dialog .sellerPhone {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 5px;
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #ECF0F1;
+  border-radius: 8px;
+}
+
+.details-layout .login_modal_fade .modal_dialog .sellerPhone .sellerPhone_svg {
+  color: var(--main-color);
+  background-color: #AAFFEE80;
+  width: 35px;
+  height: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 6px;
+}
+
 /* =================== ريسبونسف =================== */
 @media (max-width: 850px) {
   .details_grid_container {
@@ -542,5 +623,8 @@
 }
 
 @media (max-width: 460px) {
-
+  /* .details-layout .login_modal_fade .modal_dialog {
+    position: absolute;
+    top: 65%;
+  } */
 }

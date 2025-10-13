@@ -140,6 +140,10 @@
 }
 .car-card-ico {
   font-size: 22px;
+  transition: 0.3s;
+}
+.car-card-ico:hover {
+  color: var(--hover-color);
 }
 .car-card-btn {
   flex: 1;
