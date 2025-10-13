@@ -244,7 +244,7 @@
     color: var(--color);
   }
   .mobile-search input {
-    width: 300px;
+    max-width: 130px;
   }
 }
 @media (max-width: 540px) {
@@ -252,7 +252,7 @@
     width: 50px;
   }
   .mobile-search input {
-    width: 180px;
+    max-width: 130px;
   }
 }
 .profile-card {

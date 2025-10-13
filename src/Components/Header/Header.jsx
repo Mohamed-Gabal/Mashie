@@ -22,7 +22,8 @@ const Header = () => {
   // مراجع (refs) لعناصر معينة في الـ DOM عشان نتحكم فيها
   const menuRef = useRef(null);      // تمثل قائمة الروابط (ul)
   const toggleRef = useRef(null);    // تمثل زر فتح المينيو
-  const profileRef = useRef(null);   // تمثل صورة أو زر البروفايل
+  const mobileProfileRef = useRef(null);
+  const desktopProfileRef = useRef(null);   // تمثل صورة أو زر البروفايل
 
     const inputRef = useRef(null);   // الضغط علي البحث يوجهك لل input
 
@@ -44,14 +45,17 @@ const Header = () => {
 
   useEffect(() => {
     const handleClickOutside = (e) => {
-      if(profileRef.current && !profileRef.current.contains(e.target)) {
-        setToggleProfileCard(false);
+      if (
+        (mobileProfileRef.current && mobileProfileRef.current.contains(e.target)) ||
+        (desktopProfileRef.current && desktopProfileRef.current.contains(e.target))
+      ) {
+        return; // لو الضغط داخل أحد الزرين → متقفلش
       }
-    }
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      setToggleProfileCard(false);
     };
+  
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   // 🧠 useEffect الثاني: يقفل المينيو لما نضغط براها
@@ -68,11 +72,6 @@ const Header = () => {
 
       // لو النقرة كانت على زر الفتح، متقفلهاش برضو
       if (toggleRef.current && toggleRef.current.contains(target)) {
-        return;
-      }
-
-      // لو النقرة داخل البروفايل أو كارت الحساب، متقفلهاش
-      if (profileRef.current && profileRef.current.contains(target)) {
         return;
       }
 
@@ -119,7 +118,7 @@ const Header = () => {
                   type="button"
                   onClick={() => setToggleProfileCard(!toggleProfileCard)}
                   className="header_profile_img"
-                  ref={profileRef}
+                  ref={mobileProfileRef}
                 >
                   {userData?.image === null ? (
                     <span className="two_char">
@@ -221,8 +220,7 @@ const Header = () => {
               <Link
                 type="button"
                 onClick={() => setToggleProfileCard(!toggleProfileCard)}
-                ref={profileRef}
-                className="btn_profile"
+                className="btn_profile" ref={desktopProfileRef}
               >
                 <span>حسابي</span>
                 {/* سهم للأسفل */}
