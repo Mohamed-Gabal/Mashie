@@ -102,6 +102,7 @@ export default function Advertisements() {
                 whatsAppMessage: true,
                 phoneMessage: true,
             },
+            feeAgreement: false,
         },
         validationSchema: validationSchemas[step],
         onSubmit: async () => {
@@ -128,6 +129,9 @@ export default function Advertisements() {
                 formData.append("seller[phone]", formik.values.seller.phone);
                 formData.append("seller[whatsAppMessage]", formik.values.seller.whatsAppMessage ? 1 : 0);
                 formData.append("seller[phoneMessage]", formik.values.seller.phoneMessage ? 1 : 0);
+
+                // إتفاقية الرسوم
+                formData.append("feeAgreement", formik.values.feeAgreement ? 1 : 0);
 
                 // الصور
                 formik.values.images.forEach((file, index) => {
@@ -224,7 +228,7 @@ export default function Advertisements() {
             }
             await schema.validate(formik.values, { abortEarly: false });
 
-            if (step < 6) setStep(step + 1);
+            if (step < 5) setStep(step + 1);
         } catch (err) {
             if (err.inner) {
                 err.inner.forEach((e) => {

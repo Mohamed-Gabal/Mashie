@@ -139,10 +139,15 @@ export const validationSchemas = {
     }),
 
     5: Yup.object({
-        location: Yup.object({
-            detailedAddress: Yup.string().required("العنوان مطلوب"),
-            city: Yup.string().required("المدينة مطلوبة"),
-            area: Yup.string().required("المنطقة مطلوبة"),
-        }),
+        feeAgreement: Yup.boolean()
+        .oneOf([true], "يجب الموافقة على اتفاقية الرسوم قبل نشر الإعلان"),
     }),
+
+    // 6: Yup.object({
+    //     location: Yup.object({
+    //         detailedAddress: Yup.string().required("العنوان مطلوب"),
+    //         city: Yup.string().required("المدينة مطلوبة"),
+    //         area: Yup.string().required("المنطقة مطلوبة"),
+    //     }),
+    // }),
 };
