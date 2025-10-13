@@ -24,6 +24,12 @@ const Header = () => {
   const toggleRef = useRef(null);    // تمثل زر فتح المينيو
   const profileRef = useRef(null);   // تمثل صورة أو زر البروفايل
 
+    const inputRef = useRef(null);   // الضغط علي البحث يوجهك لل input
+
+    const handleFocus = () => {
+      inputRef.current.focus();
+    }
+
   // 🧠 useEffect الأول: يقفل المينيو أو كارت البروفايل لما نضغط على زر Escape
   useEffect(() => {
     const onKey = (e) => {
@@ -84,8 +90,8 @@ const Header = () => {
 
         {/* مربع البحث في الموبايل */}
         <div className="mobile-search">
-          <CiSearch className="search_icon" />
-          <input type="search" placeholder="ابحث هنا..." />
+          <CiSearch className="search_icon" onClick={handleFocus}/>
+          <input type="search" placeholder="ابحث هنا..." ref={inputRef}/>
         </div>
 
         {/* الجزء الخاص بالموبايل (زر المينيو + صورة البروفايل أو تسجيل الدخول) */}

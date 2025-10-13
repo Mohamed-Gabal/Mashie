@@ -41,7 +41,6 @@ export default Login;
 
 export function LoginForm() {
   const {details} = useParams();
-  console.log(details);
   //  الحالة الخاصة بالبريد الإلكتروني
   const [email, setEmail] = useState("");
   //  الحالة الخاصة بكلمة المرور
