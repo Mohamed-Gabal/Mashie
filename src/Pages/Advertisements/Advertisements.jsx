@@ -263,17 +263,17 @@ export default function Advertisements() {
                         )}
 
                         {/* رفع الموقع */}
-                        {step === 4 && (
+                        {/* {step === 4 && (
                             <Location formik={formik} />
-                        )}
+                        )} */}
 
                         {/* بيانات البائع */}
-                        {step === 5 && (
+                        {step === 4 && (
                             <SellerData formik={formik} />
                         )}
 
                         {/* التاكيد */}
-                        {step === 6 && (
+                        {step === 5 && (
                             <ConfirmAd formik={formik} isLoading={isLoading} errorMessage={errorMessage} />
                         )}
 
@@ -289,7 +289,7 @@ export default function Advertisements() {
                                 type='button'
                                 className="btn next"
                                 onClick={nextStep}
-                                style={{ opacity: step < 6 ? 1 : 0 }}
+                                style={{ opacity: step < 5 ? 1 : 0 }}
                             >
                                 <span>التالي</span>
                                 <img src="./advertisements/ArrowLeft.svg" alt="ArrowLeft" className='arrowNext' />
