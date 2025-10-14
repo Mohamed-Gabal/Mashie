@@ -1,5 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
-// import "./Location.css";
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
+import "./locationFormStyle.css";
 
 export const saudiRegions = [
     {
@@ -69,136 +71,171 @@ export const saudiRegions = [
     }
 ];
 
-export default function Location({ formik }) {
-    const { values, setFieldValue, errors, handleBlur, touched } = formik;
-
+export default function LocationForm() {
     const [isOpenRegion, setIsOpenRegion] = useState(false);
     const [isOpenCity, setIsOpenCity] = useState(false);
 
     const RegionDropdownRef = useRef(null);
     const cityDropdownRef = useRef(null);
 
-    const handleSelectRegion = () => {
-        setFieldValue("location.city", "");
+    // ✅ إعداد Formik + Yup
+    const formik = useFormik({
+        initialValues: {
+            location: "",
+            area: "",
+            city: "",
+        },
+        validationSchema: Yup.object({
+            location: Yup.string()
+                .required("العنوان بالتفصيل مطلوب")
+                .min(5, "العنوان قصير جدًا"),
+            area: Yup.string().required("المنطقة مطلوبة"),
+            city: Yup.string()
+                .required("المدينة مطلوبة")
+                .when("area", {
+                    is: (area) => !area,
+                    then: (schema) =>
+                        schema.test("no-area", "يرجى اختيار المنطقة أولاً", () => false),
+                }),
+        }),
+        onSubmit: (values) => {
+            console.log("تم إرسال البيانات:", values);
+        },
+    });
+
+    const { values, setFieldValue, errors, handleBlur, touched, handleSubmit } = formik;
+
+    const handleSelectRegion = (region) => {
+        setFieldValue("area", region);
+        setFieldValue("city", "");
         setIsOpenRegion(false);
     };
 
     const handleSelectCity = (city) => {
-        setFieldValue("location.city", city);
+        setFieldValue("city", city);
         setIsOpenCity(false);
     };
 
-    const filteredRegions = saudiRegions.filter((region) => region.region.includes(values.location.area));
+    const filteredRegions = saudiRegions.filter((region) =>
+        region.region.includes(values.area)
+    );
 
-    const selectedRegion = saudiRegions.find((region) => region.region === values.location.area);
+    const selectedRegion = saudiRegions.find((region) => region.region === values.area);
 
-    const filteredCities = selectedRegion?.cities.filter(city => city.includes(values.location.city)) || [];
+    const filteredCities = selectedRegion?.cities.filter((city) =>
+        city.includes(values.city)
+    ) || [];
 
+    // إغلاق القوائم لما تضغط بره
     useEffect(() => {
-        const handleClickOutsideRegion = (event) => {
+        const handleClickOutside = (event) => {
             if (RegionDropdownRef.current && !RegionDropdownRef.current.contains(event.target)) {
                 setIsOpenRegion(false);
             }
-        };
-        document.addEventListener("mousedown", handleClickOutsideRegion);
-
-        const handleClickOutsideCity = (event) => {
             if (cityDropdownRef.current && !cityDropdownRef.current.contains(event.target)) {
                 setIsOpenCity(false);
             }
         };
-        document.addEventListener("mousedown", handleClickOutsideCity);
-
-        return () => {
-            document.removeEventListener("mousedown", handleClickOutsideRegion);
-            document.removeEventListener("mousedown", handleClickOutsideCity);
-        };
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => document.removeEventListener("mousedown", handleClickOutside);
     }, []);
-    
+
     return (
-        <div className="location_container">
+        <form className="location_container" onSubmit={handleSubmit}>
             <div className="location_header">
                 <h3>الموقع</h3>
-                <p>حدد موقع الإعلان</p>
             </div>
 
-            <div className="input_container">
-                <label htmlFor="detailedAddress">العنوان بالتفصيل*
-                    {errors.location?.detailedAddress && touched.location?.detailedAddress && (
-                        <div className="info_error">{errors.location?.detailedAddress}</div>
-                    )}
-                </label>
-                <input
-                    type="text"
-                    name="location.detailedAddress"
-                    value={values.location.detailedAddress}
-                    onChange={(e) => setFieldValue("location.detailedAddress", e.target.value)}
-                    onBlur={handleBlur}
-                    id="detailedAddress"
-                    className='detailedAddress_input input'
-                    placeholder='الرياض - الخرج - اليمامة - حي النسيم'
-                />
-            </div>
-
+            {/* اختيار المنطقة */}
             <div className="input_container" ref={RegionDropdownRef}>
-                <label htmlFor="area">المنطقة*
-                    {errors?.location?.area && touched?.location?.area && (
-                        <div className="info_error">{errors?.location?.area}</div>
+                <label htmlFor="area">
+                    المنطقة*
+                    {errors.area && touched.area && (
+                        <div className="info_error">{errors.area}</div>
                     )}
                 </label>
                 <div className="area_input">
                     <input
                         type="text"
-                        name="location.area"
-                        value={values.location.area}
+                        name="area"
+                        value={values.area}
                         onClick={() => setIsOpenRegion(true)}
-                        onChange={(e) => setFieldValue("location.area", e.target.value)}
-                        // onBlur={handleBlur}
+                        onChange={(e) => setFieldValue("area", e.target.value)}
                         id="area"
-                        className='input'
-                        placeholder='ادخل منطقتك'
+                        className="input"
+                        placeholder="ادخل منطقتك"
                     />
                     <img src="./advertisements/CaretDown.svg" alt="CaretDown" />
 
                     {isOpenRegion && filteredRegions.length > 0 && (
-                        <ul className='region_option'>
-                            {filteredRegions.map(region => (
-                                <li key={region.id} onClick={() => { handleSelectRegion(); setFieldValue("location.area", region.region); }}>{region.region}</li>
+                        <ul className="region_option">
+                            {filteredRegions.map((region) => (
+                                <li
+                                    key={region.id}
+                                    onClick={() => handleSelectRegion(region.region)}
+                                >
+                                    {region.region}
+                                </li>
                             ))}
                         </ul>
                     )}
                 </div>
             </div>
 
+            {/* اختيار المدينة */}
             <div className="input_container" ref={cityDropdownRef}>
-                <label htmlFor="city">المدينة*
-                    {errors.location?.city && touched?.location?.city && (
-                        <div className="info_error">{errors.location?.city}</div>
+                <label htmlFor="city">
+                    المدينة*
+                    {errors.city && touched.city && (
+                        <div className="info_error">{errors.city}</div>
                     )}
                 </label>
                 <div className="city_input">
                     <input
                         type="text"
-                        name="location.city"
-                        value={values.location.city}
+                        name="city"
+                        value={values.city}
                         onClick={() => setIsOpenCity(true)}
-                        onChange={(e) => setFieldValue("location.city", e.target.value)}
-                        // onBlur={handleBlur}
+                        onChange={(e) => setFieldValue("city", e.target.value)}
                         id="city"
-                        className='input'
-                        placeholder='ادخل االمدينة'
+                        className="input"
+                        placeholder="ادخل المدينة"
                     />
                     <img src="./advertisements/CaretDown.svg" alt="CaretDown" />
 
-                    {isOpenCity && filteredCities?.length > 0 && (
-                        <ul className='city_option'>
+                    {isOpenCity && filteredCities.length > 0 && (
+                        <ul className="city_option">
                             {filteredCities.map((city, id) => (
-                                <li key={id} onClick={() => { handleSelectCity(city); setFieldValue("location.city", city) }}>{city}</li>
+                                <li key={id} onClick={() => handleSelectCity(city)}>
+                                    {city}
+                                </li>
                             ))}
                         </ul>
                     )}
                 </div>
             </div>
-        </div>
-    )
-}
+            
+            {/* حقل العنوان */}
+            <div className="input_container">
+                <label htmlFor="location">
+                    العنوان بالتفصيل*
+                    {errors.location && touched.location && (
+                        <div className="info_error">{errors.location}</div>
+                    )}
+                </label>
+                <input
+                    type="text"
+                    name="location"
+                    value={values.location}
+                    onChange={formik.handleChange}
+                    onBlur={handleBlur}
+                    id="location"
+                    className="location_input input"
+                    placeholder="الرياض - الخرج - اليمامة - حي النسيم"
+                />
+            </div>
+            
+            <button type="submit" className="submit_btn">حفظ</button>
+        </form>
+    );
+};
