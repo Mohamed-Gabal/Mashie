@@ -20,6 +20,7 @@
     align-items: start;
     justify-content: center;
     position: relative;
+    z-index: 1;
 }
 
 .area_input header, .city_input header, .location_input header {
