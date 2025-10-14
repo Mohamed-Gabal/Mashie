@@ -12,12 +12,12 @@ const SettingsUser = () => {
     <div className="Settings_user">
       {/* الأزرار العلوية */}
       <div className="Settings_user_buttons">
-        <button className="Settings_user_but">حسابي</button>
+        <button className="Settings_user_but active">حسابي</button>
         <button className="Settings_user_but">الشروط والأحكام</button>
         <button className="Settings_user_but">الخصوصية</button>
         <button className="Settings_user_but">الأسئلة الشائعة</button>
         <button className="Settings_user_but">تغيير البانر</button>
-        <button className="Settings_user_but active">حذف الحساب</button>
+        <button className="Settings_user_but">حذف الحساب</button>
       </div>
 
       {/* صورة الغلاف + زر تغيير البانر */}
