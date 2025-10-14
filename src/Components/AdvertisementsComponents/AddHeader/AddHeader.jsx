@@ -2,7 +2,8 @@ import React from "react";
 import "./AddHeader.css";
 
 export default function AddHeader({ currentStep, successMessage }) {
-  const steps = ["الفئة", "المعلومات", "الصور", "الموقع", "بيانات البائع", "تأكيد"];
+  // const steps = ["الفئة", "المعلومات", "الصور", "الموقع", "بيانات البائع", "تأكيد"];
+  const steps = ["الفئة", "المعلومات", "الصور" , "بيانات البائع", "تأكيد"];
 
   return (
     <div className="addHeaderContainer">

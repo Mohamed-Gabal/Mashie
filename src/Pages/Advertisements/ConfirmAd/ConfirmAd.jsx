@@ -42,13 +42,35 @@ export default function ConfirmAd({ formik, errorMessage, isLoading }) {
                 </ul>
             </div>
 
-            <div className="btn_confirmAd">
-                <button type='submit' className='btn'>
-                    <span>انشر إعلانك الأن</span>
-                    <img src="./advertisements/Plus.svg" alt="Plus" />
-                </button>
-                <p>بنشر إعلانك، أنت توافق على سياسة الاستخدام وشروط الخدمة</p>
+            {/* إتفاقية الرسوم*/}
+            <div className="fee_agreement">
+                <div className="terms_section">
+                    <label className="terms_label">
+                        <input
+                            type="checkbox"
+                            name="feeAgreement"
+                            id="feeAgreement"
+                            checked={values.feeAgreement || false}
+                            onChange={(e) => formik.setFieldValue("feeAgreement", e.target.checked)}
+                            className="terms_checkbox"
+                        />
+                    </label>
+                </div>
+                
+                <div className="text">
+                    <p>اتعهد واقسم بالله أنا المعلن أن أدفع رسوم الموقع وهي 1% من قيمة البيع سواء تم البيع عن طريق الموقع أو بسببه.</p>
+                    <p>كما أتعهد بدفع الرسوم خلال 10 أيام من استلام كامل مبلغ المبايعة.</p>
+                </div>   
             </div>
+            {values.feeAgreement && (
+                <div className="btn_confirmAd">
+                    <button type='submit' className='btn'>
+                        <span>انشر إعلانك الأن</span>
+                        <img src="./advertisements/Plus.svg" alt="Plus" />
+                    </button>
+                    <p>بنشر إعلانك، أنت توافق على سياسة الاستخدام وشروط الخدمة</p>
+                </div>
+            )}
 
             <div className="modal_fade" style={{ display: isLoading ? "flex" : "none" }}>
                 <div className="loader" />

@@ -130,21 +130,24 @@ export const validationSchemas = {
     }),
 
     4: Yup.object({
-        location: Yup.object({
-            detailedAddress: Yup.string().required("العنوان مطلوب"),
-            city: Yup.string().required("المدينة مطلوبة"),
-            area: Yup.string().required("المنطقة مطلوبة"),
+        seller: Yup.object({
+            name: Yup.string().required("الاسم مطلوب"),
+            phone: Yup.string().matches(/^(?:(?:\+966|966)5\d{8}|05\d{8})$/, "الصيغة الصحيحة : 05xxxxxxxxx او 9665xxxxxxxxx").required("رقم الجوال مطلوب"),
+            whatsAppMessage: Yup.boolean(),
+            phoneMessage: Yup.boolean(),
         }),
     }),
 
     5: Yup.object({
-        seller: Yup.object({
-            name: Yup.string().required("الاسم مطلوب"),
-            phone: Yup.string()
-            .matches(
-                /^(?:(?:\+966|966)5\d{8}|05\d{8})$/,"الصيغة الصحيحة : 05xxxxxxxxx او 9665xxxxxxxxx")
-                .required("رقم الجوال مطلوب"),
-            webMessage: Yup.boolean(),
-        }),
+        feeAgreement: Yup.boolean()
+        .oneOf([true], "يجب الموافقة على اتفاقية الرسوم قبل نشر الإعلان"),
     }),
+
+    // 6: Yup.object({
+    //     location: Yup.object({
+    //         detailedAddress: Yup.string().required("العنوان مطلوب"),
+    //         city: Yup.string().required("المدينة مطلوبة"),
+    //         area: Yup.string().required("المنطقة مطلوبة"),
+    //     }),
+    // }),
 };
