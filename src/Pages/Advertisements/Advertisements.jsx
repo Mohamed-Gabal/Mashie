@@ -129,9 +129,7 @@ export default function Advertisements() {
                 formData.append("seller[phone]", formik.values.seller.phone);
                 formData.append("seller[whatsAppMessage]", formik.values.seller.whatsAppMessage ? 1 : 0);
                 formData.append("seller[phoneMessage]", formik.values.seller.phoneMessage ? 1 : 0);
-
-                // إتفاقية الرسوم
-                formData.append("feeAgreement", formik.values.feeAgreement ? 1 : 0);
+                formData.append("seller[fee_agree]", formik.values.feeAgreement ? 1 : 0);
 
                 // الصور
                 formik.values.images.forEach((file, index) => {

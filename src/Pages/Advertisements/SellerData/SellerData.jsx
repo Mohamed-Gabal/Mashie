@@ -39,8 +39,6 @@ export default function SellerData({ formik }) {
                 <input
                     type="tel"
                     name="seller.phone"
-                    readOnly
-                    disabled
                     value={values.seller.phone}
                     onChange={(e) => setFieldValue("seller.phone", e.target.value)}
                     onBlur={handleBlur}
