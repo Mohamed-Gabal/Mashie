@@ -1,7 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import axios from 'axios';
 import "./locationFormStyle.css";
+import { useCookies } from 'react-cookie';
 
 export const saudiRegions = [
     {
@@ -72,13 +74,16 @@ export const saudiRegions = [
 ];
 
 export default function LocationForm() {
+    const [cookies] = useCookies(["token"]);
+    const token = cookies?.token?.data?.token;
+    const [isLoading, setIsLoading] = useState(false);
+    const [serverMessage, setServerMessage] = useState(null);
     const [isOpenRegion, setIsOpenRegion] = useState(false);
     const [isOpenCity, setIsOpenCity] = useState(false);
 
     const RegionDropdownRef = useRef(null);
     const cityDropdownRef = useRef(null);
 
-    // ✅ إعداد Formik + Yup
     const formik = useFormik({
         initialValues: {
             location: "",
@@ -98,8 +103,36 @@ export default function LocationForm() {
                         schema.test("no-area", "يرجى اختيار المنطقة أولاً", () => false),
                 }),
         }),
-        onSubmit: (values) => {
-            console.log("تم إرسال البيانات:", values);
+        onSubmit: async (values) => {
+            setIsLoading(true);
+            setServerMessage(null);
+
+            try {
+                const response = await axios.post(
+                    "https://api.mashy.sand.alrmoz.com/api/complete-location",
+                    {
+                        city: values.city,
+                        area: values.area,
+                        location: values.location,
+                    },
+                    {
+                        headers: {
+                            "Content-Type": "application/json",
+                            Authorization: `Bearer ${token}`,
+                        },
+                    }
+                );
+
+                console.log("تم إرسال البيانات بنجاح:", response.data);
+                setServerMessage("تم حفظ الموقع بنجاح!");
+            } catch (error) {
+                console.error("خطأ أثناء الإرسال:", error);
+                setServerMessage(
+                    error.response?.data?.message || "حدث خطأ أثناء حفظ الموقع"
+                );
+            } finally {
+                setIsLoading(false);
+            }
         },
     });
 
@@ -214,7 +247,7 @@ export default function LocationForm() {
                     )}
                 </div>
             </div>
-            
+
             {/* حقل العنوان */}
             <div className="input_container">
                 <label htmlFor="location">
@@ -234,8 +267,14 @@ export default function LocationForm() {
                     placeholder="الرياض - الخرج - اليمامة - حي النسيم"
                 />
             </div>
-            
-            <button type="submit" className="submit_btn">حفظ</button>
+
+            {/* زر الحفظ */}
+            <button type="submit" className="submit_btn" disabled={isLoading}>
+                {isLoading ? "جارٍ الحفظ..." : "حفظ"}
+            </button>
+
+            {/* رسالة الخادم */}
+            {serverMessage && <p className="server_message">{serverMessage}</p>}
         </form>
     );
 };
