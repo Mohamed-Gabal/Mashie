@@ -11,13 +11,12 @@ const SellSeaction = () => {
   const navigate = useNavigate();
 
     // لتخزين التوكين
-    const cookie = useCookies(["token"]);
+    const [cookie] = useCookies(["token"]);
 
   // للتاكد من تسجيل الدخول
   const handelForOffers = (path) => {
     // تاكيد التوكين
     const tokein = cookie?.token?.data?.token;
-
     // تشيك 
     if(tokein) {
       navigate(path);

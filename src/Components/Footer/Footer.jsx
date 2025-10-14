@@ -18,7 +18,7 @@ import { useCookies } from "react-cookie";
 
 const Footer = () => {
   // لتخزين التوكين
-  const cookie = useCookies(["token"]);
+  const [cookie] = useCookies(["token"]);
 
   // للتنقل بين الصفحات
   const navigate = useNavigate();
