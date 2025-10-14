@@ -1,14 +1,11 @@
 .location_container {
-    /* max-width: 875px; */
-    margin: auto;
-    margin-top: 20px;
-    text-align: center;
-    padding: 20px;
     background-color: var(--color);
-    border-radius: 12px;
-    border: 1px solid #DBDBDB;
     color: var(--header-color);
-    margin-bottom: 20px;
+    border: 1px solid #DBDBDB;
+    border-radius: 12px;
+    text-align: center;
+    margin-top: 30px;
+    padding: 20px;
 }
 
 .location_header h3 {
@@ -17,32 +14,33 @@
     text-align: start;
 }
 
-.location_header p {
-    text-align: start;
-    font-size: 14px;
-    color: #555;
-    margin-bottom: 15px;
-}
-
-.area_input, .city_input{
+.area_input, .city_input, .location_input {
     display: flex;
-    width: 100%;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
     position: relative;
 }
 
-.area_input .input, .city_input .input {
+.area_input header, .city_input header, .location_input header {
     width: 100%;
-    border-width: 2px;
+    text-align: start;
+    position: relative;
 }
 
-.area_input img, .city_input img {
+.input_container {
+    display: flex;
+    width: 100%;
+}
+
+.lucide-chevron-down {
     position: absolute;
     top: 50%;
     left: 10px;
     transform: translateY(-50%);
 }
 
-.region_option, .city_option{
+.region_option, .city_option {
     position: absolute;
     top: 100%;
     z-index: 50;
@@ -69,4 +67,57 @@
 
 .region_option li:hover, .city_option li:hover {
     background-color: #e5e7eb;
+}
+
+.input.readonly {
+    background-color: #f5f5f5;
+    color: #555;
+    cursor: not-allowed;
+    opacity: 0.8;
+}
+
+.location_container .two_buttons {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: end;
+    gap: 15px;
+}
+
+.location_container .two_buttons .cancel_button{
+    max-width: 80px;
+    background-color: var(--main-color);
+    color: white;
+}
+
+.location_container .submit_btn {
+    width: 150px;
+    padding: 10px 0px;
+    border: none;
+    border-radius: 8px;
+    background-color: var(--main-color);
+    color: white;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.location_container .submit_btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.location_container .submit_btn .spinner {
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
 }

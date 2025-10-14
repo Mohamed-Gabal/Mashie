@@ -75,138 +75,123 @@ export const saudiRegions = [
 
 export default function LocationForm() {
     const [cookies] = useCookies(["token"]);
+    const userData = cookies?.token?.data?.user;
     const token = cookies?.token?.data?.token;
+
     const [isLoading, setIsLoading] = useState(false);
     const [serverMessage, setServerMessage] = useState(null);
-    const [isOpenRegion, setIsOpenRegion] = useState(false);
-    const [isOpenCity, setIsOpenCity] = useState(false);
+    const [isEditMode, setIsEditMode] = useState(!userData?.area);
 
+    const areaInputRef = useRef(null);
     const RegionDropdownRef = useRef(null);
     const cityDropdownRef = useRef(null);
 
+    const [isOpenRegion, setIsOpenRegion] = useState(false);
+    const [isOpenCity, setIsOpenCity] = useState(false);
+
     const formik = useFormik({
         initialValues: {
-            location: "",
-            area: "",
-            city: "",
+            location: userData?.location || "",
+            area: userData?.area || "",
+            city: userData?.city || "",
         },
         validationSchema: Yup.object({
-            location: Yup.string()
-                .required("العنوان بالتفصيل مطلوب")
-                .min(5, "العنوان قصير جدًا"),
+            location: Yup.string().required("العنوان بالتفصيل مطلوب").min(5, "العنوان قصير جدًا"),
             area: Yup.string().required("المنطقة مطلوبة"),
-            city: Yup.string()
-                .required("المدينة مطلوبة")
-                .when("area", {
-                    is: (area) => !area,
-                    then: (schema) =>
-                        schema.test("no-area", "يرجى اختيار المنطقة أولاً", () => false),
-                }),
+            city: Yup.string().required("المدينة مطلوبة"),
         }),
-        onSubmit: async (values) => {
+        onSubmit: async (values, { setSubmitting }) => {
+            if (!isEditMode) return;
             setIsLoading(true);
             setServerMessage(null);
 
             try {
-                const response = await axios.post(
+                const res = await axios.post(
                     "https://api.mashy.sand.alrmoz.com/api/complete-location",
-                    {
-                        city: values.city,
-                        area: values.area,
-                        location: values.location,
-                    },
-                    {
-                        headers: {
-                            "Content-Type": "application/json",
-                            Authorization: `Bearer ${token}`,
-                        },
-                    }
+                    values,
+                    { headers: { Authorization: `Bearer ${token}` } }
                 );
-
-                console.log("تم إرسال البيانات بنجاح:", response.data);
                 setServerMessage("تم حفظ الموقع بنجاح!");
-            } catch (error) {
-                console.error("خطأ أثناء الإرسال:", error);
-                setServerMessage(
-                    error.response?.data?.message || "حدث خطأ أثناء حفظ الموقع"
-                );
+                setIsEditMode(false);
+            } catch (err) {
+                setServerMessage(err.response?.data?.message || "حدث خطأ أثناء حفظ الموقع");
             } finally {
                 setIsLoading(false);
+                setSubmitting(false);
             }
         },
     });
 
-    const { values, setFieldValue, errors, handleBlur, touched, handleSubmit } = formik;
+    const { values, errors, touched, handleChange, handleBlur, handleSubmit, setFieldValue } = formik;
+
+    const selectedRegion = saudiRegions.find((r) => r.region === values.area);
+    const filteredRegions = saudiRegions.filter((r) => r.region.includes(values.area));
+    const filteredCities = selectedRegion?.cities.filter((c) => c.includes(values.city)) || [];
+
+    // الزرار يشتغل بس لو البيانات اتغيرت
+    const isModified =
+        !userData?.area ||
+        values.area !== userData?.area ||
+        values.city !== userData?.city ||
+        values.location !== userData?.location;
+
+    useEffect(() => {
+        const closeDropdowns = (e) => {
+            if (RegionDropdownRef.current && !RegionDropdownRef.current.contains(e.target))
+                setIsOpenRegion(false);
+            if (cityDropdownRef.current && !cityDropdownRef.current.contains(e.target))
+                setIsOpenCity(false);
+        };
+        document.addEventListener("mousedown", closeDropdowns);
+        return () => document.removeEventListener("mousedown", closeDropdowns);
+    }, []);
 
     const handleSelectRegion = (region) => {
         setFieldValue("area", region);
         setFieldValue("city", "");
         setIsOpenRegion(false);
     };
-
     const handleSelectCity = (city) => {
         setFieldValue("city", city);
         setIsOpenCity(false);
     };
 
-    const filteredRegions = saudiRegions.filter((region) =>
-        region.region.includes(values.area)
-    );
-
-    const selectedRegion = saudiRegions.find((region) => region.region === values.area);
-
-    const filteredCities = selectedRegion?.cities.filter((city) =>
-        city.includes(values.city)
-    ) || [];
-
-    // إغلاق القوائم لما تضغط بره
-    useEffect(() => {
-        const handleClickOutside = (event) => {
-            if (RegionDropdownRef.current && !RegionDropdownRef.current.contains(event.target)) {
-                setIsOpenRegion(false);
-            }
-            if (cityDropdownRef.current && !cityDropdownRef.current.contains(event.target)) {
-                setIsOpenCity(false);
-            }
-        };
-        document.addEventListener("mousedown", handleClickOutside);
-        return () => document.removeEventListener("mousedown", handleClickOutside);
-    }, []);
-
     return (
-        <form className="location_container" onSubmit={handleSubmit}>
+        <form
+            className="location_container"
+            onSubmit={(e) => {
+                e.preventDefault();
+                if (isEditMode) handleSubmit();
+            }}
+        >
             <div className="location_header">
                 <h3>الموقع</h3>
             </div>
 
-            {/* اختيار المنطقة */}
-            <div className="input_container" ref={RegionDropdownRef}>
-                <label htmlFor="area">
-                    المنطقة*
-                    {errors.area && touched.area && (
-                        <div className="info_error">{errors.area}</div>
-                    )}
-                </label>
-                <div className="area_input">
+            {/* area */}
+            <div className="area_input">
+                <header>
+                    <span>المنطقة*</span>
+                    {errors.area && touched.area && <div className="info_error">{errors.area}</div>}
+                </header>
+                <div className="input_container" ref={RegionDropdownRef}>
                     <input
+                        ref={areaInputRef}
                         type="text"
                         name="area"
-                        value={values.area}
-                        onClick={() => setIsOpenRegion(true)}
-                        onChange={(e) => setFieldValue("area", e.target.value)}
                         id="area"
-                        className="input"
-                        placeholder="ادخل منطقتك"
+                        value={values.area}
+                        onClick={() => isEditMode && setIsOpenRegion(true)}
+                        onChange={(e) => setFieldValue("area", e.target.value)}
+                        placeholder={userData?.area ? "" : "اختر المنطقة"}
+                        disabled={!isEditMode}
+                        className={`input ${!isEditMode ? "readonly" : ""}`}
                     />
-                    <img src="./advertisements/CaretDown.svg" alt="CaretDown" />
-
-                    {isOpenRegion && filteredRegions.length > 0 && (
+                    <svg xmlns="http://www.w3.org/2000/svg" width={24} height={24} opacity={isEditMode ? 1 : .5} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-chevron-down-icon lucide-chevron-down"><path d="m6 9 6 6 6-6" /></svg>
+                    {isOpenRegion && (
                         <ul className="region_option">
                             {filteredRegions.map((region) => (
-                                <li
-                                    key={region.id}
-                                    onClick={() => handleSelectRegion(region.region)}
-                                >
+                                <li key={region.id} onClick={() => handleSelectRegion(region.region)}>
                                     {region.region}
                                 </li>
                             ))}
@@ -215,31 +200,29 @@ export default function LocationForm() {
                 </div>
             </div>
 
-            {/* اختيار المدينة */}
-            <div className="input_container" ref={cityDropdownRef}>
-                <label htmlFor="city">
-                    المدينة*
-                    {errors.city && touched.city && (
-                        <div className="info_error">{errors.city}</div>
-                    )}
-                </label>
-                <div className="city_input">
+            {/* city */}
+            <div className="city_input">
+                <header>
+                    <span>المدينة*</span>
+                    {errors.city && touched.city && <div className="info_error">{errors.city}</div>}
+                </header>
+                <div className="input_container" ref={cityDropdownRef}>
                     <input
                         type="text"
                         name="city"
-                        value={values.city}
-                        onClick={() => setIsOpenCity(true)}
-                        onChange={(e) => setFieldValue("city", e.target.value)}
                         id="city"
-                        className="input"
-                        placeholder="ادخل المدينة"
+                        value={values.city}
+                        onClick={() => isEditMode && setIsOpenCity(true)}
+                        onChange={(e) => setFieldValue("city", e.target.value)}
+                        placeholder={userData?.city ? "" : "اختر المدينة"}
+                        disabled={!isEditMode}
+                        className={`input ${!isEditMode ? "readonly" : ""}`}
                     />
-                    <img src="./advertisements/CaretDown.svg" alt="CaretDown" />
-
-                    {isOpenCity && filteredCities.length > 0 && (
+                    <svg xmlns="http://www.w3.org/2000/svg" width={24} height={24} opacity={isEditMode ? 1 : .5} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-chevron-down-icon lucide-chevron-down"><path d="m6 9 6 6 6-6" /></svg>
+                    {isOpenCity && (
                         <ul className="city_option">
-                            {filteredCities.map((city, id) => (
-                                <li key={id} onClick={() => handleSelectCity(city)}>
+                            {filteredCities.map((city, i) => (
+                                <li key={i} onClick={() => handleSelectCity(city)}>
                                     {city}
                                 </li>
                             ))}
@@ -248,32 +231,72 @@ export default function LocationForm() {
                 </div>
             </div>
 
-            {/* حقل العنوان */}
-            <div className="input_container">
-                <label htmlFor="location">
-                    العنوان بالتفصيل*
+            {/* location */}
+            <div className="location_input">
+                <header>
+                    <span>العنوان بالتفصيل*</span>
                     {errors.location && touched.location && (
                         <div className="info_error">{errors.location}</div>
                     )}
-                </label>
-                <input
-                    type="text"
-                    name="location"
-                    value={values.location}
-                    onChange={formik.handleChange}
-                    onBlur={handleBlur}
-                    id="location"
-                    className="location_input input"
-                    placeholder="الرياض - الخرج - اليمامة - حي النسيم"
-                />
+                </header>
+                <div className="input_container">
+                    <input
+                        type="text"
+                        name="location"
+                        id="location"
+                        value={values.location}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        placeholder={userData?.location ? "" : "المنطقة - المدينة - الحي - الشارع"}
+                        disabled={!isEditMode}
+                        className={`location_input input ${!isEditMode ? "readonly" : ""}`}
+                    />
+                </div>
             </div>
 
-            {/* زر الحفظ */}
-            <button type="submit" className="submit_btn" disabled={isLoading}>
-                {isLoading ? "جارٍ الحفظ..." : "حفظ"}
-            </button>
+            {/* two buttons */}
+            <div className="two_buttons">
+                {isEditMode && (
+                    <button
+                        type="button"
+                        className="cancel_button"
+                        onClick={() => {
+                            setFieldValue("area", userData?.area || "");
+                            setFieldValue("city", userData?.city || "");
+                            setFieldValue("location", userData?.location || "");
 
-            {/* رسالة الخادم */}
+                            setIsEditMode(false);
+
+                            // close any Dropdown 
+                            setIsOpenRegion(false);
+                            setIsOpenCity(false);
+                        }}
+                    >
+                        الغاء
+                    </button>
+                )}
+
+                <button
+                    type={isEditMode ? "submit" : "button"}
+                    className="submit_btn"
+                    disabled={isLoading || (isEditMode && !isModified)}
+                    onClick={() => {
+                        if (!isEditMode) {
+                            setIsEditMode(true);
+                            setTimeout(() => areaInputRef.current?.focus(), 0);
+                        }
+                    }}
+                >
+                    {isLoading ? (
+                        <span className="spinner"></span>
+                    ) : isEditMode ? (
+                        userData?.area ? "حفظ" : "أضف عنوان"
+                    ) : (
+                        "تعديل"
+                    )}
+                </button>
+            </div>
+
             {serverMessage && <p className="server_message">{serverMessage}</p>}
         </form>
     );
