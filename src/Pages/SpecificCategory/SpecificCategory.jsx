@@ -204,9 +204,7 @@ function toArabicNumbers(number) {
 
 export function timeSince(dateString) {
     const now = new Date();
-    console.log("الان",now);
     const past = new Date(dateString.replace(" ", "T"));
-    console.log("ماص",past);
     const dateOnly = dateString.split(" ")[0];
     const diff = now - past;
 
