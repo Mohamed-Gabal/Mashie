@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import "./sidebarDashboard.css";
 import { NavLink, useNavigate } from "react-router-dom";
 import { PiTagSimple, PiSignOut } from "react-icons/pi";
+import { IoHomeOutline } from "react-icons/io5";
+
 import {
   IoIosNotificationsOutline,
   IoIosHelpCircleOutline,
@@ -71,7 +73,7 @@ const SidebarDashboard = () => {
         <div className="Sidebar_Dashboard_links">
           <ul className="Sidebar_Dashboard_link">
             <li>
-              <NavLink to="/">العوده الي الرئيسيه</NavLink>
+              <NavLink to="/">  <IoHomeOutline />العوده الي الرئيسيه</NavLink>
             </li>
             <li>
               <NavLink
