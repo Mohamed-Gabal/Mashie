@@ -3,7 +3,7 @@ import "./register.css";
 import { IoCallOutline } from "react-icons/io5";
 import { BiMessageRounded } from "react-icons/bi";
 import { AiOutlineEye } from "react-icons/ai";
-import { FaUser } from "react-icons/fa";
+import { FaRegUser } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 
 const Register = () => {
@@ -12,10 +12,10 @@ const Register = () => {
 
   const navigate = useNavigate();
 
-  // لاظهار الموديل
+  // حالة الموديل (بعد التسجيل)
   const [showModdel, setShowModdel] = useState(false);
 
-  // ✅ حالات الأخطاء
+  // حالات الأخطاء
   const [errors, setErrors] = useState({
     name: "",
     email: "",
@@ -25,7 +25,7 @@ const Register = () => {
     general: "",
   });
 
-  // ✅ بيانات المستخدم
+  // بيانات المستخدم
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -34,7 +34,13 @@ const Register = () => {
     password_confirmation: "",
   });
 
-  // ✅ التحقق من البيانات
+  //دالة التحقق من رقم سعودي (05xxxxxxxx أو +9665xxxxxxxx)
+  const validateSaudiPhone = (phone) => {
+    const saRegex = /^(\+9665\d{8}|05\d{8})$/;
+    return saRegex.test(phone);
+  };
+
+  // دالة التحقق من البيانات قبل الإرسال
   const dataValidation = () => {
     let formIsValid = true;
     let newDataErrors = {
@@ -46,22 +52,35 @@ const Register = () => {
       general: "",
     };
 
+    // الاسم
     if (!formData.name.trim()) {
       newDataErrors.name = "الرجاء إدخال الاسم الكامل";
       formIsValid = false;
     }
+
+    // البريد الإلكتروني
     if (!formData.email.trim()) {
       newDataErrors.email = "الرجاء إدخال البريد الإلكتروني";
       formIsValid = false;
     }
+
+    // رقم الجوال — لازم يكون مطلوب وسعودي
     if (!formData.phone.trim()) {
-      newDataErrors.phone = "الرجاء إدخال رقم الجوال";
+      newDataErrors.phone = "رقم الجوال مطلوب";
+      formIsValid = false;
+    } else if (!validateSaudiPhone(formData.phone)) {
+      newDataErrors.phone =
+        "يرجى إدخال رقم جوال سعودي صالح يبدأ بـ 05 أو +9665";
       formIsValid = false;
     }
+
+    // كلمة المرور
     if (!formData.password.trim()) {
       newDataErrors.password = "الرجاء إدخال كلمة المرور";
       formIsValid = false;
     }
+
+    // تأكيد كلمة المرور
     if (!formData.password_confirmation.trim()) {
       newDataErrors.password_confirmation = "الرجاء تأكيد كلمة المرور";
       formIsValid = false;
@@ -71,14 +90,13 @@ const Register = () => {
     return formIsValid;
   };
 
-  // ✅ إرسال البيانات إلى API
+  // إرسال البيانات إلى الـ API
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // تحقق من صحة البيانات قبل الإرسال
     if (!dataValidation()) return;
 
-    // تحقق من تطابق كلمة المرور
+    // تأكيد تطابق كلمتي المرور
     if (formData.password !== formData.password_confirmation) {
       setErrors((prev) => ({
         ...prev,
@@ -99,11 +117,9 @@ const Register = () => {
 
       const data = await response.json();
 
-      // بعد نجاح التسجيل
       if (response.ok) {
         setShowModdel(true);
       } else {
-        // نتحقق من الأخطاء القادمة من السيرفر
         let message = "حدث خطأ أثناء التسجيل";
 
         if (data?.errors?.email && data.errors.email[0]) {
@@ -124,19 +140,67 @@ const Register = () => {
       }));
     }
   };
-  // عند غلق الموديل يدهب لتسجيل الدخول
+
+  // عند غلق الموديل بعد التسجيل
   const closeModel = () => {
     setShowModdel(false);
-    navigate("/login");
+    navigate("/settingsUser");
+  };
+
+  // عند التركيز على حقل رقم الجوال
+  const handlePhoneFocus = (e) => {
+    if (
+      !e.target.value.startsWith("05") &&
+      !e.target.value.startsWith("+966")
+    ) {
+      setFormData({ ...formData, phone: "05" });
+    }
+  };
+
+  // أثناء كتابة رقم الجوال
+  const handlePhoneChange = (e) => {
+    let value = e.target.value.replace(/\s+/g, ""); // إزالة المسافات
+
+    // معالجة كل الصيغ الممكنة وتحويلها إلى شكل سعودي صحيح
+    if (value.startsWith("009665")) {
+      value = "+966" + value.slice(5);
+    } else if (value.startsWith("9665")) {
+      value = "+966" + value.slice(3);
+    } else if (value.startsWith("05")) {
+      value = "+966" + value.slice(1);
+    } else if (value.startsWith("+9665")) {
+      value = "+9665" + value.slice(5);
+    } else if (value.startsWith("5")) {
+      value = "+966" + value;
+    } else if (value.includes("+966") && value.includes("05")) {
+      //لو كتب 05+966 أو العكس — نخليها صحيحة
+      value = "+966" + value.replace(/[^0-9]/g, "").slice(-9);
+    } else {
+      // أي حالة تانية ترجع للبداية الصحيحة
+      value = "+9665";
+    }
+
+    // تنظيف الرموز غير الرقمية
+    value = value.replace(/[^+\d]/g, "");
+
+    // تحديد الطول المسموح (13 رقم)
+    if (value.startsWith("+9665") && value.length > 13) {
+      value = value.slice(0, 13);
+    }
+
+    setFormData({ ...formData, phone: value });
+    setErrors((prev) => ({ ...prev, phone: "" }));
   };
 
   return (
     <div className="register-container">
       <div className="register-box">
+        {/*صورة جانبية */}
         <div className="register-image">
           <img src="/images/login.webp" alt="Register" />
         </div>
 
+        {/* المحتوى */}
         <div className="register-content">
           <h2>إنشاء حساب جديد</h2>
           <p>
@@ -144,9 +208,9 @@ const Register = () => {
             خدماتك في المكان المناسب، بسرعة وأمان.
           </p>
 
-          {/* خطأ عام */}
+          {/*رسالة خطأ عامة */}
           {errors.general && (
-            <p className="error-message" style={{ color: "red" }}>
+            <p className="error-message" style={{ color: "red", margin: "0" }}>
               {errors.general}
             </p>
           )}
@@ -154,7 +218,7 @@ const Register = () => {
           <form className="register-form" onSubmit={handleSubmit}>
             {/* الاسم الكامل */}
             <div className="input-group">
-              <FaUser className="icon" />
+              <FaRegUser className="icon" />
               <input
                 type="text"
                 placeholder="الاسم الكامل"
@@ -165,9 +229,11 @@ const Register = () => {
                 }}
               />
             </div>
-            {errors.name && <p style={{ color: "red" }}>{errors.name}</p>}
+            {errors.name && (
+              <p style={{ color: "red", margin: "0" }}>{errors.name}</p>
+            )}
 
-            {/* البريد الإلكتروني */}
+            {/*البريد الإلكتروني */}
             <div className="input-group">
               <BiMessageRounded className="icon" />
               <input
@@ -180,22 +246,24 @@ const Register = () => {
                 }}
               />
             </div>
-            {errors.email && <p style={{ color: "red" }}>{errors.email}</p>}
+            {errors.email && (
+              <p style={{ color: "red", margin: "0" }}>{errors.email}</p>
+            )}
 
             {/* رقم الجوال */}
             <div className="input-group">
               <IoCallOutline className="icon" />
               <input
                 type="tel"
-                placeholder="رقم الجوال"
+                placeholder="05xxxxxxxx أو +9665xxxxxxxx"
                 value={formData.phone}
-                onChange={(e) => {
-                  setFormData({ ...formData, phone: e.target.value });
-                  setErrors((prev) => ({ ...prev, phone: "" }));
-                }}
+                onChange={handlePhoneChange}
+                onFocus={handlePhoneFocus}
               />
             </div>
-            {errors.phone && <p style={{ color: "red" }}>{errors.phone}</p>}
+            {errors.phone && (
+              <p style={{ color: "red", margin: "0" }}>{errors.phone}</p>
+            )}
 
             {/* كلمة المرور */}
             <div className="input-group">
@@ -211,7 +279,7 @@ const Register = () => {
               />
             </div>
             {errors.password && (
-              <p style={{ color: "red" }}>{errors.password}</p>
+              <p style={{ color: "red", margin: "0" }}>{errors.password}</p>
             )}
 
             {/* تأكيد كلمة المرور */}
@@ -234,26 +302,31 @@ const Register = () => {
               />
             </div>
             {errors.password_confirmation && (
-              <p style={{ color: "red" }}>{errors.password_confirmation}</p>
+              <p style={{ color: "red", margin: "0" }}>
+                {errors.password_confirmation}
+              </p>
             )}
 
+            {/* زر إنشاء الحساب */}
             <button type="submit" className="regis_button">
               إنشاء حساب
             </button>
           </form>
 
+          {/* تذييل التسجيل */}
           <p className="register-footer">
             هل لديك حساب بالفعل؟ <Link to="/login">تسجيل دخول</Link>
           </p>
         </div>
       </div>
-      {/* اظهار الموديل */}
+
+      {/*الموديل بعد نجاح التسجيل */}
       {showModdel && (
         <div className="success_model">
           <div className="success_content">
-            <h3> تم إنشاء الحساب بنجاح!</h3>
+            <h3>تم إنشاء الحساب بنجاح!</h3>
             <p>يمكنك الآن تسجيل الدخول إلى حسابك.</p>
-            <button onClick={closeModel}>متابعه</button>
+            <button onClick={closeModel}>متابعة</button>
           </div>
         </div>
       )}

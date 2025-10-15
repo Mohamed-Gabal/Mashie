@@ -180,6 +180,10 @@
 }
 /* screen */
 @media (max-width: 600px) {
+  .offer_user_title {
+    font-size: 12px;
+    margin-bottom: 5px;
+  }
   .offers_filters_search {
     flex-direction: column;
   }
@@ -196,12 +200,13 @@
     align-items: flex-start;
   }
   .offer_user_meta span {
+    font-size: 10px;
     display: flex;
     gap: 5px;
     align-items: center;
   }
   .offer_user_meta svg {
-    font-size: 14px;
+    font-size: px;
   }
   .offer_img_head_list {
     width: 100%;
@@ -214,11 +219,17 @@
   .offer_actions_pro {
     width: 100%;
     justify-content: space-between;
-    margin-top: 10px;
+    margin-top: 0;
   }
   .offer_actions_pro_btn {
     width: 100%;
     text-align: center;
+    font-size: 12px;
+    padding: 5px 8px;
+  }
+  .offer_actions_pro button {
+    padding: 5px 8px;
+    font-size: 12px;
   }
 }
 @media (min-width: 601px) and (max-width: 992px) {
