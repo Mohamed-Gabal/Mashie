@@ -25,7 +25,7 @@ const SidebarDashboard = () => {
   const handleLogout = async () => {
     try {
       const token = cookie?.token?.data?.token;
-      
+
       // إرسال طلب logout للسيرفر
       const response = await fetch(
         "https://api.mashy.sand.alrmoz.com/api/logout",
@@ -40,7 +40,7 @@ const SidebarDashboard = () => {
 
       if (response.ok) {
         // حذف التوكن من الكوكيز
-        removeCookie("token", {path: "/"});
+        removeCookie("token", { path: "/" });
 
         // توجيه المستخدم لصفحة تسجيل الدخول
         navigate("/");
@@ -70,6 +70,9 @@ const SidebarDashboard = () => {
 
         <div className="Sidebar_Dashboard_links">
           <ul className="Sidebar_Dashboard_link">
+            <li>
+              <NavLink to="/">العوده الي الرئيسيه</NavLink>
+            </li>
             <li>
               <NavLink
                 to="/offersUser"

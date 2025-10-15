@@ -10,6 +10,7 @@ const LayoutProfile = ({ children }) => {
 
   // الصفحات اللي مش عاوز يظهر فيها الناف بار
   const navNone = ["/messageUser"];
+  
   return (
     <div className="layoutProfile">
       <div className="layoutProfile_main">
