@@ -170,3 +170,5 @@ export const CarFormOption = [
     { id: 19, brand: "إنفينيتي", models: ["Q50", "Q60", "QX50", "QX55", "QX60", "QX70", "QX80", "FX35", "G37", "EX35"] },
     { id: 20, brand: "تسلا", models: ["Model S", "Model 3", "Model X", "Model Y", "Cybertruck", "Roadster", "Plaid", "Semi", "P100D", "Long Range"] },
 ];
+
+export const yearOptions = Array.from({ length: 36 }, (_, i) => 1990 + i);
