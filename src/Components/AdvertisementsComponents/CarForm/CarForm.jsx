@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import "./CarForm.css";
 import CustomDropdown from '../CustomDropdown/CustomDropdown';
-import { vehicles } from '../../../data';
+import { CarFormOption, vehicles } from '../../../data';
 
 export default function CarForm({ formik }) {
     const { values, setFieldValue, errors, handleBlur, touched } = formik;
     const [isCarOptionOpen, setIsCarOptionOpen] = useState(false);
+    const brandOption = CarFormOption.map((item)=> item.brand);
     const [isModelOptionOpen, setIsModelOptionOpen] = useState(false);
+    const selectedBrand = CarFormOption.find(item => item.brand === values.information?.vehicle?.brand);
+    const modelOptions = selectedBrand ? selectedBrand.models : [];
     const [isYearOptionOpen, setIsYearOptionOpen] = useState(false);
 
     return (
@@ -33,7 +36,7 @@ export default function CarForm({ formik }) {
                         <svg xmlns="http://www.w3.org/2000/svg" width={22} height={22} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-chevron-up-icon lucide-chevron-up"><path d="m18 15-6-6-6 6" /></svg>
                     </span>
                 </div>
-                <CustomDropdown isOpen={isCarOptionOpen} setIsOpen={setIsCarOptionOpen} data={vehicles} formik={formik} name="information.vehicle.brand" />
+                <CustomDropdown isOpen={isCarOptionOpen} setIsOpen={setIsCarOptionOpen} data={brandOption} formik={formik} name="information.vehicle.brand" />
             </div>
 
             <div className="model_input">
@@ -59,6 +62,7 @@ export default function CarForm({ formik }) {
                         <svg xmlns="http://www.w3.org/2000/svg" width={22} height={22} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-chevron-up-icon lucide-chevron-up"><path d="m18 15-6-6-6 6" /></svg>
                     </span>
                 </div>
+                <CustomDropdown isOpen={isModelOptionOpen} setIsOpen={setIsModelOptionOpen} data={modelOptions} formik={formik} name="information.vehicle.model" />
             </div>
 
             <div className="year_input">

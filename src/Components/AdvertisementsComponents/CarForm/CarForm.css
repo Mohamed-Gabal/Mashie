@@ -3,6 +3,10 @@
     flex-direction: column;
     gap: 15px;
 }
+.model_input, .year_input {
+    position: relative;
+} 
+
 .model_input header, .year_input header{
     text-align: start;
     margin-bottom: 5px;
