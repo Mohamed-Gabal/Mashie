@@ -23,6 +23,7 @@ export const validationSchemas = {
                     vehicle: Yup.object({
                         brand: Yup.string().required("يجب ادخال الماركة"),
                         model: Yup.string().required("يجب ادخال الموديل"),
+                        year: Yup.string().required("يجب ادخال سنة الصنع"),
                     }),
                 }),
             });

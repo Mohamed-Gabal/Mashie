@@ -6,6 +6,8 @@ import { vehicles } from '../../../data';
 export default function CarForm({ formik }) {
     const { values, setFieldValue, errors, handleBlur, touched } = formik;
     const [isCarOptionOpen, setIsCarOptionOpen] = useState(false);
+    const [isModelOptionOpen, setIsModelOptionOpen] = useState(false);
+    const [isYearOptionOpen, setIsYearOptionOpen] = useState(false);
 
     return (
         <div className="carForm_inputs">
@@ -21,7 +23,7 @@ export default function CarForm({ formik }) {
                         name="brand"
                         value={values.information?.vehicle?.brand}
                         onChange={(e) => setFieldValue("information.vehicle.brand", e.target.value)}
-                        onClick={()=> setIsCarOptionOpen(!isCarOptionOpen)}
+                        onClick={() => setIsCarOptionOpen(!isCarOptionOpen)}
                         onBlur={handleBlur}
                         id="brand"
                         className='brand_input input'
@@ -34,23 +36,56 @@ export default function CarForm({ formik }) {
                 <CustomDropdown isOpen={isCarOptionOpen} setIsOpen={setIsCarOptionOpen} data={vehicles} formik={formik} name="information.vehicle.brand" />
             </div>
 
-            <div className="input_container">
-                <label htmlFor="model">الموديل*
+            <div className="model_input">
+                <header>
+                    <span>الموديل *</span>
                     {errors.information?.vehicle?.model && touched.information?.vehicle?.model && (
                         <div className="info_error">{errors.information?.vehicle?.model}</div>
                     )}
-                </label>
-                <input
-                    type="text"
-                    name="model"
-                    value={values.information?.vehicle?.model}
-                    onChange={(e) => setFieldValue("information.vehicle.model", e.target.value)}
-                    onBlur={handleBlur}
-                    id="model"
-                    className='model_input input'
-                    placeholder='أدخل الموديل'
-                />
+                </header>
+                <div className="model_input_container">
+                    <input
+                        type="text"
+                        name="information.vehicle.model"
+                        value={values.information?.vehicle?.model}
+                        onClick={() => setIsModelOptionOpen(!isModelOptionOpen)}
+                        onChange={(e) => setFieldValue("information.vehicle.model", e.target.value)}
+                        onBlur={handleBlur}
+                        id="model"
+                        className='input'
+                        placeholder='أدخل الموديل'
+                    />
+                    <span className={`chevron_up ${isModelOptionOpen ? "open" : ""}`}>
+                        <svg xmlns="http://www.w3.org/2000/svg" width={22} height={22} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-chevron-up-icon lucide-chevron-up"><path d="m18 15-6-6-6 6" /></svg>
+                    </span>
+                </div>
+            </div>
+
+            <div className="year_input">
+                <header>
+                    <span>سنة الصنع *</span>
+                    {errors.information?.vehicle?.year && touched.information?.vehicle?.year && (
+                        <div className="info_error">{errors.information?.vehicle?.year}</div>
+                    )}
+                </header>
+
+                <div className="year_input_container">
+                    <input
+                        type="text"
+                        name="information.vehicle.year"
+                        value={values.information?.vehicle?.year}
+                        onChange={(e) => setFieldValue("information.vehicle.year", e.target.value)}
+                        onClick={() => setIsYearOptionOpen(!isYearOptionOpen)}
+                        onBlur={handleBlur}
+                        id="year"
+                        className='input'
+                        placeholder='أدخل سنة الصنع'
+                    />
+                    <span className={`chevron_up ${isYearOptionOpen ? "open" : ""}`}>
+                        <svg xmlns="http://www.w3.org/2000/svg" width={22} height={22} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-chevron-up-icon lucide-chevron-up"><path d="m18 15-6-6-6 6" /></svg>
+                    </span>
+                </div>
             </div>
         </div>
     )
-}
+};

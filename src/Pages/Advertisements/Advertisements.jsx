@@ -40,6 +40,7 @@ export default function Advertisements() {
                 vehicle: {
                     brand: "",
                     model: "",
+                    year: "",
                 },
 
                 realestate: {
@@ -140,6 +141,7 @@ export default function Advertisements() {
                 if (formik.values.category === "vehicles") {
                     formData.append("information[vehicle][brand]", formik.values.information.vehicle.brand);
                     formData.append("information[vehicle][model]", formik.values.information.vehicle.model);
+                    formData.append("information[vehicle][year]", formik.values.information.vehicle.year);
                 }
 
                 if (formik.values.category === "realestate") {
