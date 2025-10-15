@@ -110,6 +110,7 @@ export const attributeMapForDetails = (ad_details) => ({
     vehicles: [
         { icon: "/advertisements/car.svg", label: "الماركة", value: ad_details?.attributes?.brand },
         { icon: "/advertisements/car.svg", label: "الموديل", value: ad_details?.attributes?.model },
+        { icon: "/advertisements/calendar.svg", label: "سنة الصنع", value: ad_details?.attributes?.year },
     ],
     realestate: [
         { icon: "/advertisements/buildings.svg", label: "نوع العقار", value: ad_details?.attributes?.realestateType },

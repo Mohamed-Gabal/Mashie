@@ -163,7 +163,7 @@ const DetailsLayout = () => {
                   </div>
                   <div className="location_text">
                     <span>المنطقة</span>
-                    <span>{ad_details?.location?.area}</span>
+                    <span>{ad_details?.user?.area}</span>
                   </div>
                 </div>
 
@@ -173,7 +173,7 @@ const DetailsLayout = () => {
                   </div>
                   <div className="location_text">
                     <span>المدينة</span>
-                    <span>{ad_details?.location?.city}</span>
+                    <span>{ad_details?.user?.city}</span>
                   </div>
                 </div>
               </div>
@@ -201,21 +201,21 @@ const DetailsLayout = () => {
               <div className="details-left-top-user">
                 <div className="card_user">
                   <div className="card_user_image">
-                    {ad_details?.user?.user_image ?
+                    {ad_details?.user?.profile_image ?
                       <img
-                        src={ad_details?.user?.user_image ? ad_details?.user?.user_image : "/images/logo.svg"}
-                        alt={ad_details?.user?.name}
+                        src={ad_details?.user?.profile_image ? ad_details?.user?.profile_image : "/images/logo.svg"}
+                        alt={ad_details?.seller?.name?.split(" ").map(word => word[0]).join(" ").toUpperCase()}
                       />
                       :
                       <div className="avatar_placeholder">
-                        {ad_details?.seller?.name?.split(" ").map(word => word[0]).join("").toUpperCase()}
+                        <svg xmlns="http://www.w3.org/2000/svg" width={24} height={24} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-circle-user-round-icon lucide-circle-user-round"><path d="M18 20a6 6 0 0 0-12 0" /><circle cx={12} cy={10} r={4} /><circle cx={12} cy={12} r={10} /></svg>
                       </div>
                     }
                   </div>
 
                   <div className="user_info">
                     <h5>{ad_details?.seller?.name}</h5>
-                    <p className="details-left-top-user-member"><span>{ad_details?.user?.account_created_at ? timeSince(ad_details?.user?.account_created_at) : ""}</span> <span>عضو منذ </span></p>
+                    <p className="details-left-top-user-member"><span>عضو منذ </span><span>{ad_details?.user?.account_created_at ? timeSince(ad_details?.user?.account_created_at) : ""}</span></p>
                   </div>
                 </div>
 
@@ -229,12 +229,17 @@ const DetailsLayout = () => {
 
                 {/* أزرار التواصل */}
                 <div className="details-left-top-user-buttons">
-                  <button className="details-left-top-user-btn1" onClick={() => setLoginModel(true)}> <IoCallOutline />تواصل</button>
+                  {ad_details?.seller?.phoneMessage && (
+                    <button className="details-left-top-user-btn1" onClick={() => setLoginModel(true)}> <IoCallOutline />تواصل</button>
+                  )}
                   <button className="details-left-top-user-btn2"> <LuMessageCircleMore />رساله</button>
                 </div>
               </div>
 
-              <button type="button" onClick={() => handleWhatsApp(ad_details?.seller)} className="details-left-top-send">واتساب</button>
+              {ad_details?.seller?.whatsAppMessage && (
+                <button type="button" onClick={() => handleWhatsApp(ad_details?.seller)} className="details-left-top-send">واتساب</button>
+              )}
+
             </div>
 
             {/* نصائح الأمان */}
