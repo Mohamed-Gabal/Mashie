@@ -110,8 +110,7 @@ const Header = () => {
 
           {/* لو المستخدم مسجل دخول */}
           <div className="mobile-login">
-            {cookies?.token?.data?.token &&
-            cookies?.token?.data?.token !== "undefined" ? (
+            {cookies?.token?.data?.token && cookies?.token?.data?.token !== "undefined" ? (
               <div>
                 {/* صورة أو أول حرفين من الاسم */}
                 <Link
@@ -120,20 +119,12 @@ const Header = () => {
                   className="header_profile_img"
                   ref={mobileProfileRef}
                 >
-                  {userData?.image === null ? (
+                  {userData?.profile_image === null ? (
                     <span className="two_char">
-                      {userData?.name
-                        ?.split(" ")
-                        .map((word) => word[0])
-                        .join("")
-                        .toUpperCase()}
+                      <svg xmlns="http://www.w3.org/2000/svg" width={24} height={24} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-circle-user-round-icon lucide-circle-user-round"><path d="M18 20a6 6 0 0 0-12 0" /><circle cx={12} cy={10} r={4} /><circle cx={12} cy={12} r={10} /></svg>
                     </span>
                   ) : (
-                    <img
-                      src={userData.image}
-                      alt={userData?.name}
-                      className="user_img"
-                    />
+                    <img src={userData?.profile_image} alt={userData?.name?.split(" ").map((word) => word[0]).join(" ").toUpperCase()} className="user_img" />
                   )}
                 </Link>
 
@@ -213,8 +204,7 @@ const Header = () => {
 
         {/* أزرار الهيدر في الديسكتوب */}
         <div className="header-button">
-          {cookies?.token?.data?.token &&
-          cookies?.token?.data?.token !== "undefined" ? (
+          {cookies?.token?.data?.token && cookies?.token?.data?.token !== "undefined" ? (
             <div>
               {/* زر البروفايل في الديسكتوب */}
               <Link
@@ -284,10 +274,12 @@ export function ProfileCard({ toggleProfileCard, userData, removeCookie }) {
   return (
     <div className="profile-card" style={{ height: toggleProfileCard ? "300px" : "0" }}>
       <div className="user-info">
-        {userData?.image === null ? (
-          <span className="two_char">{userData?.name?.split(" ").map((word) => word[0]).join("").toUpperCase()}</span>
+        {userData?.profile_image === null ? (
+          <span className="two_char">
+            <svg xmlns="http://www.w3.org/2000/svg" width={24} height={24} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-circle-user-round-icon lucide-circle-user-round"><path d="M18 20a6 6 0 0 0-12 0" /><circle cx={12} cy={10} r={4} /><circle cx={12} cy={12} r={10} /></svg>
+          </span>
         ) : (
-          <img src={userData.image} alt={userData?.name?.split(" ").map((word) => word[0]).join("").toUpperCase()} className="user_img"/>
+          <img src={userData.profile_image} alt={userData?.name?.split(" ").map((word) => word[0]).join(" ").toUpperCase()} className="user_img"/>
         )}
         <div>
           <p className="greeting">أهلا</p>
