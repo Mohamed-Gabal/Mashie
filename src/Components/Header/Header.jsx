@@ -31,7 +31,7 @@ const Header = () => {
       inputRef.current.focus();
     }
 
-  // 🧠 useEffect الأول: يقفل المينيو أو كارت البروفايل لما نضغط على زر Escape
+  // useEffect الأول: يقفل المينيو أو كارت البروفايل لما نضغط على زر Escape
   useEffect(() => {
     const onKey = (e) => {
       if (e.key === "Escape") {
@@ -58,7 +58,7 @@ const Header = () => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  // 🧠 useEffect الثاني: يقفل المينيو لما نضغط براها
+  // useEffect الثاني: يقفل المينيو لما نضغط براها
   useEffect(() => {
     if (!menuOpen) return; // لو المينيو مش مفتوحة، متسمعش للحدث
 

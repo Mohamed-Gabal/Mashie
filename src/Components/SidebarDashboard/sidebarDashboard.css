@@ -185,7 +185,6 @@
   background-color: var(--main-color);
   color: var(--color);
 }
-
 /* حركة دخول خفيفة */
 @keyframes scaleIn {
   from {

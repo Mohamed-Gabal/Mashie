@@ -6,6 +6,8 @@ import { useCookies } from "react-cookie";
 import { MdOutlineMailOutline } from "react-icons/md";
 
 const Login = () => {
+
+
   return (
     <div className="login-wrapper">
       {/* صورة جانبية */}
@@ -17,8 +19,8 @@ const Login = () => {
         {/* عنوان ترحيبي */}
         <h2>مرحبًا بك مجددًا</h2>
         <p>
-          مرحبًا بك من جديد! قم بتسجيل الدخول إلى حسابك على ماشي لتتابع إعلاناتك
-          المنشورة، وتدير منتجاتك أو خدماتك بسهولة.
+          مرحبًا بك من جديد! قم بتسجيل الدخول إلى حسابك على ماشي لتتابع
+          إعلاناتك المنشورة، وتدير منتجاتك أو خدماتك بسهولة.
         </p>
 
         {/* نموذج تسجيل الدخول */}
@@ -38,7 +40,7 @@ const Login = () => {
 export default Login;
 
 export function LoginForm() {
-  const { details } = useParams();
+  const {details} = useParams();
   //  الحالة الخاصة بالبريد الإلكتروني
   const [email, setEmail] = useState("");
   //  الحالة الخاصة بكلمة المرور
@@ -56,11 +58,7 @@ export function LoginForm() {
   const navigate = useNavigate();
 
   // حالة لتخزين الأخطاء (لكل input + خطأ عام)
-  const [errors, setErrors] = useState({
-    email: "",
-    password: "",
-    general: "",
-  });
+  const [errors, setErrors] = useState({ email: "", password: "", general: "" });
 
   // دالة التحقق من صحة البيانات قبل إرسالها
   const validateForm = () => {
@@ -112,20 +110,7 @@ export function LoginForm() {
           sameSite: "strict", // يمنع هجمات CSRF
         });
         // ✅ توجيه المستخدم للصفحة الرئيسية
-        if (
-          details !== "vehicles" &&
-          details !== "realestate" &&
-          details !== "electronics" &&
-          details !== "jobs" &&
-          details !== "furniture" &&
-          details !== "services" &&
-          details !== "fashion" &&
-          details !== "food" &&
-          details !== "anecdotes" &&
-          details !== "gardens" &&
-          details !== "trips" &&
-          details !== "pets"
-        ) {
+        if(details !== "vehicles" && details !== "realestate" && details !== "electronics" && details !== "jobs" && details !== "furniture" && details !== "services" && details !== "fashion" && details !== "food" && details !== "anecdotes" && details !== "gardens" && details !== "trips" && details !== "pets") {
           navigate("/");
         }
       } else {
@@ -202,5 +187,5 @@ export function LoginForm() {
         </p>
       )}
     </form>
-  );
-}
+  )
+};
