@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { FaCamera } from "react-icons/fa"; // أيقونة الكاميرا
+import { FaCamera } from "react-icons/fa";
 import "./settingsUser.css";
 import LocationForm from "../../../Components/LocationForm/LocationForm";
 import { useCookies } from "react-cookie";
@@ -9,7 +9,6 @@ const SettingsUser = () => {
   const userID = cookies?.token?.data?.user?.id;
   const token = cookies?.token?.data?.token;
   const [userData, setUserData] = useState({});
-  console.log("بيانات", userData.data);
 
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -152,7 +151,6 @@ const SettingsUser = () => {
                   <img
                     src={profileImage}
                     alt="صورة البروفايل"
-                    className={imageLoading ? "blurred" : ""}
                   />
                 }
 
