@@ -8,9 +8,10 @@ import { useCookies } from "react-cookie";
 const Header = () => {
   // بنستخدم useCookies عشان نقدر نقرأ ونمسح الكوكيز (زي التوكن)
   const [cookies, removeCookie] = useCookies(["token"]);
-
+  const userID = cookies?.token?.data?.user?.id;
+  const token = cookies?.token?.data?.token;
   // بنجيب بيانات المستخدم من التوكن اللي في الكوكيز
-  const userData = cookies?.token?.data?.user;
+  const [userData, setUserData] = useState({});
 
   // حالة لإظهار أو إخفاء كارت البروفايل لما نضغط على الصورة
   const [toggleProfileCard, setToggleProfileCard] = useState(false);
@@ -41,6 +42,26 @@ const Header = () => {
     };
     document.addEventListener("keydown", onKey);
     return () => document.removeEventListener("keydown", onKey);
+  }, []);
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const response = await fetch(`https://api.mashy.sand.alrmoz.com/api/user/${userID}`,{
+          method: "get",
+          headers: {Authorization: `Bearer ${token}`}
+        });
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        setUserData(data.data);
+      } catch (err) {
+        console.log(err.message);
+      }
+    };
+
+    fetchUserData();
   }, []);
 
   useEffect(() => {

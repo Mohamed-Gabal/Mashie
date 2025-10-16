@@ -80,10 +80,13 @@ const SettingsUser = () => {
   };
 
   useEffect(() => {
-    const fetchUserProfileImage = async () => {
+    const fetchUserData = async () => {
       setIsLoading(true);
       try {
-        const response = await fetch(`https://api.mashy.sand.alrmoz.com/api/user/${userID}`);
+        const response = await fetch(`https://api.mashy.sand.alrmoz.com/api/user/${userID}`,{
+          method: "get",
+          headers: {Authorization: `Bearer ${token}`}
+        });
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -96,7 +99,7 @@ const SettingsUser = () => {
       }
     };
 
-    fetchUserProfileImage();
+    fetchUserData();
   }, []);
 
   useEffect(() => {
