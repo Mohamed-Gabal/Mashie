@@ -13,7 +13,7 @@ const CarCard = () => {
     const fetchCard = async () => {
       try {
         const res = await fetch(
-          "https://api.mashy.sand.alrmoz.com/api/ealans?category=vehicles&page_num=10"
+          "https://api.mashy.sand.alrmoz.com/api/ealans?category=vehicles&page_num=1"
         );
 
         if (!res.ok) {
@@ -27,7 +27,8 @@ const CarCard = () => {
         const carsData = data?.data?.data?.ads || [];
 
         if (data?.success && Array.isArray(carsData)) {
-          setAdsCard(carsData);
+          // ناخد أحدث 4 إعلانات فقط
+          setAdsCard(carsData.slice(0, 6));
         } else {
           setError("لم يتم العثور على إعلانات سيارات حالياً.");
         }
@@ -113,7 +114,7 @@ const CarCard = () => {
                 <div className="car-card-content">
                   <div className="car-card-user">
                     <img
-                      src={ad.user?.user_image || "/images/logo.svg"}
+                      src={ad?.user?.profile_image || "/images/logo.svg"}
                       alt={ad.user?.user_name || "مستخدم"}
                       className="car-card-user-img"
                     />
