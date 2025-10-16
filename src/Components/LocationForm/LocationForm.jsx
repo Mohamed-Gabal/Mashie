@@ -75,12 +75,33 @@ export const saudiRegions = [
 
 export default function LocationForm() {
     const [cookies] = useCookies(["token"]);
-    const userData = cookies?.token?.data?.user;
+    const userID = cookies?.token?.data?.user?.id;
     const token = cookies?.token?.data?.token;
+    const [userData, setUserData] = useState({});
+
+    useEffect(() => {
+        const fetchUserData = async () => {
+            try {
+                const response = await fetch(`https://api.mashy.sand.alrmoz.com/api/user/${userID}`, {
+                    method: "get",
+                    headers: { Authorization: `Bearer ${token}` }
+                });
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const data = await response.json();
+                setUserData(data.data);
+            } catch (err) {
+                console.log(err.message);
+            }
+        };
+
+        fetchUserData();
+    }, []);
 
     const [isLoading, setIsLoading] = useState(false);
     const [serverMessage, setServerMessage] = useState(null);
-    const [isEditMode, setIsEditMode] = useState(!userData?.area);
+    const [isEditMode, setIsEditMode] = useState(false);
 
     const areaInputRef = useRef(null);
     const RegionDropdownRef = useRef(null);
@@ -90,6 +111,7 @@ export default function LocationForm() {
     const [isOpenCity, setIsOpenCity] = useState(false);
 
     const formik = useFormik({
+        enableReinitialize: true,
         initialValues: {
             location: userData?.location || "",
             area: userData?.area || "",
@@ -172,7 +194,7 @@ export default function LocationForm() {
             <div className="area_input">
                 <header>
                     <span>المنطقة*</span>
-                    {errors.area && touched.area && <div className="info_error">{errors.area}</div>}
+                    {errors.area && touched.area && isEditMode && <div className="info_error">{errors.area}</div>}
                 </header>
                 <div className="input_container" ref={RegionDropdownRef}>
                     <input
@@ -204,7 +226,7 @@ export default function LocationForm() {
             <div className="city_input">
                 <header>
                     <span>المدينة*</span>
-                    {errors.city && touched.city && <div className="info_error">{errors.city}</div>}
+                    {errors.city && touched.city && isEditMode && <div className="info_error">{errors.city}</div>}
                 </header>
                 <div className="input_container" ref={cityDropdownRef}>
                     <input
@@ -219,7 +241,7 @@ export default function LocationForm() {
                         className={`input ${!isEditMode ? "readonly" : ""}`}
                     />
                     <svg xmlns="http://www.w3.org/2000/svg" width={24} height={24} opacity={isEditMode ? 1 : .5} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-chevron-down-icon lucide-chevron-down"><path d="m6 9 6 6 6-6" /></svg>
-                    {isOpenCity && (
+                    {isOpenCity && values.area && (
                         <ul className="city_option">
                             {filteredCities.map((city, i) => (
                                 <li key={i} onClick={() => handleSelectCity(city)}>
@@ -235,7 +257,7 @@ export default function LocationForm() {
             <div className="location_input">
                 <header>
                     <span>العنوان بالتفصيل*</span>
-                    {errors.location && touched.location && (
+                    {errors.location && touched.location && isEditMode && (
                         <div className="info_error">{errors.location}</div>
                     )}
                 </header>
@@ -249,7 +271,7 @@ export default function LocationForm() {
                         onBlur={handleBlur}
                         placeholder={userData?.location ? "" : "المنطقة - المدينة - الحي - الشارع"}
                         disabled={!isEditMode}
-                        className={`location_input input ${!isEditMode ? "readonly" : ""}`}
+                        className={`input ${!isEditMode ? "readonly" : ""}`}
                     />
                 </div>
             </div>
@@ -288,7 +310,7 @@ export default function LocationForm() {
                     }}
                 >
                     {isLoading ? (
-                        <span className="spinner"></span>
+                        <div className="spinnerLoader"/>
                     ) : isEditMode ? (
                         userData?.area ? "حفظ" : "أضف عنوان"
                     ) : (
