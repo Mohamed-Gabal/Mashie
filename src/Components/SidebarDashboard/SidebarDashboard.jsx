@@ -1,13 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./sidebarDashboard.css";
 import { NavLink, useNavigate } from "react-router-dom";
 import { PiTagSimple, PiSignOut } from "react-icons/pi";
 import { IoHomeOutline } from "react-icons/io5";
 
-import {
-  IoIosNotificationsOutline,
-  IoIosHelpCircleOutline,
-} from "react-icons/io";
+import {IoIosNotificationsOutline,IoIosHelpCircleOutline,} 
+from "react-icons/io";
 import { MdFavoriteBorder } from "react-icons/md";
 import { AiOutlineSetting } from "react-icons/ai";
 import { RiBloggerLine } from "react-icons/ri";
@@ -50,7 +48,8 @@ const SidebarDashboard = () => {
     } catch {
       setErrors("حدث خطأ أثناء تسجيل الخروج:");
     }
-  };
+
+  }
 
   return (
     <div className="Sidebar_Dashboard">

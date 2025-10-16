@@ -29,7 +29,6 @@ const BottomSectionProfile = () => {
         );
 
         const dataAds = await response.json();
-        console.log(dataAds);
         setShowUserAds(dataAds.data?.data || []);
       } catch {
         setError("فشل الاتصال بالسيرفر.");
@@ -103,7 +102,7 @@ const BottomSectionProfile = () => {
               {/* الصورة على اليمين */}
               <div className="ad_image_wrapper">
                 <img
-                  src={`https://api.mashy.sand.alrmoz.com${ad.images[0]}`}
+                  src={`https://api.mashy.sand.alrmoz.com/storage${ad.images[0]}`}
                   alt={ad.user.user_name}
                   className="ad_image"
                 />

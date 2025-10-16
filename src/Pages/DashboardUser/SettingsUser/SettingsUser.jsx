@@ -17,7 +17,7 @@ const SettingsUser = () => {
     if (!file) return;
 
     const formData = new FormData();
-    formData.append("profile_image", file); // 👈 الاسم المطلوب من الـ API
+    formData.append("profile_image", file);
 
     try {
       setIsUploading(true);
