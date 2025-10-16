@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
 import "./CarForm.css";
 import CustomDropdown from '../CustomDropdown/CustomDropdown';
-import { CarFormOption, vehicles } from '../../../data';
+import { CarFormOption, yearOptions } from '../../../data';
 
 export default function CarForm({ formik }) {
     const { values, setFieldValue, errors, handleBlur, touched } = formik;
     const [isCarOptionOpen, setIsCarOptionOpen] = useState(false);
     const brandOption = CarFormOption.map((item)=> item.brand);
+
     const [isModelOptionOpen, setIsModelOptionOpen] = useState(false);
     const selectedBrand = CarFormOption.find(item => item.brand === values.information?.vehicle?.brand);
     const modelOptions = selectedBrand ? selectedBrand.models : [];
+
     const [isYearOptionOpen, setIsYearOptionOpen] = useState(false);
 
     return (
@@ -58,11 +60,11 @@ export default function CarForm({ formik }) {
                         className='input'
                         placeholder='أدخل الموديل'
                     />
-                    <span className={`chevron_up ${isModelOptionOpen ? "open" : ""}`}>
+                    <span className={`chevron_up ${values.information?.vehicle?.brand && isModelOptionOpen ? "open" : ""}`}>
                         <svg xmlns="http://www.w3.org/2000/svg" width={22} height={22} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-chevron-up-icon lucide-chevron-up"><path d="m18 15-6-6-6 6" /></svg>
                     </span>
                 </div>
-                <CustomDropdown isOpen={isModelOptionOpen} setIsOpen={setIsModelOptionOpen} data={modelOptions} formik={formik} name="information.vehicle.model" />
+                <CustomDropdown isOpen={values.information?.vehicle?.brand && isModelOptionOpen} setIsOpen={setIsModelOptionOpen} data={modelOptions} formik={formik} name="information.vehicle.model" />
             </div>
 
             <div className="year_input">
@@ -89,6 +91,7 @@ export default function CarForm({ formik }) {
                         <svg xmlns="http://www.w3.org/2000/svg" width={22} height={22} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-chevron-up-icon lucide-chevron-up"><path d="m18 15-6-6-6 6" /></svg>
                     </span>
                 </div>
+                <CustomDropdown isOpen={isYearOptionOpen} setIsOpen={setIsYearOptionOpen} data={yearOptions} formik={formik} name="information.vehicle.year" />
             </div>
         </div>
     )

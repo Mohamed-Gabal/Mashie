@@ -146,7 +146,7 @@ const BlogCard = () => {
                   <div className="ad-meta">
                     <span className="meta-item">
                       <CiLocationOn className="meta-icon" />
-                      {ad.location?.area || ad.location?.city || "غير محدد"}
+                      {ad?.user?.area || "غير محدد"}
                     </span>
                     <span className="meta-item">
                       <CiStopwatch className="meta-icon" />

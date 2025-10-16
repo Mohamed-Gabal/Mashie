@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import "./topSectionProfile.css";
 import { useCookies } from "react-cookie";
@@ -18,16 +17,17 @@ const TopSectionProfile = () => {
           return;
         }
 
-        const res = await fetch("https://api.mashy.sand.alrmoz.com/api/user/8", {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const res = await fetch(
+          "https://api.mashy.sand.alrmoz.com/api/user/8",
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
 
         const data = await res.json();
-        console.log("بيانات المستخدم:", data);
-
         if (data.success) {
           setUserData(data.data);
           setError("");
@@ -64,7 +64,7 @@ const TopSectionProfile = () => {
               src={
                 userData?.profile_image
                   ? userData.profile_image.startsWith("http")
-                    ? userData.profile_image 
+                    ? userData.profile_image
                     : `https://api.mashy.sand.alrmoz.com/storage/${userData.profile_image}`
                   : "/images/filter2.webp"
               }

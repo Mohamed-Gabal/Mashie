@@ -110,6 +110,7 @@ export const attributeMapForDetails = (ad_details) => ({
     vehicles: [
         { icon: "/advertisements/car.svg", label: "الماركة", value: ad_details?.attributes?.brand },
         { icon: "/advertisements/car.svg", label: "الموديل", value: ad_details?.attributes?.model },
+        { icon: "/advertisements/calendar.svg", label: "سنة الصنع", value: ad_details?.attributes?.year },
     ],
     realestate: [
         { icon: "/advertisements/buildings.svg", label: "نوع العقار", value: ad_details?.attributes?.realestateType },
@@ -170,3 +171,5 @@ export const CarFormOption = [
     { id: 19, brand: "إنفينيتي", models: ["Q50", "Q60", "QX50", "QX55", "QX60", "QX70", "QX80", "FX35", "G37", "EX35"] },
     { id: 20, brand: "تسلا", models: ["Model S", "Model 3", "Model X", "Model Y", "Cybertruck", "Roadster", "Plaid", "Semi", "P100D", "Long Range"] },
 ];
+
+export const yearOptions = Array.from({ length: 36 }, (_, i) => 1990 + i);

@@ -127,7 +127,7 @@ const CarCard = () => {
                   <div className="car-card-meta">
                     <span className="car-card-item">
                       <CiLocationOn className="car-card-icon" />
-                      {ad.location?.city || "غير محدد"}
+                      {ad?.user?.area || "غير محدد"}
                     </span>
                     <span className="car-card-item">
                       <CiStopwatch className="car-card-icon" />
@@ -144,7 +144,7 @@ const CarCard = () => {
                   </p>
 
                   <div className="car-card-actions">
-                    <Link to={`/cars/${ad.id_ads}`} className="car-card-btn">
+                    <Link to={`/vehicles/${ad.id_ads}`} className="car-card-btn">
                       عرض التفاصيل
                     </Link>
                     <Link to="/favoritesUser" className="car-card-fav">
