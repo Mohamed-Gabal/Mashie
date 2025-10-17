@@ -63,6 +63,9 @@ const SettingsUser = () => {
     const file = event.target.files[0];
     if (!file) return;
 
+    const formData = new FormData();
+    formData.append("profile_image", file);
+
     setImageLoading(true);
     try {
       const webpFile = await convertToWebP(file);

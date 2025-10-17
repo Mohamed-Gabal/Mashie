@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./sidebarDashboard.css";
 import { NavLink, useNavigate } from "react-router-dom";
 import { PiTagSimple, PiSignOut } from "react-icons/pi";
+import { IoHomeOutline } from "react-icons/io5";
 import {
   IoIosNotificationsOutline,
   IoIosHelpCircleOutline,
@@ -14,19 +15,48 @@ import { useCookies } from "react-cookie";
 const SidebarDashboard = () => {
   const [cookie, , removeCookie] = useCookies(["token"]);
   const navigate = useNavigate();
-
-  // تحكم في الموديل قبل تسجيل الخروج
+  const [loading, setLoading] = useState(true);
+  const [userProfile, setUserProfile] = useState(null);
   const [showConfirm, setShowConfirm] = useState(false);
+  const [error, setErrors] = useState("");
 
-  // handle Errors
-  const [error, setErrors] = useState();
+  // جلب بيانات المستخدم
+  useEffect(() => {
+    const fetchUserProfile = async () => {
+      try {
+        setLoading(true);
+        const token = cookie?.token?.data?.token;
 
-  // handle Logout
+        const res = await fetch(
+          "https://api.mashy.sand.alrmoz.com/api/user/8",
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        const data = await res.json();
+        if (data?.success) {
+          setUserProfile(data.data);
+        } else {
+          setErrors("حدث خطأ أثناء تحميل البيانات");
+        }
+      } catch {
+        setErrors("فشل الاتصال بالسيرفر");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUserProfile();
+  }, [cookie]);
+
+  // تسجيل الخروج
   const handleLogout = async () => {
     try {
       const token = cookie?.token?.data?.token;
-
-      // إرسال طلب logout للسيرفر
       const response = await fetch(
         "https://api.mashy.sand.alrmoz.com/api/logout",
         {
@@ -39,28 +69,52 @@ const SidebarDashboard = () => {
       );
 
       if (response.ok) {
-        // حذف التوكن من الكوكيز
         removeCookie("token", { path: "/" });
-
-        // توجيه المستخدم لصفحة تسجيل الدخول
         navigate("/");
+      } else {
+        setErrors("حدث خطأ أثناء تسجيل الخروج");
       }
     } catch {
-      setErrors("حدث خطأ أثناء تسجيل الخروج:");
+      setErrors("حدث خطأ أثناء الاتصال بالسيرفر أثناء تسجيل الخروج");
     }
   };
+
+  // تجهيز الصورة (تنظيف للكود)
+  const profileImage = userProfile?.profile_image
+    ? userProfile.profile_image.includes("http")
+      ? userProfile.profile_image
+      : `https://api.mashy.sand.alrmoz.com/storage/${userProfile.profile_image}`
+    : "/images/filter2.webp";
 
   return (
     <div className="Sidebar_Dashboard">
       <div className="Sidebar_Dashboard_content">
+        {/* الملف الشخصي */}
         <div className="Sidebar_Dashboard_item">
           <div className="Sidebar_Dashboard_profile">
-            <img src="/images/team1.webp" alt="صوره" className="profile_img" />
-            <div className="profile_text">
-              <h2>أهلاً</h2>
-              <h3>أحمد عمر ماهر</h3>
-            </div>
+            {loading ? (
+              <div className="loading_profile">
+                <div className="skeleton_img" />
+                <div className="skeleton_text">
+                  <div className="skeleton_line short" />
+                  <div className="skeleton_line long" />
+                </div>
+              </div>
+            ) : (
+              <>
+                <img
+                  className="profile_img"
+                  src={profileImage}
+                  alt="صورة البروفايل"
+                />
+                <div className="profile_text">
+                  <h2>أهلاً</h2>
+                  <h3>{userProfile?.name || "زائر"}</h3>
+                </div>
+              </>
+            )}
           </div>
+
           <NavLink to="/accountUser">
             <button className="profile_btn">عرض الملف الشخصي</button>
           </NavLink>
@@ -68,10 +122,14 @@ const SidebarDashboard = () => {
 
         <hr style={{ marginTop: "10px", color: "#DBDBDB" }} />
 
+        {/* الروابط */}
         <div className="Sidebar_Dashboard_links">
           <ul className="Sidebar_Dashboard_link">
             <li>
-              <NavLink to="/">العوده الي الرئيسيه</NavLink>
+              <NavLink to="/">
+                <IoHomeOutline />
+                العوده الي الرئيسيه
+              </NavLink>
             </li>
             <li>
               <NavLink
@@ -139,13 +197,14 @@ const SidebarDashboard = () => {
 
         <hr style={{ marginTop: "10px", color: "#DBDBDB" }} />
 
-        {/* زر تسجيل الخروج */}
+        {/*زر تسجيل الخروج */}
         <button className="logout_btn" onClick={() => setShowConfirm(true)}>
           <PiSignOut />
           تسجيل الخروج
         </button>
       </div>
-      {/* عند الضغط علي تسجيل الخروج */}
+
+      {/* مودال تأكيد تسجيل الخروج */}
       {showConfirm && (
         <div className="confirm_overlay">
           <div className="confirm_box">

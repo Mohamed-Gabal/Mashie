@@ -71,7 +71,7 @@ const OffersUser = () => {
       {/* الحالة */}
       <div className="offers_status_items">
         <span>عرض الكل ({ads.length})</span>
-        <h4>الإعلانات تحت الإشراف</h4>
+        <h4>الإعلانات المميزه</h4>
       </div>
 
       {/* كروت الإعلانات */}
