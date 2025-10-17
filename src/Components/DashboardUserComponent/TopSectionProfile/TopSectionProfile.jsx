@@ -5,6 +5,7 @@ import { useCookies } from "react-cookie";
 const TopSectionProfile = () => {
   const [userData, setUserData] = useState(null);
   const [cookie] = useCookies(["token"]);
+  const userID = cookie?.token?.data?.user?.id;
   const [error, setError] = useState("");
 
   //جلب بيانات المستخدم
@@ -18,7 +19,7 @@ const TopSectionProfile = () => {
         }
 
         const res = await fetch(
-          "https://api.mashy.sand.alrmoz.com/api/user/8",
+          `https://api.mashy.sand.alrmoz.com/api/user/${userID}`,
           {
             method: "GET",
             headers: {
@@ -46,7 +47,7 @@ const TopSectionProfile = () => {
     <div className="accountUserImage_up">
       <div className="Account_user_image">
         {/* صورة الكوفر */}
-        <div className="Account_user_image_profile">
+        {/* <div className="Account_user_image_profile">
           <img
             src={
               userData?.cover_image
@@ -55,13 +56,15 @@ const TopSectionProfile = () => {
             }
             alt="صورة الكوفر"
           />
+        </div> */}
+        <div className="Account_user_image_profile">
+          <img src={userData?.cover_image} alt="صورة الكوفر" loading="lazy"/>
         </div>
 
         {/* صورة البروفايل */}
         <div className="Account_user_image_profile_person">
           <div className="user_img_container">
-            <img
-              src={
+            {/* <img src={
                 userData?.profile_image
                   ? userData.profile_image.startsWith("http")
                     ? userData.profile_image
@@ -69,7 +72,8 @@ const TopSectionProfile = () => {
                   : "/images/filter2.webp"
               }
               alt="صورة البروفايل"
-            />
+            /> */}
+            <img src={userData?.profile_image} alt="صورة البروفايل" loading="lazy"/>
           </div>
         </div>
 
