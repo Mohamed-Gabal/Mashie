@@ -58,7 +58,7 @@
     margin-top: 10px;
 }
 
-.fee_agreement {
+.fee_agreement, .featured {
     display: flex;
     flex-direction: row;
     justify-content: start;
@@ -66,11 +66,12 @@
     margin: 15px 0px;
 }
 
-.fee_agreement .text {
+.fee_agreement .text, .featured .text {
     text-align: start;
 }
 
-.terms_section .terms_label .terms_checkbox {
+.terms_section .terms_label .terms_checkbox,
+.featured_section .featured_label .featured_checkbox {
     appearance: none;
     width: 20px;
     height: 20px;
@@ -83,12 +84,14 @@
     top: 5px;
 }
 
-.terms_section .terms_label .terms_checkbox:checked {
+.terms_section .terms_label .terms_checkbox:checked,
+.featured_section .featured_label .featured_checkbox:checked {
     background-color: var(--main-color);
     border-color: var(--main-color);
 }
 
-.terms_checkbox:checked::after {
+.terms_checkbox:checked::after,
+.featured_checkbox:checked::after {
     content: "✔";
     color: white;
     font-size: 14px;

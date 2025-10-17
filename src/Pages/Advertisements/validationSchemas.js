@@ -138,8 +138,9 @@ export const validationSchemas = {
             phoneMessage: Yup.boolean(),
         }),
     }),
-
+    
     5: Yup.object({
+        featured: Yup.boolean(),
         feeAgreement: Yup.boolean()
         .oneOf([true], "يجب الموافقة على اتفاقية الرسوم قبل نشر الإعلان"),
     }),

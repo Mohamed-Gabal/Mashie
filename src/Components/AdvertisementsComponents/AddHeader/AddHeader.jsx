@@ -21,12 +21,12 @@ export default function AddHeader({ currentStep, successMessage }) {
             className={`category ${currentStep > index + 1 ? "active_Header" : currentStep === index + 1 ? "current_step" : ""}`}
           >
             <div className="lineProgress" style={{ display: currentStep != index + 1 ? "none" : "" }} />
-            <div className="big_circle" style={{backgroundColor: currentStep === 6 && successMessage ? "var(--main-color)" : ""}}>
-              <div className={currentStep === 6 && successMessage ? "success_border_circle" : "border_circle"}>
+            <div className="big_circle" style={{backgroundColor: currentStep === 5 && successMessage ? "var(--main-color)" : ""}}>
+              <div className={currentStep === 5 && successMessage ? "success_border_circle" : "border_circle"}>
                 <img
                   src="./advertisements/CheckCircle.svg"
                   alt="CheckCircle"
-                  className={currentStep > index + 1 || (currentStep === 6 && successMessage) ? "CheckCircle" : "Check_none"}
+                  className={currentStep > index + 1 || (currentStep === 5 && successMessage) ? "CheckCircle" : "Check_none"}
                 />
               </div>
             </div>
