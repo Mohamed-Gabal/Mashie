@@ -28,7 +28,7 @@ const CarCard = () => {
 
         if (data?.success && Array.isArray(carsData)) {
           // ناخد أحدث 4 إعلانات فقط
-          setAdsCard(carsData.slice(0, 6));
+          setAdsCard(carsData.slice(0, 12));
         } else {
           setError("لم يتم العثور على إعلانات سيارات حالياً.");
         }
@@ -90,7 +90,7 @@ const CarCard = () => {
   };
   return (
     <section className="car-card">
-      <div className="container">
+      <div className="car_card_container">
         <h2 className="section-title">اكتشف الجديد أولًا</h2>
         <p className="section-subtitle">
           تصفح أحدث إعلانات السيارات المضافة الآن، واعثر على ما يناسبك بسرعة
@@ -101,15 +101,17 @@ const CarCard = () => {
           {adsCard.length > 0 ? (
             adsCard.map((ad) => (
               <div key={ad.id_ads} className="car-card-card">
-                <img
-                  src={
-                    ad.images?.[0]
-                      ? `https://api.mashy.sand.alrmoz.com/storage${ad.images[0]}`
-                      : "/images/default.jpg"
-                  }
-                  alt={ad.information?.title || "سيارة"}
-                  className="car-card-main-img"
-                />
+                <div className="card_img">
+                  <img
+                    src={
+                      ad.images?.[0]
+                        ? `https://api.mashy.sand.alrmoz.com/storage${ad.images[0]}`
+                        : "/images/default.jpg"
+                    }
+                    alt={ad.information?.title || "سيارة"}
+                    className="car-card-main-img"
+                  />
+                </div>
 
                 <div className="car-card-content">
                   <div className="car-card-user">
@@ -132,7 +134,7 @@ const CarCard = () => {
                     </span>
                     <span className="car-card-item">
                       <CiStopwatch className="car-card-icon" />
-                      {formatTime(ad.created_at )|| "حديثًا"}
+                      {formatTime(ad.created_at) || "حديثًا"}
                     </span>
                   </div>
 
@@ -140,8 +142,8 @@ const CarCard = () => {
                     {ad.information?.price
                       ? `${ad.information.price} ريال`
                       : ad.information?.isNegotiable
-                      ? "قابل للتفاوض"
-                      : "السعر غير محدد"}
+                        ? "قابل للتفاوض"
+                        : "السعر غير محدد"}
                   </p>
 
                   <div className="car-card-actions">
