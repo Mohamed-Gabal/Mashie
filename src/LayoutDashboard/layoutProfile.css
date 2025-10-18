@@ -6,6 +6,15 @@
   display: flex;
   flex: 1;
 }
+.layoutProfile_main .layoutProfile_sidebar {
+  position: relative;
+  z-index: 999;
+}
+
+.layoutProfile_main .layoutProfile_sidebar .toggle_sidebar {
+  display: none;
+  position: absolute;
+}
 .layoutProfile_body {
   flex: 1;
   display: flex;
@@ -16,4 +25,21 @@
   flex: 1;
   overflow-y: auto;
   background-color: #f2f2f2;
+}
+
+@media (max-width: 780px) {
+  .layoutProfile_main .layoutProfile_sidebar .toggle_sidebar {
+    display: block;
+    cursor: pointer;
+    transform: rotate(180deg);
+    position: absolute;
+    top: 10px;
+    transition: all ease-in-out .3s;
+  }
+  .layoutProfile_main .layoutProfile_sidebar .toggle_sidebar.open {
+    left: -90px;
+  }
+  .layoutProfile_main .layoutProfile_sidebar .toggle_sidebar.close {
+    left: -30px;
+  }
 }

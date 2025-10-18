@@ -12,7 +12,7 @@ import { AiOutlineSetting } from "react-icons/ai";
 import { RiBloggerLine } from "react-icons/ri";
 import { useCookies } from "react-cookie";
 
-const SidebarDashboard = () => {
+export default function SidebarDashboard({toggleSidebar}) {
   const [cookie, , removeCookie] = useCookies(["token"]);
   const userID = cookie?.token?.data?.user?.id;
 
@@ -83,7 +83,7 @@ const SidebarDashboard = () => {
   };
 
   return (
-    <div className="Sidebar_Dashboard">
+    <div className={`Sidebar_Dashboard ${toggleSidebar ? "" : "hidden" }`}>
       <div className="Sidebar_Dashboard_content">
         {/* الملف الشخصي */}
         {/* <div className="Sidebar_Dashboard_item">
@@ -239,5 +239,3 @@ const SidebarDashboard = () => {
     </div>
   );
 };
-
-export default SidebarDashboard;

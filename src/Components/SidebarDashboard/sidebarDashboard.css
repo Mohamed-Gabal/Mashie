@@ -280,4 +280,12 @@ display: none;
   .logout_btn svg {
     font-size: 22px;
   }
+  .Sidebar_Dashboard {
+    position: fixed;
+  }
+  .Sidebar_Dashboard.hidden {
+    width: 0px;
+    padding: 0px;
+    overflow: hidden;
+  }
 }
