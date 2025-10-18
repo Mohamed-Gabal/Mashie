@@ -24,7 +24,6 @@ const CarCard = () => {
         }
 
         const data = await res.json();
-        console.log(data.data.data);
 
         if (data?.success) {
           // ناخد أحدث 4 إعلانات فقط

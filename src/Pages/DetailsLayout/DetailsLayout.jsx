@@ -27,7 +27,7 @@ const DetailsLayout = () => {
   const category = categories.find((cat) => details === cat.key) || "اسم الفئة";
   const [isLoading, setIsLoading] = useState(false);
   const [ad_details, setAd_details] = useState([]);
-  console.log(ad_details);
+  // console.log(ad_details);
 
   const images = ad_details?.images || [];
   const [mainImage, setMainImage] = useState(null);
@@ -237,7 +237,7 @@ const DetailsLayout = () => {
               </div>
 
               {ad_details?.seller?.whatsAppMessage && (
-                <button type="button" onClick={() => handleWhatsApp(ad_details?.seller)} className="details-left-top-send">واتساب</button>
+                <button type="button" onClick={() => handleWhatsApp(ad_details?.seller, ad_details?.information?.title)} className="details-left-top-send">واتساب</button>
               )}
 
             </div>
@@ -329,7 +329,7 @@ const DetailsLayout = () => {
 export default DetailsLayout;
 
 // handleWhatsApp function to open whatsapp
-export function handleWhatsApp(seller) {
+export function handleWhatsApp(seller, title) {
   if (!seller || !seller.phone) {
     console.error("Seller data not available");
     return;
@@ -339,7 +339,7 @@ export function handleWhatsApp(seller) {
     ? `966${seller.phone.slice(1)}`
     : `966${seller.phone}`;
 
-  const message = `مرحبًا ${seller.name}! أريد التواصل معك بشأن إعلانك.`;
+  const message = `مرحبًا ${seller.name}! أريد التواصل معك بشأن إعلانك "${title}" على موقع ماشي.`;
   const waUrl = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
 
   window.open(waUrl, "_blank", "noopener,noreferrer");
