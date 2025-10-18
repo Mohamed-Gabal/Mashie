@@ -7,6 +7,7 @@ import { MdFavoriteBorder } from "react-icons/md";
 const BlogCard = () => {
   // تعريف حالات (states) لتخزين البيانات وحالة التحميل والخطأ
   const [ads, setAds] = useState([]);
+  console.log(ads);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
@@ -130,7 +131,7 @@ const BlogCard = () => {
                   {/* بيانات المستخدم صاحب الإعلان */}
                   <div className="ad-user">
                     <img
-                      src={ad.user?.user_image || "/images/logo.svg"}
+                      src={ad?.user?.profile_image || "/images/logo.svg"}
                       alt={ad.user?.user_name || "مستخدم"}
                       className="user-img"
                     />

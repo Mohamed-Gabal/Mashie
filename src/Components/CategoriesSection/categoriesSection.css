@@ -166,7 +166,21 @@
 @media (max-width: 487px) {
   .categories-grid {
     grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 10px;
+  }
+
+  .category-card .icon-box { 
+    width: 40px;
+    height: 40px;
+  }
+  .category-card .icon-box  img {
+    width: 22px;
+    height: 22px;
+  }
+
+  .category-card h2 {
+    font-size: 12px;
+    margin: 6px 0 0;
   }
 }

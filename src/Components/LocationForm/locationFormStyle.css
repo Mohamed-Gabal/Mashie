@@ -4,8 +4,9 @@
     border: 1px solid #DBDBDB;
     border-radius: 12px;
     text-align: center;
-    margin-top: 30px;
+    margin: 30px 0px;
     padding: 20px;
+    position: relative;
 }
 
 .location_header h3 {
@@ -20,7 +21,6 @@
     align-items: start;
     justify-content: center;
     position: relative;
-    z-index: 1;
 }
 
 .area_input header, .city_input header, .location_input header {
@@ -31,7 +31,12 @@
 
 .input_container {
     display: flex;
+    gap: 0px;
     width: 100%;
+    margin-top: 0px;
+}
+.input {
+    border: 1px solid red;
 }
 
 .lucide-chevron-down {
@@ -51,7 +56,7 @@
     flex-direction: column;
     gap: 10px;
     width: 150px;
-    max-height: 280px;
+    max-height: 200px;
     border-radius: 6px;
     border: 1px solid #DBDBDB;
     transition: all ease-in-out .5s;
@@ -93,6 +98,9 @@
 }
 
 .location_container .submit_btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 150px;
     padding: 10px 0px;
     border: none;
@@ -108,17 +116,26 @@
     cursor: not-allowed;
 }
 
-.location_container .submit_btn .spinner {
-    width: 20px;
-    height: 20px;
-    border: 3px solid rgba(255, 255, 255, 0.3);
-    border-top-color: #fff;
-    border-radius: 50%;
-    animation: spin 0.8s linear infinite;
+.location_container .two_buttons .submit_btn .spinnerLoader {
+    width: 50px;
+    aspect-ratio: 5;
+    --_g: no-repeat radial-gradient(circle closest-side,#000 90%,#0000);
+    background: 
+        var(--_g) 0%   50%,
+        var(--_g) 50%  50%,
+        var(--_g) 100% 50%;
+    background-size: calc(100%/3) 100%;
+    animation: l7 1s infinite linear;
+}
+    @keyframes l7 {
+        33%{background-size:calc(100%/3) 0%  ,calc(100%/3) 100%,calc(100%/3) 100%}
+        50%{background-size:calc(100%/3) 100%,calc(100%/3) 0%  ,calc(100%/3) 100%}
+        66%{background-size:calc(100%/3) 100%,calc(100%/3) 100%,calc(100%/3) 0%  }
 }
 
-@keyframes spin {
-    to {
-        transform: rotate(360deg);
-    }
+.server_message {
+    color: var(--main-color);
+    position: absolute;
+    bottom: 30px;
+    right: 20px;
 }
