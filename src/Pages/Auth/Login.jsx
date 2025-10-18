@@ -107,6 +107,9 @@ export function LoginForm() {
           path: "/", // متاح في كل الصفحات
           secure: true, // يتبعت بس في https
           sameSite: "strict", // يمنع هجمات CSRF
+          maxAge: 60 * 60 * 24 * 30, // 30 day in seconds
+          sameSite: "lax",
+          secure: process.env.NODE_ENV === "production",
         });
         // توجيه المستخدم للصفحة الرئيسية
         if(details !== "vehicles" && details !== "realestate" && details !== "electronics" && details !== "jobs" && details !== "furniture" && details !== "services" && details !== "fashion" && details !== "food" && details !== "anecdotes" && details !== "gardens" && details !== "trips" && details !== "pets") {
