@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./sidebarDashboard.css";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { PiTagSimple, PiSignOut } from "react-icons/pi";
@@ -12,7 +12,7 @@ import { AiOutlineSetting } from "react-icons/ai";
 import { RiBloggerLine } from "react-icons/ri";
 import { useCookies } from "react-cookie";
 
-export default function SidebarDashboard({toggleSidebar}) {
+export default function SidebarDashboard({toggleSidebar, setToggleSidebar, sidebarRef}) {
   const [cookie, , removeCookie] = useCookies(["token"]);
   const userID = cookie?.token?.data?.user?.id;
 
@@ -83,7 +83,7 @@ export default function SidebarDashboard({toggleSidebar}) {
   };
 
   return (
-    <div className={`Sidebar_Dashboard ${toggleSidebar ? "" : "hidden" }`}>
+    <div className={`Sidebar_Dashboard ${toggleSidebar ? "" : "hidden" }`} ref={sidebarRef}>
       <div className="Sidebar_Dashboard_content">
         {/* الملف الشخصي */}
         {/* <div className="Sidebar_Dashboard_item">
@@ -121,13 +121,13 @@ export default function SidebarDashboard({toggleSidebar}) {
         {/* الروابط */}
         <div className="Sidebar_Dashboard_links">
           <ul className="Sidebar_Dashboard_link">
-            <li>
+            <li onClick={()=>setToggleSidebar(false)}>
               <NavLink to="/accountUser">
                 <IoHomeOutline />
                 الرئيسيه
               </NavLink>
             </li>
-            <li>
+            <li onClick={()=>setToggleSidebar(false)}>
               <NavLink
                 to="/offersUser"
                 className={({ isActive }) => (isActive ? "active" : "")}
@@ -136,7 +136,7 @@ export default function SidebarDashboard({toggleSidebar}) {
                 العروض
               </NavLink>
             </li>
-            <li>
+            <li onClick={()=>setToggleSidebar(false)}>
               <NavLink
                 to="/notifactionsUser"
                 className={({ isActive }) => (isActive ? "active" : "")}
@@ -145,7 +145,7 @@ export default function SidebarDashboard({toggleSidebar}) {
                 الإشعارات
               </NavLink>
             </li>
-            <li>
+            <li onClick={()=>setToggleSidebar(false)}>
               <NavLink
                 to="/favoritesUser"
                 className={({ isActive }) => (isActive ? "active" : "")}
@@ -161,7 +161,7 @@ export default function SidebarDashboard({toggleSidebar}) {
 
         <div className="Sidebar_Dashboard_links">
           <ul className="Sidebar_Dashboard_link">
-            <li>
+            <li onClick={()=>setToggleSidebar(false)}>
               <NavLink
                 to="/settingsUser"
                 className={({ isActive }) => (isActive ? "active" : "")}
@@ -170,7 +170,7 @@ export default function SidebarDashboard({toggleSidebar}) {
                 الإعدادات
               </NavLink>
             </li>
-            <li>
+            <li onClick={()=>setToggleSidebar(false)}>
               <NavLink
                 to="/blogUser"
                 className={({ isActive }) => (isActive ? "active" : "")}
@@ -179,7 +179,7 @@ export default function SidebarDashboard({toggleSidebar}) {
                 المدونة
               </NavLink>
             </li>
-            <li>
+            <li onClick={()=>setToggleSidebar(false)}>
               <NavLink
                 to="/helpUser"
                 className={({ isActive }) => (isActive ? "active" : "")}
@@ -193,7 +193,7 @@ export default function SidebarDashboard({toggleSidebar}) {
 
         <hr style={{ marginTop: "10px", color: "#DBDBDB" }} />
 
-        <Link to="/" className="linkToMaaashi">
+        <Link to="/" className="linkToMaaashi" onClick={()=>setToggleSidebar(false)}>
           <img src="images/logo.svg" alt="logo" />
           <span>الذهاب للموقع</span>
         </Link>
