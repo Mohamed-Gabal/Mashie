@@ -30,7 +30,7 @@ export default function SidebarDashboard({toggleSidebar}) {
         setLoading(true);
         const token = cookie?.token?.data?.token;
 
-        const res = await fetch(
+        const res = await fetch (
           `https://api.mashy.sand.alrmoz.com/api/user/${userID}`,
           {
             method: "GET",
