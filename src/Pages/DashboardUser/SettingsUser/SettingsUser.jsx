@@ -128,14 +128,8 @@ const SettingsUser = () => {
         <div className="Settings_user_image">
           <div className="image_container">
             <div className="Settings_user_image_cover">
-              {isLoading ?
-                <div className="upload_overlay"><div className="UploadImages_loader" /></div>
-                :
-                <img
-                  src={coverImage}
-                  alt="صورة الغلاف"
-                />
-              }
+              <img src={coverImage} alt="صورة الغلاف" />
+              
               <label className="change_banner_btn">
                 <FaCamera className="camera_icon" />
                 <input

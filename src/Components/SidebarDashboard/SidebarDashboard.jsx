@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./sidebarDashboard.css";
-import { NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { PiTagSimple, PiSignOut } from "react-icons/pi";
 import { IoHomeOutline } from "react-icons/io5";
 import {
@@ -86,7 +86,7 @@ const SidebarDashboard = () => {
     <div className="Sidebar_Dashboard">
       <div className="Sidebar_Dashboard_content">
         {/* الملف الشخصي */}
-        <div className="Sidebar_Dashboard_item">
+        {/* <div className="Sidebar_Dashboard_item">
           <div className="Sidebar_Dashboard_profile">
             {loading ? (
               <div className="loading_profile">
@@ -114,17 +114,17 @@ const SidebarDashboard = () => {
           <NavLink to="/accountUser">
             <button className="profile_btn">عرض الملف الشخصي</button>
           </NavLink>
-        </div>
+        </div> */}
 
-        <hr style={{ marginTop: "10px", color: "#DBDBDB" }} />
+        {/* <hr style={{ marginTop: "10px", color: "#DBDBDB" }} /> */}
 
         {/* الروابط */}
         <div className="Sidebar_Dashboard_links">
           <ul className="Sidebar_Dashboard_link">
             <li>
-              <NavLink to="/">
+              <NavLink to="/accountUser">
                 <IoHomeOutline />
-                العوده الي الرئيسيه
+                الرئيسيه
               </NavLink>
             </li>
             <li>
@@ -193,6 +193,10 @@ const SidebarDashboard = () => {
 
         <hr style={{ marginTop: "10px", color: "#DBDBDB" }} />
 
+        <Link to="/" className="linkToMaaashi">
+          <img src="images/logo.svg" alt="logo" />
+          <span>الذهاب للموقع</span>
+        </Link>
         {/*زر تسجيل الخروج */}
         <button className="logout_btn" onClick={() => setShowConfirm(true)}>
           <PiSignOut />

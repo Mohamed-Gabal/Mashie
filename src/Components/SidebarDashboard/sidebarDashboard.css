@@ -88,6 +88,26 @@
   color: #2c3e50;
   font-weight: 500;
 }
+
+.linkToMaaashi {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--main-color);
+  color: white;
+  border-radius: 8px;
+  padding: 10px;
+  margin-top: 15px;
+}
+.linkToMaaashi:hover {
+  color: white;
+}
+
+.linkToMaaashi img {
+display: none;
+}
 .logout_btn {
   display: flex;
   align-items: center;
@@ -234,6 +254,22 @@
   }
   .Sidebar_Dashboard_link a:hover {
     background-color: #aaffee40;
+  }
+
+  .linkToMaaashi {
+    width: 40px;
+    height: 40px;
+    background-color: white;
+    margin-top: 0px;
+    padding: 0px;
+  }
+
+  .linkToMaaashi img {
+    display: block;
+  }
+
+  .linkToMaaashi span {
+    display: none;
   }
   .logout_btn {
     padding: 5px 8px;
