@@ -6,8 +6,10 @@ import { BiMessageRounded } from "react-icons/bi";
 import { AiOutlineEye } from "react-icons/ai";
 import { FaRegUser } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
+import { useCookies } from "react-cookie";
 
 const Register = () => {
+  const [Cookie, setCookie] = useCookies(["token"]);
   const [showPassword, setShowPassword] = useState(false);
   const registerPassword = () => setShowPassword(!showPassword);
 
@@ -114,6 +116,10 @@ const Register = () => {
 
       if (response.ok) {
         setShowModdel(true);
+        setCookie("token", data, {
+          secure: true, // يتبعت بس في https
+          sameSite: "strict", // يمنع هجمات CSRF
+        });
       } else {
         let message = "حدث خطأ أثناء التسجيل";
 
