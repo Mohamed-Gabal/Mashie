@@ -40,7 +40,7 @@ export default function SidebarDashboard({toggleSidebar}) {
           }
         );
 
-        const data = await res.json();
+        const data = await res.json();        
         if (data?.success) {
           setUserProfile(data.data);
         } else {
@@ -85,38 +85,6 @@ export default function SidebarDashboard({toggleSidebar}) {
   return (
     <div className={`Sidebar_Dashboard ${toggleSidebar ? "" : "hidden" }`}>
       <div className="Sidebar_Dashboard_content">
-        {/* الملف الشخصي */}
-        {/* <div className="Sidebar_Dashboard_item">
-          <div className="Sidebar_Dashboard_profile">
-            {loading ? (
-              <div className="loading_profile">
-                <div className="skeleton_img" />
-                <div className="skeleton_text">
-                  <div className="skeleton_line short" />
-                  <div className="skeleton_line long" />
-                </div>
-              </div>
-            ) : (
-              <>
-                <img
-                  className="profile_img"
-                  src={userProfile?.profile_image}
-                  alt="صورة البروفايل"
-                />
-                <div className="profile_text">
-                  <h2>أهلاً</h2>
-                  <h3>{userProfile?.name || "زائر"}</h3>
-                </div>
-              </>
-            )}
-          </div>
-
-          <NavLink to="/accountUser">
-            <button className="profile_btn">عرض الملف الشخصي</button>
-          </NavLink>
-        </div> */}
-
-        {/* <hr style={{ marginTop: "10px", color: "#DBDBDB" }} /> */}
 
         {/* الروابط */}
         <div className="Sidebar_Dashboard_links">

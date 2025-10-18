@@ -61,7 +61,9 @@ const Header = () => {
       }
     };
 
-    fetchUserData();
+    if (userID && token) {
+      fetchUserData();
+    }
   }, []);
 
   useEffect(() => {
