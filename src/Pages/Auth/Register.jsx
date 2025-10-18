@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import "./register.css";
 import { IoCallOutline } from "react-icons/io5";
@@ -9,11 +8,13 @@ import { Link, useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 
 const Register = () => {
-  const [Cookie, setCookie] = useCookies(["token"]);
   const [showPassword, setShowPassword] = useState(false);
   const registerPassword = () => setShowPassword(!showPassword);
 
   const navigate = useNavigate();
+
+  // مكتبة الكوكيز: نستخدم setCookie لتخزين التوكن بعد تسجيل الدخول
+  const [Cookie, setCookie] = useCookies(["token"]);
 
   // حالة الموديل (بعد التسجيل)
   const [showModdel, setShowModdel] = useState(false);
@@ -43,7 +44,7 @@ const Register = () => {
     return saRegex.test(phone);
   };
 
-  // ✅ التحقق من صحة البيانات قبل الإرسال
+  //التحقق من صحة البيانات قبل الإرسال
   const dataValidation = () => {
     let formIsValid = true;
     let newDataErrors = {
@@ -69,8 +70,7 @@ const Register = () => {
       newDataErrors.phone = "رقم الجوال مطلوب";
       formIsValid = false;
     } else if (!validateSaudiPhone(formData.phone)) {
-      newDataErrors.phone =
-        "يرجى إدخال رقم جوال سعودي صالح يبدأ بـ 05 أو 9665";
+      newDataErrors.phone = "يرجى إدخال رقم جوال سعودي صالح يبدأ بـ 05 أو 9665";
       formIsValid = false;
     }
 
@@ -161,14 +161,13 @@ const Register = () => {
     else if (value.length > 13) {
       return;
     }
-
     setFormData({ ...formData, phone: value });
 
     // تحقق من صحة الرقم أثناء الكتابة
     if (value && !validateSaudiPhone(value)) {
       setErrors((prev) => ({
         ...prev,
-        phone: "يرجى إدخال رقم جوال سعودي صالح يبدأ بـ 05 أو +9665",
+        phone: "يرجى إدخال رقم سعودي يبدأ بـ 05 أو9665",
       }));
     } else {
       setErrors((prev) => ({ ...prev, phone: "" }));

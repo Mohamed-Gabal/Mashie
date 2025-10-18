@@ -48,7 +48,7 @@ const Header = () => {
     const fetchUserData = async () => {
       try {
         const response = await fetch(`https://api.mashy.sand.alrmoz.com/api/user/${userID}`,{
-          method: "get",
+          method: "GET",
           headers: {Authorization: `Bearer ${token}`}
         });
         if (!response.ok) {

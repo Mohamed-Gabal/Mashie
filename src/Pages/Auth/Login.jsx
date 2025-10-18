@@ -86,7 +86,7 @@ export function LoginForm() {
   const handleSubmit = async (e) => {
     e.preventDefault(); // منع تحديث الصفحة
 
-    // ✅ تحقق من البيانات قبل استدعاء API
+    // تحقق من البيانات قبل استدعاء API
     if (!validateForm()) return;
     setLoading(true);
     try {
@@ -101,15 +101,14 @@ export function LoginForm() {
       );
 
       const data = await response.json();
-
       if (response.ok) {
-        // ✅ لو تسجيل الدخول ناجح نخزن التوكن في الكوكيز
+        // لو تسجيل الدخول ناجح نخزن التوكن في الكوكيز
         setCookie("token", data, {
           path: "/", // متاح في كل الصفحات
           secure: true, // يتبعت بس في https
           sameSite: "strict", // يمنع هجمات CSRF
         });
-        // ✅ توجيه المستخدم للصفحة الرئيسية
+        // توجيه المستخدم للصفحة الرئيسية
         if(details !== "vehicles" && details !== "realestate" && details !== "electronics" && details !== "jobs" && details !== "furniture" && details !== "services" && details !== "fashion" && details !== "food" && details !== "anecdotes" && details !== "gardens" && details !== "trips" && details !== "pets") {
           navigate("/");
         }
