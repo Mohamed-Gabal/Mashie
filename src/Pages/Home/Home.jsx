@@ -15,7 +15,6 @@ const Home = () => {
         <Slider />
         <AddList />
         <CategoriesSection />
-        <BlogCard />
         <CarCard />
         <SellSeaction />
       </div>

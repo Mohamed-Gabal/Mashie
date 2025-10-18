@@ -9,7 +9,6 @@ const SettingsUser = () => {
   const userID = cookies?.token?.data?.user?.id;
   const token = cookies?.token?.data?.token;
   const [userData, setUserData] = useState({});
-
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -224,5 +223,4 @@ const SettingsUser = () => {
     </div>
   );
 };
-
 export default SettingsUser;

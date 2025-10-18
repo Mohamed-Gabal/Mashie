@@ -14,9 +14,12 @@ import { useCookies } from "react-cookie";
 
 const SidebarDashboard = () => {
   const [cookie, , removeCookie] = useCookies(["token"]);
+  const userID = cookie?.token?.data?.user?.id;
+
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [userProfile, setUserProfile] = useState(null);
+
   const [showConfirm, setShowConfirm] = useState(false);
   const [error, setErrors] = useState("");
 
@@ -27,8 +30,8 @@ const SidebarDashboard = () => {
         setLoading(true);
         const token = cookie?.token?.data?.token;
 
-        const res = await fetch(
-          "https://api.mashy.sand.alrmoz.com/api/user/8",
+        const res = await fetch (
+          `https://api.mashy.sand.alrmoz.com/api/user/${userID}`,
           {
             method: "GET",
             headers: {
@@ -79,13 +82,6 @@ const SidebarDashboard = () => {
     }
   };
 
-  // تجهيز الصورة (تنظيف للكود)
-  const profileImage = userProfile?.profile_image
-    ? userProfile.profile_image.includes("http")
-      ? userProfile.profile_image
-      : `https://api.mashy.sand.alrmoz.com/storage/${userProfile.profile_image}`
-    : "/images/filter2.webp";
-
   return (
     <div className="Sidebar_Dashboard">
       <div className="Sidebar_Dashboard_content">
@@ -104,7 +100,7 @@ const SidebarDashboard = () => {
               <>
                 <img
                   className="profile_img"
-                  src={profileImage}
+                  src={userProfile?.profile_image}
                   alt="صورة البروفايل"
                 />
                 <div className="profile_text">

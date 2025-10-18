@@ -103,6 +103,7 @@ export default function Advertisements() {
                 whatsAppMessage: true,
                 phoneMessage: true,
             },
+            featured: false,
             feeAgreement: false,
         },
         validationSchema: validationSchemas[step],
@@ -131,6 +132,7 @@ export default function Advertisements() {
                 formData.append("seller[whatsAppMessage]", formik.values.seller.whatsAppMessage ? 1 : 0);
                 formData.append("seller[phoneMessage]", formik.values.seller.phoneMessage ? 1 : 0);
                 formData.append("seller[fee_agree]", formik.values.feeAgreement ? 1 : 0);
+                formData.append("seller[featured]", formik.values.featured ? 1 : 0);
 
                 // الصور
                 formik.values.images.forEach((file, index) => {

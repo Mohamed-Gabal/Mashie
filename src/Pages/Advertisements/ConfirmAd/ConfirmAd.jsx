@@ -1,10 +1,36 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import "./ConfirmAd.css";
 import { categories } from '../Category/Category';
+import { useCookies } from 'react-cookie';
 
-export default function ConfirmAd({ formik, errorMessage, isLoading }) {
-    const { values, handleSubmit } = formik;
+export default function ConfirmAd({ formik, isLoading }) {
+    const { values } = formik;
     const category = categories.find((cat) => values?.category === cat.key) || "اسم الفئة";
+    const [cookies] = useCookies(["token"]);
+    const userID = cookies?.token?.data?.user?.id;
+    const token = cookies?.token?.data?.token;
+    const [userData, setUserData] = useState({});
+    console.log(userData?.area);
+
+    useEffect(() => {
+        const fetchUserData = async () => {
+            try {
+                const response = await fetch(`https://api.mashy.sand.alrmoz.com/api/user/${userID}`, {
+                    method: "get",
+                    headers: { Authorization: `Bearer ${token}` }
+                });
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const data = await response.json();
+                setUserData(data?.data);
+            } catch (err) {
+                console.log(); (err.message);
+            }
+        };
+
+        fetchUserData();
+    }, []);
 
     return (
         <div className="confirmAd_container">
@@ -33,7 +59,7 @@ export default function ConfirmAd({ formik, errorMessage, isLoading }) {
                     </li>
                     <li>
                         <h4>الموقع:</h4>
-                        <p>{values?.location?.detailedAddress}</p>
+                        <p>{userData?.area}</p>
                     </li>
                     <li>
                         <h4>البائع:</h4>
@@ -56,12 +82,32 @@ export default function ConfirmAd({ formik, errorMessage, isLoading }) {
                         />
                     </label>
                 </div>
-                
+
                 <div className="text">
                     <p>اتعهد واقسم بالله أنا المعلن أن أدفع رسوم الموقع وهي 1% من قيمة البيع سواء تم البيع عن طريق الموقع أو بسببه.</p>
                     <p>كما أتعهد بدفع الرسوم خلال 10 أيام من استلام كامل مبلغ المبايعة.</p>
-                </div>   
+                </div>
             </div>
+            
+            <div className="featured">
+                <div className="featured_section">
+                    <label className="featured_label">
+                        <input
+                            type="checkbox"
+                            name="featured"
+                            id="featured"
+                            checked={values.featured || false}
+                            onChange={(e) => formik.setFieldValue("featured", e.target.checked)}
+                            className="featured_checkbox"
+                        />
+                    </label>
+                </div>
+                <div className="text">
+                    <p>أريد تمييز الإعلان</p>
+                    <p>يمكنك تمييز إعلانك لزيادة فرص ظهوره للمستخدمين وتحقيق مبيعات أسرع.</p>
+                </div>
+            </div>
+
             {values.feeAgreement && (
                 <div className="btn_confirmAd">
                     <button type='submit' className='btn'>
@@ -78,4 +124,4 @@ export default function ConfirmAd({ formik, errorMessage, isLoading }) {
 
         </div>
     )
-}
+};
