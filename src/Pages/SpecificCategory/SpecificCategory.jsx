@@ -176,7 +176,7 @@ export default function SpecificCategory() {
                                         <div className="card_meta">
                                             <div className="ciLocationOn">
                                                 <CiLocationOn style={{ color: "var(--main-color)", fontSize: "12px", fontWeight: "bold" }} />
-                                                <span>{cat?.location?.area}</span>
+                                                <span>{cat?.user?.area || "غير محدد"}</span>
                                             </div>
                                             <div className="ciStopwatch">
                                                 <CiStopwatch style={{ color: "var(--main-color)", fontSize: "12px", fontWeight: "bold" }} />

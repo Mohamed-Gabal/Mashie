@@ -5,7 +5,7 @@ import { Routes, Route } from "react-router-dom";
 // Layout
 import LayoutDashboard from "./LayoutDashboard/LayoutProfile";
 import MainLayout from "./Layouts/MainLayout";
- 
+
 // Pages
 import Home from "./Pages/Home/Home";
 import AboutUs from "./Pages/AboutUs/AboutUs";
@@ -29,8 +29,11 @@ import HelpUser from "./Pages/DashboardUser/HelpUser/HelpUser";
 // import Advertisement from "./Pages/Advertisements/Advertisements";
 import Advertisements from "./Pages/Advertisements/Advertisements";
 import Category from "./Pages/SpecificCategory/SpecificCategory";
+import { useCookies } from "react-cookie";
 
 const App = () => {
+  const [cookies] = useCookies(["token"]);
+  const token = cookies?.token?.data?.token;
   return (
     <Routes>
       {/* صفحات عامة داخل MainLayout */}
@@ -40,19 +43,19 @@ const App = () => {
       <Route path="/contactUs" element={<MainLayout><ContactUs /></MainLayout>} />
       <Route path="/:details/:id" element={<MainLayout><DetailsLayout /></MainLayout>} />
       <Route path="/:category" element={<MainLayout><Category /></MainLayout>} />
-      
 
-     {/* صفحات عامة داخل LayoutDashboard */}
-     <Route path="/accountUser" element={<LayoutDashboard><AccountUser /></LayoutDashboard>} />
-     <Route path="/offersUser" element={<LayoutDashboard><OffersUser /></LayoutDashboard>} />
-     <Route path="/notifactionsUser" element={<LayoutDashboard><NotifactionsUser /></LayoutDashboard>} />
-     <Route path="/favoritesUser" element={<LayoutDashboard><FavoritesUser /></LayoutDashboard>} />
-     <Route path="/settingsUser" element={<LayoutDashboard><SettingsUser /></LayoutDashboard>} />
-     <Route path="/blogUser" element={<LayoutDashboard><BlogUser /></LayoutDashboard>} />
+
+      {/* صفحات عامة داخل LayoutDashboard */}
+      <Route path="/accountUser" element={<LayoutDashboard><AccountUser /></LayoutDashboard>} />
+      <Route path="/offersUser" element={<LayoutDashboard><OffersUser /></LayoutDashboard>} />
+      <Route path="/notifactionsUser" element={<LayoutDashboard><NotifactionsUser /></LayoutDashboard>} />
+      <Route path="/favoritesUser" element={<LayoutDashboard><FavoritesUser /></LayoutDashboard>} />
+      <Route path="/settingsUser" element={token ?<LayoutDashboard><SettingsUser /></LayoutDashboard>: <p>not found</p>} />
+      <Route path="/blogUser" element={<LayoutDashboard><BlogUser /></LayoutDashboard>} />
       <Route path="/helpUser" element={<LayoutDashboard><HelpUser /></LayoutDashboard>} />
-      
-       {/* صفحات أضف إعلانك  */}
-      <Route path="/Advertisements" element={<Advertisements/>}/>
+
+      {/* صفحات أضف إعلانك  */}
+      <Route path="/Advertisements" element={<Advertisements />} />
 
       {/* صفحات تسجيل الدخول والتسجيل */}
       <Route path="/login" element={<Login />} />
@@ -63,6 +66,3 @@ const App = () => {
   );
 };
 export default App;
-
-
-
