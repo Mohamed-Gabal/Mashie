@@ -1,8 +1,6 @@
 .Account_user_image {
   position: relative;
   width: 100%;
-  max-width: 1200px;
-  margin: auto;
   background-color: var(--color);
   border-radius: 12px;
   padding-bottom: 20px;

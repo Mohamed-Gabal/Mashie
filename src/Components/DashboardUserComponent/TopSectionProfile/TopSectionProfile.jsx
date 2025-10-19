@@ -47,16 +47,6 @@ const TopSectionProfile = () => {
     <div className="accountUserImage_up">
       <div className="Account_user_image">
         {/* صورة الكوفر */}
-        {/* <div className="Account_user_image_profile">
-          <img
-            src={
-              userData?.cover_image
-                ? `https://api.mashy.sand.alrmoz.com/storage/${userData.cover_image}`
-                : "/images/filter1.webp"
-            }
-            alt="صورة الكوفر"
-          />
-        </div> */}
         <div className="Account_user_image_profile">
           <img src={userData?.cover_image} alt="صورة الكوفر" loading="lazy"/>
         </div>
@@ -64,15 +54,6 @@ const TopSectionProfile = () => {
         {/* صورة البروفايل */}
         <div className="Account_user_image_profile_person">
           <div className="user_img_container">
-            {/* <img src={
-                userData?.profile_image
-                  ? userData.profile_image.startsWith("http")
-                    ? userData.profile_image
-                    : `https://api.mashy.sand.alrmoz.com/storage/${userData.profile_image}`
-                  : "/images/filter2.webp"
-              }
-              alt="صورة البروفايل"
-            /> */}
             <img src={userData?.profile_image} alt="صورة البروفايل" loading="lazy"/>
           </div>
         </div>
