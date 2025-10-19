@@ -293,7 +293,7 @@ export default function LocationForm() {
                 )}
 
                 <button
-                    type={isEditMode ? "submit" : "button"}
+                    type="button"
                     className="submit_btn"
                     disabled={isLoading || (isEditMode && !isModified)}
                     onClick={() => {
