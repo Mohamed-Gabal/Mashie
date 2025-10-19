@@ -24,11 +24,6 @@ const LayoutProfile = ({ children }) => {
         return;
       }
 
-      // لو النقرة كانت على زر الفتح، متقفلهاش برضو
-      if (sidebarRef.current && sidebarRef.current.contains(target)) {
-        return;
-      }
-
       // لو الضغط في أي مكان تاني -> اقفل المينيو
       setToggleSidebar(false);
     };
@@ -44,7 +39,7 @@ const LayoutProfile = ({ children }) => {
   return (
     <div className="layoutProfile">
       <div className="layoutProfile_main">
-        <div className="toggle_sidebar" ref={sidebarRef} onClick={() => setToggleSidebar(!toggleSidebar)}>
+        <div className="toggle_sidebar" onClick={() => setToggleSidebar(!toggleSidebar)} ref={sidebarRef} >
           {toggleSidebar ?
             <svg xmlns="http://www.w3.org/2000/svg" width={24} height={24} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-x-icon lucide-x"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
             :
