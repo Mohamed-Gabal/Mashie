@@ -117,7 +117,7 @@ const Register = () => {
       if (response.ok) {
         setShowModdel(true);
         setCookie("token", data, {
-          secure: true, // يتبعت بس في https
+          // secure: true, // يتبعت بس في https
           maxAge: 60 * 60 * 24 * 30, // 30 day in seconds
           sameSite: "lax",
           secure: process.env.NODE_ENV === "production",

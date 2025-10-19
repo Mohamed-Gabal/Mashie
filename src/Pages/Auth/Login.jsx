@@ -105,7 +105,7 @@ export function LoginForm() {
         // لو تسجيل الدخول ناجح نخزن التوكن في الكوكيز
         setCookie("token", data, {
           path: "/", // متاح في كل الصفحات
-          secure: true, // يتبعت بس في https
+          // secure: true, // يتبعت بس في https
           // sameSite: "strict", // يمنع هجمات CSRF
           maxAge: 60 * 60 * 24 * 30, // 30 day in seconds
           sameSite: "lax",
