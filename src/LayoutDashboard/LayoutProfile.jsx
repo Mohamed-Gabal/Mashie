@@ -71,6 +71,7 @@ const LayoutProfile = ({ children }) => {
 
   // الصفحه الحاليه
   const cur = pageInfo[location.pathname] || {
+    // قيم افتراضيه
     title: "الملف الشخصي ",
     desc: "مرحبًا بك في حسابك الشخصي",
   };
