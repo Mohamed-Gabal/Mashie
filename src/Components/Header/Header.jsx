@@ -45,28 +45,6 @@ const Header = () => {
   }, []);
 
   useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const response = await fetch(`https://api.mashy.sand.alrmoz.com/api/user/${userID}`,{
-          method: "GET",
-          headers: {Authorization: `Bearer ${token}`}
-        });
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const data = await response.json();
-        setUserData(data.data);
-      } catch (err) {
-        console.log(err.message);
-      }
-    };
-
-    if (userID && token) {
-      fetchUserData();
-    }
-  }, []);
-
-  useEffect(() => {
     const handleClickOutside = (e) => {
       if (
         (mobileProfileRef.current && mobileProfileRef.current.contains(e.target)) ||
@@ -111,6 +89,28 @@ const Header = () => {
     };
   }, [menuOpen]);
 
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const response = await fetch(`https://api.mashy.sand.alrmoz.com/api/user/${userID}`,{
+          method: "GET",
+          headers: {Authorization: `Bearer ${token}`}
+        });
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        setUserData(data.data);
+      } catch (err) {
+        console.log(err.message);
+      }
+    };
+
+    if (userID && token) {
+      fetchUserData();
+    }
+  }, [userID, token]);
+
   return (
     <header className="header">
       <div className="header-container">
@@ -133,7 +133,7 @@ const Header = () => {
 
           {/* لو المستخدم مسجل دخول */}
           <div className="mobile-login">
-            {cookies?.token?.data?.token && cookies?.token?.data?.token !== "undefined" ? (
+            {Boolean(token) ? (
               <div>
                 {/* صورة أو أول حرفين من الاسم */}
                 <Link
@@ -159,21 +159,8 @@ const Header = () => {
                 />
               </div>
             ) : (
-              // لو المستخدم مش داخل -> زر تسجيل الدخول
               <NavLink to="/login" className="mobile_loginBTN">
-                {/* أيقونة تسجيل الدخول */}
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width={24}
-                  height={24}
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth={2}
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="lucide lucide-log-in"
-                >
+                <svg xmlns="http://www.w3.org/2000/svg" width={24} height={24} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-log-in">
                   <path d="m10 17 5-5-5-5" />
                   <path d="M15 12H3" />
                   <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4" />
