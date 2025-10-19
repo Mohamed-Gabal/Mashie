@@ -12,7 +12,6 @@ const Header = () => {
   const token = cookies?.token?.data?.token;
   // بنجيب بيانات المستخدم من التوكن اللي في الكوكيز
   const [userData, setUserData] = useState({});
-  console.log(userData);
   const [showToast, setShowToast] = useState(true);
 
   // حالة لإظهار أو إخفاء كارت البروفايل لما نضغط على الصورة
@@ -313,7 +312,7 @@ export function ToastWarning({ message = "الرجاء إضافة الموقع �
   useEffect(() => {
     const timer = setTimeout(() => {
       onClose();
-    }, 3000); // يختفي بعد 3 ثواني
+    }, 3000);
 
     return () => clearTimeout(timer);
   }, [onClose]);
