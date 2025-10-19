@@ -12,6 +12,8 @@ const Header = () => {
   const token = cookies?.token?.data?.token;
   // بنجيب بيانات المستخدم من التوكن اللي في الكوكيز
   const [userData, setUserData] = useState({});
+  console.log(userData);
+  const [showToast, setShowToast] = useState(true);
 
   // حالة لإظهار أو إخفاء كارت البروفايل لما نضغط على الصورة
   const [toggleProfileCard, setToggleProfileCard] = useState(false);
@@ -26,11 +28,11 @@ const Header = () => {
   const mobileProfileRef = useRef(null);
   const desktopProfileRef = useRef(null);   // تمثل صورة أو زر البروفايل
 
-    const inputRef = useRef(null);   // الضغط علي البحث يوجهك لل input
+  const inputRef = useRef(null);   // الضغط علي البحث يوجهك لل input
 
-    const handleFocus = () => {
-      inputRef.current.focus();
-    }
+  const handleFocus = () => {
+    inputRef.current.focus();
+  }
 
   // useEffect الأول: يقفل المينيو أو كارت البروفايل لما نضغط على زر Escape
   useEffect(() => {
@@ -54,7 +56,7 @@ const Header = () => {
       }
       setToggleProfileCard(false);
     };
-  
+
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
@@ -92,9 +94,9 @@ const Header = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await fetch(`https://api.mashy.sand.alrmoz.com/api/user/${userID}`,{
+        const response = await fetch(`https://api.mashy.sand.alrmoz.com/api/user/${userID}`, {
           method: "GET",
-          headers: {Authorization: `Bearer ${token}`}
+          headers: { Authorization: `Bearer ${token}` }
         });
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
@@ -124,8 +126,8 @@ const Header = () => {
 
         {/* مربع البحث في الموبايل */}
         <div className="mobile-search">
-          <CiSearch className="search_icon" onClick={handleFocus}/>
-          <input type="search" placeholder="ابحث هنا..." ref={inputRef}/>
+          <CiSearch className="search_icon" onClick={handleFocus} />
+          <input type="search" placeholder="ابحث هنا..." ref={inputRef} />
         </div>
 
         {/* الجزء الخاص بالموبايل (زر المينيو + صورة البروفايل أو تسجيل الدخول) */}
@@ -224,18 +226,7 @@ const Header = () => {
               >
                 <span>حسابي</span>
                 {/* سهم للأسفل */}
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width={22}
-                  height={22}
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth={2}
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="lucide lucide-chevron-down"
-                >
+                <svg xmlns="http://www.w3.org/2000/svg" width={22} height={22} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-chevron-down" >
                   <path d="m6 9 6 6 6-6" />
                 </svg>
               </Link>
@@ -275,6 +266,7 @@ const Header = () => {
           </NavLink>
         </div>
       </div>
+      {Boolean(token) && showToast && userData?.area === null && (<ToastWarning message="الرجاء إضافة الموقع قبل المتابعة." onClose={() => setShowToast(false)} />)}
     </header>
   );
 };
@@ -289,7 +281,7 @@ export function ProfileCard({ toggleProfileCard, userData, removeCookie }) {
             <svg xmlns="http://www.w3.org/2000/svg" width={24} height={24} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-circle-user-round-icon lucide-circle-user-round"><path d="M18 20a6 6 0 0 0-12 0" /><circle cx={12} cy={10} r={4} /><circle cx={12} cy={12} r={10} /></svg>
           </span>
         ) : (
-          <img src={userData.profile_image} alt={userData?.name?.split(" ").map((word) => word[0]).join(" ").toUpperCase()} className="user_img"/>
+          <img src={userData.profile_image} alt={userData?.name?.split(" ").map((word) => word[0]).join(" ").toUpperCase()} className="user_img" />
         )}
         <div>
           <p className="greeting">أهلا</p>
@@ -315,4 +307,31 @@ export function ProfileCard({ toggleProfileCard, userData, removeCookie }) {
       </button>
     </div>
   )
+};
+
+export function ToastWarning({ message = "الرجاء إضافة الموقع قبل المتابعة.", onClose }) {
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      onClose();
+    }, 3000); // يختفي بعد 3 ثواني
+
+    return () => clearTimeout(timer);
+  }, [onClose]);
+  return (
+    <div id="toast-warning" role="alert" className="toast_warning">
+      <div className="toast_container">
+        <div className="toast-icon">
+          <svg className="toast-svg" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20"><path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM10 15a1 1 0 1 1 0-2 1 1 0 0 1 0 2Zm1-4a1 1 0 0 1-2 0V6a1 1 0 0 1 2 0v5Z" /></svg>
+        </div>
+
+        <div className="toast-message">{message}</div>
+
+        <button type="button" className="toast-close-btn" aria-label="Close" onClick={onClose} >
+          <svg className="toast-close-icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14" ><path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" /></svg>
+        </button>
+
+        <div className="progress-line"/>
+      </div>
+    </div>
+  );
 };
