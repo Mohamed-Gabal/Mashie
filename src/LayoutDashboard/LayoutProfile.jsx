@@ -57,7 +57,7 @@ const LayoutProfile = ({ children }) => {
     },
     "/settingsUser": {
       title: "اعداداتك ",
-      desc: "تابع وأدِر جميع عروضك بسهولة من هنا",
+      desc: "تحكم في حسابك وإعداداتك بسهولة من هنا",
     },
     "/blogUser": {
       title: "أهم المقالات ",

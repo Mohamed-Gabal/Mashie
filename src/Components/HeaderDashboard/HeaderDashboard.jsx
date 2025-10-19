@@ -6,7 +6,7 @@ const HeaderDashboard = ({ title, desc }) => {
     <div className="Header_dashboard">
       <h2 className="Header_dashboard_title">
         {title}
-        <span>ماشي</span>
+        {title === "الرئيسيه" && <span>ماشي</span>}
       </h2>
       <p className="Header_dashboard_desc">{desc}</p>
     </div>

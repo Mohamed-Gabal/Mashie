@@ -185,7 +185,7 @@ export default function SidebarDashboard({toggleSidebar, setToggleSidebar, sideb
             </p>
             <div className="confirm_actions">
               <button
-                className="cancel_btn"
+                className="cancel_btn_confirm"
                 onClick={() => setShowConfirm(false)}
               >
                 إلغاء
