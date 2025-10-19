@@ -13,7 +13,7 @@ const CarCard = () => {
     const fetchCard = async () => {
       try {
         const res = await fetch(
-          "https://api.mashy.sand.alrmoz.com/api/ealans?category=vehicles&page_num=1"
+          "https://api.mashy.sand.alrmoz.com/api/ealans/random"
         );
 
         if (!res.ok) {
@@ -24,11 +24,10 @@ const CarCard = () => {
         }
 
         const data = await res.json();
-        const carsData = data?.data?.data?.ads || [];
 
-        if (data?.success && Array.isArray(carsData)) {
+        if (data?.success) {
           // ناخد أحدث 4 إعلانات فقط
-          setAdsCard(carsData.slice(0, 12));
+          setAdsCard(data?.data?.data);
         } else {
           setError("لم يتم العثور على إعلانات سيارات حالياً.");
         }
@@ -99,13 +98,13 @@ const CarCard = () => {
 
         <div className="car-card-grid">
           {adsCard.length > 0 ? (
-            adsCard.map((ad) => (
-              <div key={ad.id_ads} className="car-card-card">
+            adsCard.map((ad, index) => (
+              <div key={index} className="car-card-card">
                 <div className="card_img">
                   <img
                     src={
-                      ad.images?.[0]
-                        ? `https://api.mashy.sand.alrmoz.com/storage${ad.images[0]}`
+                      ad?.ad?.images?.[0]
+                        ? `https://api.mashy.sand.alrmoz.com/storage${ad?.ad?.images[0]}`
                         : "/images/default.jpg"
                     }
                     alt={ad.information?.title || "سيارة"}
@@ -116,38 +115,38 @@ const CarCard = () => {
                 <div className="car-card-content">
                   <div className="car-card-user">
                     <img
-                      src={ad?.user?.profile_image || "/images/logo.svg"}
-                      alt={ad.user?.user_name || "مستخدم"}
+                      src={ad?.ad?.user?.profile_image || "/images/logo.svg"}
+                      alt={ad?.ad?.user?.user_name || "مستخدم"}
                       className="car-card-user-img"
                     />
-                    <span>{ad.user?.user_name || "مستخدم"}</span>
+                    <span>{ad?.ad?.user?.user_name || "مستخدم"}</span>
                   </div>
 
                   <h3 className="car-card-title">
-                    {ad.information?.title || "بدون عنوان"}
+                    {ad?.ad?.information?.title || "بدون عنوان"}
                   </h3>
 
                   <div className="car-card-meta">
                     <span className="car-card-item">
                       <CiLocationOn className="car-card-icon" />
-                      {ad?.user?.area || "غير محدد"}
+                      {ad?.ad?.user?.area || "غير محدد"}
                     </span>
                     <span className="car-card-item">
                       <CiStopwatch className="car-card-icon" />
-                      {formatTime(ad.created_at) || "حديثًا"}
+                      {formatTime(ad?.ad?.created_at) || "حديثًا"}
                     </span>
                   </div>
 
                   <p className="car-card-price">
-                    {ad.information?.price
-                      ? `${ad.information.price} ريال`
-                      : ad.information?.isNegotiable
+                    {ad?.ad?.information?.price
+                      ? `${ad?.ad?.information.price} ريال`
+                      : ad?.ad?.information?.isNegotiable
                         ? "قابل للتفاوض"
                         : "السعر غير محدد"}
                   </p>
 
                   <div className="car-card-actions">
-                    <Link to={`/vehicles/${ad.id_ads}`} className="car-card-btn">
+                    <Link to={`/${ad?.category}/${ad?.ad?.id_ads}`} className="car-card-btn">
                       عرض التفاصيل
                     </Link>
                     <Link to="/favoritesUser" className="car-card-fav">

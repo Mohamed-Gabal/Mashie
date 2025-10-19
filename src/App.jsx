@@ -44,7 +44,6 @@ const App = () => {
       <Route path="/:details/:id" element={<MainLayout><DetailsLayout /></MainLayout>} />
       <Route path="/:category" element={<MainLayout><Category /></MainLayout>} />
 
-
       {/* صفحات عامة داخل LayoutDashboard */}
       <Route path="/accountUser" element={<LayoutDashboard><AccountUser /></LayoutDashboard>} />
       <Route path="/offersUser" element={<LayoutDashboard><OffersUser /></LayoutDashboard>} />

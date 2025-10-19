@@ -113,20 +113,33 @@ const Register = () => {
       );
 
       const data = await response.json();
-
-      if (response.ok) {
+      
+      if (response.ok && data.success) {
+        //التسجيل تم بنجاح
         setShowModdel(true);
-        setCookie("token", data, {
-          secure: true, // يتبعت بس في https
-          sameSite: "strict", // يمنع هجمات CSRF
+        setCookie("token", data.data.token, {
+          secure: true,
+          sameSite: "strict",
         });
       } else {
+        // في خطأ في التسجيل
         let message = "حدث خطأ أثناء التسجيل";
 
-        if (data?.errors?.email && data.errors.email[0]) {
+        // نجمع نص الخطأ من أي مكان ييجي منه
+        const emailError = data?.errors?.email?.[0];
+        const serverMessage = data?.message;
+        console.log("ها",serverMessage);
+
+        // نحدد النص اللي هنفحصه
+        const errorText = emailError || serverMessage || "";
+
+        if (errorText.includes("deleted") || errorText.includes("محذوف")) {
+          message =
+            "لقد قمت بحذف هذا الحساب مسبقًا. لا يمكنك التسجيل بهذا البريد مرة أخرى.";
+        } else if (emailError) {
           message = "هذا الحساب موجود بالفعل";
-        } else if (data?.message) {
-          message = data.message;
+        } else if (serverMessage) {
+          message = serverMessage;
         }
 
         setErrors((prev) => ({
