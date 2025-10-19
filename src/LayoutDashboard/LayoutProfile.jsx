@@ -13,25 +13,25 @@ const LayoutProfile = ({ children }) => {
 
   const [toggleSidebar, setToggleSidebar] = useState(false);
   const sidebarRef = useRef(null);
+  const toggleBtnRef = useRef(null);
   useEffect(() => {
-    if (!toggleSidebar) return; // لو المينيو مش مفتوحة، متسمعش للحدث
+    if (!toggleSidebar) return;
 
     const handleClickOutside = (e) => {
       const target = e.target;
-
-      // لو النقرة داخل المينيو نفسها، متقفلهاش
-      if (sidebarRef.current && sidebarRef.current.contains(target)) {
+    
+      if (
+        (sidebarRef.current && sidebarRef.current.contains(target)) ||
+        (toggleBtnRef.current && toggleBtnRef.current.contains(target))
+      ) {
         return;
       }
-
-      // لو الضغط في أي مكان تاني -> اقفل المينيو
+    
       setToggleSidebar(false);
-    };
+    };    
 
-    // بنضيف مستمع للضغط على أي مكان في الصفحة
     document.addEventListener("mousedown", handleClickOutside);
 
-    // بنشيله لما الكومبوننت يتفكك أو المينيو تتقفل
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
@@ -39,7 +39,7 @@ const LayoutProfile = ({ children }) => {
   return (
     <div className="layoutProfile">
       <div className="layoutProfile_main">
-        <div className="toggle_sidebar" onClick={() => setToggleSidebar(!toggleSidebar)} ref={sidebarRef} >
+        <div className="toggle_sidebar" onClick={() => setToggleSidebar(!toggleSidebar)} ref={toggleBtnRef} >
           {toggleSidebar ?
             <svg xmlns="http://www.w3.org/2000/svg" width={24} height={24} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-x-icon lucide-x"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
             :
