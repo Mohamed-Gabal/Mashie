@@ -57,7 +57,7 @@ const LayoutProfile = ({ children }) => {
     },
     "/settingsUser": {
       title: "اعداداتك ",
-      desc: "تابع وأدِر جميع عروضك بسهولة من هنا",
+      desc: "تحكم في حسابك وإعداداتك بسهولة من هنا",
     },
     "/blogUser": {
       title: "أهم المقالات ",
@@ -71,6 +71,7 @@ const LayoutProfile = ({ children }) => {
 
   // الصفحه الحاليه
   const cur = pageInfo[location.pathname] || {
+    // قيم افتراضيه
     title: "الملف الشخصي ",
     desc: "مرحبًا بك في حسابك الشخصي",
   };

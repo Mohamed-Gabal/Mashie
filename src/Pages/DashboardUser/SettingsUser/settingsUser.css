@@ -248,7 +248,7 @@
   justify-content: center;
   gap: 15px;
 }
-.btn-cancel {
+.btn-confirm {
   width: 100px;
   padding: 8px 15px;
   background-color: var(--main-color);
@@ -256,19 +256,20 @@
   border-radius: 5px;
   cursor: pointer;
 }
-.btn-cancel:hover {
+.btn-confirm:hover {
   background-color: var(--hover-color);
 }
-.btn-confirm {
+.btn-cancel {
   width: 100px;
   padding: 8px 15px;
-  background-color: #d9534f;
-  color: var(--color);
-  border: none;
+  background-color: transparent;
+  color: #c9302c;
+  border: 1px solid #c9302c;
   border-radius: 5px;
   cursor: pointer;
 }
-.btn-confirm:hover {
+.btn-cancel:hover {
+  color: var(--color);
   background-color: #c9302c;
 }
 
@@ -294,7 +295,6 @@
     max-width: 400px;
   }
 }
-
 @media (max-width: 600px) {
   .settings_user_container {
     padding: 0px;
