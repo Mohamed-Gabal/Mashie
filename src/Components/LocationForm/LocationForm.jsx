@@ -311,10 +311,10 @@ export default function LocationForm() {
                 >
                     {isLoading ? (
                         <div className="spinnerLoader"/>
-                    ) : isEditMode ? (
-                        userData?.area ? "حفظ" : "أضف عنوان"
+                    ) : userData?.area === null ? (
+                        isEditMode ? "حفظ" : "أضف عنوان"
                     ) : (
-                        "تعديل"
+                        isEditMode ? "حفظ" : "تعديل"
                     )}
                 </button>
             </div>

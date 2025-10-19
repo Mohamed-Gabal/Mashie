@@ -117,9 +117,11 @@ const Register = () => {
       if (response.ok && data.success) {
         //التسجيل تم بنجاح
         setShowModdel(true);
-        setCookie("token", data.data.token, {
-          secure: true,
-          sameSite: "strict",
+        setCookie("token", data, {
+          // secure: true, // يتبعت بس في https
+          maxAge: 60 * 60 * 24 * 30, // 30 day in seconds
+          sameSite: "lax",
+          secure: process.env.NODE_ENV === "production",
         });
       } else {
         // في خطأ في التسجيل
