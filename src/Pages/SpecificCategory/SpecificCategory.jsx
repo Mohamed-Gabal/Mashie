@@ -25,13 +25,13 @@ export default function SpecificCategory() {
     const [region, setRegion] = useState("");
     const filteredCategoriesDataByregion = filteredCategoriesData.filter((item) => {
         if (!region || region === "كل المناطق") return true;
-        return item?.location?.area === region;
+        return item?.user?.area === region;
     });
 
     const [city, setCity] = useState("");
     const filteredCategoriesDataByCity = filteredCategoriesDataByregion.filter((item) => {
         if (!city || city === "كل المدن") return true;
-        return item?.location?.city === city;
+        return item?.user?.city === city;
     });
 
     // handle search bar
@@ -51,7 +51,9 @@ export default function SpecificCategory() {
 
     // Filtered categories by search bar (case-insensitive)
     const filteredCategoriesDataByTitle = filteredCategoriesDataByCity.filter((item) => item?.information?.title?.toLowerCase().includes(searchInput.toLowerCase().trim()))
+    console.log(filteredCategoriesDataByTitle);
     useEffect(() => {
+        window.scrollTo(0, 0);
         const fetchCategoryData = async () => {
             try {
                 setIsLoading(true)
