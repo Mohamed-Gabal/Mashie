@@ -62,11 +62,11 @@ export default function ShowAnyUser() {
                     {errorMessage && <p className="error_message">{errorMessage}</p>}
                 </div>
 
-                <div className="categories_items">
+                <div className="user_advertisements">
                     {userData?.data?.map((cat) => (
                         <div
                             key={cat?.ad?.id_ads}
-                            className={`category_card`}
+                            className={`advertisements_card`}
                         >
                             <div className="card_image">
                                 <img
