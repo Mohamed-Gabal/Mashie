@@ -7,7 +7,6 @@ import { timeSince } from '../SpecificCategory/SpecificCategory';
 export default function ShowAnyUser() {
     const { userID } = useParams();
     const [userData, setUserData] = useState({});
-    console.log(userData);
     const [isLoading, setIsLoading] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
 
@@ -64,44 +63,44 @@ export default function ShowAnyUser() {
                 </div>
 
                 <div className="categories_items">
-                    {userData?.ads?.map((cat) => (
+                    {userData?.data?.map((cat) => (
                         <div
-                            key={cat.id_ads}
+                            key={cat?.ad?.id_ads}
                             className={`category_card`}
                         >
                             <div className="card_image">
                                 <img
-                                    src={cat.images?.[0] ? `https://api.mashy.sand.alrmoz.com/storage/${cat.images[0]}` : "/placeholder.png"}
-                                    alt={cat?.information?.title}
+                                    src={cat?.ad?.images?.[0] ? `https://api.mashy.sand.alrmoz.com/storage/${cat?.ad?.images[0]}` : "/placeholder.png"}
+                                    alt={cat?.ad?.information?.title}
                                 />
 
                             </div>
 
                             <div className="card_user">
-                                {cat.user?.profile_image ? (
-                                    <img src={cat.user.profile_image} alt={cat.seller?.name} />
+                                {cat?.ad?.user?.profile_image ? (
+                                    <img src={cat?.ad?.user?.profile_image} alt={cat?.ad?.seller?.name} />
                                 ) : (
                                     <div className="avatar_placeholder">
-                                        {cat?.seller?.name?.split(" ").map(word => word[0]).join("").toUpperCase()}
+                                        {cat?.ad?.seller?.name?.split(" ").map(word => word[0]).join("").toUpperCase()}
                                     </div>
                                 )}
-                                <span>{cat.seller?.name}</span>
+                                <span>{cat?.ad?.seller?.name}</span>
                             </div>
 
                             <div className="card_body">
-                                <h3>{cat?.information?.title.substring(0, 18)}...</h3>
+                                <h3>{cat?.ad?.information?.title.substring(0, 18)}...</h3>
                                 <div className="card_meta">
                                     <div className="ciLocationOn">
                                         <CiLocationOn style={{ color: "var(--main-color)", fontSize: "12px", fontWeight: "bold" }} />
-                                        <span>{cat?.user?.area || "غير محدد"}</span>
+                                        <span>{cat?.ad?.user?.area || "غير محدد"}</span>
                                     </div>
                                     <div className="ciStopwatch">
                                         <CiStopwatch style={{ color: "var(--main-color)", fontSize: "12px", fontWeight: "bold" }} />
-                                        <span>{timeSince(cat.created_at)}</span>
+                                        <span>{timeSince(cat?.ad?.created_at)}</span>
                                     </div>
                                 </div>
                             </div>
-                            <Link to={`/${cat.id_ads}`} className="details_link">
+                            <Link to={`/${cat?.category}/${cat?.ad?.id_ads}`} className="details_link">
                                 عرض التفاصيل
                             </Link>
                         </div>
