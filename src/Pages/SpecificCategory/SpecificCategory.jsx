@@ -160,7 +160,7 @@ export default function SpecificCategory() {
 
                                     </div>
 
-                                    <div className="card_user">
+                                    <Link to={`/user/${cat?.seller?.name}/${cat?.user?.id_user}`} className="card_user">
                                         {cat.user?.user_image ? (
                                             <img src={cat.user.user_image} alt={cat.seller?.name} />
                                         ) : (
@@ -169,7 +169,7 @@ export default function SpecificCategory() {
                                             </div>
                                         )}
                                         <span>{cat.seller?.name}</span>
-                                    </div>
+                                    </Link>
 
                                     <div className="card_body">
                                         <h3>{cat?.information?.title.substring(0, 18)}...</h3>

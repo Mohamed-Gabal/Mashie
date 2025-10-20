@@ -31,6 +31,9 @@ import Advertisements from "./Pages/Advertisements/Advertisements";
 import Category from "./Pages/SpecificCategory/SpecificCategory";
 import { useCookies } from "react-cookie";
 
+// show any user data
+import ShowAnyUser from "./Pages/ShowAnyUser/ShowAnyUser";
+
 const App = () => {
   const [cookies] = useCookies(["token"]);
   const token = cookies?.token?.data?.token;
@@ -43,6 +46,9 @@ const App = () => {
       <Route path="/contactUs" element={<MainLayout><ContactUs /></MainLayout>} />
       <Route path="/:details/:id" element={<MainLayout><DetailsLayout /></MainLayout>} />
       <Route path="/:category" element={<MainLayout><Category /></MainLayout>} />
+
+      {/* show any user data */}
+      <Route path="/user/:name/:userID" element={<MainLayout><ShowAnyUser /></MainLayout>} />
 
       {/* صفحات عامة داخل LayoutDashboard */}
       <Route path="/accountUser" element={<LayoutDashboard><AccountUser /></LayoutDashboard>} />

@@ -113,14 +113,14 @@ const CarCard = () => {
                 </div>
 
                 <div className="car-card-content">
-                  <div className="car-card-user">
+                  <Link to={`/user/${ad?.ad?.user?.user_name}/${ad?.ad?.user?.id_user}`} className="car-card-user">
                     <img
                       src={ad?.ad?.user?.profile_image || "/images/logo.svg"}
                       alt={ad?.ad?.user?.user_name || "مستخدم"}
                       className="car-card-user-img"
                     />
                     <span>{ad?.ad?.user?.user_name || "مستخدم"}</span>
-                  </div>
+                  </Link>
 
                   <h3 className="car-card-title">
                     {ad?.ad?.information?.title || "بدون عنوان"}

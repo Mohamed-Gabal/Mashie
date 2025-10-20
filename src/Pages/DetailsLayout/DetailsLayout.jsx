@@ -199,7 +199,7 @@ const DetailsLayout = () => {
             {/* معلومات البائع */}
             <div className="details-left-top">
               <div className="details-left-top-user">
-                <div className="card_user">
+                <Link to={`/user/${ad_details?.seller?.name}/${ad_details?.user?.id_user}`} className="card_user">
                   <div className="card_user_image">
                     {ad_details?.user?.profile_image ?
                       <img
@@ -217,7 +217,7 @@ const DetailsLayout = () => {
                     <h5>{ad_details?.seller?.name}</h5>
                     <p className="details-left-top-user-member"><span>عضو منذ </span><span>{ad_details?.user?.account_created_at ? timeSince(ad_details?.user?.account_created_at) : ""}</span></p>
                   </div>
-                </div>
+                </Link>
 
                 {/* إحصائيات البائع */}
                 <div className="details-left-top-user-actions">
