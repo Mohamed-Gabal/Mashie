@@ -210,6 +210,13 @@
     margin-top: 15px;
 }
 
+.toastLocationWarning {
+    position: fixed;
+    top: 0px;
+    left: 0;
+    right: 0;
+}
+
 @keyframes scaleIn {
     from {
         transform: scale(0.9);
