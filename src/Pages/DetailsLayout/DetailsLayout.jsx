@@ -27,7 +27,7 @@ const DetailsLayout = () => {
   const category = categories.find((cat) => details === cat.key) || "اسم الفئة";
   const [isLoading, setIsLoading] = useState(false);
   const [ad_details, setAd_details] = useState([]);
-  // console.log(ad_details);
+  console.log(ad_details);
 
   const images = ad_details?.images || [];
   const [mainImage, setMainImage] = useState(null);
@@ -335,10 +335,14 @@ export function handleWhatsApp(seller, title) {
     return;
   }
 
-  const phone = seller.phone.startsWith("0")
-    ? `966${seller.phone.slice(1)}`
-    : `966${seller.phone}`;
+  let phone = seller.phone.trim().replace(/\s+/g, "").replace(/^\+/, "");
+  phone = phone.startsWith("966") ? phone : phone.startsWith("0")
+  ? `966${phone.slice(1)}`
+  : `966${phone}`;
 
+  if (!/^9665\d{8}$/.test(phone)) {
+    return;
+  }
   const message = `مرحبًا ${seller.name}! أريد التواصل معك بشأن إعلانك "${title}" على موقع ماشي.`;
   const waUrl = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
 
