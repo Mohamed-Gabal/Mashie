@@ -27,7 +27,6 @@ const DetailsLayout = () => {
   const category = categories.find((cat) => details === cat.key) || "اسم الفئة";
   const [isLoading, setIsLoading] = useState(false);
   const [ad_details, setAd_details] = useState([]);
-  console.log(ad_details);
 
   const images = ad_details?.images || [];
   const [mainImage, setMainImage] = useState(null);
