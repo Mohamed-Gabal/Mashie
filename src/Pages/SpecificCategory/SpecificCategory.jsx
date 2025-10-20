@@ -142,8 +142,8 @@ export default function SpecificCategory() {
                         </div>
                     </section>
 
-                    <section className='bottom_section'>
-                        <div className="bottom_section_header">
+                    <section className='bottom_section_categoryData'>
+                        <div className="bottom_section_categoryData_header">
                             <div className="">وجدنا لك {filteredCategoriesDataByTitle?.length} خيارًا</div>
                             <div className=""></div>
                         </div>
