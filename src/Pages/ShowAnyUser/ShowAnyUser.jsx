@@ -4,6 +4,7 @@ import { Link, useParams } from 'react-router-dom';
 import { CiLocationOn, CiStopwatch } from 'react-icons/ci';
 import { timeSince } from '../SpecificCategory/SpecificCategory';
 import SkeletonCard from '../../Components/SkeletonCard/SkeletonCard';
+import NotFound from '../../Components/NotFound/NotFound';
 
 export default function ShowAnyUser() {
     const { userID } = useParams();
@@ -42,6 +43,9 @@ export default function ShowAnyUser() {
                     {Array.from({ length: 4 }, (_, i) => (<SkeletonCard key={i} />))}
                 </div>
             )}
+
+            {errorMessage && <NotFound/>}
+
             <div className="showAnyUserData_container">
                 <div className="user_data">
                     <div className="user_images">
