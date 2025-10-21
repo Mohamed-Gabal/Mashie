@@ -40,7 +40,9 @@ export default function ShowAnyUser() {
         <section className="showAnyUserData">
             {isLoading && (
                 <div className="loading_data">
-                    {Array.from({ length: 4 }, (_, i) => (<SkeletonCard key={i} />))}
+                    <div className="isLoading">
+                        {Array.from({ length: 4 }, (_, i) => (<SkeletonCard key={i} />))}
+                    </div>
                 </div>
             )}
 
