@@ -7,10 +7,6 @@
   flex: 1;
   position: relative;
 }
-/* .layoutProfile_main .layoutProfile_sidebar {
-  position: relative;
-  z-index: 999;
-} */
 
 .layoutProfile_main .toggle_sidebar {
   display: none;
@@ -38,4 +34,8 @@
     left: 10px;
     transition: all ease-in-out .3s;
   }
+}
+
+.notFound {
+  border: 1px solid red;
 }
