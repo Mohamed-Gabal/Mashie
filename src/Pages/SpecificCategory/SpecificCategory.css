@@ -108,14 +108,14 @@
 }
 
 /* ===== Bottom Section ===== */
-.categoryData_container .bottom_section {
+.categoryData_container .bottom_section_categoryData {
     background-color: transparent;
     max-width: 1170px;
     padding-bottom: 100px;
     margin: auto;
 }
 
-.bottom_section_header {
+.bottom_section_categoryData_header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -236,7 +236,7 @@
 /* ====== Responsive ====== */
 
 @media (max-width: 1024px) {
-    .bottom_section {
+    .bottom_section_categoryData {
         padding: 20px 20px 100px;
     }
 

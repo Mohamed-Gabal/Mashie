@@ -13,6 +13,7 @@ import axios from "axios";
 import { useCookies } from "react-cookie";
 import LoginRequiredCard from '../../Components/AdvertisementsComponents/LoginRequiredCard/LoginRequiredCard';
 import { Link, useNavigate } from 'react-router-dom';
+import { ToastWarning } from '../../Components/Header/Header';
 
 export default function Advertisements() {
     // Step management: 1=category, 2=details, 3=review
@@ -20,6 +21,8 @@ export default function Advertisements() {
     const navigate = useNavigate();
     const token = cookies?.token?.data?.token;
     const userData = cookies?.token?.data?.user;
+    const [showToast, setShowToast] = useState(true);
+    console.log(userData);
     const [ads_id, setAds_id] = useState('');
     const [categoryName, setCategoryName] = useState('');
 
@@ -337,6 +340,9 @@ export default function Advertisements() {
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div className="toastLocationWarning">
+                        {Boolean(token) && showToast && userData?.area === null && (<ToastWarning message="الرجاء إضافة الموقع قبل المتابعة." onClose={() => setShowToast(false)} />)}
                     </div>
                 </>
                 :

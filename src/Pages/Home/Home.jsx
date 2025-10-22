@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./Home.css";
 import SearchBar from "../../Components/SearchBar/SearchBar";
 import Slider from '../../Components/Slider/Slider.jsx';
@@ -9,6 +9,9 @@ import CarCard from "../../Components/CarCard/CarCard";
 import SellSeaction from "../../Components/SellSeaction/SellSeaction";
 
 const Home = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  })
   return (
       <div className="home-container">
         <SearchBar />

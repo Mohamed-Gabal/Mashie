@@ -179,13 +179,7 @@ export default function LocationForm() {
     };
 
     return (
-        <form
-            className="location_container"
-            onSubmit={(e) => {
-                e.preventDefault();
-                if (isEditMode) handleSubmit();
-            }}
-        >
+        <form className="location_container" onSubmit={(e) => e.preventDefault()}>
             <div className="location_header">
                 <h3>الموقع</h3>
             </div>
@@ -299,23 +293,19 @@ export default function LocationForm() {
                 )}
 
                 <button
-                    type={isEditMode ? "submit" : "button"}
+                    type="button"
                     className="submit_btn"
                     disabled={isLoading || (isEditMode && !isModified)}
                     onClick={() => {
                         if (!isEditMode) {
                             setIsEditMode(true);
                             setTimeout(() => areaInputRef.current?.focus(), 0);
+                        } else {
+                            handleSubmit();
                         }
                     }}
                 >
-                    {isLoading ? (
-                        <div className="spinnerLoader"/>
-                    ) : userData?.area === null ? (
-                        isEditMode ? "حفظ" : "أضف عنوان"
-                    ) : (
-                        isEditMode ? "حفظ" : "تعديل"
-                    )}
+                    {isLoading ? <div className="spinnerLoader"/> : isEditMode ? "حفظ" : (!userData?.area ? "أضف عنوان" : "تعديل")}
                 </button>
             </div>
 

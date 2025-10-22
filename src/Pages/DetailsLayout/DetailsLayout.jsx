@@ -27,7 +27,6 @@ const DetailsLayout = () => {
   const category = categories.find((cat) => details === cat.key) || "اسم الفئة";
   const [isLoading, setIsLoading] = useState(false);
   const [ad_details, setAd_details] = useState([]);
-  // console.log(ad_details);
 
   const images = ad_details?.images || [];
   const [mainImage, setMainImage] = useState(null);
@@ -199,7 +198,7 @@ const DetailsLayout = () => {
             {/* معلومات البائع */}
             <div className="details-left-top">
               <div className="details-left-top-user">
-                <div className="card_user">
+                <Link to={`/user/${ad_details?.seller?.name}/${ad_details?.user?.id_user}`} className="card_user">
                   <div className="card_user_image">
                     {ad_details?.user?.profile_image ?
                       <img
@@ -217,7 +216,7 @@ const DetailsLayout = () => {
                     <h5>{ad_details?.seller?.name}</h5>
                     <p className="details-left-top-user-member"><span>عضو منذ </span><span>{ad_details?.user?.account_created_at ? timeSince(ad_details?.user?.account_created_at) : ""}</span></p>
                   </div>
-                </div>
+                </Link>
 
                 {/* إحصائيات البائع */}
                 <div className="details-left-top-user-actions">
@@ -335,10 +334,14 @@ export function handleWhatsApp(seller, title) {
     return;
   }
 
-  const phone = seller.phone.startsWith("0")
-    ? `966${seller.phone.slice(1)}`
-    : `966${seller.phone}`;
+  let phone = seller.phone.trim().replace(/\s+/g, "").replace(/^\+/, "");
+  phone = phone.startsWith("966") ? phone : phone.startsWith("0")
+  ? `966${phone.slice(1)}`
+  : `966${phone}`;
 
+  if (!/^9665\d{8}$/.test(phone)) {
+    return;
+  }
   const message = `مرحبًا ${seller.name}! أريد التواصل معك بشأن إعلانك "${title}" على موقع ماشي.`;
   const waUrl = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
 

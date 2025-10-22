@@ -25,13 +25,13 @@ export default function SpecificCategory() {
     const [region, setRegion] = useState("");
     const filteredCategoriesDataByregion = filteredCategoriesData.filter((item) => {
         if (!region || region === "كل المناطق") return true;
-        return item?.location?.area === region;
+        return item?.user?.area === region;
     });
 
     const [city, setCity] = useState("");
     const filteredCategoriesDataByCity = filteredCategoriesDataByregion.filter((item) => {
         if (!city || city === "كل المدن") return true;
-        return item?.location?.city === city;
+        return item?.user?.city === city;
     });
 
     // handle search bar
@@ -52,6 +52,7 @@ export default function SpecificCategory() {
     // Filtered categories by search bar (case-insensitive)
     const filteredCategoriesDataByTitle = filteredCategoriesDataByCity.filter((item) => item?.information?.title?.toLowerCase().includes(searchInput.toLowerCase().trim()))
     useEffect(() => {
+        window.scrollTo(0, 0);
         const fetchCategoryData = async () => {
             try {
                 setIsLoading(true)
@@ -141,8 +142,8 @@ export default function SpecificCategory() {
                         </div>
                     </section>
 
-                    <section className='bottom_section'>
-                        <div className="bottom_section_header">
+                    <section className='bottom_section_categoryData'>
+                        <div className="bottom_section_categoryData_header">
                             <div className="">وجدنا لك {filteredCategoriesDataByTitle?.length} خيارًا</div>
                             <div className=""></div>
                         </div>
@@ -160,7 +161,7 @@ export default function SpecificCategory() {
 
                                     </div>
 
-                                    <div className="card_user">
+                                    <Link to={`/user/${cat?.seller?.name}/${cat?.user?.id_user}`} className="card_user">
                                         {cat.user?.user_image ? (
                                             <img src={cat.user.user_image} alt={cat.seller?.name} />
                                         ) : (
@@ -169,7 +170,7 @@ export default function SpecificCategory() {
                                             </div>
                                         )}
                                         <span>{cat.seller?.name}</span>
-                                    </div>
+                                    </Link>
 
                                     <div className="card_body">
                                         <h3>{cat?.information?.title.substring(0, 18)}...</h3>
