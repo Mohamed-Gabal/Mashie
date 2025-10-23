@@ -119,7 +119,7 @@ export default function Information({ formik, prevStep }) {
                         2
                     </div>
                     <div className="text">
-                        <h1>البيانات الأساسيه للسياره</h1>
+                        <h1>البيانات الأساسيه</h1>
                         <p>الفئه و الميديا والبيانات الاساسيه</p>
                     </div>
                 </header> */}
