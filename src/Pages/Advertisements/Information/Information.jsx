@@ -114,7 +114,7 @@ export default function Information({ formik, prevStep }) {
             </div>
 
             <div className="basic_category_data">
-                <header className='category_header'>
+                {/* <header className='category_header'>
                     <div className="circle">
                         2
                     </div>
@@ -122,7 +122,7 @@ export default function Information({ formik, prevStep }) {
                         <h1>البيانات الأساسيه</h1>
                         <p>الفئه و الميديا والبيانات الاساسيه</p>
                     </div>
-                </header>
+                </header> */}
 
                 <div className="">
                     <FormHeader img={category.icon} title={category.title} desc={category.desc} prevStep={prevStep} />

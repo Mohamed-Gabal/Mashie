@@ -113,7 +113,10 @@ const CarCard = () => {
                 </div>
 
                 <div className="car-card-content">
-                  <Link to={`/user/${ad?.ad?.user?.user_name}/${ad?.ad?.user?.id_user}`} className="car-card-user">
+                  <Link
+                    to={`/user/${ad?.ad?.user?.user_name}/${ad?.ad?.user?.id_user}`}
+                    className="car-card-user"
+                  >
                     <img
                       src={ad?.ad?.user?.profile_image || "/images/logo.svg"}
                       alt={ad?.ad?.user?.user_name || "مستخدم"}
@@ -137,18 +140,14 @@ const CarCard = () => {
                     </span>
                   </div>
 
-                  <p className="car-card-price">
-                    {ad?.ad?.information?.price
-                      ? `${ad?.ad?.information.price} ريال`
-                      : ad?.ad?.information?.isNegotiable
+                  <div className="car-card-actions">
+                    <p className="car-card-price">
+                      {ad?.ad?.information?.price
+                        ? `${ad?.ad?.information.price} ريال`
+                        : ad?.ad?.information?.isNegotiable
                         ? "قابل للتفاوض"
                         : "السعر غير محدد"}
-                  </p>
-
-                  <div className="car-card-actions">
-                    <Link to={`/${ad?.category}/${ad?.ad?.id_ads}`} className="car-card-btn">
-                      عرض التفاصيل
-                    </Link>
+                    </p>
                     <Link to="/favoritesUser" className="car-card-fav">
                       <MdFavoriteBorder className="car-card-ico" />
                     </Link>
