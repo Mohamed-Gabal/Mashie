@@ -19,7 +19,7 @@ export default function FormHeader({ img, title, desc, prevStep }) {
                 </div>
             </div>
 
-            <button type='button' className="btn_category" onClick={prevStep}>تغيير</button>
+            {/* <button type='button' className="btn_category" onClick={prevStep}>تغيير</button> */}
         </div>
     )
 }
