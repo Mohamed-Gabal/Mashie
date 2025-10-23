@@ -6,6 +6,7 @@ import { IoIosArrowBack } from 'react-icons/io';
 import { attributesMap, specificCategoriesData } from '../../data';
 import SaudiRegionsDropdown from '../../Components/AdvertisementsComponents/SaudiRegionsDropdown/SaudiRegionsDropdown';
 import SkeletonCard from '../../Components/SkeletonCard/SkeletonCard';
+import NotFound from '../../Components/NotFound/NotFound';
 
 export default function SpecificCategory() {
     const { category } = useParams();
@@ -77,7 +78,7 @@ export default function SpecificCategory() {
             {isLoading && (
                 <div className='isLoading'>{Array.from({ length: 4 }, (_, i) => (<SkeletonCard key={i} />))}</div>
             )}
-            {errorMessage && <p>notwork error</p>}
+            {errorMessage && <NotFound/>}
             {!isLoading && !errorMessage && (
                 <>
                     <section className='top_section'>
