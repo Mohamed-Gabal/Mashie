@@ -6,8 +6,6 @@ import { useCookies } from "react-cookie";
 import { MdOutlineMailOutline } from "react-icons/md";
 
 const Login = () => {
-
-
   return (
     <div className="login-wrapper">
       {/* صورة جانبية */}
@@ -19,8 +17,8 @@ const Login = () => {
         {/* عنوان ترحيبي */}
         <h2>مرحبًا بك مجددًا</h2>
         <p>
-          مرحبًا بك من جديد! قم بتسجيل الدخول إلى حسابك على ماشي لتتابع
-          إعلاناتك المنشورة، وتدير منتجاتك أو خدماتك بسهولة.
+          مرحبًا بك من جديد! قم بتسجيل الدخول إلى حسابك على ماشي لتتابع إعلاناتك
+          المنشورة، وتدير منتجاتك أو خدماتك بسهولة.
         </p>
 
         {/* نموذج تسجيل الدخول */}
@@ -40,7 +38,7 @@ const Login = () => {
 export default Login;
 
 export function LoginForm() {
-  const {details} = useParams();
+  const { details } = useParams();
   //  الحالة الخاصة بالبريد الإلكتروني
   const [email, setEmail] = useState("");
   //  الحالة الخاصة بكلمة المرور
@@ -58,7 +56,11 @@ export function LoginForm() {
   const navigate = useNavigate();
 
   // حالة لتخزين الأخطاء (لكل input + خطأ عام)
-  const [errors, setErrors] = useState({ email: "", password: "", general: "" });
+  const [errors, setErrors] = useState({
+    email: "",
+    password: "",
+    general: "",
+  });
 
   // دالة التحقق من صحة البيانات قبل إرسالها
   const validateForm = () => {
@@ -90,7 +92,6 @@ export function LoginForm() {
     if (!validateForm()) return;
     setLoading(true);
     try {
-      // استدعاء API تسجيل الدخول
       const response = await fetch(
         "https://api.mashy.sand.alrmoz.com/api/login",
         {
@@ -102,31 +103,57 @@ export function LoginForm() {
 
       const data = await response.json();
       if (response.ok) {
-        // لو تسجيل الدخول ناجح نخزن التوكن في الكوكيز
+        // تسجيل الدخول ناجح
         setCookie("token", data, {
-          path: "/", // متاح في كل الصفحات
-          // secure: true, // يتبعت بس في https
-          // sameSite: "strict", // يمنع هجمات CSRF
-          maxAge: 60 * 60 * 24 * 30, // 30 day in seconds
+          path: "/",
+          maxAge: 60 * 60 * 24 * 30,
           sameSite: "lax",
           secure: process.env.NODE_ENV === "production",
         });
-        // توجيه المستخدم للصفحة الرئيسية
-        if(details !== "vehicles" && details !== "realestate" && details !== "electronics" && details !== "jobs" && details !== "furniture" && details !== "services" && details !== "fashion" && details !== "food" && details !== "anecdotes" && details !== "gardens" && details !== "trips" && details !== "pets") {
+        if (
+          details !== "vehicles" &&
+          details !== "realestate" &&
+          details !== "electronics" &&
+          details !== "jobs" &&
+          details !== "furniture" &&
+          details !== "services" &&
+          details !== "fashion" &&
+          details !== "food" &&
+          details !== "anecdotes" &&
+          details !== "gardens" &&
+          details !== "trips" &&
+          details !== "pets"
+        ) {
           navigate("/");
         }
       } else {
-        // لو السيرفر رجع خطأ (كلمة مرور غلط مثلًا)
-        setErrors((prev) => ({
-          ...prev,
-          general: "خطأ في تسجيل الدخول",
-        }));
+        //نقرأ الرسالة من
+        const serverError =
+          data?.errors?.email?.[0] ||
+          data?.message ||
+          "حدث خطأ أثناء تسجيل الدخول";
+        // نحلل النص ونقرر نعرضه فين
+        if (serverError.toLowerCase().includes("email")) {
+          setErrors((prev) => ({
+            ...prev,
+            email: "البريد الإلكتروني أو كلمه المرور غير صحيحه",
+          }));
+        } else if (serverError.toLowerCase().includes("password")) {
+          setErrors((prev) => ({
+            ...prev,
+            password: "كلمة المرور غير صحيحة",
+          }));
+        } else {
+          setErrors((prev) => ({
+            ...prev,
+            general: serverError,
+          }));
+        }
       }
     } catch {
-      // لو السيرفر مش شغال أو النت مقطوع
       setErrors((prev) => ({
         ...prev,
-        general: "حدث خطأ في الاتصال ",
+        general: "تعذر الاتصال تحقق من الإنترنت",
       }));
     } finally {
       setLoading(false);
@@ -149,7 +176,7 @@ export function LoginForm() {
       </div>
       {/* رسالة خطأ البريد */}
       {errors.email && (
-        <p className="error-message" style={{ color: "red" }}>
+        <p className="error-message" style={{ color: "red", marginTop: "-42px"}}>
           {errors.email}
         </p>
       )}
@@ -172,7 +199,7 @@ export function LoginForm() {
       </div>
       {/* رسالة خطأ كلمة المرور */}
       {errors.password && (
-        <p className="error-message" style={{ color: "red" }}>
+        <p className="error-message" style={{ color: "red" , marginTop: "-42px"}}>
           {errors.password}
         </p>
       )}
@@ -184,10 +211,13 @@ export function LoginForm() {
 
       {/* رسالة خطأ عامة (من السيرفر أو غيره) */}
       {errors.general && (
-        <p className="error-message" style={{ color: "red" }}>
+        <p
+          className="error-message"
+          style={{ color: "red", marginTop: "-42px" }}
+        >
           {errors.general}
         </p>
       )}
     </form>
-  )
-};
+  );
+}

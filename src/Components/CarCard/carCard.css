@@ -202,12 +202,12 @@
 
 /* الشاشات الصغيرة */
 @media (max-width: 768px) {
-  /* .section-title,
+  .section-title,
   .section-subtitle {
     display: none;
-  } */
+  }
   .car-card {
-    margin-top: 30px;
+    margin-top: 10px;
     padding: 15px 0px;
   }
   .car-card-grid {

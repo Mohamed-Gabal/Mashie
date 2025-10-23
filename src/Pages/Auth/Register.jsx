@@ -10,9 +10,7 @@ import { useCookies } from "react-cookie";
 const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
   const registerPassword = () => setShowPassword(!showPassword);
-
   const navigate = useNavigate();
-
   // مكتبة الكوكيز: نستخدم setCookie لتخزين التوكن بعد تسجيل الدخول
   const [Cookie, setCookie] = useCookies(["token"]);
 
@@ -115,38 +113,74 @@ const Register = () => {
       const data = await response.json();
       
       if (response.ok && data.success) {
-        //التسجيل تم بنجاح
+        // تم التسجيل بنجاح
         setShowModdel(true);
         setCookie("token", data, {
-          // secure: true, // يتبعت بس في https
-          maxAge: 60 * 60 * 24 * 30, // 30 day in seconds
+          maxAge: 60 * 60 * 24 * 30,
           sameSite: "lax",
           secure: process.env.NODE_ENV === "production",
         });
-      } else {
-        // في خطأ في التسجيل
-        let message = "حدث خطأ أثناء التسجيل";
+      } else if (data.errors) {
+        // أخطاء التحقق من السيرفر
+        const e = data.errors;
 
-        // نجمع نص الخطأ من أي مكان ييجي منه
-        const emailError = data?.errors?.email?.[0];
-        const serverMessage = data?.message;
-        console.log("ها",serverMessage);
-
-        // نحدد النص اللي هنفحصه
-        const errorText = emailError || serverMessage || "";
-
-        if (errorText.includes("deleted") || errorText.includes("محذوف")) {
-          message =
-            "لقد قمت بحذف هذا الحساب مسبقًا. لا يمكنك التسجيل بهذا البريد مرة أخرى.";
-        } else if (emailError) {
-          message = "هذا الحساب موجود بالفعل";
-        } else if (serverMessage) {
-          message = serverMessage;
+        // كلمة المرور
+        if (e.password) {
+          const msg = e.password[0];
+          if (msg.includes("at least 8 characters")) {
+            setErrors((prev) => ({
+              ...prev,
+              password: "كلمة المرور يجب أن تحتوي على 9 أحرف على الأقل",
+            }));
+          } else {
+            setErrors((prev) => ({
+              ...prev,
+              password: "حدث خطأ في كلمة المرور",
+            }));
+          }
         }
 
+        // البريد الإلكتروني
+        if (e.email) {
+          const msg = e.email[0];
+          if (msg.includes("already been taken")) {
+            setErrors((prev) => ({
+              ...prev,
+              email: "البريد الإلكتروني مستخدم بالفعل",
+            }));
+          } else if (msg.includes("valid email")) {
+            setErrors((prev) => ({
+              ...prev,
+              email: "يرجى إدخال بريد إلكتروني صالح",
+            }));
+          } else {
+            setErrors((prev) => ({
+              ...prev,
+              email: "حدث خطأ في البريد الإلكتروني",
+            }));
+          }
+        }
+
+        // رقم الجوال
+        if (e.phone) {
+          const msg = e.phone[0];
+          if (msg.includes("format")) {
+            setErrors((prev) => ({
+              ...prev,
+              phone: "يرجى إدخال رقم جوال صحيح يبدأ بـ 05 أو 9665",
+            }));
+          } else {
+            setErrors((prev) => ({
+              ...prev,
+              phone: "حدث خطأ في رقم الجوال",
+            }));
+          }
+        }
+      } else {
+        // خطأ عام
         setErrors((prev) => ({
           ...prev,
-          general: message,
+          general: data.message || "حدث خطأ أثناء التسجيل. حاول لاحقًا.",
         }));
       }
     } catch {
