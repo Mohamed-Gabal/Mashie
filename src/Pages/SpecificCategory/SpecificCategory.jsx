@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { CiLocationOn, CiStopwatch } from 'react-icons/ci';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { IoIosArrowBack } from 'react-icons/io';
 import { attributesMap, specificCategoriesData } from '../../data';
 import SaudiRegionsDropdown from '../../Components/AdvertisementsComponents/SaudiRegionsDropdown/SaudiRegionsDropdown';
@@ -10,6 +10,7 @@ import "./specificCategoryStyle.css"
 
 export default function SpecificCategory() {
     const { category } = useParams();
+    const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState(false);
     const [errorMessage, setErrorMessage] = useState(false);
     const [categoryData, setCategoryData] = useState([]);
@@ -73,12 +74,22 @@ export default function SpecificCategory() {
 
         fetchCategoryData();
     }, [category]);
+
+    // 💖 handle favorite toggle
+    const [favorites, setFavorites] = useState({});
+    const toggleFavorite = (e, id) => {
+        e.stopPropagation();
+        setFavorites((prev) => ({
+            ...prev,
+            [id]: !prev[id],
+        }));
+    };
     return (
         <div className='categoryData_container'>
             {isLoading && (
                 <div className='isLoading'>{Array.from({ length: 4 }, (_, i) => (<SkeletonCard key={i} />))}</div>
             )}
-            {errorMessage && <NotFound/>}
+            {errorMessage && <NotFound />}
             {!isLoading && !errorMessage && (
                 <>
                     <section className='top_section'>
@@ -150,10 +161,10 @@ export default function SpecificCategory() {
                         </div>
                         <div className="categories_items">
                             {filteredCategoriesDataByTitle.map((cat) => (
-                                <Link
+                                <div
                                     key={cat.id_ads}
                                     className={`category_card`}
-                                    to ={`/${category}/${cat.id_ads}`}
+                                    onClick={() => navigate(`/${category}/${cat.id_ads}`)}
                                 >
                                     <div className="card_image">
                                         <img
@@ -162,7 +173,7 @@ export default function SpecificCategory() {
                                         />
                                     </div>
 
-                                    <Link to={`/user/${cat?.seller?.name}/${cat?.user?.id_user}`} className="card_user">
+                                    <div className="card_user" onClick={(e) => { e.stopPropagation(); navigate(`/user/${cat?.seller?.name}/${cat?.user?.id_user}`) }}>
                                         {cat.user?.profile_image ? (
                                             <img src={cat.user.profile_image} alt="user" />
                                         ) : (
@@ -172,7 +183,7 @@ export default function SpecificCategory() {
                                             // </div>
                                         )}
                                         <span>{cat.seller?.name?.split(" ").slice(0, 2).join(" ")}</span>
-                                    </Link>
+                                    </div>
 
                                     <div className="card_body">
                                         <h3>{cat?.information?.title.substring(0, 18)}...</h3>
@@ -191,14 +202,14 @@ export default function SpecificCategory() {
                                         <div className="card_footer_price">
                                             <span className=''>{cat?.information?.price} ر.س</span>
                                         </div>
-                                        <div className="hart_icon">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width={22} height={22} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-heart-icon lucide-heart"><path d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5" /></svg>
+                                        <div className="hart_icon" onClick={(e) => toggleFavorite(e, cat.id_ads)}>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width={22} height={22} viewBox="0 0 24 24" fill={favorites[cat.id_ads] ? "red" : "none"} stroke={favorites[cat.id_ads] ? "red" : "currentColor"} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-heart-icon lucide-heart"><path d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5" /></svg>
                                         </div>
                                     </div>
                                     {/* <Link to={`/${category}/${cat.id_ads}`} className="details_link">
                                         عرض التفاصيل
                                     </Link> */}
-                                </Link>
+                                </div>
                             ))}
                         </div>
                     </section>
