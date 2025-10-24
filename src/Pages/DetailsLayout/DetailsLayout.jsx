@@ -32,6 +32,7 @@ const DetailsLayout = () => {
   const [mainImage, setMainImage] = useState(null);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     const fetchDetails = async () => {
       try {
         setIsLoading(true);
