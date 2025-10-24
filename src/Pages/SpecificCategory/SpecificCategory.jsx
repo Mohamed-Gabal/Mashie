@@ -1,12 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { CiLocationOn, CiStopwatch } from 'react-icons/ci';
 import { Link, useParams } from 'react-router-dom';
-import "./SpecificCategory.css"
 import { IoIosArrowBack } from 'react-icons/io';
 import { attributesMap, specificCategoriesData } from '../../data';
 import SaudiRegionsDropdown from '../../Components/AdvertisementsComponents/SaudiRegionsDropdown/SaudiRegionsDropdown';
 import SkeletonCard from '../../Components/SkeletonCard/SkeletonCard';
 import NotFound from '../../Components/NotFound/NotFound';
+import "./specificCategoryStyle.css"
 
 export default function SpecificCategory() {
     const { category } = useParams();
@@ -52,6 +52,7 @@ export default function SpecificCategory() {
 
     // Filtered categories by search bar (case-insensitive)
     const filteredCategoriesDataByTitle = filteredCategoriesDataByCity.filter((item) => item?.information?.title?.toLowerCase().includes(searchInput.toLowerCase().trim()))
+    console.log(filteredCategoriesDataByTitle);
     useEffect(() => {
         window.scrollTo(0, 0);
         const fetchCategoryData = async () => {
@@ -90,8 +91,8 @@ export default function SpecificCategory() {
                             </div>
 
                             <div className="categoryData_header">
-                                <h2>{specificCate?.title}</h2>
-                                <p>{specificCate?.desc}</p>
+                                {/* <h2>{specificCate?.title}</h2>
+                                <p>{specificCate?.desc}</p> */}
                                 <div className="search_input">
                                     <input
                                         type="search"
@@ -150,27 +151,28 @@ export default function SpecificCategory() {
                         </div>
                         <div className="categories_items">
                             {filteredCategoriesDataByTitle.map((cat) => (
-                                <div
+                                <Link
                                     key={cat.id_ads}
                                     className={`category_card`}
+                                    to ={`/${category}/${cat.id_ads}`}
                                 >
                                     <div className="card_image">
                                         <img
                                             src={cat.images?.[0] ? `https://api.mashy.sand.alrmoz.com/storage/${cat.images[0]}` : "/placeholder.png"}
                                             alt={cat?.information?.title}
                                         />
-
                                     </div>
 
                                     <Link to={`/user/${cat?.seller?.name}/${cat?.user?.id_user}`} className="card_user">
-                                        {cat.user?.user_image ? (
-                                            <img src={cat.user.user_image} alt={cat.seller?.name} />
+                                        {cat.user?.profile_image ? (
+                                            <img src={cat.user.profile_image} alt="user" />
                                         ) : (
-                                            <div className="avatar_placeholder">
-                                                {cat?.seller?.name?.split(" ").map(word => word[0]).join("").toUpperCase()}
-                                            </div>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width={22} height={22} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-circle-user-round-icon lucide-circle-user-round"><path d="M18 20a6 6 0 0 0-12 0" /><circle cx={12} cy={10} r={4} /><circle cx={12} cy={12} r={10} /></svg>
+                                            // <div className="avatar_placeholder">
+                                            //     {cat?.seller?.name?.split(" ").map(word => word[0]).join(" ").toUpperCase()}
+                                            // </div>
                                         )}
-                                        <span>{cat.seller?.name}</span>
+                                        <span>{cat.seller?.name?.split(" ").slice(0, 2).join(" ")}</span>
                                     </Link>
 
                                     <div className="card_body">
@@ -186,10 +188,18 @@ export default function SpecificCategory() {
                                             </div>
                                         </div>
                                     </div>
-                                    <Link to={`/${category}/${cat.id_ads}`} className="details_link">
+                                    <div className="card_footer">
+                                        <div className="card_footer_price">
+                                            <span className=''>{cat?.information?.price} ر.س</span>
+                                        </div>
+                                        <div className="hart_icon">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width={22} height={22} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-heart-icon lucide-heart"><path d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5" /></svg>
+                                        </div>
+                                    </div>
+                                    {/* <Link to={`/${category}/${cat.id_ads}`} className="details_link">
                                         عرض التفاصيل
-                                    </Link>
-                                </div>
+                                    </Link> */}
+                                </Link>
                             ))}
                         </div>
                     </section>

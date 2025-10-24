@@ -7,6 +7,8 @@ import LayoutDashboard from "./LayoutDashboard/LayoutProfile";
 import MainLayout from "./Layouts/MainLayout";
 
 import Home from "./Pages/Home/Home";
+import SpecificCategory from "./Pages/SpecificCategory/SpecificCategory";
+import Advertisements from "./Pages/Advertisements/Advertisements";
 // Lazy load pages
 const AboutUs = lazy(() => import("./Pages/AboutUs/AboutUs"));
 const Blog = lazy(() => import("./Pages/Blog/Blog"));
@@ -16,8 +18,6 @@ const Register = lazy(() => import("./Pages/Auth/Register"));
 const ForgotPassword = lazy(() => import("./Pages/Auth/ForgotPassword"));
 const ResetPassword = lazy(() => import("./Pages/Auth/ResetPassword"));
 const DetailsLayout = lazy(() => import("./Pages/DetailsLayout/DetailsLayout"));
-const Advertisements = lazy(() => import("./Pages/Advertisements/Advertisements"));
-const Category = lazy(() => import("./Pages/SpecificCategory/SpecificCategory"));
 const ShowAnyUser = lazy(() => import("./Pages/ShowAnyUser/ShowAnyUser"));
 
 // Lazy load dashboard pages
@@ -43,7 +43,7 @@ const App = () => {
         <Route path="/blog" element={<MainLayout><Blog /></MainLayout>} />
         <Route path="/contactUs" element={<MainLayout><ContactUs /></MainLayout>} />
         <Route path="/:details/:id" element={<MainLayout><DetailsLayout /></MainLayout>} />
-        <Route path="/:category" element={<MainLayout><Category /></MainLayout>} />
+        <Route path="/:category" element={<MainLayout><SpecificCategory /></MainLayout>} />
 
         {/* show any user data */}
         <Route path="/user/:name/:userID" element={<MainLayout><ShowAnyUser /></MainLayout>} />

@@ -165,14 +165,15 @@
 .categories_items .category_card .card_user {
     display: flex;
     align-items: center;
-    gap: 8px;
-    padding: 10px;
+    gap: 5px;
+    padding: 8px 12px;
+    /* border: 1px solid red; */
 }
 
 .categories_items .category_card .card_user img,
 .categories_items .category_card .avatar_placeholder {
-    width: 36px;
-    height: 36px;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
     object-fit: cover;
     border: 2px solid #ddd;
@@ -187,16 +188,17 @@
     align-items: center;
 }
 
-.card_body {
-    padding: 0px 10px;
+.categories_items .category_card .card_body {
+    padding: 0px 15px;
+    /* border: 1px solid rebeccapurple; */
 }
 
 .card_body h3 {
-    padding: 0 12px;
     font-size: 16px;
     font-weight: 600;
     color: #333;
-    margin: 8px 0;
+    margin: 0px;
+    margin-bottom: 5px;
 }
 
 .card_meta {
@@ -204,7 +206,6 @@
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-between;
-    padding: 0 12px 12px;
     font-size: 14px;
     color: #777;
 }
@@ -232,6 +233,18 @@
 .details_link:hover {
     color: white;
 }
+.card_footer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    color: var(--main-color);
+    padding: 10px 15px;
+}
+.card_footer .card_footer_price {
+    font-size: 16px;
+    font-weight: 600;
+}
 
 /* ====== Responsive ====== */
 
@@ -256,14 +269,17 @@
         height: 120px;
     }
 
-    .card_user img,
-    .avatar_placeholder {
+    .categories_items .category_card .card_user {
+        padding: 5px 8px;
+    }
+    .categories_items .category_card .card_user img,
+    .categories_items .category_card .avatar_placeholder {
         width: 30px;
         height: 30px;
     }
 
-    .card_body {
-        padding: 0px 5px;
+    .categories_items .category_card .card_body {
+        padding: 0px 10px;
     }
 
     .card_user span,
@@ -280,6 +296,14 @@
     .card_body h3 {
         font-size: 14px;
     }
+
+    .card_footer {
+        padding: 10px;
+    }
+    .card_footer .card_footer_price {
+        font-size: 13px;
+        font-weight: 600;
+    }
 }
 
 @media (max-width: 540px) {
@@ -289,7 +313,8 @@
 
     .card_user {
         padding: 5px;
-        gap: 5px;
+        gap: 0px;
+        font-weight: 800;
     }
 
     .card_meta .ciLocationOn, .card_meta .ciStopwatch {
