@@ -16,7 +16,8 @@ const Header = () => {
   const [showToast, setShowToast] = useState(true);
 
   // حالة لإظهار أو إخفاء كارت البروفايل لما نضغط على الصورة
-  const [toggleProfileCard, setToggleProfileCard] = useState(false);
+  const [mobileProfileOpen, setMobileProfileOpen] = useState(false);
+  const [desktopProfileOpen, setDesktopProfileOpen] = useState(false);
 
   // حالة فتح أو غلق المينيو في الموبايل
   const [menuOpen, setMenuOpen] = useState(false);
@@ -35,54 +36,64 @@ const Header = () => {
   }
 
   // useEffect الأول: يقفل المينيو أو كارت البروفايل لما نضغط على زر Escape
-useEffect(() => {
-  const handleClickOutside = (e) => {
-    const target = e.target;
-
-    if (menuRef.current && menuRef.current.contains(target)) return;
-    if (toggleRef.current && toggleRef.current.contains(target)) return;
-
-    setMenuOpen(false);
-  };
-
-  // يقفل المينيو لما المستخدم يعمل scroll في الموبايل
-  const handleScroll = () => {
-    if (window.innerWidth <= 768) {
-      setMenuOpen(false);
-    }
-  };
-
-  document.addEventListener("mousedown", handleClickOutside);
-  window.addEventListener("scroll", handleScroll);
-
-  return () => {
-    document.removeEventListener("mousedown", handleClickOutside);
-    window.removeEventListener("scroll", handleScroll);
-  };
-}, [menuOpen]);
-
-
   useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const response = await fetch(`https://api.mashy.sand.alrmoz.com/api/user/${userID}`, {
-          method: "GET",
-          headers: { Authorization: `Bearer ${token}` }
-        });
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const data = await response.json();
-        setUserData(data.data);
-      } catch (err) {
-        console.log(err.message);
+    const handleClickOutside = (e) => {
+      const target = e.target;
+
+      if (menuRef.current?.contains(target)) return;
+      if (toggleRef.current?.contains(target)) return;
+      if (mobileProfileRef.current?.contains(target)) return;
+      if (desktopProfileRef.current?.contains(target)) return;
+
+      setMenuOpen(false);
+      setMobileProfileOpen(false);
+      setDesktopProfileOpen(false);
+    };
+
+    // يقفل المينيو لما المستخدم يعمل scroll في الموبايل
+    const handleScroll = () => {
+      if (window.innerWidth <= 768) {
+        setMenuOpen(false);
       }
     };
 
-    if (userID && token) {
-      fetchUserData();
-    }
+    document.addEventListener("mousedown", handleClickOutside);
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [menuOpen]);
+
+
+  useEffect(() => {
+    if (!userID || !token) return;
+
+    const controller = new AbortController();
+
+    const fetchUserData = async () => {
+      try {
+        const response = await fetch(
+          `https://api.mashy.sand.alrmoz.com/api/user/${userID}`,
+          {
+            method: "GET",
+            headers: { Authorization: `Bearer ${token}` },
+            signal: controller.signal,
+          }
+        );
+        if (!response.ok) throw new Error(`HTTP error: ${response.status}`);
+        const data = await response.json();
+        setUserData(data.data);
+      } catch (err) {
+        if (err.name !== "AbortError") console.error(err.message);
+      }
+    };
+
+    fetchUserData();
+    return () => controller.abort();
   }, [userID, token]);
+
 
   return (
     <header className="header">
@@ -111,7 +122,7 @@ useEffect(() => {
                 {/* صورة أو أول حرفين من الاسم */}
                 <Link
                   type="button"
-                  onClick={() => setToggleProfileCard(!toggleProfileCard)}
+                  onClick={() => setMobileProfileOpen((prev) => !prev)}
                   className="header_profile_img"
                   ref={mobileProfileRef}
                 >
@@ -126,7 +137,7 @@ useEffect(() => {
 
                 {/* كارت البروفايل */}
                 <ProfileCard
-                  toggleProfileCard={toggleProfileCard}
+                  toggleProfileCard={mobileProfileOpen}
                   userData={userData}
                   removeCookie={removeCookie}
                 />
@@ -172,9 +183,9 @@ useEffect(() => {
 
         {/* قائمة الروابط الرئيسية */}
         <ul onClick={(e) => {
-          
+
           // لما المستخدم يضغط خارج اللينكات
-          if(e.target) {
+          if (e.target) {
             setMenuOpen(false);
           }
         }}
@@ -198,7 +209,7 @@ useEffect(() => {
               {/* زر البروفايل في الديسكتوب */}
               <Link
                 type="button"
-                onClick={() => setToggleProfileCard(!toggleProfileCard)}
+                onClick={() => setDesktopProfileOpen((prev) => !prev)}
                 className="btn_profile" ref={desktopProfileRef}
               >
                 <span>حسابي</span>
@@ -210,7 +221,7 @@ useEffect(() => {
 
               {/* كارت البروفايل */}
               <ProfileCard
-                toggleProfileCard={toggleProfileCard}
+                toggleProfileCard={desktopProfileOpen}
                 userData={userData}
                 removeCookie={removeCookie}
               />
@@ -251,7 +262,7 @@ export default Header;
 
 export function ProfileCard({ toggleProfileCard, userData, removeCookie }) {
   return (
-    <div className="profile-card" style={{ height: toggleProfileCard ? "300px" : "0" }}>
+    <div className="profile-card" style={{ height: toggleProfileCard ? "280px" : "0" }}>
       <div className="user-info">
         {userData?.profile_image === null ? (
           <span className="two_char">
@@ -262,7 +273,7 @@ export function ProfileCard({ toggleProfileCard, userData, removeCookie }) {
         )}
         <div>
           <p className="greeting">أهلا</p>
-          <p className="username">{userData?.name}</p>
+          <p className="username">{userData?.name?.split(" ").slice(0, 2).join(" ")}</p>
         </div>
       </div>
       <Link to="/accountUser" className="show_accountUser"><span>عرض الملف الشخصي</span></Link>
@@ -307,7 +318,7 @@ export function ToastWarning({ message = "الرجاء إضافة الموقع �
           <svg className="toast-close-icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14" ><path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" /></svg>
         </button>
 
-        <div className="progress-line"/>
+        <div className="progress-line" />
       </div>
     </div>
   );
