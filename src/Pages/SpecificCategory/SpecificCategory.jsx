@@ -52,7 +52,6 @@ export default function SpecificCategory() {
 
     // Filtered categories by search bar (case-insensitive)
     const filteredCategoriesDataByTitle = filteredCategoriesDataByCity.filter((item) => item?.information?.title?.toLowerCase().includes(searchInput.toLowerCase().trim()))
-    console.log(filteredCategoriesDataByTitle);
     useEffect(() => {
         window.scrollTo(0, 0);
         const fetchCategoryData = async () => {
