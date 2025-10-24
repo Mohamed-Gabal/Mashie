@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import "./showAnyUserStyle.css"
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { CiLocationOn, CiStopwatch } from 'react-icons/ci';
 import { timeSince } from '../SpecificCategory/SpecificCategory';
 import SkeletonCard from '../../Components/SkeletonCard/SkeletonCard';
@@ -8,6 +8,7 @@ import NotFound from '../../Components/NotFound/NotFound';
 
 export default function ShowAnyUser() {
     const { userID } = useParams();
+    const navigate = useNavigate();
     const [userData, setUserData] = useState({});
     const [isLoading, setIsLoading] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
@@ -36,6 +37,16 @@ export default function ShowAnyUser() {
 
         fetchUserData();
     }, [userID]);
+
+    // handle favorite toggle
+    const [favorites, setFavorites] = useState({});
+    const toggleFavorite = (e, id) => {
+        e.stopPropagation();
+        setFavorites((prev) => ({
+            ...prev,
+            [id]: !prev[id],
+        }));
+    };
     return (
         <section className="showAnyUserData">
             {isLoading && (
@@ -75,29 +86,27 @@ export default function ShowAnyUser() {
                         {errorMessage && <p className="error_message">{errorMessage}</p>}
                     </div>
 
-                    <div className="user_advertisements">
+                    <div className="categories_items">
                         {userData?.data?.map((cat) => (
                             <div
                                 key={cat?.ad?.id_ads}
-                                className={`advertisements_card`}
+                                className="category_card"
+                                onClick={() => navigate(`/${cat?.category}/${cat?.ad?.id_ads}`)}
                             >
                                 <div className="card_image">
                                     <img
                                         src={cat?.ad?.images?.[0] ? `https://api.mashy.sand.alrmoz.com/storage/${cat?.ad?.images[0]}` : "/placeholder.png"}
                                         alt={cat?.ad?.information?.title}
                                     />
-
                                 </div>
 
                                 <div className="card_user">
                                     {cat?.ad?.user?.profile_image ? (
-                                        <img src={cat?.ad?.user?.profile_image} alt={cat?.ad?.seller?.name} />
+                                        <img src={cat?.ad?.user?.profile_image} alt="user" />
                                     ) : (
-                                        <div className="avatar_placeholder">
-                                            {cat?.ad?.seller?.name?.split(" ").map(word => word[0]).join("").toUpperCase()}
-                                        </div>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width={22} height={22} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-circle-user-round-icon lucide-circle-user-round"><path d="M18 20a6 6 0 0 0-12 0" /><circle cx={12} cy={10} r={4} /><circle cx={12} cy={12} r={10} /></svg>
                                     )}
-                                    <span>{cat?.ad?.seller?.name}</span>
+                                    <span>{cat?.ad?.seller?.name?.split(" ").slice(0, 2).join(" ")}</span>
                                 </div>
 
                                 <div className="card_body">
@@ -113,9 +122,14 @@ export default function ShowAnyUser() {
                                         </div>
                                     </div>
                                 </div>
-                                <Link to={`/${cat?.category}/${cat?.ad?.id_ads}`} className="details_link">
-                                    عرض التفاصيل
-                                </Link>
+                                <div className="card_footer">
+                                    <div className="card_footer_price">
+                                        <span className=''>{cat?.ad?.information?.price} ر.س</span>
+                                    </div>
+                                    <div className="hart_icon" onClick={(e) => toggleFavorite(e, cat?.ad?.id_ads)}>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width={22} height={22} viewBox="0 0 24 24" fill={favorites[cat?.ad?.id_ads] ? "red" : "none"} stroke={favorites[cat?.ad?.id_ads] ? "red" : "currentColor"} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-heart-icon lucide-heart"><path d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5" /></svg>
+                                    </div>
+                                </div>
                             </div>
                         ))}
                     </div>
