@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { CiLocationOn, CiStopwatch } from "react-icons/ci";
 import { MdFavoriteBorder } from "react-icons/md";
 import "./carCard.css";
+import { timeSince } from "../../Pages/SpecificCategory/SpecificCategory";
 
 const CarCard = () => {
+  const navigate = useNavigate();
   const [adsCard, setAdsCard] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -40,7 +42,15 @@ const CarCard = () => {
 
     fetchCard();
   }, []);
-
+  // 💖 handle favorite toggle
+  const [favorites, setFavorites] = useState({});
+  const toggleFavorite = (e, id) => {
+    e.stopPropagation();
+    setFavorites((prev) => ({
+      ...prev,
+      [id]: !prev[id],
+    }));
+  };
   if (loading) {
     return (
       <div className="loading">
@@ -96,66 +106,52 @@ const CarCard = () => {
           وسهولة
         </p>
 
-        <div className="car-card-grid">
+        <div className="categories_items">
           {adsCard.length > 0 ? (
             adsCard.map((ad, index) => (
-              <Link key={index} to={`/${ad?.category}/${ad?.ad?.id_ads}`}>
-                <div className="car-card-card">
-                  <div className="card_img">
-                    <img
-                      src={
-                        ad?.ad?.images?.[0]
-                          ? `https://api.mashy.sand.alrmoz.com/storage${ad?.ad?.images[0]}`
-                          : "/images/default.jpg"
-                      }
-                      alt={ad.information?.title || "سيارة"}
-                      className="car-card-main-img"
-                    />
-                  </div>
+              <div
+                key={index}
+                className={`category_card`}
+                onClick={() => navigate(`/${ad?.category}/${ad?.ad?.id_ads}`)}
+              >
+                <div className="card_image">
+                  <img
+                    src={ad?.ad?.images?.[0] ? `https://api.mashy.sand.alrmoz.com/storage/${ad?.ad?.images[0]}` : "/placeholder.png"}
+                    alt={ad?.information?.title}
+                  />
+                </div>
 
-                  <div className="car-card-content">
-                    <Link
-                      to={`/user/${ad?.ad?.user?.user_name}/${ad?.ad?.user?.id_user}`}
-                      className="car-card-user"
-                    >
-                      <img
-                        src={ad?.ad?.user?.profile_image || "/images/logo.svg"}
-                        alt={ad?.ad?.user?.user_name || "مستخدم"}
-                        className="car-card-user-img"
-                      />
-                      <span>{ad?.ad?.user?.user_name || "مستخدم"}</span>
-                    </Link>
+                <div className="card_user" onClick={(e) => { e.stopPropagation(); navigate(`/user/${ad?.ad?.user?.user_name}/${ad?.ad?.user?.id_user}`) }}>
+                  {ad?.ad?.user?.profile_image ? (
+                    <img src={ad?.ad?.user?.profile_image} alt="user" />
+                  ) : (
+                    <svg xmlns="http://www.w3.org/2000/svg" width={22} height={22} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-circle-user-round-icon lucide-circle-user-round"><path d="M18 20a6 6 0 0 0-12 0" /><circle cx={12} cy={10} r={4} /><circle cx={12} cy={12} r={10} /></svg>
+                  )}
+                  <span>{ad?.ad?.user?.user_name?.split(" ").slice(0, 2).join(" ")}</span>
+                </div>
 
-                    <h3 className="car-card-title">
-                      {ad?.ad?.information?.title || "بدون عنوان"}
-                    </h3>
-
-                    <div className="car-card-meta">
-                      <span className="car-card-item">
-                        <CiLocationOn className="car-card-icon" />
-                        {ad?.ad?.user?.area || "غير محدد"}
-                      </span>
-                      <span className="car-card-item">
-                        <CiStopwatch className="car-card-icon" />
-                        {formatTime(ad?.ad?.created_at) || "حديثًا"}
-                      </span>
+                <div className="card_body">
+                  <h3>{ad?.ad?.information?.title.substring(0, 18)}...</h3>
+                  <div className="card_meta">
+                    <div className="ciLocationOn">
+                      <CiLocationOn style={{ color: "var(--main-color)", fontSize: "12px", fontWeight: "bold" }} />
+                      <span>{ad?.ad?.user?.area || "غير محدد"}</span>
                     </div>
-
-                    <div className="car-card-actions">
-                      <p className="car-card-price">
-                        {ad?.ad?.information?.price
-                          ? `${ad?.ad?.information.price} ريال`
-                          : ad?.ad?.information?.isNegotiable
-                          ? "قابل للتفاوض"
-                          : "السعر غير محدد"}
-                      </p>
-                      <Link to="/favoritesUser" className="car-card-fav">
-                        <MdFavoriteBorder className="car-card-ico" />
-                      </Link>
+                    <div className="ciStopwatch">
+                      <CiStopwatch style={{ color: "var(--main-color)", fontSize: "12px", fontWeight: "bold" }} />
+                      <span>{timeSince(ad?.ad?.created_at)}</span>
                     </div>
                   </div>
                 </div>
-              </Link>
+                <div className="card_footer">
+                  <div className="card_footer_price">
+                    <span className=''>{ad?.ad?.information?.price} ر.س</span>
+                  </div>
+                  <div className="hart_icon" onClick={(e) => toggleFavorite(e, ad?.ad?.id_ads)}>
+                    <svg xmlns="http://www.w3.org/2000/svg" width={22} height={22} viewBox="0 0 24 24" fill={favorites[ad?.ad?.id_ads] ? "red" : "none"} stroke={favorites[ad?.ad?.id_ads] ? "red" : "currentColor"} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-heart-icon lucide-heart"><path d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5" /></svg>
+                  </div>
+                </div>
+              </div>
             ))
           ) : (
             <p className="no-ads">لا توجد إعلانات حالياً</p>
