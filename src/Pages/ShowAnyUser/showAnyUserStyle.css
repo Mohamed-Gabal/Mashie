@@ -88,7 +88,7 @@
 .categories_items .category_card {
     background: #fff;
     border: 1px solid var(--main-color);
-    border-radius: 12px;
+    border-radius: 8px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -266,8 +266,12 @@
 }
 
 @media (max-width: 540px) {
+    .categories_items .category_card:hover {
+        transform: translateY(0px);
+    }
+
     .categories_items .category_card .card_image {
-        height: 140px;
+        height: 130px;
     }
 
     .card_user {
@@ -284,8 +288,13 @@
 
     .categories_items .category_card .card_user img,
     .categories_items .category_card .avatar_placeholder {
-        width: 30px;
-        height: 30px;
+        width: 25px;
+        height: 25px;
         font-size: 12px;
+    }
+    
+    .card_footer {
+        padding: 0px 10px;
+        margin-top: 2px;
     }
 }

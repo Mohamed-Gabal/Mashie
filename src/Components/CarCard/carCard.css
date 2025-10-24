@@ -4,11 +4,13 @@
   font-family: var(--main-font);
   direction: rtl;
 }
+
 .car_card_container {
   max-width: 1195px;
   padding: 0 20px;
   margin: 0 auto;
 }
+
 .section-title {
   font-size: 28px;
   font-weight: bold;
@@ -16,6 +18,7 @@
   margin-bottom: 10px;
   text-align: center;
 }
+
 .section-subtitle {
   font-size: 16px;
   color: var(--gray-color);
@@ -23,6 +26,7 @@
   text-align: center;
   line-height: 1.6;
 }
+
 /* ===== Cards ===== */
 .categories_items {
   display: grid;
@@ -133,6 +137,7 @@
 .details_link:hover {
   color: white;
 }
+
 .card_footer {
   display: flex;
   flex-direction: row;
@@ -141,10 +146,12 @@
   color: var(--main-color);
   padding: 10px 15px;
 }
+
 .card_footer .card_footer_price {
   font-size: 16px;
   font-weight: 600;
 }
+
 .card_footer .hart_icon {
   cursor: pointer;
 }
@@ -153,87 +160,99 @@
 
 @media (max-width: 1024px) {
   .bottom_section_categoryData {
-      padding: 20px 20px 100px;
+    padding: 20px 20px 100px;
   }
 
   .categories_items {
-      grid-template-columns: repeat(3, 1fr);
-      gap: 15px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
   }
 }
 
 @media (max-width: 768px) {
+
   .section-title,
   .section-subtitle {
     display: none;
   }
+
   .categories_items {
-      grid-template-columns: repeat(2, 1fr);
-      gap: 10px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
   }
 
   .card_image {
-      height: 120px;
+    height: 120px;
   }
 
   .categories_items .category_card .card_user {
-      padding: 5px 8px;
+    padding: 5px 8px;
   }
+
   .categories_items .category_card .card_user img,
   .categories_items .category_card .avatar_placeholder {
-      width: 30px;
-      height: 30px;
+    width: 30px;
+    height: 30px;
   }
 
   .categories_items .category_card .card_body {
-      padding: 0px 10px;
+    padding: 0px 10px;
   }
 
   .card_user span,
   .card_meta span {
-      font-size: 11px;
-      font-weight: 500;
+    font-size: 11px;
+    font-weight: 500;
   }
 
   .details_link {
-      padding: 5px 10px;
-      font-size: 12px;
+    padding: 5px 10px;
+    font-size: 12px;
   }
 
   .card_body h3 {
-      font-size: 14px;
+    font-size: 14px;
   }
 
   .card_footer {
-      padding: 10px;
+    padding: 10px;
   }
+
   .card_footer .card_footer_price {
-      font-size: 13px;
-      font-weight: 600;
+    font-size: 13px;
+    font-weight: 600;
   }
 }
 
 @media (max-width: 540px) {
+  .categories_items .category_card:hover {
+    transform: translateY(0px);
+  }
+
   .categories_items .category_card .card_image {
-      height: 140px;
+    height: 130px;
   }
 
   .card_user {
-      padding: 5px;
-      gap: 0px;
-      font-weight: 800;
+    padding: 5px;
+    gap: 0px;
+    font-weight: 800;
   }
 
   .card_meta .ciLocationOn, .card_meta .ciStopwatch {
-      gap: 2px;
-      font-size: 10px;
-      font-weight: 600;
+    gap: 2px;
+    font-size: 10px;
+    font-weight: 600;
   }
 
   .categories_items .category_card .card_user img,
   .categories_items .category_card .avatar_placeholder {
-      width: 30px;
-      height: 30px;
-      font-size: 12px;
+    width: 25px;
+    height: 25px;
+    font-size: 12px;
+  }
+
+  .card_footer {
+    padding: 0px 10px;
   }
 }
