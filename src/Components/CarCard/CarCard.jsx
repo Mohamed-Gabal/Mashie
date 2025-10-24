@@ -99,62 +99,63 @@ const CarCard = () => {
         <div className="car-card-grid">
           {adsCard.length > 0 ? (
             adsCard.map((ad, index) => (
-              <div key={index} className="car-card-card">
-                <div className="card_img">
-                  <img
-                    src={
-                      ad?.ad?.images?.[0]
-                        ? `https://api.mashy.sand.alrmoz.com/storage${ad?.ad?.images[0]}`
-                        : "/images/default.jpg"
-                    }
-                    alt={ad.information?.title || "سيارة"}
-                    className="car-card-main-img"
-                  />
-                </div>
-
-                <div className="car-card-content">
-                  <Link to={`/user/${ad?.ad?.user?.user_name}/${ad?.ad?.user?.id_user}`} className="car-card-user">
+              <Link key={index} to={`/${ad?.category}/${ad?.ad?.id_ads}`}>
+                <div className="car-card-card">
+                  <div className="card_img">
                     <img
-                      src={ad?.ad?.user?.profile_image || "/images/logo.svg"}
-                      alt={ad?.ad?.user?.user_name || "مستخدم"}
-                      className="car-card-user-img"
+                      src={
+                        ad?.ad?.images?.[0]
+                          ? `https://api.mashy.sand.alrmoz.com/storage${ad?.ad?.images[0]}`
+                          : "/images/default.jpg"
+                      }
+                      alt={ad.information?.title || "سيارة"}
+                      className="car-card-main-img"
                     />
-                    <span>{ad?.ad?.user?.user_name || "مستخدم"}</span>
-                  </Link>
-
-                  <h3 className="car-card-title">
-                    {ad?.ad?.information?.title || "بدون عنوان"}
-                  </h3>
-
-                  <div className="car-card-meta">
-                    <span className="car-card-item">
-                      <CiLocationOn className="car-card-icon" />
-                      {ad?.ad?.user?.area || "غير محدد"}
-                    </span>
-                    <span className="car-card-item">
-                      <CiStopwatch className="car-card-icon" />
-                      {formatTime(ad?.ad?.created_at) || "حديثًا"}
-                    </span>
                   </div>
 
-                  <p className="car-card-price">
-                    {ad?.ad?.information?.price
-                      ? `${ad?.ad?.information.price} ريال`
-                      : ad?.ad?.information?.isNegotiable
-                        ? "قابل للتفاوض"
-                        : "السعر غير محدد"}
-                  </p>
+                  <div className="car-card-content">
+                    <Link
+                      to={`/user/${ad?.ad?.user?.user_name}/${ad?.ad?.user?.id_user}`}
+                      className="car-card-user"
+                    >
+                      <img
+                        src={ad?.ad?.user?.profile_image || "/images/logo.svg"}
+                        alt={ad?.ad?.user?.user_name || "مستخدم"}
+                        className="car-card-user-img"
+                      />
+                      <span>{ad?.ad?.user?.user_name || "مستخدم"}</span>
+                    </Link>
 
-                  <div className="car-card-actions">
-                    <Link to={`/${ad?.category}/${ad?.ad?.id_ads}`} className="car-card-btn">
-                      عرض التفاصيل
-                    </Link>
-                    <Link to="/favoritesUser" className="car-card-fav">
-                      <MdFavoriteBorder className="car-card-ico" />
-                    </Link>
+                    <h3 className="car-card-title">
+                      {ad?.ad?.information?.title || "بدون عنوان"}
+                    </h3>
+
+                    <div className="car-card-meta">
+                      <span className="car-card-item">
+                        <CiLocationOn className="car-card-icon" />
+                        {ad?.ad?.user?.area || "غير محدد"}
+                      </span>
+                      <span className="car-card-item">
+                        <CiStopwatch className="car-card-icon" />
+                        {formatTime(ad?.ad?.created_at) || "حديثًا"}
+                      </span>
+                    </div>
+
+                    <div className="car-card-actions">
+                      <p className="car-card-price">
+                        {ad?.ad?.information?.price
+                          ? `${ad?.ad?.information.price} ريال`
+                          : ad?.ad?.information?.isNegotiable
+                          ? "قابل للتفاوض"
+                          : "السعر غير محدد"}
+                      </p>
+                      <Link to="/favoritesUser" className="car-card-fav">
+                        <MdFavoriteBorder className="car-card-ico" />
+                      </Link>
+                    </div>
                   </div>
                 </div>
-              </div>
+              </Link>
             ))
           ) : (
             <p className="no-ads">لا توجد إعلانات حالياً</p>
