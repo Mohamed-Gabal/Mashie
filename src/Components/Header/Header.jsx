@@ -140,6 +140,8 @@ const Header = () => {
                   toggleProfileCard={mobileProfileOpen}
                   userData={userData}
                   removeCookie={removeCookie}
+                  onClose={() => setMobileProfileOpen(false)}
+                  triggerRef={mobileProfileRef}
                 />
               </div>
             ) : (
@@ -224,6 +226,8 @@ const Header = () => {
                 toggleProfileCard={desktopProfileOpen}
                 userData={userData}
                 removeCookie={removeCookie}
+                onClose={() => setDesktopProfileOpen(false)}
+                triggerRef={desktopProfileRef}
               />
             </div>
           ) : (
@@ -260,9 +264,37 @@ const Header = () => {
 };
 export default Header;
 
-export function ProfileCard({ toggleProfileCard, userData, removeCookie }) {
+export function ProfileCard({ toggleProfileCard, userData, removeCookie, onClose, triggerRef }) {
+  const cardRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      const target = e.target;
+      const clickedOutsideCard = cardRef.current && !cardRef.current.contains(target);
+      const clickedOutsideButton = triggerRef?.current && !triggerRef.current.contains(target);
+
+      // نقفل الكارت لو الضغط مش على الكارت ولا على الزر اللي بيفتحه
+      if (clickedOutsideCard && clickedOutsideButton) {
+        onClose?.();
+      }
+    };
+
+    const handleScroll = () => {
+      onClose?.();
+    };
+
+    if (toggleProfileCard) {
+      document.addEventListener("mousedown", handleClickOutside);
+      window.addEventListener("scroll", handleScroll);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [toggleProfileCard, onClose, triggerRef]);
   return (
-    <div className="profile-card" style={{ height: toggleProfileCard ? "280px" : "0" }}>
+    <div className="profile-card" style={{ height: toggleProfileCard ? "280px" : "0" }} ref={cardRef}>
       <div className="user-info">
         {userData?.profile_image === null ? (
           <span className="two_char">
