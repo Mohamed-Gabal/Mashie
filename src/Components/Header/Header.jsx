@@ -10,6 +10,7 @@ const Header = () => {
   const [cookies, removeCookie] = useCookies(["token"]);
   const userID = cookies?.token?.data?.user?.id;
   const token = cookies?.token?.data?.token;
+
   // بنجيب بيانات المستخدم من التوكن اللي في الكوكيز
   const [userData, setUserData] = useState({});
   const [showToast, setShowToast] = useState(true);
@@ -170,7 +171,13 @@ useEffect(() => {
         </div>
 
         {/* قائمة الروابط الرئيسية */}
-        <ul
+        <ul onClick={(e) => {
+          
+          // لما المستخدم يضغط خارج اللينكات
+          if(e.target) {
+            setMenuOpen(false);
+          }
+        }}
           id="primary-navigation"
           ref={menuRef}
           className={`nav ${menuOpen ? "open" : ""}`}
