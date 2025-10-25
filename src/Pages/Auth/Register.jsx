@@ -1,238 +1,106 @@
 import React, { useState } from "react";
-import "./register.css";
-import { IoCallOutline } from "react-icons/io5";
-import { BiMessageRounded } from "react-icons/bi";
-import { AiOutlineEye } from "react-icons/ai";
-import { FaRegUser } from "react-icons/fa";
+import "./registerStyle.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 
-const Register = () => {
+export default function Register() {
   const [showPassword, setShowPassword] = useState(false);
-  const registerPassword = () => setShowPassword(!showPassword);
-  const navigate = useNavigate();
-  // مكتبة الكوكيز: نستخدم setCookie لتخزين التوكن بعد تسجيل الدخول
-  const [Cookie, setCookie] = useCookies(["token"]);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-  // حالة الموديل (بعد التسجيل)
+  const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   const [showModdel, setShowModdel] = useState(false);
 
-  // حالات الأخطاء
-  const [errors, setErrors] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    password: "",
-    password_confirmation: "",
-    general: "",
-  });
-
-  // بيانات المستخدم
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    password: "",
-    password_confirmation: "",
-  });
-
-  // دالة التحقق من رقم سعودي (05xxxxxxxx أو +9665xxxxxxxx)
-  const validateSaudiPhone = (phone) => {
-    const saRegex = /^(05\d{8}|\9665\d{8})$/;
-    return saRegex.test(phone);
+  const navigate = useNavigate();
+  const closeModel = () => {
+    setShowModdel(false);
+    navigate("/settingsUser");
   };
+  const [setCookie] = useCookies(["token"]);
 
-  //التحقق من صحة البيانات قبل الإرسال
-  const dataValidation = () => {
-    let formIsValid = true;
-    let newDataErrors = {
+  // Yup for validation
+  const validationSchema = Yup.object({
+    name: Yup.string().trim().required("الرجاء إدخال الاسم الكامل"),
+    email: Yup.string()
+      .email("بريد إلكتروني غير صالح")
+      .required("الرجاء إدخال البريد الإلكتروني"),
+    phone: Yup.string()
+      .required("رقم الجوال مطلوب")
+      .matches(
+        /^(05\d{8}|\+?9665\d{8})$/,
+        "يرجى إدخال رقم جوال سعودي صالح يبدأ بـ 05 أو 9665"
+      ),
+    password: Yup.string().required("الرجاء إدخال كلمة المرور"),
+    password_confirmation: Yup.string()
+      .required("الرجاء تأكيد كلمة المرور")
+      .oneOf([Yup.ref("password"), null], "كلمات المرور غير متطابقة"),
+  });
+
+  // formik
+  const formik = useFormik({
+    initialValues: {
       name: "",
       email: "",
       phone: "",
       password: "",
       password_confirmation: "",
-      general: "",
-    };
-
-    if (!formData.name.trim()) {
-      newDataErrors.name = "الرجاء إدخال الاسم الكامل";
-      formIsValid = false;
-    }
-
-    if (!formData.email.trim()) {
-      newDataErrors.email = "الرجاء إدخال البريد الإلكتروني";
-      formIsValid = false;
-    }
-
-    if (!formData.phone.trim()) {
-      newDataErrors.phone = "رقم الجوال مطلوب";
-      formIsValid = false;
-    } else if (!validateSaudiPhone(formData.phone)) {
-      newDataErrors.phone = "يرجى إدخال رقم جوال سعودي صالح يبدأ بـ 05 أو 9665";
-      formIsValid = false;
-    }
-
-    if (!formData.password.trim()) {
-      newDataErrors.password = "الرجاء إدخال كلمة المرور";
-      formIsValid = false;
-    }
-
-    if (!formData.password_confirmation.trim()) {
-      newDataErrors.password_confirmation = "الرجاء تأكيد كلمة المرور";
-      formIsValid = false;
-    }
-
-    setErrors(newDataErrors);
-    return formIsValid;
-  };
-
-  // إرسال البيانات إلى الـ API
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    if (!dataValidation()) return;
-
-    if (formData.password !== formData.password_confirmation) {
-      setErrors((prev) => ({
-        ...prev,
-        password_confirmation: "كلمات المرور غير متطابقة",
-      }));
-      return;
-    }
-
-    try {
-      const response = await fetch(
-        "https://api.mashy.sand.alrmoz.com/api/register",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(formData),
-        }
-      );
-
-      const data = await response.json();
-      
-      if (response.ok && data.success) {
-        // تم التسجيل بنجاح
-        setShowModdel(true);
-        setCookie("token", data, {
-          maxAge: 60 * 60 * 24 * 30,
-          sameSite: "lax",
-          secure: process.env.NODE_ENV === "production",
-        });
-      } else if (data.errors) {
-        // أخطاء التحقق من السيرفر
-        const e = data.errors;
-
-        // كلمة المرور
-        if (e.password) {
-          const msg = e.password[0];
-          if (msg.includes("at least 8 characters")) {
-            setErrors((prev) => ({
-              ...prev,
-              password: "كلمة المرور يجب أن تحتوي على 9 أحرف على الأقل",
-            }));
-          } else {
-            setErrors((prev) => ({
-              ...prev,
-              password: "حدث خطأ في كلمة المرور",
-            }));
+    },
+    validationSchema,
+    onSubmit: async (values) => {
+      try {
+        setIsLoading(true);
+        setErrorMessage("");
+        // url from vite.config
+        const response = await fetch(
+          "/api/register",
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(values),
           }
-        }
+        );
 
-        // البريد الإلكتروني
-        if (e.email) {
-          const msg = e.email[0];
-          if (msg.includes("already been taken")) {
-            setErrors((prev) => ({
-              ...prev,
-              email: "البريد الإلكتروني مستخدم بالفعل",
-            }));
-          } else if (msg.includes("valid email")) {
-            setErrors((prev) => ({
-              ...prev,
-              email: "يرجى إدخال بريد إلكتروني صالح",
-            }));
-          } else {
-            setErrors((prev) => ({
-              ...prev,
-              email: "حدث خطأ في البريد الإلكتروني",
-            }));
-          }
-        }
+        const data = await response.json();
+        console.log(data);
 
-        // رقم الجوال
-        if (e.phone) {
-          const msg = e.phone[0];
-          if (msg.includes("format")) {
-            setErrors((prev) => ({
-              ...prev,
-              phone: "يرجى إدخال رقم جوال صحيح يبدأ بـ 05 أو 9665",
-            }));
+        if (response.ok && data.success) {
+          setIsLoading(false)
+          setShowModdel(true);
+          setCookie("token", data, {
+            maxAge: 60 * 60 * 24 * 30,
+            sameSite: "lax",
+            secure: process.env.NODE_ENV === "production",
+          });
+        } else if (data.errors) {
+          const hasEmailError = data.errors.email;
+          const hasPhoneError = data.errors.phone;
+
+          if (hasEmailError && hasPhoneError) {
+            setErrorMessage("هذا البريد الإلكتروني ورقم الجوال مستخدمان بالفعل");
+          } else if (hasEmailError) {
+            setErrorMessage("هذا البريد الإلكتروني مستخدم بالفعل");
+          } else if (hasPhoneError) {
+            setErrorMessage("رقم الجوال مستخدم بالفعل");
           } else {
-            setErrors((prev) => ({
-              ...prev,
-              phone: "حدث خطأ في رقم الجوال",
-            }));
+            setErrorMessage("حدث خطأ أثناء التحقق من البيانات");
           }
+        } else {
+          setErrorMessage("حدث خطأ أثناء التسجيل، حاول مرة أخرى.");
         }
-      } else {
-        // خطأ عام
-        setErrors((prev) => ({
-          ...prev,
-          general: data.message || "حدث خطأ أثناء التسجيل. حاول لاحقًا.",
-        }));
+      } catch {
+        setErrorMessage("حدث خطأ في الاتصال بالخادم، حاول مرة أخرى لاحقًا.");
+      } finally {
+        setIsLoading(false);
       }
-    } catch {
-      setErrors((prev) => ({
-        ...prev,
-        general: "خطأ في الاتصال، تأكد من اتصالك بالإنترنت",
-      }));
-    }
-  };
-
-  // أثناء كتابة رقم الجوال
-  const handlePhoneChange = (e) => {
-    let value = e.target.value.replace(/\s+/g, ""); // إزالة المسافات
-
-    // منع أي إدخال غير أرقام أو رمز +
-    if (!/^[0-9+]*$/.test(value)) return;
-
-    // لو الرقم يبدأ بـ +966 → الحد الأقصى يكون 12 خانة (+9665xxxxxxxx)
-    if (value.startsWith("966")) {
-      if (value.length > 12) return;
-    }
-    // لو الرقم يبدأ بـ 05 → الحد الأقصى يكون 10 خانات (05xxxxxxxx)
-    else if (value.startsWith("05")) {
-      if (value.length > 10) return;
-    }
-    // لو بدأ بأي حاجة تانية → نسمح بالكتابة لكن نتحقق بعدين
-    else if (value.length > 13) {
-      return;
-    }
-    setFormData({ ...formData, phone: value });
-
-    // تحقق من صحة الرقم أثناء الكتابة
-    if (value && !validateSaudiPhone(value)) {
-      setErrors((prev) => ({
-        ...prev,
-        phone: "يرجى إدخال رقم سعودي يبدأ بـ 05 أو9665",
-      }));
-    } else {
-      setErrors((prev) => ({ ...prev, phone: "" }));
-    }
-  };
-
-  // عند غلق الموديل بعد التسجيل
-  const closeModel = () => {
-    setShowModdel(false);
-    navigate("/settingsUser");
-  };
+    },
+  });
 
   return (
     <div className="register-container">
       <div className="register-box">
-        {/* صورة جانبية */}
+        {/* image */}
         <div className="register-image">
           <img src="/images/login.webp" alt="Register" />
         </div>
@@ -245,118 +113,137 @@ const Register = () => {
             خدماتك في المكان المناسب، بسرعة وأمان.
           </p>
 
-          {/* رسالة خطأ عامة */}
-          {errors.general && (
-            <p className="error-message" style={{ color: "red", margin: "0" }}>
-              {errors.general}
-            </p>
-          )}
-
-          <form className="register-form" onSubmit={handleSubmit}>
-            {/* الاسم الكامل */}
-            <div className="input-group">
-              <FaRegUser className="icon" />
-              <input
-                type="text"
-                placeholder="الاسم الكامل"
-                value={formData.name}
-                onChange={(e) => {
-                  setFormData({ ...formData, name: e.target.value });
-                  setErrors((prev) => ({ ...prev, name: "" }));
-                }}
-              />
+          <form className="register_form" onSubmit={formik.handleSubmit}>
+            <div className="name_input">
+              <label htmlFor="name">
+                <span>الاسم الكامل</span>
+                {formik.touched.name && formik.errors.name && (
+                  <p className="error_message">{formik.errors.name}</p>
+                )}
+              </label>
+              <div className="input_container">
+                <input
+                  type="text"
+                  name="name"
+                  placeholder="الاسم الكامل"
+                  value={formik.values.name}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                />
+                <img src="/Icons/Auth/user.svg" alt="user" />
+              </div>
             </div>
-            {errors.name && (
-              <p style={{ color: "red", margin: "0" }}>{errors.name}</p>
-            )}
 
-            {/* البريد الإلكتروني */}
-            <div className="input-group">
-              <BiMessageRounded className="icon" />
-              <input
-                type="email"
-                placeholder="بريدك الإلكتروني"
-                value={formData.email}
-                onChange={(e) => {
-                  setFormData({ ...formData, email: e.target.value });
-                  setErrors((prev) => ({ ...prev, email: "" }));
-                }}
-              />
+            <div className="email_input">
+              <label htmlFor="email">
+                <span>بريدك الإلكتروني</span>
+                {formik.touched.email && formik.errors.email && (
+                  <p className="error_message">{formik.errors.email}</p>
+                )}
+              </label>
+              <div className="input_container">
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="بريدك الإلكتروني"
+                  value={formik.values.email}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                />
+                <img src="/Icons/Auth/email.svg" alt="email" />
+              </div>
             </div>
-            {errors.email && (
-              <p style={{ color: "red", margin: "0" }}>{errors.email}</p>
-            )}
 
-            {/* رقم الجوال */}
-            <div className="input-group">
-              <IoCallOutline className="icon" />
-              <input
-                type="tel"
-                placeholder="05xxxxxxxx أو +9665xxxxxxxx"
-                value={formData.phone}
-                onChange={handlePhoneChange}
-              />
+            <div className="phone_input">
+              <label htmlFor="phone">
+                <span>رقم الجوال</span>
+                {formik.touched.phone && formik.errors.phone && (
+                  <p className="error_message">{formik.errors.phone}</p>
+                )}
+              </label>
+              <div className="input_container">
+                <input
+                  type="tel"
+                  name="phone"
+                  placeholder="05xxxxxxxx أو +9665xxxxxxxx"
+                  value={formik.values.phone}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                />
+                <img src="/Icons/Auth/phone.svg" alt="phone" />
+              </div>
             </div>
-            {errors.phone && (
-              <p style={{ color: "red", margin: "0" }}>{errors.phone}</p>
-            )}
 
-            {/* كلمة المرور */}
-            <div className="input-group">
-              <AiOutlineEye className="icon" onClick={registerPassword} />
-              <input
-                type={showPassword ? "text" : "password"}
-                placeholder="كلمة المرور"
-                value={formData.password}
-                onChange={(e) => {
-                  setFormData({ ...formData, password: e.target.value });
-                  setErrors((prev) => ({ ...prev, password: "" }));
-                }}
-              />
+            <div className="two_password">
+              <div className="password_input">
+                <label htmlFor="password">
+                  <span>كلمة المرور</span>
+                  {formik.touched.password && formik.errors.password && (
+                    <p className="error_message">{formik.errors.password}</p>
+                  )}
+                </label>
+                <div className="password_input_container">
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    name="password"
+                    placeholder="كلمة المرور"
+                    value={formik.values.password}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  />
+                  <div className="eye_icon" onClick={() => setShowPassword(!showPassword)}>
+                    {showPassword ?
+                      <svg xmlns="http://www.w3.org/2000/svg" width={22} height={22} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-eye-icon lucide-eye"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0" /><circle cx={12} cy={12} r={3} /></svg>
+                      :
+                      <svg xmlns="http://www.w3.org/2000/svg" width={22} height={22} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-eye-off-icon lucide-eye-off"><path d="M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49" /><path d="M14.084 14.158a3 3 0 0 1-4.242-4.242" /><path d="M17.479 17.499a10.75 10.75 0 0 1-15.417-5.151 1 1 0 0 1 0-.696 10.75 10.75 0 0 1 4.446-5.143" /><path d="m2 2 20 20" /></svg>
+                    }
+                  </div>
+                </div>
+              </div>
+
+              <div className="confirmPassword_input">
+                <label htmlFor="password_confirmation">
+                  <span>تأكيد كلمة المرور</span>
+                  {formik.touched.password_confirmation && formik.errors.password_confirmation && (
+                    <p className="error_message">{formik.errors.password_confirmation} </p>
+                  )}
+                </label>
+                <div className="password_input_container">
+                  <input
+                    type={showConfirmPassword ? "text" : "password"}
+                    name="password_confirmation"
+                    placeholder="تأكيد كلمة المرور"
+                    value={formik.values.password_confirmation}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  />
+                  <div className="eye_icon" onClick={() => setShowConfirmPassword(!showConfirmPassword)}>
+                    {showConfirmPassword ?
+                      <svg xmlns="http://www.w3.org/2000/svg" width={22} height={22} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-eye-icon lucide-eye"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0" /><circle cx={12} cy={12} r={3} /></svg>
+                      :
+                      <svg xmlns="http://www.w3.org/2000/svg" width={22} height={22} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-eye-off-icon lucide-eye-off"><path d="M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49" /><path d="M14.084 14.158a3 3 0 0 1-4.242-4.242" /><path d="M17.479 17.499a10.75 10.75 0 0 1-15.417-5.151 1 1 0 0 1 0-.696 10.75 10.75 0 0 1 4.446-5.143" /><path d="m2 2 20 20" /></svg>
+                    }
+                  </div>
+                </div>
+              </div>
             </div>
-            {errors.password && (
-              <p style={{ color: "red", margin: "0" }}>{errors.password}</p>
-            )}
 
-            {/* تأكيد كلمة المرور */}
-            <div className="input-group">
-              <AiOutlineEye className="icon" onClick={registerPassword} />
-              <input
-                type={showPassword ? "text" : "password"}
-                placeholder="تأكيد كلمة المرور"
-                value={formData.password_confirmation}
-                onChange={(e) => {
-                  setFormData({
-                    ...formData,
-                    password_confirmation: e.target.value,
-                  });
-                  setErrors((prev) => ({
-                    ...prev,
-                    password_confirmation: "",
-                  }));
-                }}
-              />
-            </div>
-            {errors.password_confirmation && (
-              <p style={{ color: "red", margin: "0" }}>
-                {errors.password_confirmation}
-              </p>
-            )}
-
-            {/* زر إنشاء الحساب */}
-            <button type="submit" className="regis_button">
-              إنشاء حساب
+            <button
+              type="submit"
+              className="regis_button"
+              disabled={isLoading}
+            >
+              {isLoading ? "جاري التسجيل..." : "إنشاء حساب"}
             </button>
+            {errorMessage && <p className="error_general">{errorMessage}</p>}
           </form>
-
-          {/* تذييل التسجيل */}
           <p className="register-footer">
             هل لديك حساب بالفعل؟ <Link to="/login">تسجيل دخول</Link>
           </p>
         </div>
       </div>
 
-      {/* الموديل بعد نجاح التسجيل */}
+      {/* موديل النجاح */}
       {showModdel && (
         <div className="success_model">
           <div className="success_content">
@@ -369,4 +256,3 @@ const Register = () => {
     </div>
   );
 };
-export default Register;
