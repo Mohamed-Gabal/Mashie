@@ -97,9 +97,9 @@
   padding: 0px 15px;
 }
 
-.card_body h3 {
+.card_body h2 {
   font-size: 16px;
-  font-weight: 600;
+  font-weight: bold;
   color: #333;
   margin: 0px;
   margin-bottom: 5px;
@@ -149,7 +149,7 @@
 
 .card_footer .card_footer_price {
   font-size: 16px;
-  font-weight: 600;
+  font-weight: bold;
 }
 
 .card_footer .hart_icon {
@@ -210,8 +210,8 @@
     font-size: 12px;
   }
 
-  .card_body h3 {
-    font-size: 14px;
+  .card_body h2 {
+    font-size: 12px;
   }
 
   .card_footer {
@@ -219,8 +219,8 @@
   }
 
   .card_footer .card_footer_price {
-    font-size: 13px;
-    font-weight: 600;
+    font-size: 12px;
+    font-weight: bold;
   }
 }
 
@@ -254,5 +254,9 @@
 
   .card_footer {
     padding: 0px 10px;
+  }
+  .card_footer .card_footer_price {
+    font-size: 12px;
+    font-weight: bold;
   }
 }

@@ -42,6 +42,7 @@ const CarCard = () => {
 
     fetchCard();
   }, []);
+  
   // 💖 handle favorite toggle
   const [favorites, setFavorites] = useState({});
   const toggleFavorite = (e, id) => {
@@ -131,7 +132,7 @@ const CarCard = () => {
                 </div>
 
                 <div className="card_body">
-                  <h3>{ad?.ad?.information?.title.substring(0, 18)}...</h3>
+                  <h2>{ad?.ad?.information?.title.substring(0, 18)}...</h2>
                   <div className="card_meta">
                     <div className="ciLocationOn">
                       <CiLocationOn style={{ color: "var(--main-color)", fontSize: "12px", fontWeight: "bold" }} />
@@ -144,9 +145,8 @@ const CarCard = () => {
                   </div>
                 </div>
                 <div className="card_footer">
-                  <div className="card_footer_price">
-                    <span className=''>{ad?.ad?.information?.price} ر.س</span>
-                  </div>
+                  <h2 className="card_footer_price">{ad?.ad?.information?.price !== "0.00" ? ad?.ad?.information?.price : "غير محدد" }<span> ر.س</span></h2>
+
                   <div className="hart_icon" onClick={(e) => toggleFavorite(e, ad?.ad?.id_ads)}>
                     <svg xmlns="http://www.w3.org/2000/svg" width={22} height={22} viewBox="0 0 24 24" fill={favorites[ad?.ad?.id_ads] ? "red" : "none"} stroke={favorites[ad?.ad?.id_ads] ? "red" : "currentColor"} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-heart-icon lucide-heart"><path d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5" /></svg>
                   </div>
