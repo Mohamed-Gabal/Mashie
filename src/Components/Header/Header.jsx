@@ -311,7 +311,7 @@ export function ProfileCard({ toggleProfileCard, userData, removeCookie, onClose
       );
 
       if (response.ok) {
-        removeCookie("token", { path: "/" });
+        removeCookie("token");
         navigate("/");
       } else {
         setErrors("حدث خطأ أثناء تسجيل الخروج");
