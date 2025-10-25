@@ -1,5 +1,6 @@
 .categoryData_container {
     background-color: #dcdcdc66;
+    min-height: 100dvh;
     padding-top: 70px;
 }
 
@@ -105,6 +106,16 @@
 .attributes_map button.attri_btn_active {
     background-color: var(--main-color);
     color: #fff;
+}
+
+.data_Region {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 2px solid var(--border-color);
+    margin-top: 40px;
+    padding-top: 20px;
 }
 
 /* ===== Bottom Section ===== */
@@ -266,6 +277,16 @@
 }
 
 @media (max-width: 768px) {
+    .categoryData_container {
+        min-height: 90dvh;
+    }
+
+    .data_Region {
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+    }
     .categories_items {
         grid-template-columns: repeat(2, 1fr);
         gap: 10px;

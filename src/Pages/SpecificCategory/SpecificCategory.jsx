@@ -7,6 +7,7 @@ import SaudiRegionsDropdown from '../../Components/AdvertisementsComponents/Saud
 import SkeletonCard from '../../Components/SkeletonCard/SkeletonCard';
 import NotFound from '../../Components/NotFound/NotFound';
 import "./specificCategoryStyle.css"
+import DatePicker from '../../Components/DatePicker/DatePicker';
 
 export default function SpecificCategory() {
     const { category } = useParams();
@@ -17,9 +18,16 @@ export default function SpecificCategory() {
     const specificCate = specificCategoriesData.find((cat) => category === cat.key) || "اسم الفئة";
 
     // filtered type
+    const [date, setDate] = useState("");
+    const filteredCategoriesDataByDate = categoryData.filter((item) => {
+        if (!date) return true;
+        const itemDate = item.created_at.split(" ")[0];
+        return itemDate === date;
+    });
+    
     const [filteredAttributes, setFilteredAttributes] = useState(null);
     const [attributeValue, setAttributeValue] = useState("");
-    const filteredCategoriesData = categoryData.filter((item) => {
+    const filteredCategoriesData = filteredCategoriesDataByDate.filter((item) => {
         if (!filteredAttributes) return true;
         return item.attributes?.[filteredAttributes] === attributeValue;
     });
@@ -148,8 +156,11 @@ export default function SpecificCategory() {
                                 }
                             </div>
 
-                            <div className="">
+                            <div className="data_Region">
                                 <SaudiRegionsDropdown setRegion={setRegion} setCity={setCity} />
+                                <div className="date-picker">
+                                    <DatePicker onChange={(value) => setDate(value)} />
+                                </div>
                             </div>
                         </div>
                     </section>
