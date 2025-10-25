@@ -41,7 +41,16 @@
   margin-bottom: 25px;
   line-height: 1.6;
 }
+.login_footer {
+  margin-top: 30px;
+}
 
+.login_footer a{
+  margin-top: 20px;
+  color: var(--main-color);
+  text-decoration: none;
+  font-weight: bold;
+}
 
 /* ---------------- login_form -------------- */
 /* ---------------- login_form -------------- */
@@ -49,7 +58,6 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 15px;
   position: relative;
 }
 
@@ -59,20 +67,21 @@
   flex-direction: column;
   gap: 5px;
   margin: 0px;
+  margin-top: 15px;
 }
 
-.email_input label, .password_input label {
+.login_form .email_input label, .login_form .password_input label {
   margin: 0px;
   position: relative;
 }
 
-.email_input label .error_message, .password_input label .error_message {
+.login_form .email_input label .error_message, .login_form .password_input label .error_message {
   color: red;
   font-size: 12px;
   position: absolute;
-  top: 50%;
   left: 0px;
-  transform: translateY(-50%);
+  top: -50%;
+  transform: translateY(50%);
 }
 
 .email_input .input_container, .password_input_container {
@@ -162,20 +171,22 @@ button:hover {
   background-color: var(--hover-color);
 }
 
-.login-footer {
-  margin-top: 20px;
+.forgetPassword {
   font-size: 14px;
-  color: #444;
-  text-align: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 15px;
+  margin-bottom: 5px;
 }
 
-.login-footer a {
+.forgetPassword a {
   color: var(--main-color);
   text-decoration: none;
   font-weight: bold;
 }
 
-.login-footer a:hover {
+.forgetPassword a:hover {
   text-decoration: underline;
 }
 

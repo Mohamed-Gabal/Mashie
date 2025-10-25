@@ -19,12 +19,9 @@ export default function Login() {
           المنشورة، وتدير منتجاتك أو خدماتك بسهولة.
         </p>
 
-        <LoginForm/>
-        <p className="login-footer">
+        <LoginForm />
+        <p className="login_footer">
           ليس لديك حساب بعد؟ <Link to="/register">إنشاء حساب</Link>
-        </p>
-        <p className="login-footer">
-          <Link to="/forgotPassword">نسيت كلمة المرور؟</Link>
         </p>
       </div>
     </div>
@@ -56,7 +53,7 @@ export function LoginForm() {
       try {
         // url from vite.config
         const response = await fetch(
-          "/api/login",
+          "https://api.mashy.sand.alrmoz.com/api/login",
           {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -138,6 +135,12 @@ export function LoginForm() {
         </div>
       </div>
 
+      <div className="forgetPassword">
+        <div className=""></div>
+        <div role="button">
+          <Link to="/forgotPassword">نسيت كلمة المرور؟</Link>
+        </div>
+      </div>
       <button type="submit" className="login_button" disabled={isLoading}>
         {isLoading ? "جاري التحميل..." : "تسجيل دخول"}
       </button>
