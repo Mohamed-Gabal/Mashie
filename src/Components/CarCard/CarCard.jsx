@@ -28,8 +28,11 @@ const CarCard = () => {
         const data = await res.json();
 
         if (data?.success) {
-          // ناخد أحدث 4 إعلانات فقط
-          setAdsCard(data?.data?.data);
+          const sortedAds = data?.data?.data.sort((a, b) => {
+            return new Date(b.ad.created_at) - new Date(a.ad.created_at);
+          });
+        
+          setAdsCard(sortedAds);
         } else {
           setError("لم يتم العثور على إعلانات سيارات حالياً.");
         }
