@@ -95,7 +95,7 @@ export default function SpecificCategory() {
                     <section className='top_section'>
                         <div className="top_section_container">
                             <div className="categoryData_links">
-                                <span className="main_link">الرئيسيه </span>
+                                <Link to="/" className="main_link">الرئيسيه </Link>
                                 <IoIosArrowBack className='arr_icon' />
                                 <span className="category_link">{specificCate?.title}</span>
                             </div>

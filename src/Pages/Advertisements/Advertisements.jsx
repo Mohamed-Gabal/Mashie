@@ -22,7 +22,7 @@ export default function Advertisements() {
     const token = cookies?.token?.data?.token;
     const userData = cookies?.token?.data?.user;
     const [showToast, setShowToast] = useState(true);
-    console.log(userData);
+    // console.log(userData);
     const [ads_id, setAds_id] = useState('');
     const [categoryName, setCategoryName] = useState('');
 
