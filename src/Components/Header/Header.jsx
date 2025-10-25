@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./header.css";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { CiSearch } from "react-icons/ci";
 import { navLinks } from "../../Constants/NavLinks.js";
 import { useCookies } from "react-cookie";
@@ -265,6 +265,9 @@ const Header = () => {
 export default Header;
 
 export function ProfileCard({ toggleProfileCard, userData, removeCookie, onClose, triggerRef }) {
+  const navigate = useNavigate();
+  const [cookies, ,] = useCookies(["token"]);
+  const token = cookies?.token?.data?.token;
   const cardRef = useRef(null);
 
   useEffect(() => {
@@ -293,6 +296,30 @@ export function ProfileCard({ toggleProfileCard, userData, removeCookie, onClose
       window.removeEventListener("scroll", handleScroll);
     };
   }, [toggleProfileCard, onClose, triggerRef]);
+
+  const handleLogout = async () => {
+    try {
+      const response = await fetch(
+        "https://api.mashy.sand.alrmoz.com/api/logout",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (response.ok) {
+        removeCookie("token", { path: "/" });
+        navigate("/");
+      } else {
+        setErrors("حدث خطأ أثناء تسجيل الخروج");
+      }
+    } catch {
+      setErrors("حدث خطأ أثناء الاتصال بالسيرفر أثناء تسجيل الخروج");
+    }
+  };
   return (
     <div className="profile-card" style={{ height: toggleProfileCard ? "280px" : "0" }} ref={cardRef}>
       <div className="user-info">
@@ -318,7 +345,7 @@ export function ProfileCard({ toggleProfileCard, userData, removeCookie, onClose
       </Link>
       <button
         className="logout-btn"
-        onClick={() => removeCookie("token")}
+        onClick={() => handleLogout()}
       >
         <svg xmlns="http://www.w3.org/2000/svg" width={24} height={24} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-log-out-icon lucide-log-out">
           <path d="m16 17 5-5-5-5" /> <path d="M21 12H9" /> <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
