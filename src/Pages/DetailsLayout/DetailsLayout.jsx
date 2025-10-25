@@ -144,7 +144,7 @@ const DetailsLayout = () => {
             <h3 className="details-lay-info-title">المواصفات</h3>
             <div className="details_specifications_box">
               <div className="attributes">
-                {attributeMapForDetails(ad_details)[details].map((item, index) => (
+                {attributeMapForDetails(ad_details)[details]?.map((item, index) => (
                   <div className="attribute_item" key={index}>
                     <div className="attribute_item_icon">
                       <img src={item.icon} alt={details} />
