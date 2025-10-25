@@ -1,30 +1,25 @@
 import React, { useState } from "react";
-import "./login.css";
-import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import "./loginStyle.css";
+import { Link, useNavigate } from "react-router-dom";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 import { useCookies } from "react-cookie";
-import { MdOutlineMailOutline } from "react-icons/md";
 
-const Login = () => {
+export default function Login() {
+
   return (
     <div className="login-wrapper">
-      {/* صورة جانبية */}
       <div className="login-image">
         <img src="/images/login.webp" alt="login" />
       </div>
-
       <div className="login-container">
-        {/* عنوان ترحيبي */}
         <h2>مرحبًا بك مجددًا</h2>
         <p>
           مرحبًا بك من جديد! قم بتسجيل الدخول إلى حسابك على ماشي لتتابع إعلاناتك
           المنشورة، وتدير منتجاتك أو خدماتك بسهولة.
         </p>
 
-        {/* نموذج تسجيل الدخول */}
-        <LoginForm />
-
-        {/* روابط تحت النموذج */}
+        <LoginForm/>
         <p className="login-footer">
           ليس لديك حساب بعد؟ <Link to="/register">إنشاء حساب</Link>
         </p>
@@ -35,189 +30,119 @@ const Login = () => {
     </div>
   );
 };
-export default Login;
 
 export function LoginForm() {
-  const { details } = useParams();
-  //  الحالة الخاصة بالبريد الإلكتروني
-  const [email, setEmail] = useState("");
-  //  الحالة الخاصة بكلمة المرور
-  const [password, setPassword] = useState("");
-
-  // حالة إظهار أو إخفاء كلمة المرور
   const [showPassword, setShowPassword] = useState(false);
-  // دالة لتبديل حالة عرض كلمة المرور
-  const togglePassword = () => setShowPassword(!showPassword);
+  const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
-  // مكتبة الكوكيز: نستخدم setCookie لتخزين التوكن بعد تسجيل الدخول
-  const [Cookie, setCookie] = useCookies(["token"]);
-
-  // useNavigate: لإعادة توجيه المستخدم لصفحة أخرى بعد تسجيل الدخول
   const navigate = useNavigate();
-
-  // حالة لتخزين الأخطاء (لكل input + خطأ عام)
-  const [errors, setErrors] = useState({
-    email: "",
-    password: "",
-    general: "",
-  });
-
-  // دالة التحقق من صحة البيانات قبل إرسالها
-  const validateForm = () => {
-    let valid = true;
-    let newErrors = { email: "", password: "", general: "" };
-
-    // تحقق من البريد الإلكتروني
-    if (!email.trim()) {
-      newErrors.email = "الرجاء إدخال البريد الإلكتروني";
-      valid = false;
-    }
-
-    // تحقق من كلمة المرور
-    if (!password.trim()) {
-      newErrors.password = "الرجاء إدخال كلمة المرور";
-      valid = false;
-    }
-
-    setErrors(newErrors); // تحديث الأخطاء
-    return valid; // ترجع false لو فيه خطأ
-  };
-
-  const [loading, setLoading] = useState(false);
-  //  دالة إرسال النموذج (التعامل مع API تسجيل الدخول)
-  const handleSubmit = async (e) => {
-    e.preventDefault(); // منع تحديث الصفحة
-
-    // تحقق من البيانات قبل استدعاء API
-    if (!validateForm()) return;
-    setLoading(true);
-    try {
-      const response = await fetch(
-        "https://api.mashy.sand.alrmoz.com/api/login",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email, password }),
-        }
-      );
-
-      const data = await response.json();
-      if (response.ok) {
-        // تسجيل الدخول ناجح
-        setCookie("token", data, {
-          path: "/",
-          maxAge: 60 * 60 * 24 * 30,
-          sameSite: "lax",
-          secure: process.env.NODE_ENV === "production",
-        });
-        if (
-          details !== "vehicles" &&
-          details !== "realestate" &&
-          details !== "electronics" &&
-          details !== "jobs" &&
-          details !== "furniture" &&
-          details !== "services" &&
-          details !== "fashion" &&
-          details !== "food" &&
-          details !== "anecdotes" &&
-          details !== "gardens" &&
-          details !== "trips" &&
-          details !== "pets"
-        ) {
+  const [cookies, setCookie, removeCookie] = useCookies(["token"]);
+  const formik = useFormik({
+    initialValues: {
+      email: "",
+      password: "",
+    },
+    validationSchema: Yup.object({
+      email: Yup.string()
+        .email("بريد إلكتروني غير صالح")
+        .required("البريد الإلكتروني مطلوب"),
+      password: Yup.string()
+        .required("كلمة المرور مطلوبة"),
+    }),
+    onSubmit: async (values) => {
+      setIsLoading(true);
+      setErrorMessage("");
+      try {
+        // url from vite.config
+        const response = await fetch(
+          "/api/login",
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(values),
+          }
+        );
+        const data = await response.json();
+        if (response.ok) {
           navigate("/");
-        }
-      } else {
-        //نقرأ الرسالة من
-        const serverError =
-          data?.errors?.email?.[0] ||
-          data?.message ||
-          "حدث خطأ أثناء تسجيل الدخول";
-        // نحلل النص ونقرر نعرضه فين
-        if (serverError.toLowerCase().includes("email")) {
-          setErrors((prev) => ({
-            ...prev,
-            email: "البريد الإلكتروني أو كلمه المرور غير صحيحه",
-          }));
-        } else if (serverError.toLowerCase().includes("password")) {
-          setErrors((prev) => ({
-            ...prev,
-            password: "كلمة المرور غير صحيحة",
-          }));
+          setCookie("token", data, {
+            maxAge: 60 * 60 * 24 * 30,
+            sameSite: "lax",
+            secure: process.env.NODE_ENV === "production",
+          });
+        } else if (data.errors) {
+          const hasEmailError = data.errors.email;
+
+          if (hasEmailError) {
+            setErrorMessage("هذا البريد الإلكتروني غير مسجل ");
+          } else {
+            setErrorMessage("حدث خطأ أثناء التحقق من البيانات");
+          }
         } else {
-          setErrors((prev) => ({
-            ...prev,
-            general: serverError,
-          }));
+          setErrorMessage("حدث خطأ أثناء التسجيل، حاول مرة أخرى.");
         }
+      } catch (err) {
+        setErrorMessage("حدث خطأ، حاول مرة أخرى");
+      } finally {
+        setIsLoading(false);
       }
-    } catch {
-      setErrors((prev) => ({
-        ...prev,
-        general: "تعذر الاتصال تحقق من الإنترنت",
-      }));
-    } finally {
-      setLoading(false);
     }
-  };
+  });
   return (
-    <form className="login-form" onSubmit={handleSubmit}>
-      {/* حقل البريد الإلكتروني */}
-      <div className="input-group">
-        <MdOutlineMailOutline className="input-icon" />
-        <input
-          type="email"
-          placeholder="أدخل بريدك الإلكتروني"
-          value={email}
-          onChange={(e) => {
-            setEmail(e.target.value);
-            setErrors((prev) => ({ ...prev, email: "" })); // مسح رسالة الخطأ عند التعديل
-          }}
-        />
+    <form className="login_form" onSubmit={formik.handleSubmit}>
+      <div className="email_input">
+        <label htmlFor="email">
+          <span>بريدك الإلكتروني</span>
+          {formik.touched.email && formik.errors.email && (
+            <p className="error_message">{formik.errors.email}</p>
+          )}
+        </label>
+        <div className="input_container">
+          <input
+            type="email"
+            name="email"
+            placeholder="بريدك الإلكتروني"
+            autoComplete="email"
+            value={formik.values.email}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+          />
+          <img src="/Icons/Auth/email.svg" alt="email" />
+        </div>
       </div>
-      {/* رسالة خطأ البريد */}
-      {errors.email && (
-        <p className="error-message" style={{ color: "red", marginTop: "-42px"}}>
-          {errors.email}
-        </p>
-      )}
 
-      {/* حقل كلمة المرور */}
-      <div className="input-group">
-        <input
-          type={showPassword ? "text" : "password"} // إظهار/إخفاء كلمة المرور
-          placeholder="أدخل كلمة المرور"
-          value={password}
-          onChange={(e) => {
-            setPassword(e.target.value);
-            setErrors((prev) => ({ ...prev, password: "" })); // مسح رسالة الخطأ عند التعديل
-          }}
-        />
-        {/* أيقونة إظهار/إخفاء كلمة المرور */}
-        <span className="input-icon eye" onClick={togglePassword}>
-          {showPassword ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
-        </span>
+      <div className="password_input">
+        <label htmlFor="password">
+          <span>كلمة المرور</span>
+          {formik.touched.password && formik.errors.password && (
+            <p className="error_message">{formik.errors.password}</p>
+          )}
+        </label>
+        <div className="password_input_container">
+          <input
+            type={showPassword ? "text" : "password"}
+            name="password"
+            placeholder="كلمة المرور"
+            value={formik.values.password}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+          />
+          <div className="eye_icon" onClick={() => setShowPassword(!showPassword)} aria-label={showPassword ? "إخفاء كلمة المرور" : "عرض كلمة المرور"}>
+            {showPassword ?
+              <svg xmlns="http://www.w3.org/2000/svg" width={22} height={22} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-eye-icon lucide-eye"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0" /><circle cx={12} cy={12} r={3} /></svg>
+              :
+              <svg xmlns="http://www.w3.org/2000/svg" width={22} height={22} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-eye-off-icon lucide-eye-off"><path d="M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49" /><path d="M14.084 14.158a3 3 0 0 1-4.242-4.242" /><path d="M17.479 17.499a10.75 10.75 0 0 1-15.417-5.151 1 1 0 0 1 0-.696 10.75 10.75 0 0 1 4.446-5.143" /><path d="m2 2 20 20" /></svg>
+            }
+          </div>
+        </div>
       </div>
-      {/* رسالة خطأ كلمة المرور */}
-      {errors.password && (
-        <p className="error-message" style={{ color: "red" , marginTop: "-42px"}}>
-          {errors.password}
-        </p>
-      )}
 
-      {/* زر تسجيل الدخول */}
-      <button type="submit" className="login_button" disabled={loading}>
-        {loading ? "جاري تسجيل الدخول..." : "تسجيل دخول"}
+      <button type="submit" className="login_button" disabled={isLoading}>
+        {isLoading ? "جاري التحميل..." : "تسجيل دخول"}
       </button>
 
-      {/* رسالة خطأ عامة (من السيرفر أو غيره) */}
-      {errors.general && (
-        <p
-          className="error-message"
-          style={{ color: "red", marginTop: "-42px" }}
-        >
-          {errors.general}
-        </p>
-      )}
+      {errorMessage && <p className="error_general">{errorMessage}</p>}
     </form>
-  );
-}
+  )
+};
