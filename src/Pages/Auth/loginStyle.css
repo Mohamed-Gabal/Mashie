@@ -179,7 +179,6 @@ button:hover {
   margin-top: 15px;
   margin-bottom: 5px;
 }
-
 .forgetPassword a {
   color: var(--main-color);
   text-decoration: none;
@@ -188,6 +187,49 @@ button:hover {
 
 .forgetPassword a:hover {
   text-decoration: underline;
+}
+
+.rememberMe {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  height: fit-content;
+}
+
+.rememberMe_section .rememberMe_label .rememberMe_checkbox {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #aaa;
+  border-radius: 4px;
+  background-color: #fff;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  top: 5px;
+}
+
+.rememberMe_section .rememberMe_label .rememberMe_checkbox:checked {
+  background-color: var(--main-color);
+  border-color: var(--main-color);
+}
+
+.rememberMe_checkbox:checked::after {
+  content: "✔";
+  color: white;
+  font-size: 14px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.rememberMe p{
+  font-size: 14px;
+  font-weight: bold;
+  display: block;
+  margin: auto;
 }
 
 /* موبايل */

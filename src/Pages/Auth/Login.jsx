@@ -30,6 +30,7 @@ export default function Login() {
 
 export function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
+  const [remember, setRemember] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -136,7 +137,21 @@ export function LoginForm() {
       </div>
 
       <div className="forgetPassword">
-        <div className=""></div>
+        <div className="rememberMe">
+          <div className="rememberMe_section">
+            <label className="rememberMe_label">
+              <input
+                type="checkbox"
+                name="rememberMe"
+                id="rememberMe"
+                checked={remember}
+                onChange={(e) => setRemember(e.target.checked)}
+                className="rememberMe_checkbox"
+              />
+            </label>
+          </div>
+          <p>تذكرني</p>
+        </div>
         <div role="button">
           <Link to="/forgotPassword">نسيت كلمة المرور؟</Link>
         </div>
