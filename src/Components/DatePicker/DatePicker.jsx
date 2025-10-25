@@ -44,6 +44,7 @@ export default function DatePicker({ onChange }) {
 
     const handleResetDate = () => {
         setSelectedDate(null);
+        setShowCalendar(false);
         if (onChange) onChange("");
     };
 

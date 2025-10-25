@@ -277,10 +277,6 @@
 }
 
 @media (max-width: 768px) {
-    .categoryData_container {
-        min-height: 90dvh;
-    }
-
     .data_Region {
         flex-direction: column;
         align-items: center;
