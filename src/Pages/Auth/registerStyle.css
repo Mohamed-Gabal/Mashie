@@ -149,7 +149,7 @@
   top: 50%;
   transform: translateY(-50%);
 }
-.register_form .two_password .password_input .password_input_container .eye_icon,
+.register-content .register_form .two_password .password_input .password_input_container .eye_password_icon,
 .register_form .two_password .confirmPassword_input .password_input_container .eye_icon {
   color: #2C3E50;
   width: 24px;
