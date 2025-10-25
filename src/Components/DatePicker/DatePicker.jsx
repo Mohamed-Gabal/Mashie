@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { FaRegCalendarAlt } from "react-icons/fa";
 import "./datePickerStyle.css";
 
 const monthsAr = [
