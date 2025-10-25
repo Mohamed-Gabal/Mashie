@@ -77,10 +77,12 @@ export default function ShowAnyUser() {
 
                         <div className="user_info">
                             <h3 className="user_name">{userData?.user?.name?.split(" ").slice(0, 2).join(" ")}</h3>
-                            <h6 className="user_status">
-                                <span>آخر ظهور  </span>
-                                <span>{userData?.user?.last_seen_at}</span>
-                            </h6>
+                            {!userData?.user?.is_online && (
+                                <h6 className="user_status">
+                                    <span>آخر ظهور  </span>
+                                    <span>{userData?.user?.last_seen_at}</span>
+                                </h6>
+                            )}
                         </div>
 
                         {errorMessage && <p className="error_message">{errorMessage}</p>}
