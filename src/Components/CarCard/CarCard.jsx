@@ -4,8 +4,11 @@ import { CiLocationOn, CiStopwatch } from "react-icons/ci";
 import { MdFavoriteBorder } from "react-icons/md";
 import "./carCard.css";
 import { timeSince } from "../../Pages/SpecificCategory/SpecificCategory";
+import { useCookies } from "react-cookie";
 
 const CarCard = () => {
+  const [cookies, removeCookie] = useCookies(["token"]);
+  const token = cookies?.token?.data?.token;
   const navigate = useNavigate();
   const [adsCard, setAdsCard] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -31,7 +34,7 @@ const CarCard = () => {
           const sortedAds = data?.data?.data.sort((a, b) => {
             return new Date(b.ad.created_at) - new Date(a.ad.created_at);
           });
-        
+
           setAdsCard(sortedAds);
         } else {
           setError("لم يتم العثور على إعلانات سيارات حالياً.");
@@ -45,7 +48,7 @@ const CarCard = () => {
 
     fetchCard();
   }, []);
-  
+
   // 💖 handle favorite toggle
   const [favorites, setFavorites] = useState({});
   const toggleFavorite = (e, id) => {
@@ -54,6 +57,34 @@ const CarCard = () => {
       ...prev,
       [id]: !prev[id],
     }));
+  };
+  const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const addToFavorites = async (category, adId) => {
+    try {
+      setIsLoading(true);
+      const response = await fetch(
+        `https://api.mashy.sand.alrmoz.com/api/favorites/${category}/${adId}`,
+        {
+          method: "post",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      const data = await response.json();
+      console.log(data);
+      if (response.ok) {
+        setIsLoading(false);
+      } else {
+        setErrorMessage("حدث خطأ أثناء الاضافة للمفضلة.");
+      }
+    } catch {
+      setErrorMessage("فشل الاتصال بالسيرفر أثناء الاضافة.");
+    } finally {
+      setIsLoading(false);
+    }
   };
   if (loading) {
     return (
@@ -148,9 +179,9 @@ const CarCard = () => {
                   </div>
                 </div>
                 <div className="card_footer">
-                  <h2 className="card_footer_price">{ad?.ad?.information?.price !== "0.00" ? ad?.ad?.information?.price : "غير محدد" }<span> ر.س</span></h2>
+                  <h2 className="card_footer_price">{ad?.ad?.information?.price !== "0.00" ? ad?.ad?.information?.price : "غير محدد"}<span> ر.س</span></h2>
 
-                  <div className="hart_icon" onClick={(e) => toggleFavorite(e, ad?.ad?.id_ads)}>
+                  <div className="hart_icon" onClick={(e) => { if (isLoading) return; toggleFavorite(e, ad?.ad?.id_ads); addToFavorites(ad?.category, ad?.ad?.id_ads) }}>
                     <svg xmlns="http://www.w3.org/2000/svg" width={22} height={22} viewBox="0 0 24 24" fill={favorites[ad?.ad?.id_ads] ? "red" : "none"} stroke={favorites[ad?.ad?.id_ads] ? "red" : "currentColor"} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-heart-icon lucide-heart"><path d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5" /></svg>
                   </div>
                 </div>

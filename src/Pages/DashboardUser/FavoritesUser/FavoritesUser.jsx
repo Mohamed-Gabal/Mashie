@@ -1,72 +1,94 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./favoritesUser.css";
 import { IoLocationOutline } from "react-icons/io5";
 import { CiStopwatch } from "react-icons/ci";
+import { useCookies } from "react-cookie";
 
 const FavoritesUser = () => {
-  const favoritesUserCards = [
-    {
-      id: "1",
-      image: "/images/filter1.webp",
-      title: "للبيع شقة تمليك الدور الأول",
-      location: "مصر القاهره",
-      time: "قبل 4 دقائق",
-    },
-    {
-      id: "2",
-      image: "/images/filter2.webp",
-      title: "شقة للإيجار قرب الجامعة",
-      location: "مصر الجيزة",
-      time: "قبل 10 دقائق",
-    },
-    {
-      id: "3",
-      image: "/images/filter3.webp",
-      title: "فيلا دوبلكس للبيع",
-      location: "مصر الاسكندرية",
-      time: "قبل 20 دقيقة",
-    },
-  ];
+  const [cookies] = useCookies(["token"]);
+  const token = cookies?.token?.data?.token;
+  const [favorites, setFavorites] = useState([]);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const res = await fetch(
+          "https://api.mashy.sand.alrmoz.com/api/favorites",
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        const data = await res.json();
+        setFavorites(data.data); // هنا بنخزن بيانات المفضلة
+        console.log("Response data:", data);
+
+      } catch (err) {
+        console.error(err);
+        setError("حدث خطأ أثناء تحميل البيانات.");
+      }
+    };
+
+    if (token) fetchUserData();
+  }, [token]);
 
   return (
     <div className="Favorites_user">
       <h2 className="Favorites_user_desc">
-        <span className="Favorites_user_total">
-          ({favoritesUserCards.length}){" "}
-        </span>
-        اعلانات محفوظه
+        <span className="Favorites_user_total">({favorites.length}) </span>
+        اعلانات محفوظة
       </h2>
       <hr />
+
+      {error && <p style={{ color: "red", textAlign: "center" }}>{error}</p>}
+
       <div className="Favorites_user_item">
-        {favoritesUserCards.map((item) => (
-          <div className="Favorites_user_card" key={item.id}>
+        {favorites.map((item) => (
+          <div className="Favorites_user_card" key={item.id_ads}>
             {/* الصورة */}
             <div className="Favorites_user_item_picture">
-              <img src={item.image} alt={item.title} />
+              <img
+                src={
+                  item.images?.[0]
+                    ? `https://api.mashy.sand.alrmoz.com/storage/${item.images[0]}`
+                    : "/images/no-image.webp"
+                }
+                alt={item.information?.title || "إعلان"}
+              />
             </div>
 
             {/* المحتوى */}
             <div className="Favorites_user_item_details">
-              <h3 className="Favorites_user_title">{item.title}</h3>
+              <h3 className="Favorites_user_title">
+                {item.information?.title || "بدون عنوان"}
+              </h3>
+
               <div className="Favorites_user_meta">
                 <p>
-                  <IoLocationOutline /> {item.location}
+                  <IoLocationOutline />{" "}
+                  {item.user?.area || "غير محدد"}
                 </p>
                 <span>
-                  <CiStopwatch /> {item.time}
+                  <CiStopwatch />{" "}
+                  {new Date(item.created_at).toLocaleDateString("ar-EG")}
                 </span>
               </div>
 
-              {/* الأزرار */}
-              <div className="Favorites_user_actions">
-                <button className="Favorites_user_btn">عرض الاعلان</button>
-                <button className="Favorites_user_delete">حذف</button>
-              </div>
+              <p className="Favorites_user_price">
+                السعر: {item.information?.price || 0} ر.س
+              </p>
             </div>
           </div>
         ))}
       </div>
-      <button className="Favorites_user_showMore">عرض المزيد...</button>
+
+      {favorites.length > 3 && (
+        <button className="Favorites_user_showMore">عرض المزيد...</button>
+      )}
     </div>
   );
 };
