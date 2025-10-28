@@ -24,7 +24,7 @@ const FavoritesUser = () => {
         );
 
         const data = await res.json();
-        setFavorites(data.data); // هنا بنخزن بيانات المفضلة
+        setFavorites(data.data);
         console.log("Response data:", data);
 
       } catch (err) {

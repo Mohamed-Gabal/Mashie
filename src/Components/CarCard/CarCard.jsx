@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { CiLocationOn, CiStopwatch } from "react-icons/ci";
-import { MdFavoriteBorder } from "react-icons/md";
 import "./carCard.css";
 import { timeSince } from "../../Pages/SpecificCategory/SpecificCategory";
 import { useCookies } from "react-cookie";
@@ -29,6 +28,7 @@ const CarCard = () => {
         }
 
         const data = await res.json();
+        console.log("data", data.data.data);
 
         if (data?.success) {
           const sortedAds = data?.data?.data.sort((a, b) => {
@@ -86,6 +86,32 @@ const CarCard = () => {
       setIsLoading(false);
     }
   };
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const res = await fetch(
+          "https://api.mashy.sand.alrmoz.com/api/favorites",
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        const data = await res.json();
+        setFavorites(data.data);
+        console.log("Response data:", data.data);
+
+      } catch (err) {
+        console.error(err);
+        setError("حدث خطأ أثناء تحميل البيانات.");
+      }
+    };
+
+    if (token) fetchUserData();
+  }, [token]);
   if (loading) {
     return (
       <div className="loading">
@@ -181,7 +207,7 @@ const CarCard = () => {
                 <div className="card_footer">
                   <h2 className="card_footer_price">{ad?.ad?.information?.price !== "0.00" ? ad?.ad?.information?.price : "غير محدد"}<span> ر.س</span></h2>
 
-                  <div className="hart_icon" onClick={(e) => { if (isLoading) return; toggleFavorite(e, ad?.ad?.id_ads); addToFavorites(ad?.category, ad?.ad?.id_ads) }}>
+                  <div className="hart_icon" onClick={(e) => { if (isLoading || favorites) return; toggleFavorite(e, ad?.ad?.id_ads); addToFavorites(ad?.category, ad?.ad?.id_ads) }}>
                     <svg xmlns="http://www.w3.org/2000/svg" width={22} height={22} viewBox="0 0 24 24" fill={favorites[ad?.ad?.id_ads] ? "red" : "none"} stroke={favorites[ad?.ad?.id_ads] ? "red" : "currentColor"} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-heart-icon lucide-heart"><path d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5" /></svg>
                   </div>
                 </div>
