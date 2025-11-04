@@ -8,6 +8,8 @@ import SkeletonCard from '../../Components/SkeletonCard/SkeletonCard';
 import NotFound from '../../Components/NotFound/NotFound';
 import "./specificCategoryStyle.css"
 import DatePicker from '../../Components/DatePicker/DatePicker';
+import { useCookies } from 'react-cookie';
+import { ToastWarning } from '../../Components/Header/Header';
 
 export default function SpecificCategory() {
     const { category } = useParams();
@@ -24,7 +26,7 @@ export default function SpecificCategory() {
         const itemDate = item.created_at.split(" ")[0];
         return itemDate === date;
     });
-    
+
     const [filteredAttributes, setFilteredAttributes] = useState(null);
     const [attributeValue, setAttributeValue] = useState("");
     const filteredCategoriesData = filteredCategoriesDataByDate.filter((item) => {
@@ -84,13 +86,55 @@ export default function SpecificCategory() {
     }, [category]);
 
     // 💖 handle favorite toggle
+    const [cookies, removeCookie] = useCookies(["token"]);
+    const token = cookies?.token?.data?.token;
+    const [showToast, setShowToast] = useState(false);
     const [favorites, setFavorites] = useState({});
+    const [isFavoriteLoading, setIsFavoriteLoading] = useState(false);
     const toggleFavorite = (e, id) => {
         e.stopPropagation();
         setFavorites((prev) => ({
             ...prev,
             [id]: !prev[id],
         }));
+    };
+
+    const addToFavorites = async (category, adId) => {
+        try {
+            setIsFavoriteLoading(true);
+
+            const response = await fetch(
+                `https://api.maaashi.com/api/favorites/${category}/${adId}`,
+                {
+                    method: "POST",
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        "Content-Type": "application/json",
+                    },
+                }
+            );
+
+            const data = await response.json();
+            console.log(data.data);
+
+            if (!response.ok) {
+                setErrorMessage(data?.message || "حدث خطأ أثناء الإضافة للمفضلة.");
+            }
+        } catch {
+            setErrorMessage("فشل الاتصال بالسيرفر أثناء الإضافة.");
+        } finally {
+            setIsFavoriteLoading(false);
+        }
+    };
+
+    const handleFavoriteClick = (e, adID) => {
+        e.stopPropagation();
+        if (!token) {
+            setShowToast(true);
+            return;
+        }
+        toggleFavorite(e, adID);
+        addToFavorites(category, adID);
     };
     return (
         <div className='categoryData_container'>
@@ -213,7 +257,7 @@ export default function SpecificCategory() {
                                         <div className="card_footer_price">
                                             <span className=''>{cat?.information?.price} ر.س</span>
                                         </div>
-                                        <div className="hart_icon" onClick={(e) => toggleFavorite(e, cat.id_ads)}>
+                                        <div className="hart_icon" onClick={(e) => handleFavoriteClick(e, cat.id_ads)}>
                                             <svg xmlns="http://www.w3.org/2000/svg" width={22} height={22} viewBox="0 0 24 24" fill={favorites[cat.id_ads] ? "red" : "none"} stroke={favorites[cat.id_ads] ? "red" : "currentColor"} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-heart-icon lucide-heart"><path d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5" /></svg>
                                         </div>
                                     </div>
@@ -225,6 +269,12 @@ export default function SpecificCategory() {
                         </div>
                     </section>
                 </>
+            )}
+            {showToast && (
+                <ToastWarning
+                    message="قم بتسجيل الدخول أولاً"
+                    onClose={() => setShowToast(false)}
+                />
             )}
         </div>
     )
