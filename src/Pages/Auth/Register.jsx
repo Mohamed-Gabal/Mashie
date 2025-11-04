@@ -54,7 +54,7 @@ export default function Register() {
         setErrorMessage("");
         // url from vite.config
         const response = await fetch(
-          "/api/register",
+          "https://api.maaashi.com/api/register",
           {
             method: "POST",
             headers: { "Content-Type": "application/json" },

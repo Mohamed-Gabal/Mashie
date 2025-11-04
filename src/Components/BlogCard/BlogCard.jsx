@@ -17,7 +17,7 @@ const BlogCard = () => {
       try {
         // طلب البيانات من السيرفر
         const res = await fetch(
-          "https://api.mashy.sand.alrmoz.com/api/ealans?category=realestate&page_num=1"
+          "https://api.maaashi.com/api/ealans?category=realestate&page_num=1"
         );
 
         // التحقق من نجاح الاتصال بالسيرفر
@@ -120,7 +120,7 @@ const BlogCard = () => {
                 <img
                   src={
                     ad.images?.[0]
-                      ? `https://api.mashy.sand.alrmoz.com/storage${ad.images[0]}`
+                      ? `https://api.maaashi.com/storage${ad.images[0]}`
                       : "/images/default.jpg"
                   }
                   alt={ad.information?.title || "إعلان"}

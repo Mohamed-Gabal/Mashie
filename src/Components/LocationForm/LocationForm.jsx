@@ -82,7 +82,7 @@ export default function LocationForm() {
     useEffect(() => {
         const fetchUserData = async () => {
             try {
-                const response = await fetch(`https://api.mashy.sand.alrmoz.com/api/user/${userID}`, {
+                const response = await fetch(`https://api.maaashi.com/api/user/${userID}`, {
                     method: "get",
                     headers: { Authorization: `Bearer ${token}` }
                 });
@@ -129,7 +129,7 @@ export default function LocationForm() {
 
             try {
                 const res = await axios.post(
-                    "https://api.mashy.sand.alrmoz.com/api/complete-location",
+                    "https://api.maaashi.com/api/complete-location",
                     values,
                     { headers: { Authorization: `Bearer ${token}` } }
                 );

@@ -18,7 +18,7 @@ export default function ShowAnyUser() {
         const fetchUserData = async () => {
             try {
                 setIsLoading(true);
-                const response = await fetch(`https://api.mashy.sand.alrmoz.com/api/showAnyUserData/${userID}`, { method: "GET", });
+                const response = await fetch(`https://api.maaashi.com/api/showAnyUserData/${userID}`, { method: "GET", });
 
                 const data = await response.json();
                 if (data.success) {
@@ -97,7 +97,7 @@ export default function ShowAnyUser() {
                             >
                                 <div className="card_image">
                                     <img
-                                        src={cat?.ad?.images?.[0] ? `https://api.mashy.sand.alrmoz.com/storage/${cat?.ad?.images[0]}` : "/placeholder.png"}
+                                        src={cat?.ad?.images?.[0] ? `https://api.maaashi.com/storage/${cat?.ad?.images[0]}` : "/placeholder.png"}
                                         alt={cat?.ad?.information?.title}
                                     />
                                 </div>

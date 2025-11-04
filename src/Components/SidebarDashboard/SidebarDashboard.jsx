@@ -31,7 +31,7 @@ export default function SidebarDashboard({toggleSidebar, setToggleSidebar, sideb
         const token = cookie?.token?.data?.token;
 
         const res = await fetch (
-          `https://api.mashy.sand.alrmoz.com/api/user/${userID}`,
+          `https://api.maaashi.com/api/user/${userID}`,
           {
             method: "GET",
             headers: {
@@ -61,7 +61,7 @@ export default function SidebarDashboard({toggleSidebar, setToggleSidebar, sideb
     try {
       const token = cookie?.token?.data?.token;
       const response = await fetch(
-        "https://api.mashy.sand.alrmoz.com/api/logout",
+        "https://api.maaashi.com/api/logout",
         {
           method: "POST",
           headers: {

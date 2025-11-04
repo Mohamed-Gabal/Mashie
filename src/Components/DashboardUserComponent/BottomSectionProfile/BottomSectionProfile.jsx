@@ -23,7 +23,7 @@ const BottomSectionProfile = () => {
         const token = Cookies?.token?.data?.token;
 
         const response = await fetch(
-          "https://api.mashy.sand.alrmoz.com/api/profile/ealans",
+          "https://api.maaashi.com/api/profile/ealans",
           {
             method: "GET",
             headers: {
@@ -52,7 +52,7 @@ const BottomSectionProfile = () => {
       const token = Cookies?.token?.data?.token;
 
       const resp = await fetch(
-        `https://api.mashy.sand.alrmoz.com/api/profile/ealans/${category}/${adId}`,
+        `https://api.maaashi.com/api/profile/ealans/${category}/${adId}`,
         {
           method: "DELETE",
           headers: {
@@ -138,7 +138,7 @@ const BottomSectionProfile = () => {
             <div key={ad.id_ads} className="ad_card">
               <div className="ad_image_wrapper">
                 <img
-                  src={`https://api.mashy.sand.alrmoz.com/storage${ad.images[0]}`}
+                  src={`https://api.maaashi.com/storage${ad.images[0]}`}
                   alt={ad.user.user_name}
                   className="ad_image"
                 />

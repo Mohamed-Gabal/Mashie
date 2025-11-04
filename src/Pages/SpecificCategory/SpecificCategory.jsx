@@ -66,7 +66,7 @@ export default function SpecificCategory() {
         const fetchCategoryData = async () => {
             try {
                 setIsLoading(true)
-                const response = await fetch(`https://api.mashy.sand.alrmoz.com/api/ealans?category=${category}&per_page=20`);
+                const response = await fetch(`https://api.maaashi.com/api/ealans?category=${category}&per_page=20`);
                 const data = await response.json();
                 if (data.success) {
                     setCategoryData(data.data.data.ads);
@@ -179,7 +179,7 @@ export default function SpecificCategory() {
                                 >
                                     <div className="card_image">
                                         <img
-                                            src={cat.images?.[0] ? `https://api.mashy.sand.alrmoz.com/storage/${cat.images[0]}` : "/placeholder.png"}
+                                            src={cat.images?.[0] ? `https://api.maaashi.com/storage/${cat.images[0]}` : "/placeholder.png"}
                                             alt={cat?.information?.title}
                                         />
                                     </div>

@@ -25,7 +25,7 @@ const SettingsUser = () => {
     setIsLoading(true);
     try {
       const resp = await fetch(
-        "https://api.mashy.sand.alrmoz.com/api/profile/delete",
+        "https://api.maaashi.com/api/profile/delete",
         {
           method: "DELETE",
           headers: {
@@ -114,7 +114,7 @@ const SettingsUser = () => {
       setIsLoading(true);
       try {
         const response = await fetch(
-          `https://api.mashy.sand.alrmoz.com/api/user/${userID}`,
+          `https://api.maaashi.com/api/user/${userID}`,
           { method: "get", headers: { Authorization: `Bearer ${token}` } }
         );
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
@@ -203,7 +203,7 @@ const SettingsUser = () => {
                     handleImageUpload(
                       e,
                       "cover_image",
-                      "https://api.mashy.sand.alrmoz.com/api/cover-image"
+                      "https://api.maaashi.com/api/cover-image"
                     )
                   }
                   disabled={imageLoading}
@@ -230,7 +230,7 @@ const SettingsUser = () => {
                       handleImageUpload(
                         e,
                         "profile_image",
-                        "https://api.mashy.sand.alrmoz.com/api/profile-image"
+                        "https://api.maaashi.com/api/profile-image"
                       )
                     }
                     disabled={imageLoading}

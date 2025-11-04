@@ -19,7 +19,7 @@ const TopSectionProfile = () => {
         }
 
         const res = await fetch(
-          `https://api.mashy.sand.alrmoz.com/api/user/${userID}`,
+          `https://api.maaashi.com/api/user/${userID}`,
           {
             method: "GET",
             headers: {

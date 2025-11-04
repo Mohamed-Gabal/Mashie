@@ -17,7 +17,7 @@ const CarCard = () => {
     const fetchCard = async () => {
       try {
         const res = await fetch(
-          "https://api.mashy.sand.alrmoz.com/api/ealans/random"
+          "https://api.maaashi.com/api/ealans/random"
         );
 
         if (!res.ok) {
@@ -64,7 +64,7 @@ const CarCard = () => {
     try {
       setIsLoading(true);
       const response = await fetch(
-        `https://api.mashy.sand.alrmoz.com/api/favorites/${category}/${adId}`,
+        `https://api.maaashi.com/api/favorites/${category}/${adId}`,
         {
           method: "post",
           headers: {
@@ -91,7 +91,7 @@ const CarCard = () => {
     const fetchUserData = async () => {
       try {
         const res = await fetch(
-          "https://api.mashy.sand.alrmoz.com/api/favorites",
+          "https://api.maaashi.com/api/favorites",
           {
             method: "GET",
             headers: {
@@ -177,7 +177,7 @@ const CarCard = () => {
               >
                 <div className="card_image">
                   <img
-                    src={ad?.ad?.images?.[0] ? `https://api.mashy.sand.alrmoz.com/storage/${ad?.ad?.images[0]}` : "/placeholder.png"}
+                    src={ad?.ad?.images?.[0] ? `https://api.maaashi.com/storage/${ad?.ad?.images[0]}` : "/placeholder.png"}
                     alt={ad?.information?.title}
                   />
                 </div>

@@ -15,7 +15,7 @@ export default function ConfirmAd({ formik, isLoading }) {
     useEffect(() => {
         const fetchUserData = async () => {
             try {
-                const response = await fetch(`https://api.mashy.sand.alrmoz.com/api/user/${userID}`, {
+                const response = await fetch(`https://api.maaashi.com/api/user/${userID}`, {
                     method: "get",
                     headers: { Authorization: `Bearer ${token}` }
                 });

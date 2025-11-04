@@ -75,7 +75,7 @@ const Header = () => {
     const fetchUserData = async () => {
       try {
         const response = await fetch(
-          `https://api.mashy.sand.alrmoz.com/api/user/${userID}`,
+          `https://api.maaashi.com/api/user/${userID}`,
           {
             method: "GET",
             headers: { Authorization: `Bearer ${token}` },
@@ -300,7 +300,7 @@ export function ProfileCard({ toggleProfileCard, userData, removeCookie, onClose
   const handleLogout = async () => {
     try {
       const response = await fetch(
-        "https://api.mashy.sand.alrmoz.com/api/logout",
+        "https://api.maaashi.com/api/logout",
         {
           method: "POST",
           headers: {

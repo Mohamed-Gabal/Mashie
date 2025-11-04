@@ -14,7 +14,7 @@ const FavoritesUser = () => {
     const fetchUserData = async () => {
       try {
         const res = await fetch(
-          "https://api.mashy.sand.alrmoz.com/api/favorites",
+          "https://api.maaashi.com/api/favorites",
           {
             method: "GET",
             headers: {
@@ -54,7 +54,7 @@ const FavoritesUser = () => {
               <img
                 src={
                   item.images?.[0]
-                    ? `https://api.mashy.sand.alrmoz.com/storage/${item.images[0]}`
+                    ? `https://api.maaashi.com/storage/${item.images[0]}`
                     : "/images/no-image.webp"
                 }
                 alt={item.information?.title || "إعلان"}

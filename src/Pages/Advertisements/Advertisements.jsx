@@ -198,7 +198,7 @@ export default function Advertisements() {
                 }
 
                 const response = await axios.post(
-                    "https://api.mashy.sand.alrmoz.com/api/ealans",
+                    "https://api.maaashi.com/api/ealans",
                     formData,
                     {
                         headers: {

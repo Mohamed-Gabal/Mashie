@@ -54,7 +54,7 @@ export function LoginForm() {
       try {
         // url from vite.config
         const response = await fetch(
-          "https://api.mashy.sand.alrmoz.com/api/login",
+          "https://api.maaashi.com/api/login",
           {
             method: "POST",
             headers: { "Content-Type": "application/json" },
