@@ -8,6 +8,7 @@ import { useCookies } from "react-cookie";
 const CarCard = () => {
   const [cookies, removeCookie] = useCookies(["token"]);
   const token = cookies?.token?.data?.token;
+  console.log(token);
   const navigate = useNavigate();
   const [adsCard, setAdsCard] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -51,67 +52,71 @@ const CarCard = () => {
 
   // 💖 handle favorite toggle
   const [favorites, setFavorites] = useState({});
-  const toggleFavorite = (e, id) => {
+  const [isFavoriteLoading, setIsFavoriteLoading] = useState(false);
+  const [loadingFavoriteId, setLoadingFavoriteId] = useState(null);
+  const [errorMessage, setErrorMessage] = useState("");
+
+  //  تبديل المفضلة محلياً
+  const toggleFavorite = (e, category, adID) => {
     e.stopPropagation();
+    const uniqueKey = `${category}_${adID}`;
     setFavorites((prev) => ({
       ...prev,
-      [id]: !prev[id],
+      [uniqueKey]: !prev?.[uniqueKey],
     }));
   };
-  const [isLoading, setIsLoading] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
+
+  //  إضافة للمفضلة في السيرفر
   const addToFavorites = async (category, adId) => {
     try {
-      setIsLoading(true);
+      setIsFavoriteLoading(true);
+      setLoadingFavoriteId(`${category}_${adId}`);
+
       const response = await fetch(
         `https://api.maaashi.com/api/favorites/${category}/${adId}`,
         {
-          method: "post",
+          method: "POST",
           headers: {
             Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
           },
         }
       );
+
       const data = await response.json();
-      console.log(data);
-      if (response.ok) {
-        setIsLoading(false);
-      } else {
-        setErrorMessage("حدث خطأ أثناء الاضافة للمفضلة.");
+
+      if (!response.ok) {
+        setErrorMessage(data?.message || "حدث خطأ أثناء الإضافة للمفضلة.");
       }
     } catch {
-      setErrorMessage("فشل الاتصال بالسيرفر أثناء الاضافة.");
+      setErrorMessage("فشل الاتصال بالسيرفر أثناء الإضافة.");
     } finally {
-      setIsLoading(false);
+      setIsFavoriteLoading(false);
+      setLoadingFavoriteId(null);
     }
   };
 
+  //  جلب بيانات المفضلة من السيرفر
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const res = await fetch(
-          "https://api.maaashi.com/api/favorites",
-          {
-            method: "GET",
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
+        const res = await fetch("https://api.maaashi.com/api/favorites", {
+          method: "GET",
+          headers: { Authorization: `Bearer ${token}` },
+        });
 
         const data = await res.json();
-        setFavorites(data.data);
-        console.log("Response data:", data.data);
-
+        // 👇 نضمن إن القيمة دايمًا object
+        setFavorites(data?.data || {});
       } catch (err) {
         console.error(err);
-        setError("حدث خطأ أثناء تحميل البيانات.");
+        setError("حدث خطأ أثناء تحميل المفضلة.");
       }
     };
 
     if (token) fetchUserData();
   }, [token]);
+
   if (loading) {
     return (
       <div className="loading">
@@ -207,8 +212,48 @@ const CarCard = () => {
                 <div className="card_footer">
                   <h2 className="card_footer_price">{ad?.ad?.information?.price !== "0.00" ? ad?.ad?.information?.price : "غير محدد"}<span> ر.س</span></h2>
 
-                  <div className="hart_icon" onClick={(e) => { if (isLoading || favorites) return; toggleFavorite(e, ad?.ad?.id_ads); addToFavorites(ad?.category, ad?.ad?.id_ads) }}>
-                    <svg xmlns="http://www.w3.org/2000/svg" width={22} height={22} viewBox="0 0 24 24" fill={favorites[ad?.ad?.id_ads] ? "red" : "none"} stroke={favorites[ad?.ad?.id_ads] ? "red" : "currentColor"} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-heart-icon lucide-heart"><path d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5" /></svg>
+                  {/* <div className={`hart_icon ${loadingFavoriteId === `${ad?.category}_${ad?.ad?.id_ads}` ? "disabled" : ""}`} onClick={(e) => { e.stopPropagation(); if (isFavoriteLoading) return; toggleFavorite(e, ad?.category, ad?.ad?.id_ads); addToFavorites(ad?.category, ad?.ad?.id_ads) }}>
+                    <svg xmlns="http://www.w3.org/2000/svg" width={22} height={22} viewBox="0 0 24 24" fill={ad?.ad?.is_favorited || favorites[`${ad?.category}_${ad?.ad?.id_ads}`] ? "red" : "none"} stroke={ad?.ad?.is_favorited || favorites[`${ad?.category}_${ad?.ad?.id_ads}`] ? "red" : "currentColor"} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-heart-icon lucide-heart">
+                      <path d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5" />
+                    </svg>
+                  </div> */}
+                  <div className={`hart_icon ${loadingFavoriteId === `${ad?.category}_${ad?.ad?.id_ads}` ? "loading-heart" : ""}`}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      const key = `${ad?.category}_${ad?.ad?.id_ads}`;
+                      if (loadingFavoriteId === key) return;
+                      toggleFavorite(e, ad?.category, ad?.ad?.id_ads);
+                      addToFavorites(ad?.category, ad?.ad?.id_ads);
+                    }}
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" width={22} height={22} viewBox="0 0 24 24" className="heart-svg" >
+                      <defs>
+                        <linearGradient id={`grad-${ad?.ad?.id_ads}`} x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="0%" stopColor="red" stopOpacity="0" />
+                          <stop offset="100%" stopColor="red" stopOpacity="1" />
+                        </linearGradient>
+                      </defs>
+                      <path
+                        d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5"
+                        fill={
+                          loadingFavoriteId === `${ad?.category}_${ad?.ad?.id_ads}`
+                            ? `url(#grad-${ad?.ad?.id_ads})`
+                            : ad?.ad?.is_favorited ||
+                              favorites[`${ad?.category}_${ad?.ad?.id_ads}`]
+                              ? "red"
+                              : "none"
+                        }
+                        stroke={
+                          ad?.ad?.is_favorited ||
+                            favorites[`${ad?.category}_${ad?.ad?.id_ads}`]
+                            ? "red"
+                            : "currentColor"
+                        }
+                        strokeWidth={2}
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
                   </div>
                 </div>
               </div>

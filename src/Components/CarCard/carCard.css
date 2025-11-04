@@ -156,6 +156,28 @@
   cursor: pointer;
 }
 
+.hart_icon.loading-heart .heart-svg path {
+  animation: fillUp 0.8s ease forwards;
+}
+
+@keyframes fillUp {
+  0% {
+    fill: none;
+  }
+  50% {
+    fill: url(#grad-1);
+  }
+  100% {
+    fill: red;
+  }
+}
+
+.hart_icon.disabled {
+  pointer-events: none;
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 /* ====== Responsive ====== */
 
 @media (max-width: 1024px) {
@@ -255,6 +277,7 @@
   .card_footer {
     padding: 0px 10px;
   }
+
   .card_footer .card_footer_price {
     font-size: 12px;
     font-weight: bold;
