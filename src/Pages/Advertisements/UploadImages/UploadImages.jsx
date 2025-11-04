@@ -39,7 +39,7 @@ export default function UploadImages({ formik }) {
                         canvas.toBlob((blob) => {
                             const webpFile = new File(
                                 [blob],
-                                file.name.replace(/\.(png|jpg|jpeg)$/i, ".webp"),
+                                file.name.replace(/\.[^/.]+$/, "") + ".webp",
                                 { type: "image/webp" }
                             );
                             resolve(webpFile);
