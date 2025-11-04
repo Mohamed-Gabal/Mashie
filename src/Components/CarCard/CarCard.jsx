@@ -4,10 +4,12 @@ import { CiLocationOn, CiStopwatch } from "react-icons/ci";
 import "./carCard.css";
 import { timeSince } from "../../Pages/SpecificCategory/SpecificCategory";
 import { useCookies } from "react-cookie";
+import { ToastWarning } from "../Header/Header";
 
 const CarCard = () => {
   const [cookies, removeCookie] = useCookies(["token"]);
   const token = cookies?.token?.data?.token;
+  const [showToast, setShowToast] = useState(false);
   console.log(token);
   const navigate = useNavigate();
   const [adsCard, setAdsCard] = useState([]);
@@ -117,6 +119,17 @@ const CarCard = () => {
     if (token) fetchUserData();
   }, [token]);
 
+  const handleFavoriteClick = (e, category, adID) => {
+    e.stopPropagation();
+    if (!token) {
+      setShowToast(true); // يظهر رسالة تسجيل الدخول
+      return;
+    }
+    const key = `${category}_${adID}`;
+    toggleFavorite(e, category, adID);
+    addToFavorites(category, adID);
+  };
+
   if (loading) {
     return (
       <div className="loading">
@@ -218,13 +231,7 @@ const CarCard = () => {
                     </svg>
                   </div> */}
                   <div className={`hart_icon ${loadingFavoriteId === `${ad?.category}_${ad?.ad?.id_ads}` ? "loading-heart" : ""}`}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      const key = `${ad?.category}_${ad?.ad?.id_ads}`;
-                      if (loadingFavoriteId === key) return;
-                      toggleFavorite(e, ad?.category, ad?.ad?.id_ads);
-                      addToFavorites(ad?.category, ad?.ad?.id_ads);
-                    }}
+                    onClick={(e) => handleFavoriteClick(e, ad?.category, ad?.ad?.id_ads)}
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" width={22} height={22} viewBox="0 0 24 24" className="heart-svg" >
                       <defs>
@@ -262,6 +269,14 @@ const CarCard = () => {
             <p className="no-ads">لا توجد إعلانات حالياً</p>
           )}
         </div>
+      </div>
+      <div className="favoritesToast">
+        {showToast && (
+          <ToastWarning
+            message="قم بتسجيل الدخول أولاً"
+            onClose={() => setShowToast(false)}
+          />
+        )}
       </div>
     </section>
   );
