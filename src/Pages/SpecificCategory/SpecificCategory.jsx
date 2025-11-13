@@ -153,8 +153,6 @@ export default function SpecificCategory() {
                             </div>
 
                             <div className="categoryData_header">
-                                {/* <h2>{specificCate?.title}</h2>
-                                <p>{specificCate?.desc}</p> */}
                                 <div className="search_input">
                                     <input
                                         type="search"
@@ -233,9 +231,6 @@ export default function SpecificCategory() {
                                             <img src={cat.user.profile_image} alt="user" />
                                         ) : (
                                             <svg xmlns="http://www.w3.org/2000/svg" width={22} height={22} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-circle-user-round-icon lucide-circle-user-round"><path d="M18 20a6 6 0 0 0-12 0" /><circle cx={12} cy={10} r={4} /><circle cx={12} cy={12} r={10} /></svg>
-                                            // <div className="avatar_placeholder">
-                                            //     {cat?.seller?.name?.split(" ").map(word => word[0]).join(" ").toUpperCase()}
-                                            // </div>
                                         )}
                                         <span>{cat.seller?.name?.split(" ").slice(0, 2).join(" ")}</span>
                                     </div>
@@ -261,9 +256,6 @@ export default function SpecificCategory() {
                                             <svg xmlns="http://www.w3.org/2000/svg" width={22} height={22} viewBox="0 0 24 24" fill={favorites[cat.id_ads] ? "red" : "none"} stroke={favorites[cat.id_ads] ? "red" : "currentColor"} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-heart-icon lucide-heart"><path d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5" /></svg>
                                         </div>
                                     </div>
-                                    {/* <Link to={`/${category}/${cat.id_ads}`} className="details_link">
-                                        عرض التفاصيل
-                                    </Link> */}
                                 </div>
                             ))}
                         </div>
