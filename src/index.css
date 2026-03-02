@@ -1,0 +1,388 @@
+@import url("https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&family=Outfit:wght@100..900&display=swap");
+
+/* ============================================================
+   CSS VARIABLES
+   ============================================================ */
+:root {
+    /* Colors */
+    --color: #fff;
+    --start-color: #444444;
+    --main-color: #1abc9c;
+    --hover-color: #16a085;
+    --header-color: #2c3e50;
+    --yellow-color: #f1c40f;
+    --shadow-color: #00000026;
+    --parg-color: #555;
+    --text-color: #707070;
+    --title-color: #222;
+    --landing-color: #f8f5f5;
+    --border-color: #DBDBDB;
+
+    /* Fonts */
+    --font-main: "Cairo", sans-serif;
+    --font-alt: "Outfit", sans-serif;
+    --font-size-sm: 14px;
+    --font-size-md: 16px;
+    --font-size-lg: 20px;
+    --font-size-xl: 28px;
+
+    /* Spacing & Radius */
+    --space-sm: 8px;
+    --space-md: 12px;
+    --radius-sm: 6px;
+    --radius-md: 12px;
+    --radius-lg: 20px;
+    --shadow-sm: 0 1px 2px var(--shadow-color);
+    --shadow-md: 0 4px 12px var(--shadow-color);
+}
+
+/* ============================================================
+   RESET
+   ============================================================ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    direction: rtl;
+    font-family: var(--font-main);
+}
+
+body {
+    font-size: var(--font-size-md);
+    background-color: var(--landing-color);
+    color: var(--title-color);
+    line-height: 1.6;
+}
+
+/* ============================================================
+   BASE ELEMENTS
+   ============================================================ */
+button {
+    font-family: inherit;
+    cursor: pointer;
+    border: none;
+    padding: var(--space-sm) var(--space-md);
+    border-radius: var(--radius-sm);
+    background-color: var(--main-color);
+    color: var(--color);
+    font-size: var(--font-size-md);
+    transition: 0.3s;
+}
+
+button:hover {
+    background-color: var(--hover-color);
+}
+
+a {
+    font-weight: 500;
+    text-decoration: none;
+    color: inherit;
+    transition: 0.3s;
+}
+
+a:hover {
+    color: var(--hover-color);
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #e5e7eb;
+    border-radius: 9999px;
+}
+
+/* ============================================================
+   GLOBAL FORM INPUTS
+   ============================================================ */
+.inputs_group {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 15px 0;
+}
+
+.input_container,
+.textarea_container {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    position: relative;
+}
+
+.input_label {
+    padding: 0;
+    text-align: start;
+    position: relative;
+}
+
+.input_label .error_message {
+    color: red;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+}
+
+.input_field {
+    position: relative;
+}
+
+.input {
+    width: 100%;
+    border: 2px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    padding: 12px 10px;
+    outline: none;
+}
+
+.input.readonly {
+    background-color: #f5f5f5;
+    color: #555;
+    cursor: not-allowed;
+    opacity: 0.8;
+}
+
+.input:focus {
+    border-color: var(--main-color);
+}
+
+.input::placeholder,
+textarea::placeholder {
+    color: #727272;
+    font-size: var(--font-size-sm);
+}
+
+/* أيقونة داخل الحقل (أو زر إظهار/إخفاء كلمة المرور) */
+.input_icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    /* global button styles */
+    background: transparent;
+    padding: 0;
+    padding-right: 6px;
+    border-radius: 0;
+    color: inherit;
+    width: 40px;
+    height: 100%;
+}
+
+.input_icon:hover {
+    background: transparent;
+}
+
+.input_icon img {
+    width: 24px;
+    height: 24px;
+}
+
+label {
+    font-size: var(--font-size-md);
+    font-weight: 400;
+    text-align: start;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+/* ============================================================
+   LOADER
+   ============================================================ */
+.mainLoader {
+    position: fixed;
+    inset: 0;
+    background-color: var(--main-color);
+    z-index: 999999999999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.5rem;
+    font-weight: bold;
+    animation: slideDownFadeOut 0.3s ease-in-out forwards;
+}
+
+@keyframes slideDownFadeOut {
+    0% {
+        opacity: 0.9;
+        transform: translateY(0);
+    }
+
+    33% {
+        opacity: 0.6;
+        transform: translateY(33%);
+    }
+
+    66% {
+        opacity: 0.3;
+        transform: translateY(66%);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateY(100%);
+    }
+}
+
+/* ============================================================
+   UTILITY CLASSES — مشتركة عبر المشروع كله
+   ============================================================ */
+
+/* ── صفحات المصادقة (login / register / forgot / reset) ── */
+.page-center {
+    width: 100%;
+    min-height: 100dvh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ececec;
+    padding: 20px;
+}
+
+/* ── البطاقة البيضاء المشتركة ── */
+.auth-box {
+    background-color: var(--color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-md);
+    overflow: hidden;
+}
+
+/* ── حاوية صفحات UserProfile الفرعية ── */
+.userprofile-page {
+    flex: 1;
+    padding-top: 30px;
+}
+
+/* ── Header موحد لصفحات UserProfile الفرعية ── */
+.userProfile_header {
+    border-bottom: 2px solid var(--border-color);
+    padding-inline-start: 20px;
+    padding-bottom: 20px;
+}
+
+.userProfile_header h2 {
+    font-size: 20px;
+}
+
+/* ── شبكة الإعلانات (4 → 3 → 2 أعمدة) ── */
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    padding: 20px;
+}
+
+@media (max-width: 1024px) {
+    .card-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 15px;
+    }
+}
+
+@media (max-width: 768px) {
+    .card-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+}
+
+/* ── خلفية النوافذ المنبثقة (modal) ── */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 15, 15, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999999;
+    backdrop-filter: blur(2px);
+}
+
+/* ── رسائل الأخطاء والنجاح ── */
+.error-msg {
+    width: 100%;
+    color: red;
+    font-size: var(--font-size-sm);
+    text-align: center;
+}
+
+.success-msg {
+    text-align: center;
+    color: #28a745;
+    background: #e9fbe9;
+    border: 1px solid #b2f2bb;
+    padding: 8px 12px;
+    border-radius: 6px;
+    margin-top: 10px;
+    width: fit-content;
+    margin-inline: auto;
+    font-weight: bold;
+    animation: fadeInUp 0.4s ease-in-out;
+}
+
+/* ── screen-reader only ── */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+/* ── تحذير الإعلام (isLoading skeleton grid) ── */
+.isLoading {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    padding: 20px;
+}
+
+@media (max-width: 1024px) {
+    .isLoading {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .isLoading {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* ============================================================
+   SHARED ANIMATIONS
+   ============================================================ */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes popIn {
+    from {
+        transform: scale(0.9);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
