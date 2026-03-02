@@ -1,0 +1,155 @@
+/* ───────────────────── Login Page ───────────────────────────
+  .page-center و .auth-box يأتيان من index.css (global)
+──────────────────────────────────────────────────────────── */
+
+.login_box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  max-width: 900px;
+  width: 100%;
+}
+
+.login-image,
+.login-container {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-image img {
+  max-width: 80%;
+  height: auto;
+  object-fit: contain;
+}
+
+.login-container {
+  max-width: 450px;
+  padding: 40px 30px;
+  border-radius: 12px;
+  flex-direction: column;
+}
+
+.login-container h2 {
+  font-size: 26px;
+  margin-bottom: 10px;
+  color: var(--title-color);
+  font-weight: bold;
+}
+
+.login-container p {
+  font-size: var(--font-size-sm);
+  color: var(--parg-color);
+  margin-bottom: 25px;
+  line-height: 1.6;
+}
+
+.login_footer {
+  margin-top: 30px;
+}
+
+.login_footer a {
+  color: var(--main-color);
+  font-weight: bold;
+}
+
+/* ── Login Form ── */
+.login_form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.login_form .input_container .input_field .input {
+  padding-right: 41px;
+}
+
+.login_button {
+  margin-top: 5px;
+  padding: 12px;
+  font-weight: bold;
+  font-size: 15px;
+}
+
+.forgetPassword {
+  font-size: var(--font-size-sm);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 15px;
+  margin-bottom: 5px;
+}
+
+.forgetPassword a {
+  color: var(--main-color);
+  font-weight: bold;
+}
+
+.forgetPassword a:hover {
+  text-decoration: underline;
+}
+
+.rememberMe {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  height: fit-content;
+}
+
+.rememberMe_checkbox {
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border: 2px solid #aaa;
+  border-radius: 4px;
+  background-color: #fff;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.rememberMe_checkbox:checked {
+  background-color: var(--main-color);
+  border-color: var(--main-color);
+}
+
+.rememberMe_checkbox:checked::after {
+  content: "✔";
+  color: white;
+  font-size: 12px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.error_general {
+  width: 100%;
+  color: red;
+  text-align: center;
+  font-size: var(--font-size-sm);
+  margin-top: 8px;
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .login_box {
+    flex-direction: column;
+    padding: 10px;
+  }
+
+  .login-container {
+    max-width: 100%;
+    width: 100%;
+    padding: 10px;
+  }
+
+  .login-image {
+    display: none;
+  }
+}
