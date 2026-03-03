@@ -1,36 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import "./ConfirmAd.css";
 import { categories } from '../Category/Category';
-import { useCookies } from 'react-cookie';
+import { contextData } from '../../../Context/Context';
 
 export default function ConfirmAd({ formik, isLoading }) {
     const { values } = formik;
     const category = categories.find((cat) => values?.category === cat.key) || "اسم الفئة";
-    const [cookies] = useCookies(["token"]);
-    const userID = cookies?.token?.data?.user?.id;
-    const token = cookies?.token?.data?.token;
-    const [userData, setUserData] = useState({});
-    console.log(userData?.area);
-
+    const { userID, token, fetchUserData, userData } = useContext(contextData);
     useEffect(() => {
-        const fetchUserData = async () => {
-            try {
-                const response = await fetch(`https://api.maaashi.com/api/user/${userID}`, {
-                    method: "get",
-                    headers: { Authorization: `Bearer ${token}` }
-                });
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                const data = await response.json();
-                setUserData(data?.data);
-            } catch (err) {
-                console.log(); (err.message);
-            }
-        };
-
-        fetchUserData();
-    }, []);
+        if (userID && token) {
+            fetchUserData();
+        }
+    }, [userID, token]);
 
     return (
         <div className="confirmAd_container">
@@ -88,7 +69,7 @@ export default function ConfirmAd({ formik, isLoading }) {
                     <p>كما أتعهد بدفع الرسوم خلال 10 أيام من استلام كامل مبلغ المبايعة.</p>
                 </div>
             </div>
-            
+
             <div className="featured">
                 <div className="featured_section">
                     <label className="featured_label">

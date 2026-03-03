@@ -11,40 +11,48 @@ export default function SellerData({ formik }) {
                 <p>أضف بياناتك للتواصل مع المشترين</p>
             </header>
 
-            <div className="input_container">
-                <label htmlFor="sellerName">الاسم*
-                    {errors.seller?.name && touched.seller?.name && (
-                        <div className="info_error">{errors.seller?.name}</div>
-                    )}
-                </label>
-                <input
-                    type="text"
-                    name="seller.name"
-                    readOnly
-                    disabled
-                    value={values.seller.name}
-                    onChange={(e) => setFieldValue("seller.name", e.target.value)}
-                    onBlur={handleBlur}
-                    id="sellerName"
-                    className='sellerName_input input'
-                    placeholder='أدخل اسمك' />
-            </div>
+            <div className="inputs_group">
+                <div className="input_container">
+                    <label htmlFor="sellerName" className="input_label">الاسم*
+                        {errors.seller?.name && touched.seller?.name && (
+                            <div className="info_error">{errors.seller?.name}</div>
+                        )}
+                    </label>
+                    <div className="input_field">
+                        <input
+                            type="text"
+                            name="seller.name"
+                            readOnly
+                            disabled
+                            value={values.seller.name}
+                            onChange={(e) => setFieldValue("seller.name", e.target.value)}
+                            onBlur={handleBlur}
+                            id="sellerName"
+                            className='input'
+                            placeholder='أدخل اسمك'
+                        />
+                    </div>
+                </div>
 
-            <div className="input_container">
-                <label htmlFor="sellerPhone">رقم الجوال*
-                    {errors.seller?.phone && touched.seller?.phone && (
-                        <div className="info_error">{errors.seller?.phone}</div>
-                    )}
-                </label>
-                <input
-                    type="tel"
-                    name="seller.phone"
-                    value={values.seller.phone}
-                    onChange={(e) => setFieldValue("seller.phone", e.target.value)}
-                    onBlur={handleBlur}
-                    id="sellerPhone"
-                    className='sellerPhone_input input'
-                    placeholder='05xxxxxxxxxx' />
+                <div className="input_container">
+                    <label htmlFor="sellerPhone" className="input_label">رقم الجوال*
+                        {errors.seller?.phone && touched.seller?.phone && (
+                            <div className="info_error">{errors.seller?.phone}</div>
+                        )}
+                    </label>
+                    <div className="input_field">
+                        <input
+                            type="tel"
+                            name="seller.phone"
+                            value={values.seller.phone}
+                            onChange={(e) => setFieldValue("seller.phone", e.target.value)}
+                            onBlur={handleBlur}
+                            id="sellerPhone"
+                            className='input'
+                            placeholder='05xxxxxxxxxx'
+                        />
+                    </div>
+                </div>
             </div>
 
             <div className="messages">

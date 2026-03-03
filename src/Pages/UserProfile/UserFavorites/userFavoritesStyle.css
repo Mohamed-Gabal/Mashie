@@ -1,0 +1,27 @@
+.UserFavorites_container {
+    flex: 1;
+    padding-top: 30px;
+}
+
+.UserFavorites_body {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    padding: 20px;
+}
+
+@media (max-width: 1024px) {
+
+    .UserFavorites_body {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 15px;
+    }
+}
+
+@media (max-width: 768px) {
+
+    .UserFavorites_body {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+}

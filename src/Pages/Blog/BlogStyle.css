@@ -1,0 +1,117 @@
+.blog_container {
+    padding-top: 70px;
+    text-align: start;
+}
+
+.hero {
+    position: relative;
+    height: 50vh;
+    background: url("/images/filter1.webp") no-repeat center center/cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.content {
+    max-width: 550px;
+    color: white;
+    z-index: 2;
+}
+
+.tags {
+    margin-bottom: 15px;
+    font-size: 18px;
+    font-weight: 500;
+    padding: 1px;
+}
+
+.tag {
+    color: white;
+    padding-left: 20px;
+    padding-right: 10px;
+    position: relative;
+}
+
+.tag::before {
+    content: "";
+    position: absolute;
+    right: 0px;
+    top: 6px;
+    bottom: 6px;
+    width: 4px;
+    background-color: var(--main-color);
+}
+
+.blog_container h1 {
+    font-size: 32px;
+    line-height: 1.6;
+    font-weight: 700;
+    color: white;
+}
+
+
+
+/* ----------------------------------auc_container------------------------------- */
+/* ----------------------------------auc_container------------------------------- */
+
+.auc_container {
+    background-color: var(--main-color);
+    text-align: center;
+    padding: 60px 20px;
+    color: #fff;
+    direction: rtl;
+    font-family: "Cairo", sans-serif;
+}
+
+.auc_container h2 {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    line-height: 1.6;
+}
+
+.auc_container h2 span {
+    color: #fff;
+}
+
+.auc_container p {
+    font-size: 16px;
+    color: #e0e0e0;
+    margin-bottom: 25px;
+}
+
+.auc_btn {
+    background: #fff;
+    color: var(--main-color);
+    border: none;
+    outline: none;
+    padding: 12px 24px;
+    border-radius: 9999px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    transition: all 0.3s ease;
+}
+
+.auc_btn:hover {
+    background-color: #fff;
+}
+
+.auc_btn .left_arrow {
+    width: 20px;
+    height: 20px;
+    margin-top: 2px;
+}

@@ -1,15 +1,6 @@
 import React from "react";
 import "./contactUs.css";
 
-import {
-  PiChatTeardrop,
-  PiEnvelopeSimple,
-  PiPaperPlaneRight,
-} from "react-icons/pi";
-import { LuUserRound } from "react-icons/lu";
-import { MdOutlineLocalPhone } from "react-icons/md";
-import { FaFacebook, FaLinkedin, FaInstagram } from "react-icons/fa";
-
 const ContactUs = () => {
   return (
     <div className="contact-us">
@@ -21,7 +12,8 @@ const ContactUs = () => {
         {/* القسم الأيمن - نموذج التواصل */}
         <div className="contact_us_container_right">
           <div className="contact_us_container_right_content">
-            <PiChatTeardrop className="contact_us_container_right_icon" />
+            <div className="contact_us_container_right_icon"><img src="/Icons/ChatTeardrop.svg" alt="chat" /></div>
+
             <h3 className="contact_us_container_right_title">
               ارسل لنا رسالة:
             </h3>
@@ -32,7 +24,7 @@ const ContactUs = () => {
             {/* الاسم الكامل */}
             <label className="contact_us_label">الاسم الكامل</label>
             <div className="input-group">
-              <LuUserRound className="input-icon" />
+              <img src="/Icons/Auth/user.svg" alt="user" className="input-icon" />
               <input
                 type="text"
                 className="contact_us_input"
@@ -43,7 +35,7 @@ const ContactUs = () => {
             {/* البريد الإلكتروني */}
             <label className="contact_us_label">البريد الإلكتروني</label>
             <div className="input-group">
-              <PiEnvelopeSimple className="input-icon" />
+              <img src="/Icons/Auth/email.svg" alt="email" className="input-icon" />
               <input
                 type="text"
                 className="contact_us_input"
@@ -54,7 +46,7 @@ const ContactUs = () => {
             {/* رقم الجوال */}
             <label className="contact_us_label">رقم الجوال (اختياري)</label>
             <div className="input-group">
-              <MdOutlineLocalPhone className="input-icon" />
+              <img src="/Icons/Auth/phone.svg" alt="phone" className="input-icon" />
               <input
                 type="text"
                 className="contact_us_input"
@@ -65,7 +57,6 @@ const ContactUs = () => {
             {/* الرسالة */}
             <label className="contact_us_label">رسالتك</label>
             <div className="input-group textarea-group">
-              <PiChatTeardrop className="input-icon" />
               <textarea
                 className="contact_us_textarea"
                 placeholder="اكتب رسالتك هنا..."
@@ -74,7 +65,7 @@ const ContactUs = () => {
 
             {/* زر إرسال */}
             <button type="submit" className="contact_us_btn">
-              <PiPaperPlaneRight className="btn-icon" />
+              <img src="/Icons/PaperPlaneRight.svg" alt="PaperPlaneRight" className="btn-icon" />
               إرسال رسالتك
             </button>
           </form>
@@ -89,14 +80,14 @@ const ContactUs = () => {
               <div>
                 <p> البريد الإلكتروني</p>
                 <span>
-                  <PiEnvelopeSimple className="contact_us_container_left_icon" />
+                  <img src="/Icons/greenEmail.svg" alt="email" className="contact_us_container_left_icon" />
                   <a href="mailto:support@mashee.com">support@mashee.com</a>
                 </span>
               </div>
               <div>
                 <p>خدمة العملاء</p>
                 <span>
-                  <MdOutlineLocalPhone className="contact_us_container_left_icon" />
+                  <img src="/Icons/greenPhone.svg" alt="phone" className="contact_us_container_left_icon" />
                   <a href="#">متاح من 9 صباحًا إلى 6 مساءً</a>
                 </span>
               </div>
@@ -105,23 +96,16 @@ const ContactUs = () => {
             {/* روابط السوشيال ميديا */}
             <div className="contact_us_container_left_bottom">
               <h1>تابعنا على:</h1>
-              <div>
-                <a href="#">
-                  <FaFacebook className="contact_us_container_left_icon" />{" "}
-                  فيسبوك
-                </a>
-              </div>
-              <div>
-                <a href="#">
-                  <FaLinkedin className="contact_us_container_left_icon" />{" "}
-                  لينكدإن
-                </a>
-              </div>
-              <div>
-                <a href="#">
-                  <FaInstagram className="contact_us_container_left_icon" />{" "}
-                  إنستجرام
-                </a>
+              <div className="contact_us_container_left_bottom_icons">
+                <div>
+                  <img src="/Icons/facebook.svg" alt="facebook" className="contact_us_container_left_icon" />
+                </div>
+                <div>
+                  <img src="/Icons/instegram.svg" alt="instegram" className="contact_us_container_left_icon" />
+                </div>
+                <div>
+                  <img src="/Icons/linkedIn.svg" alt="linkedIn" className="contact_us_container_left_icon" />
+                </div>
               </div>
             </div>
           </div>

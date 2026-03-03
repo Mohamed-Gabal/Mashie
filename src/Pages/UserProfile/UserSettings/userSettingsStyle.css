@@ -1,0 +1,197 @@
+.UserSettings_container {
+    flex: 1;
+    padding-top: 30px;
+    overflow: hidden;
+}
+
+.userSettings_body_header {
+    background-color: var(--color);
+    margin-bottom: 20px;
+    padding-inline: 24px;
+}
+
+.userSettings_body_header_content {
+    display: flex;
+    flex-direction: row;
+    padding-block: 10px;
+    gap: 20px;
+    list-style: none;
+    overflow-x: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--main-color) #e6e6e6;
+}
+
+.userSettings_body_header_content li {
+    white-space: nowrap;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.userSettings_body_header_content li.active {
+    background-color: #AAFFEE80;
+    color: var(--main-color);
+    border-radius: var(--radius-sm);
+}
+
+.userSettings_body_container {
+    padding-inline: 20px;
+    padding-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* --------------- lable ------------------------- */
+/* --------------- lable ------------------------- */
+.change_banner_btn {
+    background-color: rgba(0, 0, 0, 0.6);
+    color: var(--color);
+    width: 120px;
+    height: 40px;
+    border-radius: 8px;
+    cursor: pointer;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    transition: all ease-in-out .3s;
+    overflow: hidden;
+}
+
+.change_banner_btn .change_banner_content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    width: 100%;
+    height: 40px;
+}
+
+.change_banner_btn .change_banner_content .change_banner_icon {
+    width: 25px;
+    height: 25px;
+    position: relative;
+    z-index: 9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+.change_banner_btn:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.profile_camera_btn .profile_camera_icon {
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    position: absolute;
+    bottom: 15px;
+    left: 0px;
+    cursor: pointer;
+}
+
+.profile_camera_btn .profile_camera_icon:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.profile_camera_btn input,
+.change_banner_btn input {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .userSettings_body_header_content {
+        justify-content: space-between;
+    }
+
+    .change_banner_btn {
+        width: 40px;
+    }
+
+    .change_banner_btn .change_banner_content span {
+        display: none;
+    }
+
+    .profile_camera_btn .profile_camera_icon {
+        width: 30px;
+        height: 30px;
+        bottom: 15px;
+        left: 10px;
+    }
+
+    .profile_camera_btn .profile_camera_icon svg {
+        width: 18px;
+        height: 18px;
+    }
+}
+
+@media (max-width: 380px) {
+    .userSettings_body_header_content {
+        max-width: 340px;
+        margin: auto;
+        justify-content: space-between;
+    }
+}
+
+/* --------------- form --------------- */
+.Settings_user_form {
+    background-color: var(--color);
+    border: 1px solid #dbdbdb;
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.Settings_user_form .two_buttons {
+    align-self: last baseline;
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+}
+
+.Settings_user_form .two_buttons .cancel_button {
+    background-color: var(--color);
+    color: red;
+    border: 1px solid red;
+}
+
+/* ---------------- loader ---------------- */
+/* ---------------- loader ---------------- */
+.upload_overlay {
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(2px);
+    color: var(--color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    text-align: center;
+    position: absolute;
+    inset: 0;
+    z-index: 99;
+}
+
+.UploadImages_loader {
+    --d: 22px;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    color: var(--main-color);
+    box-shadow: calc(1 * var(--d)) calc(0 * var(--d)) 0 0,
+        calc(0.707 * var(--d)) calc(0.707 * var(--d)) 0 1px,
+        calc(0 * var(--d)) calc(1 * var(--d)) 0 2px,
+        calc(-0.707 * var(--d)) calc(0.707 * var(--d)) 0 3px,
+        calc(-1 * var(--d)) calc(0 * var(--d)) 0 4px,
+        calc(-0.707 * var(--d)) calc(-0.707 * var(--d)) 0 5px,
+        calc(0 * var(--d)) calc(-1 * var(--d)) 0 6px;
+    animation: l27 1s infinite steps(8);
+}

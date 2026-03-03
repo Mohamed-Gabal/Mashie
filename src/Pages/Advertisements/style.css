@@ -61,48 +61,6 @@
     opacity: 1;
 }
 
-.input_container, .textarea_container, .inputPrice_container {
-    display: flex;
-    flex-direction: column;
-    justify-content: start;
-    gap: 5px;
-    margin-top: 15px;
-    position: relative;
-}
-
-.input_container label, .textarea_container label, .inputPrice_container label {
-    font-size: var(--font-size-md);
-    font-weight: 400;
-    text-align: start;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-
-.inputPrice_container>span {
-    position: absolute;
-    left: 10px;
-    bottom: 20px;
-    font-size: var(--font-size-sm);
-    color: #727272;
-}
-
-.input_container .input {
-    border-radius: 5px;
-    border: 2px solid var(--border-color);
-    padding: 15px 10px;
-    outline: none;
-}
-
-.input::placeholder, textarea::placeholder {
-    color: #727272;
-    font-size: var(--font-size-sm);
-}
-
-.input:focus {
-    border: 2px solid var(--main-color);
-}
-
 /* ------------------------Modal----------------------- */
 .modal_fade {
     background-color: var(--shadow-color);
@@ -215,6 +173,7 @@
     top: 0px;
     left: 0;
     right: 0;
+    z-index: 99999;
 }
 
 @keyframes scaleIn {

@@ -25,4 +25,4 @@ export default function useSEO(title, description) {
             document.title = "ماشي";
         };
     }, [title, description]);
-}
+};

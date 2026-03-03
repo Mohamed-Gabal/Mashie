@@ -1,19 +1,15 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { CiLocationOn, CiStopwatch } from 'react-icons/ci';
-import { Link, useNavigate, useParams } from 'react-router-dom';
-import { IoIosArrowBack } from 'react-icons/io';
+import { Link, useParams } from 'react-router-dom';
 import { attributesMap, specificCategoriesData } from '../../data';
 import SaudiRegionsDropdown from '../../Components/AdvertisementsComponents/SaudiRegionsDropdown/SaudiRegionsDropdown';
 import SkeletonCard from '../../Components/SkeletonCard/SkeletonCard';
 import NotFound from '../../Components/NotFound/NotFound';
-import "./specificCategoryStyle.css"
 import DatePicker from '../../Components/DatePicker/DatePicker';
-import { useCookies } from 'react-cookie';
-import { ToastWarning } from '../../Components/Header/Header';
+import AdCard from '../../Components/AdCard/AdCard';
+import "./specificCategoryStyle.css"
 
 export default function SpecificCategory() {
     const { category } = useParams();
-    const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState(false);
     const [errorMessage, setErrorMessage] = useState(false);
     const [categoryData, setCategoryData] = useState([]);
@@ -66,9 +62,10 @@ export default function SpecificCategory() {
     useEffect(() => {
         window.scrollTo(0, 0);
         const fetchCategoryData = async () => {
+            setIsLoading(true);
+            setErrorMessage(false);
             try {
-                setIsLoading(true)
-                const response = await fetch(`https://api.maaashi.com/api/ealans?category=${category}&per_page=20`);
+                const response = await fetch(`https://mashi.coderaeg.com/api/ealans?category=${category}&per_page=20`);
                 const data = await response.json();
                 if (data.success) {
                     setCategoryData(data.data.data.ads);
@@ -84,58 +81,6 @@ export default function SpecificCategory() {
 
         fetchCategoryData();
     }, [category]);
-
-    // 💖 handle favorite toggle
-    const [cookies, removeCookie] = useCookies(["token"]);
-    const token = cookies?.token?.data?.token;
-    const [showToast, setShowToast] = useState(false);
-    const [favorites, setFavorites] = useState({});
-    const [isFavoriteLoading, setIsFavoriteLoading] = useState(false);
-    const toggleFavorite = (e, id) => {
-        e.stopPropagation();
-        setFavorites((prev) => ({
-            ...prev,
-            [id]: !prev[id],
-        }));
-    };
-
-    const addToFavorites = async (category, adId) => {
-        try {
-            setIsFavoriteLoading(true);
-
-            const response = await fetch(
-                `https://api.maaashi.com/api/favorites/${category}/${adId}`,
-                {
-                    method: "POST",
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                        "Content-Type": "application/json",
-                    },
-                }
-            );
-
-            const data = await response.json();
-            console.log(data.data);
-
-            if (!response.ok) {
-                setErrorMessage(data?.message || "حدث خطأ أثناء الإضافة للمفضلة.");
-            }
-        } catch {
-            setErrorMessage("فشل الاتصال بالسيرفر أثناء الإضافة.");
-        } finally {
-            setIsFavoriteLoading(false);
-        }
-    };
-
-    const handleFavoriteClick = (e, adID) => {
-        e.stopPropagation();
-        if (!token) {
-            setShowToast(true);
-            return;
-        }
-        toggleFavorite(e, adID);
-        addToFavorites(category, adID);
-    };
     return (
         <div className='categoryData_container'>
             {isLoading && (
@@ -148,11 +93,13 @@ export default function SpecificCategory() {
                         <div className="top_section_container">
                             <div className="categoryData_links">
                                 <Link to="/" className="main_link">الرئيسيه </Link>
-                                <IoIosArrowBack className='arr_icon' />
+                                <svg xmlns="http://www.w3.org/2000/svg" width={24} height={24} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-chevron-left-icon lucide-chevron-left"><path d="m15 18-6-6 6-6" /></svg>
                                 <span className="category_link">{specificCate?.title}</span>
                             </div>
 
                             <div className="categoryData_header">
+                                <h2>{specificCate?.title}</h2>
+                                <p>{specificCate?.desc}</p>
                                 <div className="search_input">
                                     <input
                                         type="search"
@@ -188,14 +135,6 @@ export default function SpecificCategory() {
                                         {item}
                                     </button>
                                 ))}
-
-
-                                {category === "vehicles" &&
-                                    [...new Set(categoryData.map((item) => item.attributes.brand))]
-                                        .map((brand, index) => (
-                                            <button key={index}>{brand}</button>
-                                        ))
-                                }
                             </div>
 
                             <div className="data_Region">
@@ -213,60 +152,14 @@ export default function SpecificCategory() {
                             <div className=""></div>
                         </div>
                         <div className="categories_items">
-                            {filteredCategoriesDataByTitle.map((cat) => (
-                                <div
-                                    key={cat.id_ads}
-                                    className={`category_card`}
-                                    onClick={() => navigate(`/${category}/${cat.id_ads}`)}
-                                >
-                                    <div className="card_image">
-                                        <img
-                                            src={cat.images?.[0] ? `https://api.maaashi.com/storage/${cat.images[0]}` : "/placeholder.png"}
-                                            alt={cat?.information?.title}
-                                        />
-                                    </div>
-
-                                    <div className="card_user" onClick={(e) => { e.stopPropagation(); navigate(`/user/${cat?.seller?.name}/${cat?.user?.id_user}`) }}>
-                                        {cat.user?.profile_image ? (
-                                            <img src={cat.user.profile_image} alt="user" />
-                                        ) : (
-                                            <svg xmlns="http://www.w3.org/2000/svg" width={22} height={22} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-circle-user-round-icon lucide-circle-user-round"><path d="M18 20a6 6 0 0 0-12 0" /><circle cx={12} cy={10} r={4} /><circle cx={12} cy={12} r={10} /></svg>
-                                        )}
-                                        <span>{cat.seller?.name?.split(" ").slice(0, 2).join(" ")}</span>
-                                    </div>
-
-                                    <div className="card_body">
-                                        <h3>{cat?.information?.title.substring(0, 18)}...</h3>
-                                        <div className="card_meta">
-                                            <div className="ciLocationOn">
-                                                <CiLocationOn style={{ color: "var(--main-color)", fontSize: "12px", fontWeight: "bold" }} />
-                                                <span>{cat?.user?.area || "غير محدد"}</span>
-                                            </div>
-                                            <div className="ciStopwatch">
-                                                <CiStopwatch style={{ color: "var(--main-color)", fontSize: "12px", fontWeight: "bold" }} />
-                                                <span>{timeSince(cat.created_at)}</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="card_footer">
-                                        <div className="card_footer_price">
-                                            <span className=''>{cat?.information?.price} ر.س</span>
-                                        </div>
-                                        <div className="hart_icon" onClick={(e) => handleFavoriteClick(e, cat.id_ads)}>
-                                            <svg xmlns="http://www.w3.org/2000/svg" width={22} height={22} viewBox="0 0 24 24" fill={favorites[cat.id_ads] ? "red" : "none"} stroke={favorites[cat.id_ads] ? "red" : "currentColor"} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-heart-icon lucide-heart"><path d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5" /></svg>
-                                        </div>
-                                    </div>
+                            {filteredCategoriesDataByTitle.map((cat, index) => (
+                                <div key={index}>
+                                    <AdCard category={category} adID={cat?.id_ads} img={cat.images[0]} title={cat?.information?.title} sellerName={cat.seller?.name} userID={cat?.user?.id_user} userImg={cat?.user?.profile_image} area={cat?.user?.area} created_at={cat?.created_at} price={cat?.information?.price}/>
                                 </div>
                             ))}
                         </div>
                     </section>
                 </>
-            )}
-            {showToast && (
-                <ToastWarning
-                    message="قم بتسجيل الدخول أولاً"
-                    onClose={() => setShowToast(false)}
-                />
             )}
         </div>
     )
