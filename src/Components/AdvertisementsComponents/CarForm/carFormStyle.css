@@ -1,0 +1,24 @@
+.carForm_inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.arrow_up {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--parg-color);
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.arrow_up svg {
+    transition: all ease-in-out .3s;
+}
+
+.open{
+    transform: rotate(180deg);
+}

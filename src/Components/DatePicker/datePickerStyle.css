@@ -32,7 +32,7 @@
     position: absolute;
     left: 15px;
     top: 50%;
-    z-index: 99999;
+    z-index: 99;
     transform: translateY(-50%);
     color: gray;
     cursor: pointer;

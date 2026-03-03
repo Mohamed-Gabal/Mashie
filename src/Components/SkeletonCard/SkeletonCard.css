@@ -1,11 +1,11 @@
-.isLoading{
+.isLoading {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 20px;
     max-width: 1170px;
     margin: auto;
-    padding: 100px 20px;
 }
+
 .skeleton_card {
     background-color: rgb(249, 249, 249);
     max-width: 280px;
@@ -54,7 +54,7 @@
     flex-direction: column;
 }
 
-.skeleton-footer {
+.skeleton-body {
     padding: 0px 12px;
     display: flex;
     align-items: start;
@@ -70,10 +70,9 @@
 
 .line1 {
     width: 12rem;
-    height: 10px;
 }
 
-.skeleton-footer-info {
+.skeleton-body-info {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -85,12 +84,25 @@
     width: 3rem;
 }
 
-.skeleton-line4 {
+.skeleton-footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 12px;
+    margin: 10px 0px;
+}
+
+.skeleton-footer .skeleton-line4 {
     background-color: #d1d5db;
     border-radius: 8px;
-    width: 100%;
-    height: 40px;
-    margin-bottom: 10px;
+    width: 70%;
+    height: 10px;
+}
+
+.skeleton-footer svg {
+    fill: #d1d5db;
+    stroke: #d1d5db;
 }
 
 /* skeleton-animtion */
@@ -115,5 +127,19 @@
     .isLoading {
         grid-template-columns: repeat(2, 1fr);
         gap: 10px;
+    }
+
+    .skeleton_image {
+        height: 9rem;
+    }
+
+    .line1 {
+        width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .skeleton_image {
+        height: 8rem;
     }
 }

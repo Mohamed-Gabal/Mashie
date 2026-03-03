@@ -27,7 +27,7 @@
     text-align: start;
 }
 
-.profile_card .user-info .user_icon {
+.profile_card .user-info .user_icon{
     width: 24px;
     height: 24px;
     border: 1px solid var(--main-color);

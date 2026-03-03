@@ -4,7 +4,7 @@
     align-items: end;
     color: var(--header-color);
     padding-bottom: 20px;
-    margin-top: 20px;
+    margin: 15px 0px;
     border-bottom: 2px solid var(--border-color);
 }
 

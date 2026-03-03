@@ -125,7 +125,7 @@
   text-decoration: none;
 }
 
-.advertisements_buttom:hover {
+.advertisements_buttom:hover{
   color: white;
 }
 
@@ -135,7 +135,6 @@
   align-items: center;
   justify-content: center;
 }
-
 /* Menu Toggle */
 .menu-mobile-toggle {
   display: none;
@@ -171,7 +170,7 @@
   background-color: transparent;
 }
 
-.user_icon {
+.user_icon{
   width: 40px;
   height: 40px;
 }

@@ -1,0 +1,59 @@
+.car-card {
+  padding: 40px 0px;
+  background-color: #ECF0F1CC;
+  font-family: var(--main-font);
+  direction: rtl;
+}
+.car_card_container {
+  max-width: 1195px;
+  padding: 0 20px;
+  margin: 0 auto;
+}
+.section-title {
+  font-size: 28px;
+  font-weight: bold;
+  color: var(--text-color);
+  margin-bottom: 10px;
+  text-align: center;
+}
+.section-subtitle {
+  font-size: 16px;
+  color: var(--gray-color);
+  margin-bottom: 40px;
+  text-align: center;
+  line-height: 1.6;
+}
+.car-card-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 25px;
+}
+
+/* Responsiveness *
+
+/* الشاشات المتوسطة */
+@media (max-width: 992px) {
+  .car-card-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+  }
+}
+
+/* الشاشات الصغيرة */
+@media (max-width: 768px) {
+  .car-card {
+    margin-top: 30px;
+    padding: 15px 0px;
+  }
+  .car-card-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+}
+/* الشاشات الصغيرة جدًا */
+@media (max-width: 520px) {
+  .car-card-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 8px;
+  }
+}

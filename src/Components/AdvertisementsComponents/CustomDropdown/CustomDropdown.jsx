@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import "./CustomDropdown.css";
+import "./customDropdownStyle.css";
 
 export default function CustomDropdown({ isOpen, setIsOpen, data, formik, name }) {
     const { setFieldValue } = formik;
@@ -23,7 +23,7 @@ export default function CustomDropdown({ isOpen, setIsOpen, data, formik, name }
     return (
         <div className="dropdown" ref={dropdownRef}>
             {isOpen && (
-                <ul className="dropdown_menu" style={{ height: isOpen ? "200px" : "0px" }}>
+                <ul className="dropdown_menu" style={{ height: isOpen ? "190px" : "0px" }}>
                     {data.map((item, index) => (
                         <li
                             key={index}

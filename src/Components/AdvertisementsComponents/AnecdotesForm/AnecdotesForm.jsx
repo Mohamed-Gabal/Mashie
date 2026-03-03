@@ -1,22 +1,25 @@
 import React from 'react';
-import "./AnecdotesForm.css"
 
 export default function AnecdotesForm({ formik }) {
     const { values, setFieldValue, errors, handleBlur, touched } = formik;
     return (
         <div className="input_container">
-            <label htmlFor="moreInfo">معلومات اضافية
+            <label htmlFor="moreInfo" className="input_label">
+                <span>معلومات اضافية</span>
             </label>
-            <input
-                type="text"
-                name="moreInfo"
-                value={values.information?.anecdotes?.moreInfo}
-                onChange={(e) => setFieldValue("information.anecdotes.moreInfo", e.target.value)}
-                onBlur={handleBlur}
-                id="moreInfo"
-                className='moreInfo_input input'
-                placeholder='أدخل معلومات اضافية'
-            />
+
+            <div className="input_field">
+                <input
+                    type="text"
+                    name="moreInfo"
+                    value={values.information?.anecdotes?.moreInfo}
+                    onChange={(e) => setFieldValue("information.anecdotes.moreInfo", e.target.value)}
+                    onBlur={handleBlur}
+                    id="moreInfo"
+                    className='input'
+                    placeholder='أدخل معلومات اضافية'
+                />
+            </div>
         </div>
     )
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import "./LoginRequiredCard.css"
+import "./loginRequiredStyle.css"
 import { Link } from 'react-router-dom';
 
 export default function LoginRequiredCard() {
@@ -8,7 +8,7 @@ export default function LoginRequiredCard() {
             <div className="top_line"/>
             <div className="card">
                 <div className="img_wrapper">
-                    <img src="./images/unauthenticated.webp" alt="LoginRequiredCard" />
+                    <img src="/images/unauthenticated.webp" alt="loginRequiredCard" />
                 </div>
 
                 <div className="">

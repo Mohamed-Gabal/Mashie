@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import "./CarForm.css";
 import CustomDropdown from '../CustomDropdown/CustomDropdown';
 import { CarFormOption, yearOptions } from '../../../data';
+import "./carFormStyle.css";
 
 export default function CarForm({ formik }) {
     const { values, setFieldValue, errors, handleBlur, touched } = formik;
     const [isCarOptionOpen, setIsCarOptionOpen] = useState(false);
-    const brandOption = CarFormOption.map((item)=> item.brand);
+    const brandOption = CarFormOption.map((item) => item.brand);
 
     const [isModelOptionOpen, setIsModelOptionOpen] = useState(false);
     const selectedBrand = CarFormOption.find(item => item.brand === values.information?.vehicle?.brand);
@@ -16,13 +16,14 @@ export default function CarForm({ formik }) {
 
     return (
         <div className="carForm_inputs">
-            <div className="brand_container">
-                <label htmlFor="brand">الماركة*
+            <div className="input_container">
+                <header className="input_label">الماركة*
                     {errors.information?.vehicle?.brand && touched.information?.vehicle?.brand && (
                         <div className="info_error">{errors.information?.vehicle?.brand}</div>
                     )}
-                </label>
-                <div className="input_container">
+                </header>
+
+                <div className="input_field">
                     <input
                         type="text"
                         name="brand"
@@ -31,24 +32,24 @@ export default function CarForm({ formik }) {
                         onClick={() => setIsCarOptionOpen(!isCarOptionOpen)}
                         onBlur={handleBlur}
                         id="brand"
-                        className='brand_input input'
+                        className='input'
                         placeholder='اختر الماركة'
                     />
-                    <span className={`chevron_up ${isCarOptionOpen ? "open" : ""}`}>
-                        <svg xmlns="http://www.w3.org/2000/svg" width={22} height={22} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-chevron-up-icon lucide-chevron-up"><path d="m18 15-6-6-6 6" /></svg>
-                    </span>
+                    <div className="arrow_up">
+                        <svg xmlns="http://www.w3.org/2000/svg" width={22} height={22} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className={`${isCarOptionOpen ? "open" : ""}`}><path d="m18 15-6-6-6 6" /></svg>
+                    </div>
                 </div>
                 <CustomDropdown isOpen={isCarOptionOpen} setIsOpen={setIsCarOptionOpen} data={brandOption} formik={formik} name="information.vehicle.brand" />
             </div>
 
-            <div className="model_input">
-                <header>
+            <div className="input_container">
+                <header className="input_label">
                     <span>الموديل *</span>
                     {errors.information?.vehicle?.model && touched.information?.vehicle?.model && (
                         <div className="info_error">{errors.information?.vehicle?.model}</div>
                     )}
                 </header>
-                <div className="model_input_container">
+                <div className="input_field">
                     <input
                         type="text"
                         name="information.vehicle.model"
@@ -60,22 +61,22 @@ export default function CarForm({ formik }) {
                         className='input'
                         placeholder='أدخل الموديل'
                     />
-                    <span className={`chevron_up ${values.information?.vehicle?.brand && isModelOptionOpen ? "open" : ""}`}>
-                        <svg xmlns="http://www.w3.org/2000/svg" width={22} height={22} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-chevron-up-icon lucide-chevron-up"><path d="m18 15-6-6-6 6" /></svg>
-                    </span>
+                    <div className="arrow_up">
+                        <svg xmlns="http://www.w3.org/2000/svg" width={22} height={22} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className={values.information?.vehicle?.brand && isModelOptionOpen ? "open" : ""}><path d="m18 15-6-6-6 6" /></svg>
+                    </div>
                 </div>
                 <CustomDropdown isOpen={values.information?.vehicle?.brand && isModelOptionOpen} setIsOpen={setIsModelOptionOpen} data={modelOptions} formik={formik} name="information.vehicle.model" />
             </div>
 
-            <div className="year_input">
-                <header>
+            <div className="input_container">
+                <header className="input_label">
                     <span>سنة الصنع *</span>
                     {errors.information?.vehicle?.year && touched.information?.vehicle?.year && (
                         <div className="info_error">{errors.information?.vehicle?.year}</div>
                     )}
                 </header>
 
-                <div className="year_input_container">
+                <div className="input_field">
                     <input
                         type="text"
                         name="information.vehicle.year"
@@ -87,9 +88,9 @@ export default function CarForm({ formik }) {
                         className='input'
                         placeholder='أدخل سنة الصنع'
                     />
-                    <span className={`chevron_up ${isYearOptionOpen ? "open" : ""}`}>
-                        <svg xmlns="http://www.w3.org/2000/svg" width={22} height={22} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-chevron-up-icon lucide-chevron-up"><path d="m18 15-6-6-6 6" /></svg>
-                    </span>
+                    <div className="arrow_up">
+                        <svg xmlns="http://www.w3.org/2000/svg" width={22} height={22} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className={isYearOptionOpen ? "open" : ""}><path d="m18 15-6-6-6 6" /></svg>
+                    </div>
                 </div>
                 <CustomDropdown isOpen={isYearOptionOpen} setIsOpen={setIsYearOptionOpen} data={yearOptions} formik={formik} name="information.vehicle.year" />
             </div>

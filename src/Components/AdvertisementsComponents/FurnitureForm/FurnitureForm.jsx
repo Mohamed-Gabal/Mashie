@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import "./FurnitureForm.css"
 import CustomDropdown from '../CustomDropdown/CustomDropdown';
 import { furniture } from '../../../data';
 
@@ -7,14 +6,14 @@ export default function FurnitureForm({ formik }) {
     const { values, setFieldValue, errors, handleBlur, touched } = formik;
     const [isOpen, setIsOpen] = useState(false);
     return (
-        <div className='furniture_inputs'>
-            <label htmlFor="information.furniture.furnitureType">نوع الأثاث*
+        <div className='input_container'>
+            <label htmlFor="information.furniture.furnitureType" className="input_label">نوع الأثاث*
                 {errors.information?.furniture?.furnitureType && touched.information?.furniture?.furnitureType && (
                     <div className="info_error">{errors.information?.furniture?.furnitureType}</div>
                 )}
             </label>
 
-            <div className="input_container">
+            <div className="input_field">
                 <input
                     type="text"
                     name="information.furniture.furnitureType"
@@ -23,14 +22,14 @@ export default function FurnitureForm({ formik }) {
                     onClick={() => setIsOpen(!isOpen)}
                     onBlur={handleBlur}
                     id="furnitureType"
-                    className='furnitureType_input input'
+                    className='input'
                     placeholder='أدخل نوع الأثاث'
                 />
-                <span className={`chevron_up ${isOpen ? "open" : ""}`}>
-                    <svg xmlns="http://www.w3.org/2000/svg" width={22} height={22} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-chevron-up-icon lucide-chevron-up"><path d="m18 15-6-6-6 6" /></svg>
-                </span>
+                <div className="arrow_up">
+                    <svg xmlns="http://www.w3.org/2000/svg" width={22} height={22} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className={isOpen ? "open" : ""}><path d="m18 15-6-6-6 6" /></svg>
+                </div>
             </div>
-            
+
             <CustomDropdown isOpen={isOpen} setIsOpen={setIsOpen} data={furniture} formik={formik} name="information.furniture.furnitureType" />
         </div>
     )
